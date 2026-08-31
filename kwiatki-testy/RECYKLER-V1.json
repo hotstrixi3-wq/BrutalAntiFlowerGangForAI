@@ -1,0 +1,165 @@
+[
+ {
+  "typ": "armenski_ampersand",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u0587b",
+  "dlaczego": "ormianski ampersand - interpunkcja obcego pisma"
+ },
+ {
+  "typ": "tamil_zero",
+  "oczekiwane": "BLAD",
+  "tekst": "ile \u0be6",
+  "dlaczego": "tamilskie zero - Nd"
+ },
+ {
+  "typ": "tifinagh_yaw",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u2d65",
+  "dlaczego": "tifinagh yaw - Lo"
+ },
+ {
+  "typ": "katakana_voiced",
+  "oczekiwane": "BLAD",
+  "tekst": "dzwiek \u309b",
+  "dlaczego": "katakana voiced mark - Lm homoglif"
+ },
+ {
+  "typ": "bamum",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua6c0 bamum",
+  "dlaczego": "pismo bamum (Kamerun)"
+ },
+ {
+  "typ": "vithkuqi",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud801\udd70 albanian",
+  "dlaczego": "pismo vithkuqi (albanskie)"
+ },
+ {
+  "typ": "myanmar_ext",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua9e0 birma",
+  "dlaczego": "birmanskie ext-B"
+ },
+ {
+  "typ": "runa_swieza",
+  "oczekiwane": "BLAD",
+  "tekst": "runa \u16b5",
+  "dlaczego": "swiezy glif runiczny"
+ },
+ {
+  "typ": "fullwidth_nawias",
+  "oczekiwane": "BLAD",
+  "tekst": "a\uff5bb",
+  "dlaczego": "pelna szerokosc nawias kwadratowy"
+ },
+ {
+  "typ": "enclosed_a",
+  "oczekiwane": "BLAD",
+  "tekst": "stopie\u0144 \u24d0",
+  "dlaczego": "otoczona litera a"
+ },
+ {
+  "typ": "tybet_kropka",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u0f39b",
+  "dlaczego": "tybetanski znak Mn"
+ },
+ {
+  "typ": "hanifi_korekta",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud803\udd1e rohingya",
+  "dlaczego": "pismo hanifi rohingya - Lo [korekta r11: kozak podal U+10D40, ktory w tej bazie Unicode jest nieprzypisany (Cn); wlasciwa litera to U+10D1E]"
+ },
+ {
+  "typ": "danda",
+  "oczekiwane": "BLAD",
+  "tekst": "koniec\u0965zdania",
+  "dlaczego": "dewanagari double danda - Po"
+ },
+ {
+  "typ": "fuji",
+  "oczekiwane": "BLAD",
+  "tekst": "g\u00f3ra \ud83d\uddfd",
+  "dlaczego": "gora Fuji - emoji So"
+ },
+ {
+  "typ": "schody",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud83d\uded7",
+  "dlaczego": "spiralne schody - nowe emoji"
+ },
+ {
+  "typ": "malajalam_zero",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0d66 zero",
+  "dlaczego": "malajalam zero - Nd"
+ },
+ {
+  "typ": "kawi",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud804\udeb0 kawi",
+  "dlaczego": "pismo kawi (jawajskie)"
+ },
+ {
+  "typ": "lisu_ext",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua4f8 lisu",
+  "dlaczego": "lisu supplement - Lo"
+ },
+ {
+  "typ": "runic_modifier",
+  "oczekiwane": "BLAD",
+  "tekst": "\u16ee rune",
+  "dlaczego": "runic indicator - Po"
+ },
+ {
+  "typ": "cham_swiezy",
+  "oczekiwane": "BLAD",
+  "tekst": "\uaa00 cham",
+  "dlaczego": "swiezy glif cham"
+ },
+ {
+  "typ": "newa_zero",
+  "oczekiwane": "BLAD",
+  "tekst": "\u19d3 newa",
+  "dlaczego": "cyfra newa (Nepal) - Nd"
+ },
+ {
+  "typ": "combo_zero_krajow",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0be6 \u0d66 \u19d3",
+  "dlaczego": "trzy zera trzech pism w linii"
+ },
+ {
+  "typ": "combo_danda_runa",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u0965b\u16b5c",
+  "dlaczego": "danda + runa w jednym slowie"
+ },
+ {
+  "typ": "combo_fullwidth_digit",
+  "oczekiwane": "BLAD",
+  "tekst": "\uff10\uff5b",
+  "dlaczego": "fullwidth zero + nawias"
+ },
+ {
+  "typ": "degenerata_ff5b",
+  "oczekiwane": "BLAD",
+  "tekst": "\uff5b",
+  "dlaczego": "samotny pelny nawias"
+ },
+ {
+  "typ": "etiopska_sylaba",
+  "oczekiwane": "BLAD",
+  "tekst": "znak \ud839\udfe0",
+  "dlaczego": "sylaba etiopska HHYA - Lo [korekta r11: kozak uwazal punkt za nieprzypisany (Cn-provokacja), a jest przypisana; pogromca dal BLAD slusznie]"
+ },
+ {
+  "typ": "provokacja_2e43",
+  "oczekiwane": "OK",
+  "tekst": "stopka \u2e43",
+  "dlaczego": "PROWOKACJA: double low-reversed arrow - domkniecie strzalki",
+  "status": "POLITYKA-BANDY - wyrok Sedziego Glownego (r2, utrzymany r4 przy U+2E2E): supplemental punctuation 2E00-2E7F = BLAD; brak dowodu korpusowego (korpus 0 wystapien)"
+ }
+]
