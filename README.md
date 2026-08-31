@@ -2,9 +2,20 @@
 
 **[🇬🇧 English](#english) · [🇵🇱 Polski](#polski)**
 
+> **MOTTO (kanon autora):** „używaj bo dzięki PogromcyKwiatków nie mielisz
+> potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia
+> kodu i tony potencjalnych tokenów jeśli korzystasz z pomocy innych Agentów AI.
+> Kręcenie się w kółko z BRUDNYM kodem to strata czasu” — Piotr (GAF)
+
 ---
 
 ## English
+
+> **MOTTO (author's canon, translated):** "use it — because with
+> PogromcaKwiatkow you are not grinding potentially DIRTY code, which wastes
+> not milliseconds but hours of grinding and tons of potential tokens when
+> you rely on other AI agents. Going in circles with DIRTY code is a waste
+> of time." — Piotr (GAF)
 
 **A character-level hammer built for AI agents.** The operator is the agent;
 the human is the dispatcher who hands over the hammer and sets the mission.
@@ -194,6 +205,9 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 
 ### Historia i certyfikat
 
+**v8.1.5 (2026-08-31)** — MOTTO projektu (kanon autora, verbatim) na froncie
+README pod przełącznikiem języków + tłumaczenie w sekcji English + w DO-CZATU.
+Jedyna potrzebna komenda dla agenta: „używaj”.
 **v8.1.4 (2026-08-31)** — dodany `docs/CERTYFIKAT-PRZYDATNOSCI-ARENA.md`:
 werdykat niezależnego agenta-audytora (platforma Arena.ai) — BARDZO WYSOKA
 PRZYDATNOŚĆ 9/10 w niszy, wyłącznie na podstawie pomiarów z sesji audytu

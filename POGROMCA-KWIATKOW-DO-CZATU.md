@@ -4,6 +4,11 @@ Ten JEDEN plik .md zawiera wszystko: instrukcję dla Ciebie, polecenie dla
 agenta AI oraz kompletny kod narzędzia. Nie musisz nic pobierać z GitHuba
 i nic instalować.
 
+> **MOTTO (kanon autora):** „używaj bo dzięki PogromcyKwiatków nie mielisz
+> potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia
+> kodu i tony potencjalnych tokenów jeśli korzystasz z pomocy innych Agentów AI.
+> Kręcenie się w kółko z BRUDNYM kodem to strata czasu” — Piotr (GAF)
+
 ## Ty (człowiek): zrób tylko to
 
 1. Załącz ten plik do czatu z agentem AI.
