@@ -71,7 +71,8 @@ Regression after any change: `dev/tor-pogromcy.py` (15 suites, 348 scored
   PogromcaKwiatkow.py            detector (engine v8.0.3, PEWNIAK)
   ZagladaKultury.py              decontaminator (v1.0.5, MEDAL)
   PROTOKOL-OPERATORA.md          AGENT RULEBOOK (ladder, plan->act, combo)
-  POGROMCA-KWIATKOW-DO-CZATU.md  single file for chat: instruction + code
+  POGROMCA-KWIATKOW-DO-CZATU.md  single file for chat: instruction + code (PL)
+  POGROMCA-KWIATKOW-DO-CZATU-EN.md  the same chat file, in English
   INSTRUKCJA-DLA-ZIELONYCH.md    how to hand the tool to an agent (for humans)
   README.md                      this file
   LICENSE                        MIT
@@ -163,7 +164,8 @@ spięta pętlą `dev/turnieje/petla-rodzinna.py` (7 sprawdzianów/cykl).
   PogromcaKwiatkow.py            detektor (silnik v8.0.3, PEWNIAK)
   ZagladaKultury.py              dekontaminator (v1.0.5, MEDAL)
   PROTOKOL-OPERATORA.md          REGULAMIN DLA AGENTA (drabina, plan->act, combo)
-  POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod
+  POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod (PL)
+  POGROMCA-KWIATKOW-DO-CZATU-EN.md  to samo po angielsku
   INSTRUKCJA-DLA-ZIELONYCH.md    jak przekazać narzędzie agentowi (dla człowieka)
   README.md                      ten plik
   LICENSE                        MIT
@@ -208,6 +210,12 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 
 ### Historia i certyfikat
 
+**v8.1.7 (2026-08-31)** — pełna anglicyzacja dokumentacji: wersje EN wszystkich
+tekstów (PROTOKÓŁ, INSTRUKCJA, oba certyfikaty, oba medale, raporty,
+README-TURNIEJ, notka do logu v8) + nowy plik czatowy
+POGROMCA-KWIATKOW-DO-CZATU-EN.md (odpowiednik DO-CZATU: protokół EN + ten
+sam silnik). Sprzątanie wydań: starsze releasey skasowane, zostaje
+wyłącznie najnowszy.
 **v8.1.6 (2026-08-31)** — tytuł README w kanonie autora: „Pogromca Kwiatków
 i jego młodsza siostra Zagłada Kultury” + objaśnienie nazw w sekcji English
 (Flower Slayer / Culture Annihilator); opis repo na GitHubie zaktualizowany.

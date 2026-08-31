@@ -6,6 +6,67 @@ Z RZEDU bez zadnej poprawki w kodzie pogromcy. Wtedy PEWNIAK.
 
 # CERTYFIKAT PEWNIAKA - PogromcaKwiatkow v7
 
+**[EN English](#english) · [PL Polski](#polski-oryginal)**
+
+## English
+
+## (EN) VERDICT
+
+CERTAINTY (PEWNIAK). Series 2/2: rounds 6 (KOMBINATOR + PROTOKOLANT) and 7
+(EGZAMINATOR) played on identical, untouched v7 code. Every tournament
+result: 264 then 294 hits | FN 0 | FP 0 | SZUM 0 (after policy annotations),
+each run x3 identical. Final loop time (rounds 6-7 with battery): ~4 min.
+
+## (EN) ROAD TO THE CERTIFICATE
+
+| Version | Round | Result (first run) | What the attacker broke |
+|---|---|---|---|
+| v2 | - | 19 hits, FN 20 | starting point |
+| v3 | 1 | 39/0/0/0 | 3 attackers, policy ranges |
+| v4 | 2 | 82/0/0/0 | SIEKIERNIK: 30 FN of symbols; JUDGE verdicts |
+| v5 | 3 | 130/0/0/0 | PRALKA: emoji band; Kelvin |
+| v6 | 4 | 174/0/0/0 | KRAWEDZ: splitlines eats 8 line-breakers |
+| v7 | 5 | 218/0/0/0 | ALCHEMIK: full set of 4 NFC-laundering singletons |
+| v7 | 6 | 264/0/0/0 | KOMBINATOR/PROTOKOLANT: nothing — series 1/2 |
+| v7 | 7 | 294/0/0/0 | EGZAMINATOR: nothing — series 2/2 -> PEWNIAK |
+
+Series per the author's rules: r4 0/2 (fix) -> r5 0/2 (fix) -> r6 1/2 ->
+r7 2/2.
+
+## (EN) EVIDENCE (infrastructure)
+
+- 15 attackers (KOZACY): MYKLA, PULAPKA, ARCHITEKT, SEDZIA GLOWNY,
+  SIEKIERNIK, OBIETNICA, PRALKA, EMOJI, KRAWEDZ, DRUKARZ, ALCHEMIK,
+  PUNKTATOR, KOMBINATOR, PROTOKOLANT, EGZAMINATOR.
+- 13 suites, 341 vectors (47 ARBITRATION/POLICY annotations — the full
+  register of divergence; 294 scored vectors, all hit).
+- Selftest: 26 dirty + 7 clean PASS (HOMOGLIF labels in the report).
+- Deterministic fuzz (seed 49): x3 full A/B/C = 4500 operations, 0 FAIL.
+- Project corpus: 24 files, BLAD 0, UWAGA 0. Repo cleanliness: 6/6.
+- --fix idempotence: verified (second pass, no changes).
+
+## (EN) POLICY REGISTER (open questions, not bugs)
+
+1. Latin-1/Ext-A off-palette = UWAGA (project EN sections) — OBIETNICA r2.
+2. Unassigned/noncharacters (Cn) = UWAGA — attacker-3 W3, kept r3-r5.
+3. Palette closed by corpus evidence: rejects U+2044, U+2030, U+25E6,
+   U+203A, U+00A6, U+2011, U+00F7, primes, FE0F, ZWJ-RGI, Ext-B
+   (0 occurrences).
+4. Decomposed form composed into the palette by NFC = clean (attacker 2A,
+   fuzz C).
+5. CR/LF legal; the remaining 8 line-breakers = BLAD (r4).
+
+## (EN) MAINTENANCE CLAUSE
+
+On every future change: full loop (tor + fuzz + corpus + selftest). On any
+TYPO palette change: re-run the NFC singleton enumeration (the full set of
+4 may grow) — see the comment in PogromcaKwiatkow.py. A new attacker only
+for new content (release rule).
+
+---
+
+## Polski (oryginał)
+
 ## WERDYKT
 
 PEWNIAK. Seria 2/2: runda 6 (KOMBINATOR + PROTOKOLANT) i runda 7

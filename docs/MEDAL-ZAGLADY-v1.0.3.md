@@ -1,5 +1,50 @@
 # MEDAL — ZAGŁADA KULTURY v1.0.3
 
+**[EN English](#english) · [PL Polski](#polski-oryginal)**
+
+## English
+
+# (EN) THE MEDAL — ZAGLADA KULTURY v1.0.3
+
+> The sister of PogromcaKwiatkow. Pogromca = detector (changes nothing).
+> Zaglada = decontaminator (annihilates foreign character culture, keeps
+> Polish sacred). Tournament rules (project author): 2x detection passed ->
+> 2x non-breakage passed -> MEDAL and STOP. A failure resets to tournament
+> one. The time budget is a limit, not a goal.
+
+## (EN) FINAL RESULT (v1.0.3)
+
+| Tournament | Runs | Result |
+|---|---|---|
+| DETECTION (Z1) | 2 x green (seeds 20261001, 20261002) | **1572 vectors each: FN 0, FP 0, CRASH 0** |
+| NON-BREAKAGE (Z2) | 2 x green (seeds 20261011, 20261012) | **200 files each: BROKEN 0** |
+
+## (EN) The road (honestly: what the tournament found)
+
+| Version | What happened |
+|---|---|
+| v1.0.0 + smoke | 2 bugs at once: chr(digit) instead of str (digits -> control chars!), accented Greek not transliterated |
+| Z1 run 1 | FN 5: ł/Ł present in the HOMOGLIFY map (a contract bug — ł is Polish, sacred) -> code fix; 3 judge expectations above the char-by-char contract -> test fix |
+| v1.0.1 | ł/Ł removed -> Z1 2x green |
+| Z2 run 1 | 16 failures = bad test construction (dirt as a loose token — unfixable by any cleaning); after the judge fix, 2 failures = **NBSP inside a .py name -> a space breaks the identifier** -> v1.0.2: in .py code a hard space is REMOVED (glues the token) |
+| v1.0.2 -> reset | Z1 2x PASS, Z2 run 1 PASS, run 2: **NBSP between digits in JSON** (port 10/2 -> dead) -> v1.0.3: .json/.jsonl on the "code" path |
+| v1.0.3 -> reset | **Z1 2x + Z2 2x = MEDAL** |
+
+The tournament forced 3 code fixes (ł/Ł, NBSP-in-code, JSON-as-code) and
+2 judge corrections. Every code fix = a reset — settled per the rules.
+
+## (EN) Known limits (documented, not bugs)
+
+- char-by-char transliteration: no context rules (obekt, Ewropa); a future
+  exceptions dictionary
+- eta -> e (traditional transliteration); U+00BD, U+00B5, U+2032, U+00B4 ->
+  annihilation (off palette)
+- .py string content belongs to the author — Zaglada never touches it
+
+---
+
+## Polski (oryginał)
+
 > Siostra PogromcyKwiatków. Pogromca = detektor (niczego nie zmienia).
 > Zagłada = dekontaminator (unicestwia obcą kulturę znaków, polską zostawia świętą).
 > Zasady turnieju (autor projektu): 2× turniej wykrywania zaliczony → 2× turniej

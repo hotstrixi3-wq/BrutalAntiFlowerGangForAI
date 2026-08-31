@@ -1,3 +1,21 @@
+**[EN English](#english) · [PL Polski](#polski-oryginal)**
+
+## English
+
+> **Note for English readers:** the content below the Polish heading is the
+> author's archival log kept as an HTML comment (hidden on render), in
+> Polish. It documents tournament rounds 10-11 (v8: the DESINFEKTOR and
+> RECYKLER attackers, 322 and 348 hits, FN/FP/SZUM 0, series 2/2 ->
+> PEWNIAK v8) plus the "KONSERWATOR 2.0" bonus: 8/8 non-breakage scenarios
+> on a live product (202119 bytes), including LS-in-literal protection.
+> A bilingual summary of those rounds lives in docs/README-TURNIEJ.md and
+> docs/CERTYFIKAT-PEWNIAKA.md. The log is preserved verbatim as a historical
+> artifact.
+
+---
+
+## Polski (oryginał)
+
 <!--
 V8 + PETLA PEWNIAKA (rundy 10-11) + BONUS KONSERWATOR 2.0 (tura 49).
 Budzet usera: godzina. Zuzyte: ~6,5 minuty.

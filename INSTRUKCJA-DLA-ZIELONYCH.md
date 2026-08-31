@@ -1,5 +1,72 @@
 # Instrukcja dla zielonych — jak wdrożyć PogromcęKwiatków u agenta AI
 
+**[EN English](#english) · [PL Polski](#polski-oryginal)**
+
+## English
+
+First check what your chat/agent portal can do — the method depends on it.
+**You do not need to install anything or know how to program.**
+
+### Step 0 — what the agent must be able to do (hard requirement)
+
+The agent must be able to **save a file to disk (a sandbox) and run Python**
+(the `python3` command). Only then will the tool work — it is a program,
+not a prompt. If the agent cannot run code, the tool is useless to you and
+it is better to know that up front.
+
+### Step 1 — pick a method (depending on the portal)
+
+If you are green enough not to know how to choose, paste this document to
+an AI agent and ask it to pick for you.
+
+**Method 1 — the chat accepts .md attachments (most common)**
+Download one file: `POGROMCA-KWIATKOW-DO-CZATU-EN.md` (English) or
+`POGROMCA-KWIATKOW-DO-CZATU.md` (Polish) — it contains the complete tool
+code inside. Attach it to the chat (paperclip / plus icon) or drop the
+file onto the chat. Then ask the agent: "do you like your new tool?"
+
+**Method 2 — the chat also accepts .py files (less common)**
+Download `PogromcaKwiatkow.py` and `README.md`. Attach both. Same question.
+
+**Method 3 — copy-paste (the chat accepts no attachments)**
+Note: if the chat truncates long messages, paste in parts and add nothing —
+only cleanly cut code. Tell the agent it will receive the code in chunks to
+reassemble (chats have character limits). The file is long (~23 thousand
+characters). Open `PogromcaKwiatkow.py` in a text editor, copy ALL of it
+(Ctrl+A, Ctrl+C), paste into the chat as a message, ENTER.
+
+**Method 4 — GitHub**
+No file needed. Paste this to the agent:
+
+```
+Download the tool from https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+(file PogromcaKwiatkow.py; documentation in README.md).
+```
+
+The agent will clone the repo, run the selftest and wire the tool into its
+text-checking routine. Verified on a live agent: it downloads and passes
+the selftest. If the agent claims it cannot download (some portals block
+it), tell it: "take pogromca-kwiatkow-v8.1.7.zip from the Releases tab and
+unpack it".
+
+### What next?
+
+Nothing. The AI agent knows what to do with a tool it received — the manual
+ships with it (README.md + PROTOKOL-OPERATORA.md, the operator rulebook).
+The only command ever needed is: "use it". Or the more emphatic version —
+see the project MOTTO.
+
+### Quick FAQ
+
+- Is it an antivirus? No — it is text control: characters and alphabets.
+- Will it fix my typos? No — it guards alphabets, not spelling.
+- Does it work offline? Yes — one file, pure Python 3.
+- The agent lost the file? Hand it over again — method 1 or 3 always works.
+
+---
+
+## Polski (oryginał)
+
 Najpierw sprawdź, co potrafi Twój czat/portal z agentem — od tego zależy
 metoda. **Nie musisz nic instalować ani umieć programować.**
 
