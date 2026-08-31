@@ -1,4 +1,4 @@
-# PogromcaKwiatkow + ZagladaKultury
+# Pogromca Kwiatków i jego młodsza siostra Zagłada Kultury
 
 **[🇬🇧 English](#english) · [🇵🇱 Polski](#polski)**
 
@@ -10,6 +10,9 @@
 ---
 
 ## English
+
+**Pogromca Kwiatkow** (the Flower Slayer) and his younger sister
+**Zaglada Kultury** (the Culture Annihilator) — a detector/decontaminator duo.
 
 > **MOTTO (author's canon, translated):** "use it — because with
 > PogromcaKwiatkow you are not grinding potentially DIRTY code, which wastes
@@ -205,6 +208,9 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 
 ### Historia i certyfikat
 
+**v8.1.6 (2026-08-31)** — tytuł README w kanonie autora: „Pogromca Kwiatków
+i jego młodsza siostra Zagłada Kultury” + objaśnienie nazw w sekcji English
+(Flower Slayer / Culture Annihilator); opis repo na GitHubie zaktualizowany.
 **v8.1.5 (2026-08-31)** — MOTTO projektu (kanon autora, verbatim) na froncie
 README pod przełącznikiem języków + tłumaczenie w sekcji English + w DO-CZATU.
 Jedyna potrzebna komenda dla agenta: „używaj”.
