@@ -23,7 +23,7 @@ is for the human who wants to hand the tool to an agent in one message.
 | Role | **detector** (changes nothing) | **decontaminator** (annihilates foreign character culture) |
 | Verdict | BLAD / UWAGA / OK, exit 0/1/2 | plan→act: report first, executes on `--zaglada` |
 | Sacred | Polish letters & typography | same + `.py` string literals |
-| Certificate | **PEWNIAK** (engine v8.0.2) | **MEDAL** (v1.0.3) |
+| Certificate | **PEWNIAK** (engine v8.0.3) | **MEDAL** (v1.0.5) |
 
 Detection never triggers deletion — after any purge the detector must return
 BLAD=0. The tools audit each other (PROTOKOL §1a).
@@ -54,8 +54,8 @@ Regression after any change: `dev/tor-pogromcy.py` (15 suites, 348 scored
 
 ```
 /  (root = everything to hand to an agent)
-  PogromcaKwiatkow.py            detector (engine v8.0.2, PEWNIAK)
-  ZagladaKultury.py              decontaminator (v1.0.3, MEDAL)
+  PogromcaKwiatkow.py            detector (engine v8.0.3, PEWNIAK)
+  ZagladaKultury.py              decontaminator (v1.0.5, MEDAL)
   PROTOKOL-OPERATORA.md          AGENT RULEBOOK (ladder, plan->act, combo)
   POGROMCA-KWIATKOW-DO-CZATU.md  single file for chat: instruction + code
   INSTRUKCJA-DLA-ZIELONYCH.md    how to hand the tool to an agent (for humans)
@@ -66,11 +66,11 @@ dev/turnieje/                   judge's tournaments: T1-T3, Z1-Z2 + loops
 docs/                           certificates, medals, reports, loop logs (proof)
 ```
 
-### Release v8.1 — truth table (the only source of numbers)
+### Truth table (the only source of numbers)
 
 | Fact | Value |
 |---|---|
-| Release | **v8.1** (2026-08-31) — engines unchanged: Pogromca v8.0.2, Zaglada v1.0.3 |
+| Release | **v8.1.2** (2026-08-31) — engines: Pogromca v8.0.3, Zaglada v1.0.5 (self-pointing, self-clean) |
 | Author's tournament | 15 suites, **348 hits, FN 0, FP 0, SZUM 0** (+50 arbitrated vectors) |
 | Independent tournament (T1) | **4666 vectors: FN 0, FP 0, SZUM 0, FIX 8/8** |
 | T2 checking / T3 no-breakage | ~1000 vectors FN 0 / 190 files, 0 broken |
@@ -114,7 +114,7 @@ regulaminem dla agenta; [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.m
 | Rola | **detektor** (niczego nie zmienia) | **dekontaminator** (unicestwia obcą kulturę znaków) |
 | Werdykt | BLAD / UWAGA / OK, exit 0/1/2 | plan→act: raport, wykonanie na `--zaglada` |
 | Świętość | polskie litery i typografia | j.w. + treść stringów `.py` |
-| Certyfikat | **PEWNIAK** (silnik v8.0.2) | **MEDAL** (v1.0.3) |
+| Certyfikat | **PEWNIAK** (silnik v8.0.3) | **MEDAL** (v1.0.5) |
 
 Detekcja nigdy nie uruchamia dezynfekcji — po zagładzie obowiązkowa jest
 kontrola Pogromcą (BLAD=0). Narzędzia weryfikują się nawzajem; szczegóły w
@@ -146,8 +146,8 @@ spięta pętlą `dev/turnieje/petla-rodzinna.py` (7 sprawdzianów/cykl).
 
 ```
 /  (korzen = wszystko do przekazania agentowi)
-  PogromcaKwiatkow.py            detektor (silnik v8.0.2, PEWNIAK)
-  ZagladaKultury.py              dekontaminator (v1.0.3, MEDAL)
+  PogromcaKwiatkow.py            detektor (silnik v8.0.3, PEWNIAK)
+  ZagladaKultury.py              dekontaminator (v1.0.5, MEDAL)
   PROTOKOL-OPERATORA.md          REGULAMIN DLA AGENTA (drabina, plan->act, combo)
   POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod
   INSTRUKCJA-DLA-ZIELONYCH.md    jak przekazać narzędzie agentowi (dla człowieka)
@@ -158,11 +158,11 @@ dev/turnieje/                   turnieje sędziego: T1-T3, Z1-Z2 + pętle (resol
 docs/                           certyfikaty, medale, raporty, logi pętli (dowody)
 ```
 
-### Wydanie v8.1 — tabela prawdy (jedyne źródło liczb)
+### Tabela prawdy (jedyne źródło liczb)
 
 | Fakt | Wartość |
 |---|---|
-| Wydanie | **v8.1** (2026-08-31) — silnik bez zmian: Pogromca v8.0.2, Zagłada v1.0.3 |
+| Wydanie | **v8.1.2** (2026-08-31) — silniki: Pogromca v8.0.3, Zagłada v1.0.5 (samowskazują, samoczyste) |
 | Tor autora | 15 suit, **348 trafionych, FN 0, FP 0, SZUM 0** (+50 wektorów arbitrażowanych) |
 | Turniej niezależny (T1) | **4666 wektorów: FN 0, FP 0, SZUM 0, FIX 8/8** |
 | T2 sprawdzający / T3 nie-psucie | ~1000 wektorów FN 0 / 190 plików, 0 zepsutych |
@@ -193,6 +193,14 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 „kod"; proza — bez ograniczeń. Usuwanie niewidzialnych zliczane jawnie.
 
 ### Historia i certyfikat
+
+**v8.1.2 (2026-08-31)** — silniki samowskazują regulamin: Pogromca v8.0.3
+(banner OPERATOR w stopce każdego skanu + dokstring), Zagłada v1.0.4 (banner
+w dokstringu), Zagłada v1.0.5 (źródło samooczyszczone — przechodzi bramkę). DO-CZATU z WBUDOWANYM PROTOKOŁEM OPERATORA (agent w scenariuszu
+czatowym ma regulamin w jednym pliku) + krok „przeczytaj protokół" w
+wiadomości. Pełna regresja po zmianie silników: bateria 9 przebiegów zielona.
+PROTOKÓŁ §2.6: bramka przedpublikacyjna — każdy push/upload/czat = skan
+Pogromcą wszystkich publikowanych plików (wyjątek: amunicja testowa).
 
 **v8.1.1 (2026-08-31)** — README dwujęzyczne: przełącznik języków na górze,
 pełna wersja English nad wersją polską (skrót EN na dole zastąpiony pełnym

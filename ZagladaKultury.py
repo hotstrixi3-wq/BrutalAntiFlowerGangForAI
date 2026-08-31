@@ -5,10 +5,10 @@ Pogromca = detektor (niczego nie zmienia). Zagłada = dekontaminator
 (unicestwia OBCĄ kulturę znaków, polską zostawia świętą).
 
 Kontrakt v1.0.0:
-- cyrylica/greka -> transliteracja PO POLSKU (привет -> priwet, Москва -> Moskwa)
-- homoglify łacińskie -> baza (ſ->s, ß->ss, œ->oe, ø->o, đ->d, þ->th, ı->i)
-- litery łacińskie spoza dozwolonych -> zdejmij ogonki (č->c, ā->a);
-  polskie ąćęłńóśźż NIGDY (ł jest polskie, ø nie jest)
+- cyrylica/greka -> transliteracja PO POLSKU (U+043FU+0440U+0438U+0432U+0435U+0442 -> priwet, U+041CU+043EU+0441U+043AU+0432U+0430 -> Moskwa)
+- homoglify łacińskie -> baza (U+017F->s, U+00DF->ss, U+0153->oe, U+00F8->o, U+0111->d, U+00FE->th, U+0131->i)
+- litery łacińskie spoza dozwolonych -> zdejmij ogonki (U+010D->c, U+0101->a);
+  polskie ąćęłńóśźż NIGDY (ł jest polskie, U+00F8 nie jest)
 - cyfry Nd (wszystkie pisma) -> ASCII 0-9; pełna szerokość -> pół (NFKC)
 - pisma bez tabeli (CJK, kana, hangul, arabskie, hebrajskie, tajskie...) -> USUŃ
 - emoji/symbole spoza palety -> USUŃ; niewidzialne (Cc/Cf/Cn/Co/Cs/Mn) -> USUŃ
@@ -22,19 +22,22 @@ Użycie:
   python3 ZagladaKultury.py --zaglada PLIK... # wykonaj zagładę w miejscu
 Exit: 0 = czysto (nic do zrobienia / po zagładzie czysto poza chronionymi),
       1 = jest obca kultura do zagłady (tryb raportu), 2 = błąd wejścia.
+
+(v1.0.4) OPERATOR — agencie AI: Twoj regulamin uzycia (drabina uprawnien,
+plan->act, combo z PogromcaKwiatkow) jest w PROTOKOL-OPERATORA.md.
 """
 import io
 import os
 import sys
 import unicodedata
 
-WERSJA = "1.0.3"
+WERSJA = "1.0.5"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
 TYPOGRAFIA = "—–„”…€%§°²³±·«»"
 DOZWOLONE = set(chr(c) for c in range(0x20, 0x7F)) | set(PL) | set(TYPOGRAFIA)
-LAMACZE = "\x0b\x0c\x1c\x1d\x1e  "
+LAMACZE = "\x0b\x0c\x1c\x1d\x1e\x85\u2028\u2029"
 
 # --- transliteracja cyrylicy (szkoła polska) ---------------------------------
 CYR = {
@@ -81,7 +84,7 @@ KATEGORIE = ("cyr", "grk", "homoglify", "ogonki", "cyfry", "fold",
 
 
 def baza_bez_ogonkow(c):
-    """č -> c, ā -> a (NFD); None gdy znak się nie rozkłada."""
+    """U+010D -> c, U+0101 -> a (NFD); None gdy znak się nie rozkłada."""
     d = unicodedata.normalize("NFD", c)
     if len(d) > 1 and d[0].isascii() and d[0].isalpha():
         return d[0]
@@ -110,14 +113,14 @@ def zamien_znak(c, licznik, kod=False):
         licznik["homoglify"] += 1
         return HOMOGLIFY[cp]
     d = unicodedata.normalize("NFD", c)
-    if len(d) > 1 and ord(d[0]) in CYR:      # акцентована кiryłica: ё́/ӯ
+    if len(d) > 1 and ord(d[0]) in CYR:      # U+0430U+043AU+0446U+0435U+043DU+0442U+043EU+0432U+0430U+043DU+0430 U+043Airyłica: U+0451U+0301/U+04EF
         licznik["cyr"] += 1
         return CYR[ord(d[0])]
-    if len(d) > 1 and ord(d[0]) in GREK:     # akcentowana greka: ά -> a
+    if len(d) > 1 and ord(d[0]) in GREK:     # akcentowana greka: U+03AC -> a
         licznik["grk"] += 1
         return GREK[ord(d[0])]
     if len(d) > 1 and d[0] in DOZWOLONE and d[0] not in "\t\n\r":
-        # ą/ę/ł... są w DOZWOLONE -> tu trafiają tylko obce ogonki (č, ā)
+        # ą/ę/ł... są w DOZWOLONE -> tu trafiają tylko obce ogonki (U+010D, U+0101)
         if c not in PL:
             licznik["ogonki"] += 1
             return d[0]

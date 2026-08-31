@@ -55,6 +55,11 @@ cudzych plików = Zagłada (plan→act) + kontrola Pogromcą.
 3. **Wykonanie**: flaga (`--fix` / `--zaglada`).
 4. **Weryfikacja**: exit-code + powtórny skan (czysto?) + dla `.py`: `compile()`.
 5. **Meldunek**: JEDNA linia na plik (co, ile, jaki werdykt). Nie zalewaj czatu.
+6. **Bramka przedpublikacyjna (v8.1.2)**: przed KAŻDYM wystawieniem na zewnątrz
+   (git push, release, upload, czat) przepuść WSZYSTKIE publikowane pliki przez
+   Pogromcę. Exit != 0 = NIE publikuj; popraw źródło (opisy: notacja U+XXXX,
+   kod: eskapy \u). Wyjątek jawny: celowo brudna amunicja testowa (suity
+   dev/kwiatki-testy, generatory turniejów z próbkami) — to fixtures, nie tekst.
 
 ## 3. Werdykty i kody wyjścia (maszynowo, bez czytania oczami)
 

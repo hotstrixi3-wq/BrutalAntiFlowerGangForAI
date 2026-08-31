@@ -2,8 +2,8 @@
 
 > Komplet narzędzi sędziego niezależnego: turnieje detekcji, sprawdzające,
 > nie-psucia-kodu i pętle. Stan po produkcji: **1393 zielone sprawdziany
-> w 199 cyklach pętli rodzinnej, zero awarii.** Silnik: Pogromca v8.0.2
-> (PEWNIAK), Zagłada v1.0.3 (MEDAL).
+> w 199 cyklach pętli rodzinnej, zero awarii.** Silnik: Pogromca v8.0.3
+> (PEWNIAK), Zagłada v1.0.5 (MEDAL).
 
 ## Szybki start (Python 3, stdlib, skrypty w `dev/turnieje/`)
 
