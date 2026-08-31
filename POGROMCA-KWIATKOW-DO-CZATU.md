@@ -388,24 +388,92 @@ def _lamacze_poza_literalami(tekst):
                    for i, c in enumerate(tekst))
 
 
+def _lamacze_poza_literalami_surowy(tekst):
+    """(v8.0.2, BUG F4) Awaryjny skaner LAMACZE->LF dla .py, ktore NIE
+    kompiluje sie (na zepsutym kodzie tokenize bywa zawodny). Automat
+    stanow: literaly ' " ''' \"\"\" (z ucieczkami) i komentarze # sa
+    CHRONIONE - podmiana wylacznie poza nimi. Slepa podmiana WSZEDZIE
+    robila z LS w literale "unterminated string literal" (r9 scen. 4)."""
+    out = []
+    i, n = 0, len(tekst)
+    stan = "kod"            # kod | hash | lancuch | trojka
+    while i < n:
+        c = tekst[i]
+        if stan == "kod":
+            if c == "#":
+                stan = "hash"
+            elif tekst[i:i + 3] in ("'''", '"""'):
+                stan = "trojka"
+                out.append(tekst[i:i + 3])
+                i += 3
+                continue
+            elif c in ("'", '"'):
+                stan = "lancuch"
+            elif c in LAMACZE:
+                c = "\n"
+        elif stan == "hash":
+            if c == "\n":
+                stan = "kod"
+        elif stan == "lancuch":
+            if c == "\\" and i + 1 < n:
+                out.append(c)
+                i += 1
+                out.append(tekst[i])
+                i += 1
+                continue
+            if c in ("'", '"') or c == "\n":
+                stan = "kod"  # domkniecie albo resync (plik i tak zepsuty)
+        else:  # trojka
+            if c == "\\" and i + 1 < n:
+                out.append(c)
+                i += 1
+                out.append(tekst[i])
+                i += 1
+                continue
+            if tekst[i:i + 3] in ("'''", '"""'):
+                stan = "kod"
+                out.append(tekst[i:i + 3])
+                i += 3
+                continue
+        out.append(c)
+        i += 1
+    return "".join(out)
+
+
 def napraw(tekst, sciezka):
     """--fix (kozak 3): NFC + usuwanie NIEWIDZIALNYCH. Podmiana liter = NIGDY
     (kwiatka nie maskujemy - decyzja zawsze nalezy do czlowieka).
     (r8 KONSERWATOR) LAMACZE->LF bezpiecznie: pliki .py, ktore sie
     kompiluja, dostaja podmiane TYLKO poza literałami/komentarzami;
-    .py zepsute -> tryb ratunkowy (podmiana wszedzie; r9 scen. 3/7
-    przywracaly plik do identycznosci); proza (.md/.txt) -> wszedzie."""
+    (v8.0.2 BUG F4) .py zepsute -> ratunek poza literalami + bramka
+    compile() - zaden zapisany wynik nie przestaje kompilowac sam z siebie;
+    proza (.md/.txt) -> wszedzie."""
     if not sciezka.endswith(".py"):
         propozycja = "".join("\n" if c in LAMACZE else c for c in tekst)
     else:
         try:
             compile(tekst, sciezka, "exec")
+        except SyntaxError:
+            # (v8.0.2) najpierw wariant OSTROZNY (literaly nietknięte),
+            # potem stary ratunek wszedzie - kazdy przechodzi bramke
+            # compile(); gdy zaden nie kompiluje, zostaje wariant ostrozny
+            # (NIE psujemy tego, czego nie da się naprawić).
+            propozycja = _lamacze_poza_literalami_surowy(tekst)
+            stary = "".join("\n" if c in LAMACZE else c for c in tekst)
+            try:
+                compile(propozycja, sciezka, "exec")
+            except SyntaxError:
+                try:
+                    compile(stary, sciezka, "exec")
+                    propozycja = stary
+                except SyntaxError:
+                    pass
+        else:
             try:
                 propozycja = _lamacze_poza_literalami(tekst)
+                compile(propozycja, sciezka, "exec")  # (v8.0.2) bramka
             except Exception:
                 propozycja = tekst  # (bezpieczenstwo) tokenize nie dal rady - nie ruszaj
-        except SyntaxError:
-            propozycja = "".join("\n" if c in LAMACZE else c for c in tekst)  # ratunek
     n_lam = sum(1 for a, b in zip(tekst, propozycja) if a != b and b == "\n")
     tekst = unicodedata.normalize("NFC", propozycja)
     out, n_widz, n_sp = [], 0, 0
@@ -470,4 +538,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 ```

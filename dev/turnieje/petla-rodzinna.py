@@ -8,7 +8,19 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-REPO = os.path.join(HERE, "pogromca-kwiatkow-main")
+def _znajdz(nazwa):
+    for k in (os.path.join(HERE, nazwa),
+              os.path.join(HERE, "..", "..", nazwa),
+              os.path.join(HERE, "pogromca-kwiatkow-main", nazwa)):
+        if os.path.isfile(k):
+            return os.path.abspath(k)
+    raise SystemExit("nie znaleziono: " + nazwa)
+def _znajdz(nazwa):
+    for k in (os.path.join(HERE, nazwa), os.path.join(HERE, "..", "..", nazwa), os.path.join(HERE, "pogromca-kwiatkow-main", nazwa)):
+        if os.path.isfile(k):
+            return os.path.abspath(k)
+    raise SystemExit("nie znaleziono: " + nazwa)
+REPO = os.path.dirname(_znajdz("PogromcaKwiatkow.py"))
 BUDGET = int(sys.argv[1]) if len(sys.argv) > 1 else 1200
 PY = sys.executable
 
@@ -47,7 +59,7 @@ while time.time() - start < BUDGET:
             for ln in out.splitlines()[-15:]:
                 print("    | " + ln, flush=True)
             awarie.append((cykl, nazwa, kod))
-            print("PĘTLA RZERWANA: cykl %d, %s, exit %d" % (cykl, nazwa, kod), flush=True)
+            print("PĘTLA PRZERWANA: cykl %d, %s, exit %d" % (cykl, nazwa, kod), flush=True)
             sys.exit(2)
     print("  CYKL %d: 7/7 zielone (%.0f s do konca)" % (
         cykl, BUDGET - (time.time() - start)), flush=True)

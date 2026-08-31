@@ -9,12 +9,19 @@ import tempfile
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-spec = importlib.util.spec_from_file_location("zk", os.path.join(HERE, "ZagladaKultury.py"))
+def _znajdz(nazwa):
+    for k in (os.path.join(HERE, nazwa),
+              os.path.join(HERE, "..", "..", nazwa),
+              os.path.join(HERE, "pogromca-kwiatkow-main", nazwa)):
+        if os.path.isfile(k):
+            return os.path.abspath(k)
+    raise SystemExit("nie znaleziono: " + nazwa)
+ZK_PATH = _znajdz("ZagladaKultury.py")
+spec = importlib.util.spec_from_file_location("zk", ZK_PATH)
 zk = importlib.util.module_from_spec(spec)
 sys.modules["zk"] = zk
 spec.loader.exec_module(zk)
-spec2 = importlib.util.spec_from_file_location(
-    "pk", os.path.join(HERE, "pogromca-kwiatkow-main", "PogromcaKwiatkow.py"))
+spec2 = importlib.util.spec_from_file_location("pk", _znajdz("PogromcaKwiatkow.py"))
 pk = importlib.util.module_from_spec(spec2)
 sys.modules["pk"] = pk
 spec2.loader.exec_module(pk)
@@ -228,7 +235,7 @@ def zr11():
         return p
 
     def run(args):
-        return subprocess.run([sys.executable, os.path.join(HERE, "ZagladaKultury.py")] + args,
+        return subprocess.run([sys.executable, ZK_PATH] + args,
                               capture_output=True, text=True, timeout=60)
 
     czysty = z("czysty", "Zażółć gęślą jaźń — 100% §7\n")

@@ -37,7 +37,7 @@ Uwaga:
 Jeśli czat ucina długie wiadomości, wklejaj w częściach i nic nie
 dopisuj, tylko idealnie pocięty kod. Zalecam poinformować Agenta AI,
 że będzie dostawał kod w kawałkach do posklejania, bo czat ma limity
-ilości znaków. Plik jest długi (ok. 20 tysięcy znaków).
+ilości znaków. Plik jest długi (ok. 23 tysięcy znaków).
 Agent AI ogarnie i poskleja. Jeśli nie, sprawdź czy dobrze pociąłeś.
 
 1. Otwórz `PogromcaKwiatkow.py` w notatniku.
@@ -67,7 +67,7 @@ Releases i rozpakuj”. Może tak da radę.
 ## Co dalej?
 
 Nic. Agent AI sam wie, co zrobić z narzędziem, które pobrał lub dostał —
-instrukcję ma w komplecie (README.md). Jedyna komenda, jaka jest konieczna
+instrukcję ma w komplecie (README.md + PROTOKOL-OPERATORA.md — regulamin użycia dla agenta). Jedyna komenda, jaka jest konieczna
 i potrzebna to: „używaj”. Albo wersja bardziej DOBITNA:
 
 > „używaj bo dzięki PogromcyKwiatków nie mielisz potencjalnie BRUDNEGO

@@ -1,159 +1,134 @@
-# PogromcaKwiatków
+# PogromcaKwiatków + ZagładaKultury — młotek znakowy dla agenta AI
 
-> **Oficjalne repozytorium:** https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+> **To narzędzie zbudowano dla agentów AI.** Operator jest agent; człowiek jest
+> zleceniodawcą, który przekazuje mu młotek i ustawia misję. Agent używa go na
+> maksimum możliwości: skanuje każdy tekst zanim go wyśle, czyści zanim
+> sparsuje, dekontaminuje na zlecenie i weryfikuje pętlami w setkach cykli.
+> Człowiek nie jest negowany — bez niego nie ma misji. Ale skalę (pełne
+> enumeracje Unicode, miliony wektorów, 199-cyklowe pętle produkcyjne)
+> osiąga właśnie agent. [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md) jest
+> instrukcją dla agenta; [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md)
+> — dla człowieka, który chce przekazać narzędzie agentowi w jednej wiadomości.
 
-Wykrywacz obcojęzycznych „kwiatków” w tekstach pisanych po polsku (i ogólnie
-łaciną). **Kwiatek** — w slangu pisarzy i redaktorów: literówka, potknięcie
-pisarskie. Narzędzie terminuje kwiatki **programowo, przed wrzutą** — tam,
-gdzie oko człowieka i tokenizator modelu językowego nie sięgają.
+## Dwa narzędzia, jedna doktryna
 
-## Nie znasz się? Zacznij tutaj
+| | PogromcaKwiatkow.py | ZagladaKultury.py |
+|---|---|---|
+| Rola | **detektor** (niczego nie zmienia) | **dekontaminator** (unicestwia obcą kulturę znaków) |
+| Werdykt | BLAD / UWAGA / OK, exit 0/1/2 | plan→act: raport, wykonanie na `--zaglada` |
+| Świętość | polskie litery i typografia | j.w. + treść stringów `.py` |
+| Certyfikat | **PEWNIAK** (silnik v8.0.2) | **MEDAL** (v1.0.3) |
 
-**[POGROMCA-KWIATKOW-DO-CZATU.md](POGROMCA-KWIATKOW-DO-CZATU.md)** — jeden plik .md do wrzucenia na czat: agent wytnie z niego kod i uruchomi (chat nie przyjmuje .py, a .md tak).
-**[INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md)** — jak dać
-narzędzie agentowi AI w jednej wiadomości do skopiowania (bez żadnej
-wiedzy technicznej). Raport z testu „nie niszczy kodu”: 
-**[RAPORT-TESTU-KWITNICA.md](docs/RAPORT-TESTU-KWITNICA.md)** (100% plików
-przywróconych do wzorca).
+Detekcja nigdy nie uruchamia dezynfekcji — po zagładzie obowiązkowa jest
+kontrola Pogromcą (BLAD=0). Narzędzia weryfikują się nawzajem; szczegóły w
+PROTOKOLE, §1a.
 
-## Po co to istnieje
-
-Modele językowe generują tekst token po tokenie i potrafią „wskoczyć” w zły
-alfabet: słowa o wspólnym korzeniu słowiańskim, glify identyczne z łacińskimi,
-niewidzialne znaki formatujące, homoglify. Takie wycieki przechodzą nawet
-wzrokową korektę. Pogromca klasyfikuje **każdy znak osobno** i raportuje
-linia/znak/kontekst — bez słowników, bez langdetectu, bez sieci: stdlib,
-jeden plik, deterministycznie.
-
-## Werdykty
+## Werdykty (Pogromca)
 
 | Werdykt | Znaczenie | Przykłady klas |
 |---|---|---|
 | `BLAD` | pisownia bez prawa bytu | cyrylica, greka, hebrajskie, arabskie, CJK, hangul, zalgo, niewidzialne (NBSP, ZWSP, BOM), łamacze linii (U+2028…), „pranie NFC” (U+212A→K i komplet 4), pikrogramy, cyfry obcych pism |
-| `UWAGA` | znak do oceny człowieka | litery Latin-1/Ext-A spoza palety, symbole pasm U+00A0–024F i U+2000–27BF |
+| `UWAGA` | znak do oceny wg polityki misji | litery Latin-1/Ext-A spoza palety, symbole pasm U+00A0–024F i U+2000–27BF |
 | `OK` | czysto | ASCII + polskie ogonki + paleta typograficzna |
+
+## Szybki start agenta
+
+```
+python3 PogromcaKwiatkow.py PLIK...     # skan (exit 0/1/2)
+python3 PogromcaKwiatkow.py --selftest  # dowód: łapie próbki, milczy na czystej
+python3 PogromcaKwiatkow.py --fix PLIK  # NFC + usuwa niewidzialne (litery NIGDY)
+python3 ZagladaKultury.py PLIK...       # plan: co ulegnie zagładzie (exit 1)
+python3 ZagladaKultury.py --zaglada PLIK  # wykonaj dekontaminację
+```
+
+Regresja (po każdej zmianie): `dev/tor-pogromcy.py` (15 suit, 348 ocenianych
++ 50 arbitrażowanych), `dev/fuzz-pogromcy.py` (3 tryby × 500), a całość
+spięta pętlą `dev/turnieje/petla-rodzinna.py` (7 sprawdzianów/cykl).
 
 ## Struktura repozytorium
 
 ```
-/  (korzen = wszystko do wdrozenia u agenta)
-  PogromcaKwiatkow.py            narzedzie (v8.0.2, PEWNIAK)
-  ZagladaKultury.py              siostra: dekontaminator obcej kultury znakow (v1.0.3, MEDAL)
-  PROTOKOL-OPERATORA.md          regulamin użycia dla agenta AI (drabina, plan->act, combo)
+/  (korzen = wszystko do przekazania agentowi)
+  PogromcaKwiatkow.py            detektor (silnik v8.0.2, PEWNIAK)
+  ZagladaKultury.py              dekontaminator (v1.0.3, MEDAL)
+  PROTOKOL-OPERATORA.md          REGULAMIN DLA AGENTA (drabina, plan->act, combo)
   POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod
-  INSTRUKCJA-DLA-ZIELONYCH.md    4 metody wdrozenia (zalacznik .md/.py, wklej, internet)
-  README.md                      dokumentacja (PL + English summary)
+  INSTRUKCJA-DLA-ZIELONYCH.md    jak przekazać narzędzie agentowi (dla człowieka)
+  README.md                      ten plik
   LICENSE                        MIT
-dev/                            turniej + fuzz + 15 suit (dla watpiacych)
-dev/turnieje/                   turnieje sedziego niezaleznego + petle (T1-T3, Z1-Z2)
-docs/                           certyfikat + raporty + KOMPLECIK (dowody)
-docs/                           + MEDAL-PEWNIAKA v8.0.2, MEDAL-ZAGLADY v1.0.3, logi petli
+dev/                            turniej + fuzz + 15 suit autora (dla wątpiących)
+dev/turnieje/                   turnieje sędziego: T1-T3, Z1-Z2 + petle (resolver silnika)
+docs/                           certyfikaty, medale, raporty, logi pętli (dowody)
 ```
 
-## Szybki start
+## Wydanie v8.1 — tabela prawdy (jedyne źródło liczb)
 
-```
-python3 PogromcaKwiatkow.py PLIK...     # skan wskazanych plików
-python3 PogromcaKwiatkow.py --selftest  # dowód: łapie próbkę brudną, milczy na czystej
-python3 PogromcaKwiatkow.py --fix PLIK  # NFC + usuwa niewidzialne (NIGDY nie podmienia liter)
-python3 tor-pogromcy.py                 # turniej: 13 suit regresji (294 wektory)
-python3 fuzz-pogromcy.py                # fuzz deterministyczny (3 tryby × 500)
-```
-
-Exit: `0` = czysto, `1` = BLAD. Bez argumentów skanuje `.md`/`.txt` wokół
-siebie (sekcja `domyslne_pliki()` — do adaptacji pod swój projekt).
+| Fakt | Wartość |
+|---|---|
+| Wydanie | **v8.1** (2026-08-31) — silnik bez zmian: Pogromca v8.0.2, Zagłada v1.0.3 |
+| Tor autora | 15 suit, **348 trafionych, FN 0, FP 0, SZUM 0** (+50 wektorów arbitrażowanych) |
+| Turniej niezależny (T1) | **4666 wektorów: FN 0, FP 0, SZUM 0, FIX 8/8** |
+| T2 sprawdzający / T3 nie-psucie | ~1000 wektorów FN 0 / 190 plików, 0 zepsutych |
+| Zagłada: Z1 wykrywanie / Z2 nieniszczenie | **1572 wektory FN 0** / 200 plików, 0 zepsutych |
+| Pętla turniejowa (godzinna) | 146 cykli × 5 sprawdzianów, 0 awarii |
+| Pętla rodzinna (produkcja, 20 min) | **199 cykli × 7 = 1393 sprawdziany, 0 awarii** (~1,9 mln sprawdzeń) |
 
 ## Zasięg: silnik globalny, polityka lokalna
 
-**Uniwersalne (niezależne od projektu):** klasyfikator znaków i wszystkie
-klasy kwiatków z tabeli wyżej, pre-skan łamaczy linii i prania NFC,
-`--fix`, selftest, oraz cała infrastruktura regresji (tor + fuzz + suity).
-
-**Lokalne (do adaptacji przy wdrożeniu):** paleta `TYPO` (typografia
-udokumentowana w macierzystym projekcie), zbiór `CUDZE` (czeski/słowacki/
-węgierski — projekt jest PL/EN), granica Latin Ext-A (UWAGA) vs Ext-B
-(BLAD), lista skanowanych plików. Adaptacja = edycja stałych na górze
-pliku; przy każdej zmianie re-run pełnej pętli (tor + fuzz + selftest).
+**Uniwersalne:** klasyfikator znaków, pre-skan łamaczy i prania NFC, `--fix`,
+selftest, cała infrastruktura regresji. **Lokalne (adaptacja przy wdrożeniu):**
+paleta `TYPO`, zbiór `CUDZE`, granica Latin Ext-A (UWAGA) vs Ext-B (BLAD),
+lista skanowanych plików. Adaptacja = edycja stałych na górze pliku + re-run
+pętli regresji.
 
 ## Czym pogromca NIE jest
 
-- **Nie jest spell-checkerem** — „blad” pisane samym ASCII przechodzi
-  czysto (klasyfikuje znaki, nie słowa); werdykt pada dopiero, gdy literówka
-  przekroczy granicę alfabetu lub rodziny diakrytyków (U+0161, U+0151,
-  cyrylickie „o” → BLAD z etykietą HOMOGLIF).
-- **Nie jest langdetectem** — nie rozumie języka, widzi glify.
-- **Nie jest poprawiaczem** — `--fix` nigdy nie podmienia liter; decyzja
-  należy do człowieka.
+- **Nie jest spell-checkerem** — klasyfikuje znaki, nie słowa.
+- **Nie jest langdetectem** — widzi glify, nie rozumie języka.
+- **Nie jest poprawiaczem** — `--fix` nigdy nie podmienia liter; decyzja o
+  treści należy do zleceniodawcy.
 
 ## Naprawa (`--fix`) — bezpieczeństwo ponad wszystko
 
-Od v8: pliki `.py`, które się kompilują, dostają podmianę łamaczy linii
-**wyłącznie poza literałami, f-stringami i komentarzami** (stdlib `tokenize`);
-proza — bez ograniczeń. Od v8.0.2 także tryb ratunkowy (pliki zepsute)
-podmienia łamacze **tylko poza literałami i komentarzami** (awaryjny skaner
-stanów), a każdy zapis przechodzi bramkę `compile()` — gdy nic nie kompiluje,
-zostaje wariant minimalnie inwazyjny. Usuwanie niewidzialnych
-zliczane jawnie w komunikacie. Selftest testuje i detekcję, i naprawę.
+Pliki `.py`, które się kompilują, dostają podmianę łamaczy **wyłącznie poza
+literałami i komentarzami** (stdlib `tokenize`); pliki zepsute — tryb ratunkowy
+na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
+„kod"; proza — bez ograniczeń. Usuwanie niewidzialnych zliczane jawnie.
 
 ## Historia i certyfikat
 
-**v8.0.5 (2026-08-31)** — dokumentacja, kod silnika bez zmian: PROTOKÓŁ-
-OPERATORA rozbudowany dla agentów (§0 ściąga, §3a format meldunku, §4 tabela
-decyzji Zagłady, §5 zakaz żywych krzaków w czacie, §7 wydajność/limit Unicode,
-§8 tryb czat, §9 troubleshooting, §10 wersjonowanie). Zasada: narzędzie
-projektowane przez agenta dla agenta — protokół zapisuje praktykę z turniejów.
+**v8.1 (2026-08-31)** — wydanie „młotek agenta": README przebudowane wokół
+operatora-agenta; DO-CZATU z aktualnym silnikiem v8.0.2 (poprzednio stary!);
+INSTRUKCJA zaktualizowana (23 tys. znaków, PROTOKÓŁ w komplecie); turnieje
+z resolverem silnika (działają z korzenia i z `dev/turnieje/`); finalna
+struktura bez duplikatów; literówki w pętlach (PRZERWANA).
 
-**v8.0.4 (2026-08-31)** — dokumentacja, kod silnika bez zmian: PROTOKÓŁ-
-OPERATORA rozszerzony o doktrynę comba Pogromca↔Zagłada (§1a: detekcja
-NIE wymusza dezynfekcji — Zagłada opcjonalna, zawsze decyzja misji;
-obowiązkowa kontrola Pogromcą po zagładzie; typowe rozstrzygnięcia użycia).
-
-**v8.0.3 (2026-08-31)** — dokumentacja, kod silnika bez zmian: dodany
-**PROTOKÓŁ-OPERATORA.md** — reguły użycia maszynowego dla agentów AI
-(drabina uprawnień, plan→act, kody wyjścia, meldunek jednolinijkowy).
-Narzędzie jest projektowane dla agentów; instrukcja dla ludzi pozostaje
-w INSTRUKCJI-DLA-ZIELONYCH.md.
-
-**v8.0.2 (turniej niezależny, 2026-08-31)** — bug fix trybu ratunkowego `--fix`:
-zepsuty `.py` z łamaczem linii w stringu dostawał slepą podmianę także w
-literale (efekt: *unterminated string literal*). Teraz: skaner stanów chroni
-literały i komentarze, bramka `compile()` pilnuje wyniku. Wykryto w niezależnym
-turnieju zewnętrznego audytora (runda R13, scenariusz 6); regresja: tor 348/0/0/0.
-
-v2 → v7 przez 7 rund turnieju red-team/blue-team (16 przeciwników
-„Kozaków”, 13 suit, 341 wektorów). Certyfikat PEWNIAKA: dwie kolejne rundy bez żadnej poprawki w kodzie (v7: 294/0/0/0; v8: 322 i 348/0/0/0)
-plus bonusowy test nie-niszczenia kodu na żywym produkcie (8/8 scenariuszy).
-Szczegóły: `CERTYFIKAT-PEWNIAKA.md`.
+**v8.0.5** — PROTOKÓŁ rozszerzony (§0 ściąga, §3a meldunek, §4 tabela Zagłady,
+§5 zakaz żywych krzaków, §7 Unicode/wydajność, §8 tryb czat, §9 troubleshoot,
+§10 wersjonowanie). **v8.0.4** — §1a combo (detekcja ≠ rozkaz dezynfekcji).
+**v8.0.3** — narodziny PROTOKOŁU OPERATORA. **v8.0.2** — bugfix trybu
+ratunkowego `--fix` (skaner stanów + bramka compile; wykryty w niezależnym
+turnieju, regresja 348/0/0/0). v2→v7: 7 rund turnieju red/blue (16 „Kozaków").
+Certyfikat PEWNIAKA: dwie kolejne rundy bez poprawki + test nie-niszczenia.
+Szczegóły: `docs/CERTYFIKAT-PEWNIAKA.md`, `docs/MEDAL-*.md`.
 
 ## Licencja
 
-MIT - patrz [LICENSE](LICENSE). Copyright (c) 2026 Piotr (GAF). Program
-jest i bedzie 100% darmowy; MIT dodatkowo pozwala kazdemu - osobom, firmom
-i agentom AI - uzywac, modyfikowac i wlaczac narzedzie do wlasnych
-projektow z podaniem autorstwa.
+MIT — patrz [LICENSE](LICENSE). Copyright (c) 2026 Piotr (GAF). Program jest
+i będzie 100% darmowy; MIT pozwala każdemu — osobom, firmom i agentom AI —
+używać, modyfikować i włączać narzędzie do własnych projektów z podaniem
+autorstwa.
 
 ## English summary (in brief)
 
-PogromcaKwiatkow ("kwiatki slayer") is a zero-dependency, single-file Python
-tool that detects foreign-alphabet letters and invisible characters leaking
-into text and source code: homoglyph confusables (e.g. Cyrillic letters
-inside Polish words), zero-width spaces, non-breaking spaces, BOM,
-line separators (U+2028/U+2029), "NFC laundering" singletons (U+212A KELVIN
-SIGN and friends), pictograms, zalgo and more.
-
-Why: language models generate text token by token and occasionally slip
-into the wrong alphabet; such glitches look identical to the human eye and
-pass review. This tool catches them programmatically, before they ship.
-
-Verdicts: BLAD (definitely wrong) / UWAGA (for human review) / OK.
-The `--fix` mode removes ONLY invisible characters - it never replaces
-letters, and in compilable .py files it is literal-aware (stdlib tokenize),
-so string contents stay intact.
-
-Evidence: certified through 11 red-team tournament rounds (19 adversarial
-generators, 368 regression vectors, zero misses - see docs/), plus a
-code-safety test: 20 real CPython files infected with 40 invisible-character
-bugs -> 100% detected, 100% restored byte-for-byte.
-
-Quickest use: attach POGROMCA-KWIATKOW-DO-CZATU.md to any AI-agent chat -
-it carries both the instructions and the full source. License: MIT.
+**A character-level hammer built for AI agents.** PogromcaKwiatkow detects
+foreign-script "kwiatki" (homoglyphs, invisible characters, line-breakers,
+NFC laundering, non-ASCII digits) in Polish/English texts; ZagladaKultury
+decontaminates on request (Polish transliteration, diacritics stripped,
+scriptless glyphs removed — Polish letters untouchable). Detection never
+triggers deletion; after any purge the detector must return BLAD=0.
+Single-file stdlib Python 3, deterministic, exit-code machine interface.
+The human dispatcher hands the tool to an agent (see PROTOKOL-OPERATORA.md);
+the agent runs it at machine scale — full Unicode enumerations, tournament
+batteries, 199-cycle production loops. Certified: PEWNIAK (engine v8.0.2),
+MEDAL (Zaglada v1.0.3). MIT, 100% free.

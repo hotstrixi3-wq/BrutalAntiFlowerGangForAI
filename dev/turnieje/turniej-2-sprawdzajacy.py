@@ -13,7 +13,14 @@ import time
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PK_PATH = os.path.join(HERE, "pogromca-kwiatkow-main", "PogromcaKwiatkow.py")
+def _znajdz(nazwa):
+    for k in (os.path.join(HERE, nazwa),
+              os.path.join(HERE, "..", "..", nazwa),
+              os.path.join(HERE, "pogromca-kwiatkow-main", nazwa)):
+        if os.path.isfile(k):
+            return os.path.abspath(k)
+    raise SystemExit("nie znaleziono: " + nazwa)
+PK_PATH = _znajdz("PogromcaKwiatkow.py")
 spec = importlib.util.spec_from_file_location("pk", PK_PATH)
 pk = importlib.util.module_from_spec(spec)
 sys.modules["pk"] = pk

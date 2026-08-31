@@ -1,5 +1,10 @@
 # RAPORT TURNIEJU NIEZALEŻNEGO — PogromcaKwiatkow v8.0.1
 
+> **NOTKA WYDAWCY (v8.1):** poniższy raport dokumentuje stan sprzed patcha
+> v8.0.2 (stąd „FIX 5/6" i bug opisany w Części 4). Bug naprawiono tego samego
+> dnia; po patchu ten sam turniej daje **FIX 8/8** (patrz `MEDAL-PEWNIAKA-v8.0.2.md`).
+> Raport pozostaje bez zmian jako zapis historyczny.
+
 > Turniej przeprowadzony na żądanie: „a dasz radę przeprowadzić taki sam turniej jak autor?"
 > Sędzia niezależny (ja), wektory generowane programowo (seed 20260831), zero plagiatu suit autora.
 > Data: 2026-08-31. Maszyna: Linux, CPython 3.x, stdlib only.

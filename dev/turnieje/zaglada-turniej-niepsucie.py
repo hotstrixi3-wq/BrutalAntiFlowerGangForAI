@@ -15,7 +15,15 @@ import tempfile
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-spec = importlib.util.spec_from_file_location("zk", os.path.join(HERE, "ZagladaKultury.py"))
+def _znajdz(nazwa):
+    for k in (os.path.join(HERE, nazwa),
+              os.path.join(HERE, "..", "..", nazwa),
+              os.path.join(HERE, "pogromca-kwiatkow-main", nazwa)):
+        if os.path.isfile(k):
+            return os.path.abspath(k)
+    raise SystemExit("nie znaleziono: " + nazwa)
+ZK_PATH = _znajdz("ZagladaKultury.py")
+spec = importlib.util.spec_from_file_location("zk", ZK_PATH)
 zk = importlib.util.module_from_spec(spec)
 sys.modules["zk"] = zk
 spec.loader.exec_module(zk)
