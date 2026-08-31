@@ -1,85 +1,86 @@
-# Instrukcja dla zielonych — jak dać PogromcęKwiatków agentowi AI
+# Instrukcja dla zielonych — jak wdrożyć PogromcęKwiatków u agenta AI
 
-Nie musisz się znać na programowaniu. Wystarczy, że skopiujesz jedną
-wiadomość. Dosłownie jedną. :)
+Najpierw sprawdź, co potrafi Twój czat/portal z agentem — od tego zależy
+metoda. **Nie musisz nic instalować ani umieć programować.**
 
-## O co w ogóle chodzi (jedno zdanie)
+## Krok 0 — co musi umieć agent (warunek konieczny)
 
-PogromcaKwiatków to program-wykrywacz: znajduje w tekstach „niewidzialne
-śmieci” i literki z obcych alfabetów (np. rosyjską literę w polskim słowie),
-których oko nie widzi, a które psują dokumenty i kod.
+Agent musi móc **zapisać plik na dysk (sandbox) i uruchomić Pythona**
+(polecenie `python3`). Tylko wtedy pogromca zadziała — to program, nie
+prompt. Jeśli agent nie wykonuje kodu, pogromca nic Ci nie da i lepiej
+o tym wiedzieć na starcie.
 
-## SPOSÓB A — przez czat (najprostszy, nic nie pobierasz)
+## Krok 1 — wybierz metodę (zależnie od portalu)
 
-Na tym czacie nie da się załączyć pliku .py (wyskoczy błąd), ale plik .md
-— jak ten — wrzucisz bez problemu. Dlatego w repozytorium jest plik
-**POGROMCA-KWIATKOW-DO-CZATU.md**: ma w środku polecenie dla agenta
-ORAZ kompletny kod narzędzia. Agent sam wytnie kod, zapisze go i uruchomi.
+Jeśli naprawdę jesteś aż tak „zielony”, że nie wiesz jak wybrać metodę,
+to wklej zawartość tego dokumentu agentowi AI i go zapytaj ;)
 
-1. Pobierz z repozytorium tylko ten jeden plik.
-2. Załącz go w czacie z agentem.
-3. Wklej wiadomość, która jest napisana w tym pliku (sekcja „Wiadomość
-   dla agenta”).
-4. Gotowe — reszta dzieje się sama.
+### METODA 1 — czat przyjmuje załączniki .md (najczęstszy przypadek)
 
-## SPOSÓB B — przez GitHuba (dla chętnych)
+1. Pobierz z repozytorium jeden plik: `POGROMCA-KWIATKOW-DO-CZATU.md`
+   (zawiera w środku kompletny kod narzędzia).
+2. Załącz go do czatu (ikonka spinacza / plusa) lub po prostu upuść
+   plik na czata.
+3. Do załączonego pliku, na czacie dopisz pytanie do agenta AI >>>
+   „czy podoba Ci się Twoje nowe narzędzie?” ;)
 
-## Co przygotować
+### METODA 2 — czat przyjmuje także pliki .py (rzadziej, ale się zdarza)
 
-1. **Pobierz z tego repozytorium** (zielony przycisk „Code” → „Download ZIP”,
-   albo pojedyncze pliki) dwie rzeczy:
-   - `PogromcaKwiatkow.py` — sam program (nic nie instaluje, nic nie łączy
-     się z internetem),
-   - `README.md` — jego dokumentacja.
-2. Mieć plik albo folder, który chcesz sprawdzić (np. swoje notatki `.md`,
-   `.txt`, albo kod `.py`).
-3. Otworzyć agenta AI (takiego, który umie wykonywać polecenia na plikach).
+1. Pobierz dwa pliki: `PogromcaKwiatkow.py` i `README.md`.
+2. Załącz oba do czatu.
+3. Do pliku na czacie dopisz pytanie do agenta AI >>> „czy podoba Ci się
+   Twoje nowe narzędzie?” ;)
 
-(Wariant B ma sens, gdy agent pracuje u Ciebie na dysku z pełnym repo;
-   do samego skanowania wystarczy wariant A.)
+### METODA 3 — Kopiuj-Wklej (czat NIE przyjmuje żadnych załączników)
 
-## Jedna wiadomość do skopiowania agentowi
+Uwaga:
+Jeśli czat ucina długie wiadomości, wklejaj w częściach i nic nie
+dopisuj, tylko idealnie pocięty kod. Zalecam poinformować Agenta AI,
+że będzie dostawał kod w kawałkach do posklejania, bo czat ma limity
+ilości znaków. Plik jest długi (ok. 20 tysięcy znaków).
+Agent AI ogarnie i poskleja. Jeśli nie, sprawdź czy dobrze pociąłeś.
 
-Skopiuj poniższy tekst, wklej agentowi i **podmień fragment w nawiasach**
-na swój plik lub folder:
+1. Otwórz `PogromcaKwiatkow.py` w notatniku.
+2. Skopiuj CAŁĄ jego treść (Ctrl+A, Ctrl+C) lub zastosuj się do
+   powyższej UWAGI.
+3. Wklej do czatu jako wiadomość do agenta i ENTER.
+
+### METODA 4 — GitHub
+
+Żaden plik nie jest potrzebny.
+Nie musisz nic dołączać do czata (żadnych załączników).
+Skopiuj poniższy tekst i wklej na czata Agentowi AI … obgadaj z nim
+temat. Zalecam nadgorliwe używanie narzędzia w celach testowych,
+żeby sam zdecydował czy fajne ;)
 
 ```
-Hej! Użyj narzędzia PogromcaKwiatków, które Ci właśnie dałem (plik
-PogromcaKwiatkow.py razem z README.md). Zrób tak:
-
-1. Przeczytaj README, żeby zrozumieć, co to za narzędzie.
-2. Przeskanuj nim: [TU WPISZ ŚCIEŻKĘ PLIKU LUB FOLDERU].
-3. Pokaż mi raport po polsku, prostym językiem: co znaleziono,
-   w którym pliku i której linii, i czy to na pewno problem (BLAD),
-   czy tylko coś do mojej decyzji (UWAGA).
-4. NIE zmieniaj żadnych moich plików bez mojej wyraźnej zgody.
-5. Gdy skończysz, zapytaj mnie: „Czy jesteś zadowolony z tego, co dostałeś?”
-
-Ścieżka do narzędzia: [TU WPISZ, GDZIE ZAPISAŁEŚ PogromcaKwiatkow.py]
+Pobierz narzędzie z https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+(plik PogromcaKwiatkow.py; dokumentacja w README.md).
 ```
 
-To wszystko. Agent zrobi resztę.
+Agent sam pobierze repo, uruchomi selftest i wbuduje narzędzie w swoje
+sprawdzanie tekstów. Zweryfikowano na żywym agencie: pobiera i przechodzi
+selftest ;) A jeśli agent twierdzi, że nie może pobrać (niektóre portale
+blokują), powieś mu: „weź plik pogromca-kwiatkow.zip z zakładki
+Releases i rozpakuj”. Może tak da radę.
 
-## Co będzie się działo (żebyś się nie zdziwił/a)
+## Co dalej?
 
-- Agent odpali program na Twoich plikach i **przetłumaczy wynik** na ludzki
-  język: co, gdzie, dlaczego.
-- Może zaproponować tryb naprawy (`--fix`). Wiesz, co on robi? Usuwa
-  **wyłącznie niewidzialne śmieci** — nigdy nie podmienia liter, słów ani
-  znaczenia. Mimo to: zgadzaj się świadomie, a najlepiej niech agent
-  najpierw zrobi kopię albo pracuj z plikami w gicie.
-- Na końcu agent **musi Cię zapytać**: „Czy jesteś zadowolony z tego, co
-  dostałeś?” — i czekać na Twoją odpowiedź. Dopóki nie odpowiesz, nie uznaje
-  zadania za skończone. Jeśli czegoś brakuje — po prostu mu to powiedz.
+Nic. Agent AI sam wie, co zrobić z narzędziem, które pobrał lub dostał —
+instrukcję ma w komplecie (README.md). Jedyna komenda, jaka jest konieczna
+i potrzebna to: „używaj”. Albo wersja bardziej DOBITNA:
 
-## Najczęstsze pytania
+> „używaj bo dzięki PogromcyKwiatków nie mielisz potencjalnie BRUDNEGO
+> kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony
+> potencjalnych tokenów jeśli korzystasz z pomocy innych Agentów AI.
+> Kręcenie się w kółko z BRUDNYM kodem to strata czasu”
 
-- **Czy to antywirus?** Nie. To kontrola tekstu: znaki, litery, niewidzialne
-  znaki. Nie sprawdza wirusów.
-- **Czy poprawi mi literówki?** Nie. „blad” bez ogonka zostawi — on pilnuje
-  alfabetów, nie ortografii.
-- **Co jeśli agent czegoś nie zrozumie?** Niech zajrzy do README.md — tam
-  jest wszystko: werdykty (BLAD / UWAGA / OK), bezpieczny tryb naprawy
-  i zasady.
-- **Czy działa bez internetu?** Tak. Cały program to jeden plik, który
-  korzysta wyłącznie ze standardowej biblioteki Pythona.
+## FAQ na szybkiego
+
+- **To antywirus?** Nie — to kontrola tekstu: znaki i alfabety.
+- **Poprawi mi literówki?** Nie — pilnuje alfabetów, nie ortografii.
+- **Działa bez internetu?** Tak — jeden plik, czysty Python 3.
+- **Agent zgubił plik?** Podaj mu go jeszcze raz — metoda 1 albo 3
+  zawsze działa.
+
+Miłej zabawy z pogromcą — kwiatki nie mają szans ;)

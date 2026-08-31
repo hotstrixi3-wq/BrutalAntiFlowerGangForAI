@@ -27,6 +27,12 @@ PogromcaKwiatków. Zrób dokładnie tak:
    i czekaj na odpowiedź.
 ```
 
+## Gdy czat NIE przyjmuje załączników
+
+Skopiuj CAŁĄ treść tego pliku i wklej jako wiadomość do agenta (a pod nią
+polecenie z sekcji wyżej). Jeśli czat ucina długie wiadomości — wklejaj
+w częściach z podpisem „część 1/2”, „część 2/2”; agent sklei je w plik.
+
 ## O narzędziu (dla człowieka, trzy zdania)
 
 PogromcaKwiatków znajduje w tekstach „niewidzialne śmieci” i literki z

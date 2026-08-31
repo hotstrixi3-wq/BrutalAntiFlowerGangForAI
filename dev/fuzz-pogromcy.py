@@ -16,7 +16,8 @@ import sys
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-spec = importlib.util.spec_from_file_location("pk", os.path.join(HERE, "PogromcaKwiatkow.py"))
+ROOT = os.path.dirname(HERE)  # (v8.0.1) narzedzie w korzeniu repo, runnery w dev/
+spec = importlib.util.spec_from_file_location("pk", os.path.join(ROOT, "PogromcaKwiatkow.py"))
 pk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pk)
 
@@ -24,8 +25,12 @@ N = 500
 
 
 def linie_korpusu():
+    # (v8.0.1) fuzz samowystarczalny: szuka korpusu wokol repo, a gdy go
+    # brak (u obcego uzytkownika), dziala na wbudowanym mini-korpusie
     out = []
-    for d in (os.path.dirname(HERE), HERE, os.path.join(os.path.dirname(HERE), "WIEDZA_O_PROGRAMIE")):
+    for d in (ROOT, os.path.dirname(ROOT), HERE, os.path.join(os.path.dirname(ROOT), "WIEDZA_O_PROGRAMIE")):
+        if not os.path.isdir(d):
+            continue
         for fn in sorted(os.listdir(d)):
             if fn.endswith((".md", ".txt")):
                 p = os.path.join(d, fn)
@@ -33,6 +38,12 @@ def linie_korpusu():
                     out += [l for l in io.open(p, encoding="utf-8").read().splitlines() if l.strip()]
                 except OSError:
                     pass
+    if not out:
+        out = ["Serwer ARK dziala poprawnie, restart o 4:00.",
+               "Mod Refresher odswieza mody przez RCON bez restartu.",
+               "The quick brown fox jumps over the lazy dog.",
+               "Zalozylismy harmonogram restartow klastra 8 map.",
+               "Ping <= 45 ms, TPS >= 30, load ~0.8 - wymagania spelnione."]
     return out
 
 

@@ -19,7 +19,8 @@ import sys
 import unicodedata
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-spec = importlib.util.spec_from_file_location("pk", os.path.join(HERE, "PogromcaKwiatkow.py"))
+ROOT = os.path.dirname(HERE)  # (v8.0.1) narzedzie w korzeniu repo, runnery w dev/
+spec = importlib.util.spec_from_file_location("pk", os.path.join(ROOT, "PogromcaKwiatkow.py"))
 pk = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(pk)
 

@@ -1,5 +1,7 @@
 # PogromcaKwiatków
 
+> **Oficjalne repozytorium:** https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+
 Wykrywacz obcojęzycznych „kwiatków” w tekstach pisanych po polsku (i ogólnie
 łaciną). **Kwiatek** — w slangu pisarzy i redaktorów: literówka, potknięcie
 pisarskie. Narzędzie terminuje kwiatki **programowo, przed wrzutą** — tam,
@@ -34,14 +36,14 @@ jeden plik, deterministycznie.
 ## Struktura repozytorium
 
 ```
-PogromcaKwiatkow.py            narzedzie (v8, PEWNIAK)
-POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie dla agenta + kod
-INSTRUKCJA-DLA-ZIELONYCH.md    instrukcja dla nietechnicznych (SPOSOB A/B)
-tor-pogromcy.py                turniej regresji (15 suit -> 348/0/0/0)
-fuzz-pogromcy.py               fuzz deterministyczny (A/B/C x 500)
-kwiatki-testy/                 15 suit = 368 wektorow od 19 Kozakow
-docs/                          certyfikat + raporty (dowody)
-KOMPLECIK.md                   inwentarz wydania z linkami
+/  (korzen = wszystko do wdrozenia u agenta)
+  PogromcaKwiatkow.py            narzedzie (v8, PEWNIAK)
+  POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod
+  INSTRUKCJA-DLA-ZIELONYCH.md    4 metody wdrozenia (zalacznik .md/.py, wklej, internet)
+  README.md                      dokumentacja (PL + English summary)
+  LICENSE                        MIT
+dev/                            turniej + fuzz + 15 suit (dla watpiacych)
+docs/                           certyfikat + raporty + KOMPLECIK (dowody)
 ```
 
 ## Szybki start
