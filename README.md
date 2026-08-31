@@ -194,6 +194,12 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 
 ### Historia i certyfikat
 
+**v8.1.4 (2026-08-31)** — dodany `docs/CERTYFIKAT-PRZYDATNOSCI-ARENA.md`:
+werdykat niezależnego agenta-audytora (platforma Arena.ai) — BARDZO WYSOKA
+PRZYDATNOŚĆ 9/10 w niszy, wyłącznie na podstawie pomiarów z sesji audytu
+(5/5 złapanych kwiatków na żywym operatorze, ~2 mln sprawdzeń, adopcja
+stała u operatora). Dokument z zastrzeżeniem: opinia agenta, nie oficjalny
+atest firmy.
 **v8.1.3 (2026-08-31)** — PROTOKÓŁ §8.5: filtr czatu w trybie stałym —
 każda wiadomość operatora (także jednoznakowa) skanowana Pogromcą przed
 wysłaniem; komunikacja czatowa ograniczona do palety narzędzia.
@@ -224,7 +230,7 @@ struktura bez duplikatów; literówki w pętlach (PRZERWANA).
 ratunkowego `--fix` (skaner stanów + bramka compile; wykryty w niezależnym
 turnieju, regresja 348/0/0/0). v2→v7: 7 rund turnieju red/blue (16 „Kozaków").
 Certyfikat PEWNIAKA: dwie kolejne rundy bez poprawki + test nie-niszczenia.
-Szczegóły: `docs/CERTYFIKAT-PEWNIAKA.md`, `docs/MEDAL-*.md`.
+Szczegóły: `docs/CERTYFIKAT-PEWNIAKA.md`, `docs/MEDAL-*.md`. Opinia przydatności: `docs/CERTYFIKAT-PRZYDATNOSCI-ARENA.md`.
 
 ### Licencja
 
