@@ -37,13 +37,17 @@ jeden plik, deterministycznie.
 
 ```
 /  (korzen = wszystko do wdrozenia u agenta)
-  PogromcaKwiatkow.py            narzedzie (v8, PEWNIAK)
+  PogromcaKwiatkow.py            narzedzie (v8.0.2, PEWNIAK)
+  ZagladaKultury.py              siostra: dekontaminator obcej kultury znakow (v1.0.3, MEDAL)
+  PROTOKOL-OPERATORA.md          regulamin użycia dla agenta AI (drabina, plan->act, combo)
   POGROMCA-KWIATKOW-DO-CZATU.md  jeden plik na czat: polecenie + kod
   INSTRUKCJA-DLA-ZIELONYCH.md    4 metody wdrozenia (zalacznik .md/.py, wklej, internet)
   README.md                      dokumentacja (PL + English summary)
   LICENSE                        MIT
 dev/                            turniej + fuzz + 15 suit (dla watpiacych)
+dev/turnieje/                   turnieje sedziego niezaleznego + petle (T1-T3, Z1-Z2)
 docs/                           certyfikat + raporty + KOMPLECIK (dowody)
+docs/                           + MEDAL-PEWNIAKA v8.0.2, MEDAL-ZAGLADY v1.0.3, logi petli
 ```
 
 ## Szybki start
@@ -85,10 +89,36 @@ pliku; przy każdej zmianie re-run pełnej pętli (tor + fuzz + selftest).
 
 Od v8: pliki `.py`, które się kompilują, dostają podmianę łamaczy linii
 **wyłącznie poza literałami, f-stringami i komentarzami** (stdlib `tokenize`);
-pliki zepsute — tryb ratunkowy; proza — bez ograniczeń. Usuwanie niewidzialnych
+proza — bez ograniczeń. Od v8.0.2 także tryb ratunkowy (pliki zepsute)
+podmienia łamacze **tylko poza literałami i komentarzami** (awaryjny skaner
+stanów), a każdy zapis przechodzi bramkę `compile()` — gdy nic nie kompiluje,
+zostaje wariant minimalnie inwazyjny. Usuwanie niewidzialnych
 zliczane jawnie w komunikacie. Selftest testuje i detekcję, i naprawę.
 
 ## Historia i certyfikat
+
+**v8.0.5 (2026-08-31)** — dokumentacja, kod silnika bez zmian: PROTOKÓŁ-
+OPERATORA rozbudowany dla agentów (§0 ściąga, §3a format meldunku, §4 tabela
+decyzji Zagłady, §5 zakaz żywych krzaków w czacie, §7 wydajność/limit Unicode,
+§8 tryb czat, §9 troubleshooting, §10 wersjonowanie). Zasada: narzędzie
+projektowane przez agenta dla agenta — protokół zapisuje praktykę z turniejów.
+
+**v8.0.4 (2026-08-31)** — dokumentacja, kod silnika bez zmian: PROTOKÓŁ-
+OPERATORA rozszerzony o doktrynę comba Pogromca↔Zagłada (§1a: detekcja
+NIE wymusza dezynfekcji — Zagłada opcjonalna, zawsze decyzja misji;
+obowiązkowa kontrola Pogromcą po zagładzie; typowe rozstrzygnięcia użycia).
+
+**v8.0.3 (2026-08-31)** — dokumentacja, kod silnika bez zmian: dodany
+**PROTOKÓŁ-OPERATORA.md** — reguły użycia maszynowego dla agentów AI
+(drabina uprawnień, plan→act, kody wyjścia, meldunek jednolinijkowy).
+Narzędzie jest projektowane dla agentów; instrukcja dla ludzi pozostaje
+w INSTRUKCJI-DLA-ZIELONYCH.md.
+
+**v8.0.2 (turniej niezależny, 2026-08-31)** — bug fix trybu ratunkowego `--fix`:
+zepsuty `.py` z łamaczem linii w stringu dostawał slepą podmianę także w
+literale (efekt: *unterminated string literal*). Teraz: skaner stanów chroni
+literały i komentarze, bramka `compile()` pilnuje wyniku. Wykryto w niezależnym
+turnieju zewnętrznego audytora (runda R13, scenariusz 6); regresja: tor 348/0/0/0.
 
 v2 → v7 przez 7 rund turnieju red-team/blue-team (16 przeciwników
 „Kozaków”, 13 suit, 341 wektorów). Certyfikat PEWNIAKA: dwie kolejne rundy bez żadnej poprawki w kodzie (v7: 294/0/0/0; v8: 322 i 348/0/0/0)
