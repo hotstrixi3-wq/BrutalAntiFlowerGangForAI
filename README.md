@@ -194,6 +194,11 @@ na skanerze stanów z bramką `compile()` (v8.0.2); `.json/.jsonl` — ścieżka
 
 ### Historia i certyfikat
 
+**v8.1.3 (2026-08-31)** — PROTOKÓŁ §8.5: filtr czatu w trybie stałym —
+każda wiadomość operatora (także jednoznakowa) skanowana Pogromcą przed
+wysłaniem; komunikacja czatowa ograniczona do palety narzędzia.
+Empiria: ~90% wcześniejszych wypowiedzi operatora zawierało pictogramy
+spoza palety (BLAD wg własnego narzędzia).
 **v8.1.2 (2026-08-31)** — silniki samowskazują regulamin: Pogromca v8.0.3
 (banner OPERATOR w stopce każdego skanu + dokstring), Zagłada v1.0.4 (banner
 w dokstringu), Zagłada v1.0.5 (źródło samooczyszczone — przechodzi bramkę). DO-CZATU z WBUDOWANYM PROTOKOŁEM OPERATORA (agent w scenariuszu

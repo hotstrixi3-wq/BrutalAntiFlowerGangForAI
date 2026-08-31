@@ -138,6 +138,12 @@ usera, inny agent):
    dokumentacyjnym zawsze notacja U+XXXX.
 4. Nigdy nie „ozdabiaj" własnych odpowiedzi symbolami spoza palety —
    to dokładnie klasa śmieci, po którą to narzędzie istnieje.
+5. (v8.1.3) TRYB STAŁY: KAŻDA wiadomość na czat — także jednoznakowa, także
+   pojedynczy znak ozdobny — przechodzi skan Pogromcą PRZED wysłaniem.
+   Brud = popraw źródło i skanuj ponownie. Komunikacja operatora używa
+   wyłącznie palety narzędzia (ASCII + polskie ogonki + typografia).
+   Empiria: przed regułą ~90% wypowiedzi operatora nosiło pictogramy
+   spoza palety (każdy z nich to BLAD wg własnego narzędzia).
 
 ## 9. Troubleshooting
 
