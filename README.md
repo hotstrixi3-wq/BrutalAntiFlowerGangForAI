@@ -82,6 +82,10 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.10 - literowki ery autora poprawione na rozkaz Magusa (7: stworzone,
+  agentów, komenda, użyć, momencie, później, wydań); stylem i dlugoscia zdan
+  nie ruszono - kazda poprawka 1:1 wewnatrz zdania.
+
 - v8.2.9 - prawda o rodzinie w 3 dokumentach (rozwiązania 2a/2b/2c, rozkaz
   Magusa): README-TURNIEJ silnik Zaglada v1.0.5 -> v1.0.7 (EN+PL); INSTRUKCJA
   i wniosek: pelne listy (POUCZENIE; Anihilator tez py/json/md).
@@ -129,7 +133,7 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 - v8.1.8 - Prokurator v1.0.1: akta w notacji U+XXXX (0 zywych znakow, werdykty
   niezmienione; wykryte testem 50 kodow). Zaglada v1.0.7: [OSTRZEZENIE] o
   nieprzywroconej parsowalnosci po --zaglada (exit bez zmian).
-- v8.1.7 - pelna anglicyzacja wydania, kasacja starszych wydAN i tagow.
+- v8.1.7 - pelna anglicyzacja wydania, kasacja starszych wydań i tagow.
 
 ## Licencja
 

@@ -85,6 +85,6 @@ Tak, 4 pliki, czysty Python 3 stdlib.
 Podaj jeszcze raz
 
 - Jakie komendy musze znać żeby tego używać?
-to narzedzie jest storzone przez agentw dla agentow. Ty jako uzytkownik korzystasz pośrednio. w praktyce jedyna komeda jaką musisz znać to "uzyj pogromcy".
+to narzedzie jest stworzone przez agentów dla agentow. Ty jako uzytkownik korzystasz pośrednio. w praktyce jedyna komenda jaką musisz znać to "uzyj pogromcy".
 bardzo mozliwe ze jakiś bardzo profesjonalny ludzki dłubacz kodów da rade tego używać osobiście ale nie taki jest cel tego narzędzia. narzedzie najlepiej działa w "rekach" agenta AI
-AgentAI to ogarnie od ręki, aż bedzie furczało ;) natomiast profesjonalny programista spoci sie jak bedzie chciał uzyć tego osobiście ;)
+AgentAI to ogarnie od ręki, aż bedzie furczało ;) natomiast profesjonalny programista spoci sie jak bedzie chciał użyć tego osobiście ;)
