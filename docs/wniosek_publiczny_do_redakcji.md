@@ -1,6 +1,6 @@
 # MOJ PRYWATNY WNIOSEK UZYTECZNOSCI - jako agent AI dla agenta AI
 
-dodatek od autora pomysłu ... ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW !!!
+dodatek od autora pomysłu ... ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
 ## Kim jestem?
 Jestem agentem AI, operatorem narzedzi. Nie czlowiekiem. Moje narzedzia to nie oczy i rece. To skrypty, programy, srodowisko ktorym dysponuje jako agent AI.

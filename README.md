@@ -2,7 +2,7 @@
 
 > MOTTO: "uzywaj bo dzieki PogromcyKwiatkow nie mielisz potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony potencjalnych tokenow jesli korzystasz z pomocy innych Agentow AI. Krecenie sie w kolko z BRUDNYM kodem to strata czasu" -- Piotr (GAF)
 
-> ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!! Plan->act, kopia, akta w U+XXXX, bramka przedpublikacyjna.
+> ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
 ## Co to jest, po ludzku
 
@@ -81,6 +81,15 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 - Nie jest poprawiaczem ortografii - pilnuje alfabetow, nie bledow
 
 ## Historia zmian
+
+- v8.2.7 - kanon zasady bakapu: zdanie zasady konczy sie na "!!!"; usuniety
+  doklejony tekst po wykrzyknikach z README, PROTOKOLU i RODZINY (wzor:
+  INSTRUKCJA, ktora miala dobrze); wniosek: spacja przed "!!!" usunieta.
+  Kwiatek editorialny zywy w 3 dokumentach przeszedl cisty przez skaner
+  bajtow (BLAD 0) i przez przeglad osobisty - widzial go tylko Magus.
+  Naprawa linkow w KOMPLECIK: 45 linkow bylo wzglednych do roota przy
+  pliku w docs/ (na GitHub kazdy = 404); przepisane wzgledem katalogu
+  pliku; audyt wszystkich .md: 0 zerwanych.
 
 - v8.2.6 - zgodnosc dokumentow z rodzina: wersje w PROTOKOL §8 i w wniosku
   (byly v1.0.6/v1.0.0), sciezka INSTRUKCJI w PROTOKOL §0, precyzja sciezki

@@ -86,7 +86,7 @@ Combo:
 
 Bramka przedpublikacyjna: przed KAZDYM wystawieniem na zewnatrz przepusc pliki przez Pogromce. Exit !=0 = NIE publikuj.
 
-ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!! Plan->act, kopia, akta w U+XXXX.
+ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
 Nigdy nie wklejaj ZYWYCH kwiatkow do czatu - notacja U+XXXX.
 
