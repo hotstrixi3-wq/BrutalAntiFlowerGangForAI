@@ -82,6 +82,10 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.5 - higiena: usuniety z gita wyciek __pycache__/*.pyc (znany wektor,
+  dodany .gitignore); KOMPLECIK nie listuje juz samego siebie (paradoks
+  wlasnego skrotu); manifest zgodny z drzewem w 100 procentach.
+
 - v8.2.4 - KOMPLECIK przelozony na manifest aktualnego drzewa (45 plikow, sha256);
   poprzedni (v8.0.1) mial 26 zerwanych linkow - zostaje w historii gita.
 
