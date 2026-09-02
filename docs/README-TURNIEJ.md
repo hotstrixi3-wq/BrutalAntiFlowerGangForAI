@@ -9,7 +9,7 @@
 > The complete toolkit of the independent judge: detection tournaments,
 > checking tournaments, non-breakage tournaments and loops. Production
 > state: **1393 green checks across 199 cycles of the family loop, zero
-> failures.** Engines: Pogromca v8.0.3 (PEWNIAK), Zaglada v1.0.5 (MEDAL).
+> failures.** Engines: Pogromca v8.0.3 (PEWNIAK), Zaglada v1.0.7 (MEDAL).
 
 ## (EN) Quick start (Python 3, stdlib, scripts in dev/turnieje/)
 
@@ -57,7 +57,7 @@ publisher's note in its header), loop logs: docs/logi/.
 > Komplet narzędzi sędziego niezależnego: turnieje detekcji, sprawdzające,
 > nie-psucia-kodu i pętle. Stan po produkcji: **1393 zielone sprawdziany
 > w 199 cyklach pętli rodzinnej, zero awarii.** Silnik: Pogromca v8.0.3
-> (PEWNIAK), Zagłada v1.0.5 (MEDAL).
+> (PEWNIAK), Zagłada v1.0.7 (MEDAL).
 
 ## Szybki start (Python 3, stdlib, skrypty w `dev/turnieje/`)
 

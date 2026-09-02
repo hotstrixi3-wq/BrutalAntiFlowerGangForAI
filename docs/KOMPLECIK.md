@@ -15,7 +15,7 @@ zostaje w historii gita tego pliku.
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4171 B | `8379a513a601` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 22800 B | `4daa483163bc` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](../README.md) | 6442 B | `33227292158a` |
+| [README.md](../README.md) | 6662 B | `b29e8dd5484d` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 14883 B | `6bcfc0bb877c` |
 
 ## docs/ (13 plikow, bez tego manifestu) - dokumenty i dowody
@@ -24,17 +24,17 @@ zostaje w historii gita tego pliku.
 |---|---|---|
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
-| [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4057 B | `1a4cb120e9b2` |
+| [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4078 B | `2e291a9b2918` |
 | [MEDAL-PEWNIAKA-v8.0.2.md](MEDAL-PEWNIAKA-v8.0.2.md) | 3299 B | `48e80707f51a` |
 | [MEDAL-ZAGLADY-v1.0.3.md](MEDAL-ZAGLADY-v1.0.3.md) | 5570 B | `38bf39d89c2f` |
 | [RAPORT-TESTU-KWITNICA.md](RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
 | [RAPORT-TURNIEJU-NIEZALEZNEGO.md](RAPORT-TURNIEJU-NIEZALEZNEGO.md) | 12458 B | `1d88ab4f90e5` |
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
-| [README-TURNIEJ.md](README-TURNIEJ.md) | 5540 B | `9361d5f25c42` |
+| [README-TURNIEJ.md](README-TURNIEJ.md) | 5540 B | `7f29a272a711` |
 | [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 72311 B | `5ded9f5fec07` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 6907 B | `60f618deaa88` |
+| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 6917 B | `cdf526f1b82f` |
 
 ## dev/ (24 plikow) - amunicja i narzedzia testowe (CELOWO BRUDNE - poza bramka wydania)
 

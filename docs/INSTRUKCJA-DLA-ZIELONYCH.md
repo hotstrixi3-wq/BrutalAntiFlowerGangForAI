@@ -19,8 +19,8 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 Rodzina to 4 pliki ktore ida wszedzie razem:
 - PogromcaKwiatkow.py - oczy, widzi BLAD/UWAGA/OK
 - ZagladaKultury.py - rece dla py/json/proza, sprzata
-- ProkuratorOgrodnik.py - mozg, decyduje co wolno czyscic (UMORZONE/ZAGLADA/BLOKADA) + akta w U+XXXX
-- AnihilatorChwastow.py - rece dla js/ts/java/go/rs/cs z ochrona literalow
+- ProkuratorOgrodnik.py - mozg, decyduje co wolno czyscic (UMORZONE/POUCZENIE/ZAGLADA/BLOKADA) + akta w U+XXXX
+- AnihilatorChwastow.py - rece dla js/ts/java/go/rs/cs/py/json/md z ochrona literalow
 
 ## Co musi umiec agent (warunek konieczny)
 

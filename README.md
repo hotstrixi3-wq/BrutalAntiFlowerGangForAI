@@ -82,6 +82,10 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.9 - prawda o rodzinie w 3 dokumentach (rozwiązania 2a/2b/2c, rozkaz
+  Magusa): README-TURNIEJ silnik Zaglada v1.0.5 -> v1.0.7 (EN+PL); INSTRUKCJA
+  i wniosek: pelne listy (POUCZENIE; Anihilator tez py/json/md).
+
 - v8.2.8 - README mowi prawde o rodzinie w pelni (zlecenie Magusa, znaleziska
   1a/1b z relektury PROTOKOLU): Anihilator obejmuje tez py/json/md (zgadza
   sie z dokstringiem narzedzia i PROTOKOL 0; wczesniej README zanizal);
