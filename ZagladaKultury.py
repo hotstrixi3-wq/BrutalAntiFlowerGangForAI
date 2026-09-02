@@ -23,15 +23,17 @@ Użycie:
 Exit: 0 = czysto (nic do zrobienia / po zagładzie czysto poza chronionymi),
       1 = jest obca kultura do zagłady (tryb raportu), 2 = błąd wejścia.
 
+(v1.0.7) OSTRZEZENIA: gdy po --zaglada plik .py/.json nadal sie nie parsuje, drukowane jest [OSTRZEZENIE] (exit bez zmian).
 (v1.0.4) OPERATOR — agencie AI: Twoj regulamin uzycia (drabina uprawnien,
 plan->act, combo z PogromcaKwiatkow) jest w PROTOKOL-OPERATORA.md.
 """
 import io
+import json
 import os
 import sys
 import unicodedata
 
-WERSJA = "1.0.6"
+WERSJA = "1.0.7"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -288,6 +290,8 @@ def raport_sciezka(sciezka, wykonaj):
         return 2
     nowy, licznik = przetworz(tekst, sciezka)
     if licznik is None:
+        # (v1.0.7) OBSERWOWALNOSC: bramka nie przepuscila - plik nietkniety
+        print("[OSTRZEZENIE] %s: bramka compile() nie przepuscila zadnego wariantu - plik ZOSTAL NIETKNIETY" % sciezka)
         return 0
     zmienione = sum(licznik.values())
     if zmienione == 0:
@@ -297,6 +301,17 @@ def raport_sciezka(sciezka, wykonaj):
         with io.open(sciezka, "w", encoding="utf-8", newline="") as f:
             f.write(nowy)
         print("[ZAGLADA] %s: %s" % (sciezka, " | ".join(czesci)))
+        # (v1.0.7) OBSERWOWALNOSC: kultura usunieta, ale parsowalnosc moze nie wrocic
+        if sciezka.endswith(".py"):
+            try:
+                compile(nowy, sciezka, "exec")
+            except SyntaxError:
+                print("[OSTRZEZENIE] %s: nie przywrocono parsowalnosci - wymaga recznej naprawy (kontrakt: kultura, nie skladnia)" % sciezka)
+        elif sciezka.endswith((".json", ".jsonl")):
+            try:
+                json.loads(nowy)
+            except ValueError:
+                print("[OSTRZEZENIE] %s: nie przywrocono waznosci JSON - wymaga recznej naprawy (kontrakt: kultura, nie struktura)" % sciezka)
         return 0
     print("[DO ZAGLADY] %s: %s" % (sciezka, " | ".join(czesci)))
     return 1

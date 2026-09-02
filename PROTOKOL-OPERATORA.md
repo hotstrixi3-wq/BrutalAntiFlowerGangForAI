@@ -20,7 +20,7 @@ Zasada: rodzina idzie wszedzie razem. Nie oceniasz czlonkow solo. Combo.
 **NIE skanuj od razu plikow usera.**
 
 KROK 1 - ANALIZA I USWIADOMIENIE:
-- Przeczytaj README.md, PROTOKOL-OPERATORA.md, RODZINA-DO-CZATU.md
+- Przeczytaj README.md, PROTOKOL-OPERATORA.md, docs/RODZINA-DO-CZATU.md
 - Zapoznaj sie z rola 4 narzedzi
 - ZAPODAJ UZYTKOWNIKOWI krotki i rzeczowy opis CO TO i PO CO TO, po ludzku, bez zargonu U+XXXX, wyjasnij ze to nie slownik ortograficzny tylko filtr na niewidzialny brud ktory marnuje godziny i tokeny
 

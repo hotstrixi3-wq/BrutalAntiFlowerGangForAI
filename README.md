@@ -1,4 +1,4 @@
-# Rodzina Pogromcy Kwiatkow - filtr na niewidzialny brud dla agentow AI
+# Brutalny Gang Antykwiatkowy dla AI (rodzina Pogromcy Kwiatkow)
 
 > MOTTO: "uzywaj bo dzieki PogromcyKwiatkow nie mielisz potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony potencjalnych tokenow jesli korzystasz z pomocy innych Agentow AI. Krecenie sie w kolko z BRUDNYM kodem to strata czasu" -- Piotr (GAF)
 
@@ -32,7 +32,7 @@ Nie skanuj od razu plikow usera. Najpierw analiza i uswiadomienie.
 ### Dla agenta AI - wiadomosc do skopiowania:
 
 ```
-Hej! W zalaczonym pliku RODZINA-DO-CZATU.md masz rodzine Pogromcy - combo 4 plikow.
+Hej! W zalaczonym pliku docs/RODZINA-DO-CZATU.md masz rodzine Pogromcy - combo 4 plikow.
 
 KROK 1 - ANALIZA I USWIADOMIENIE:
 - Przeczytaj README.md, PROTOKOL-OPERATORA.md
@@ -54,9 +54,9 @@ KROK 4 - REAKCJA:
 
 ### Dla czlowieka:
 
-1. Pobierz RODZINA-DO-CZATU.md (zawiera 4 kody w srodku) lub rodzina_pogromcy_czysty_zip.zip (9 plikow)
+1. Pobierz docs/RODZINA-DO-CZATU.md (zawiera 4 kody w srodku) lub rodzina_pogromcy_czysty_zip.zip (9 plikow)
 2. Zalacz do czatu z agentem
-3. Wklej wiadomosc z sekcji FLOW USWIADOMIENIE z RODZINA-DO-CZATU.md
+3. Wklej wiadomosc z sekcji FLOW USWIADOMIENIE z docs/RODZINA-DO-CZATU.md
 
 ## Struktura paczki czystej
 
@@ -66,8 +66,8 @@ ZagladaKultury.py            dekontaminator py/json/proza
 ProkuratorOgrodnik.py        polityka + akta
 AnihilatorChwastow.py        anihilator uniwersalny z ochrona literalow
 PROTOKOL-OPERATORA.md        regulamin dla agenta
-RODZINA-DO-CZATU.md          all-in-one do czatu + FLOW USWIADOMIENIE + 4 kody
-INSTRUKCJA-DLA-ZIELONYCH.md  dla czlowieka
+docs/docs/RODZINA-DO-CZATU.md     all-in-one do czatu + FLOW USWIADOMIENIE + 4 kody
+docs/INSTRUKCJA-DLA-ZIELONYCH.md  dla czlowieka
 README.md                    ten plik
 LICENSE                      MIT
 ```
@@ -84,4 +84,4 @@ LICENSE                      MIT
 
 MIT - patrz LICENSE. 100% darmowe dla ludzi, firm i agentow AI.
 
-Repo: https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+Repo: https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI

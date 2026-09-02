@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Prokurator Ogrodnik: uzupelnienie Zaglady Kultury, czlonek rodziny Pogromcy Kwiatkow.
 
-(v1.0.0) OPERATOR — agencie AI: Twoj regulamin uzycia tego narzedzia
+(v1.0.1) OPERATOR — agencie AI: Twoj regulamin uzycia tego narzedzia
 jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
 z rodzenstwem). Przeczytaj przed pierwszym uzyciem.
 
@@ -48,7 +48,7 @@ import re
 from pathlib import Path
 from collections import defaultdict, Counter
 
-WERSJA = "1.0.0"
+WERSJA = "1.0.1"
 
 # --- polityka domyslna -------------------------------------------------
 ALLOWLIST_GLOBS = [
@@ -102,6 +102,17 @@ def parse_pogromca_output(output: str):
         elif "PODSUMOWANIE" in line:
             continue
     return findings
+
+
+# (v1.0.1) notacja U+XXXX dla akt: raport Pogromcy niesie ZYWE znaki obce,
+# akta jako artefakt archiwalny musza byc czyste (PROTOKOL: "akta w U+XXXX")
+_PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
+_TYPO = "—–„”…€%§°²³±·«»"
+_DOZWOLONE = set(chr(c) for c in range(0x20, 0x7F)) | set(_PL) | set(_TYPO)
+
+def notacja_uxxxx(tekst):
+    """Zamienia kazdy znak spoza kultury dozwolonej na opis U+XXXX."""
+    return "".join(c if c in _DOZWOLONE else "U+%04X" % ord(c) for c in tekst)
 
 def classify_findings(findings):
     """Klasyfikuje na UMORZONE / POUCZENIE / ZAGLADA / BLOKADA."""
@@ -159,7 +170,7 @@ def classify_findings(findings):
             "klasy": dict(class_counter),
             "decyzja": decyzja,
             "powod": powod,
-            "dowody": details[:10],  # max 10 dowodow, w notacji U+XXXX (Pogromca juz tak raportuje)
+            "dowody": [notacja_uxxxx(d) for d in details[:10]],  # (v1.0.1) escape: raport Pogromcy niesie zywe znaki
         })
     return akta, summary
 
@@ -180,7 +191,7 @@ def run_zaglada_if_allowed(akta):
             print(f"[KONTROLA] {plik} -> nadal BLAD {code} - wymaga recznej interwencji")
 
 def selftest():
-    print("SELFTEST Prokuratora Ogrodnika v1.0.0")
+    print("SELFTEST Prokuratora Ogrodnika v1.0.1")
     # stworz fixtures
     os.makedirs("tmp_prokurator_test", exist_ok=True)
     # czysty
