@@ -31,7 +31,7 @@ import os
 import sys
 import unicodedata
 
-WERSJA = "1.0.5"
+WERSJA = "1.0.6"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -302,8 +302,50 @@ def raport_sciezka(sciezka, wykonaj):
     return 1
 
 
+def selftest():
+    """Selftest Zaglady - dowod ze transliteruje i usuwa, a polskie zostawia."""
+    print("SELFTEST Zaglady Kultury v1.0.6")
+    testy = [
+        ("cyrylica U+0430 -> a", "a\u0430b", "txt", "aab", True),
+        ("greka U+03B1 -> a", "x\u03b1y", "txt", "xay", True),
+        ("CJK U+4E2D -> USUN", "a\u4e2db", "txt", "ab", True),
+        ("emoji U+1F600 -> USUN", "a\U0001f600b", "txt", "ab", True),
+        ("NBSP U+00A0 -> spacja w prozie", "a\u00a0b", "txt", "a b", True),
+        ("ZWSP U+200B -> USUN", "a\u200bb", "txt", "ab", True),
+        ("lamacz U+2028 -> LF", "a\u2028b", "txt", "a\nb", True),
+        ("Kelvin U+212A -> K via NFKC", "\u212a", "txt", "K", True),
+        ("polskie ogonki swiete", "ąćęłńóśźż", "txt", "ąćęłńóśźż", False),
+        ("py poza literalem", "x = \u0430\n", "py", "x = a\n", True),
+        ("py w literale - sacred", "x = '\u0430'\n", "py", "x = '\u0430'\n", False),
+    ]
+    ok = 0
+    for nazwa, tekst, ext, oczekiwany, should_change in testy:
+        sciezka = f"tmp.{ext}"
+        nowy, licznik = przetworz(tekst, sciezka)
+        zmienione = sum(licznik.values()) if licznik else 0
+        is_changed = (nowy != tekst) or (zmienione > 0)
+        # Dla testow gdzie oczekujemy braku zmiany, nowy == tekst
+        if should_change:
+            if nowy == oczekiwany and zmienione > 0:
+                print(f"  [OK] {nazwa}: '{oczekiwany}'")
+                ok += 1
+            else:
+                print(f"  [FAIL] {nazwa}: got '{nowy}' expected '{oczekiwany}' licznik={licznik}")
+        else:
+            if nowy == oczekiwany and zmienione == 0:
+                print(f"  [OK] {nazwa}: bez zmian jak trzeba")
+                ok += 1
+            else:
+                print(f"  [FAIL] {nazwa}: got '{nowy}' expected '{oczekiwany}' licznik={licznik}")
+    print(f"SELFTEST: {ok}/{len(testy)} PASS")
+    print("WERDYKT: PASS - anihiluje obce, polskie zostawia" if ok == len(testy) else "WERDYKT: FAIL")
+    return 0 if ok == len(testy) else 1
+
+
 def main():
     args = [a for a in sys.argv[1:]]
+    if "--selftest" in args:
+        return selftest()
     wykonaj = "--zaglada" in args
     pliki = [a for a in args if not a.startswith("--")]
     if not pliki:
