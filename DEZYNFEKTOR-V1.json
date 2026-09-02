@@ -1,0 +1,184 @@
+[
+ {
+  "typ": "cyrylica_je",
+  "oczekiwane": "BLAD",
+  "tekst": "je \u0458",
+  "dlaczego": "cyrylickie je (ukr.)"
+ },
+ {
+  "typ": "armenskie_vo",
+  "oczekiwane": "BLAD",
+  "tekst": "gloska \u0578",
+  "dlaczego": "ormianskie vo"
+ },
+ {
+  "typ": "arabski_sin",
+  "oczekiwane": "BLAD",
+  "tekst": "sin \u0633",
+  "dlaczego": "arabski sin"
+ },
+ {
+  "typ": "bengalski",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u0989",
+  "dlaczego": "bengalska litera U - Lo poza lacin\u0105"
+ },
+ {
+  "typ": "tajski_znak",
+  "oczekiwane": "BLAD",
+  "tekst": "znak \u0e5a",
+  "dlaczego": "tajski znak interpunkcyjny"
+ },
+ {
+  "typ": "nawias_ideogram",
+  "oczekiwane": "BLAD",
+  "tekst": "kanji (\u3220)",
+  "dlaczego": "CJK ideogram w nawiasie"
+ },
+ {
+  "typ": "syloti",
+  "oczekiwane": "BLAD",
+  "tekst": "pismo \ua800",
+  "dlaczego": "syloti nagri - Lo"
+ },
+ {
+  "typ": "gruzinski",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u10ac",
+  "dlaczego": "gruzinska litera"
+ },
+ {
+  "typ": "lepcha",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1c00 lezgian",
+  "dlaczego": "pismo lepcha (Sikkim/Bhutan) - Lo [korekta r10: kozak nazwal je lezginskim; U+1C00 to LEPCHA LETTER KA]"
+ },
+ {
+  "typ": "glagolica_fresh",
+  "oczekiwane": "BLAD",
+  "tekst": "glagolica \u2c15",
+  "dlaczego": "swiezy glif glagolicy"
+ },
+ {
+  "typ": "katakana_ext",
+  "oczekiwane": "BLAD",
+  "tekst": "fonetyka \u31f0",
+  "dlaczego": "katakana phonetic ext"
+ },
+ {
+  "typ": "prolong_ff70",
+  "oczekiwane": "BLAD",
+  "tekst": "wyd\u017cenie \uff70",
+  "dlaczego": "halfwidth katakana prolong"
+ },
+ {
+  "typ": "adlam",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud83a\udd00 adlam",
+  "dlaczego": "pismo adlam (Afryka Zach.)"
+ },
+ {
+  "typ": "batak",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1bc0 batak",
+  "dlaczego": "pismo batak (Sumatra)"
+ },
+ {
+  "typ": "podwojny_ukosny",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u2e17b",
+  "dlaczego": "double oblique hyphen - supplemental punctuation"
+ },
+ {
+  "typ": "tybet_separator",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u0f0eb",
+  "dlaczego": "tybetanski separator tsheg"
+ },
+ {
+  "typ": "tybet_pol_zera",
+  "oczekiwane": "BLAD",
+  "tekst": "polowa \u0f33",
+  "dlaczego": "tybetanska cyfra pol-zera (No)"
+ },
+ {
+  "typ": "modyfikator_a788",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua788 mod",
+  "dlaczego": "modyfikator literowy Lm"
+ },
+ {
+  "typ": "roseta",
+  "oczekiwane": "BLAD",
+  "tekst": "ro\u017cana \ud83c\udff5",
+  "dlaczego": "roseta - emoji So poza paleta"
+ },
+ {
+  "typ": "enclosed_literka",
+  "oczekiwane": "BLAD",
+  "tekst": "pozycja \u24ce",
+  "dlaczego": "otoczona litera - encircled"
+ },
+ {
+  "typ": "zero_w_nawiasie",
+  "oczekiwane": "BLAD",
+  "tekst": "numer (\u2189)",
+  "dlaczego": "cyfra zero w nawiasie - Nl"
+ },
+ {
+  "typ": "malajalam",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u0d24",
+  "dlaczego": "malajalam - Lo"
+ },
+ {
+  "typ": "cherokee_fresh",
+  "oczekiwane": "BLAD",
+  "tekst": "sylaba \u13d3",
+  "dlaczego": "swiezy glif cherokee"
+ },
+ {
+  "typ": "combo_kelvin_zwsp",
+  "oczekiwane": "BLAD",
+  "tekst": "300\u212a\u200b limit",
+  "dlaczego": "Kelvin + ZWSP w jednej wartosci"
+ },
+ {
+  "typ": "combo_ls_adlam",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud83a\udd00\u2028koniec",
+  "dlaczego": "adlam + niewidoczny lamacz"
+ },
+ {
+  "typ": "combo_trojka",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0458\u0633\u3220 mix",
+  "dlaczego": "cyrylica + arabski + CJK w jednym tokenie"
+ },
+ {
+  "typ": "degenerata_2e17",
+  "oczekiwane": "BLAD",
+  "tekst": "\u2e17",
+  "dlaczego": "samotny podwojny ukosny myslnik"
+ },
+ {
+  "typ": "combo_spacja_ideo_liczba",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0f33 \u0f0e \u0d24",
+  "dlaczego": "trzy obce systemy w linii"
+ },
+ {
+  "typ": "provokacja_lari",
+  "oczekiwane": "OK",
+  "tekst": "cena 5 \u20ba",
+  "dlaczego": "PROWOKACJA: lari gruzinskie - waluta jak euro z palety",
+  "status": "POLITYKA-PALETA - doktryna (r3-r7): paleta = udokumentowane uzycie w projekcie; korpus 0 wystapien; pasmo 2000-27BF oddaje decyzje czlowiekowi przez UWAGA"
+ },
+ {
+  "typ": "provokacja_hyphen_bullet",
+  "oczekiwane": "OK",
+  "tekst": "lista: \u2043 punkt",
+  "dlaczego": "PROWOKACJA: hyphen bullet - brat punkta listy z palety",
+  "status": "POLITYKA-PALETA - doktryna (r3-r7): paleta = udokumentowane uzycie w projekcie; korpus 0 wystapien; pasmo 2000-27BF oddaje decyzje czlowiekowi przez UWAGA"
+ }
+]

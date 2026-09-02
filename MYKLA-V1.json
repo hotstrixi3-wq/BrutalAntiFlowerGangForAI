@@ -1,0 +1,123 @@
+[
+ {
+  "typ": "Cyrillic Extended-B",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \ua644 dokumentacja",
+  "dlaczego": "Znak cyrylicy spoza glownego bloku omija filtracje oparta o sztywny zakres U+0400-052F."
+ },
+ {
+  "typ": "Greek Extended",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u1f08naliza",
+  "dlaczego": "Grecka litera z bloku rozszerzonego omija filtr bazujacy wylacznie na zakresie U+0370-03FF."
+ },
+ {
+  "typ": "Math Greek Homoglyph",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \ud835\udf56nalysis",
+  "dlaczego": "Grecka litera Alfa ukryta jako matematyczny symbol alfanumeryczny, traktowana blednie jako UWAGA."
+ },
+ {
+  "typ": "Cherokee Homoglyph",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK d\u13c2st",
+  "dlaczego": "Litera ze skryptu Cherokee wygladajaca identycznie jak lacinskie 'S' omija filtry jako zwykly nie-ASCII."
+ },
+ {
+  "typ": "Lisu Homoglyph",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua4d0RK projekt",
+  "dlaczego": "Litera ze skryptu Lisu bedaca homoglifem lacinskiej litery 'B' omija zabezpieczenia."
+ },
+ {
+  "typ": "Coptic Homoglyph",
+  "oczekiwane": "BLAD",
+  "tekst": "\u2c80RK System",
+  "dlaczego": "Koptyjska litera Alfa bedaca homoglifem litery 'A' omija detekcje obcych alfabetow."
+ },
+ {
+  "typ": "Null Byte Injection",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK\u0000_Dokumentacja",
+  "dlaczego": "Bajt zerowy traktowany jest jako legalne ASCII, co grozi obcieciem tekstow w bibliotekach C/C++."
+ },
+ {
+  "typ": "Escape Injection",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u001b[31mError",
+  "dlaczego": "Znak kontrolny ESC traktowany jako legalne ASCII umozliwia wstrzykiwanie sekwencji sterujacych terminalem."
+ },
+ {
+  "typ": "Hangul Filler",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK\u3164Dokumentacja",
+  "dlaczego": "Calkowicie niewidoczny znak wypelnienia Hangul omija liste znakow niewidzialnych i zakres blokady Hangul."
+ },
+ {
+  "typ": "Braille Blank",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK\u2800Dokumentacja",
+  "dlaczego": "Pusty znak alfabetu Braille'a dziala jak niewidzialny separator, ale omija filtry jako 'inny nie-ASCII'."
+ },
+ {
+  "typ": "Mongolian Vowel Separator",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK\u180eDokumentacja",
+  "dlaczego": "Niewidoczny separator mongolski omija liste zablokowanych znakow niewidzialnych."
+ },
+ {
+  "typ": "Interlinear Anchor",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK\ufff9Dokumentacja",
+  "dlaczego": "Znak kontrolny adnotacji miedzywierszowej jest niewidoczny, lecz traktowany jako bezpieczny nie-ASCII."
+ },
+ {
+  "typ": "Slovak Umlaut Bypass",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK b\u00e4nd",
+  "dlaczego": "Slowacka litera 'a z umlautem' omija filtr liter slowackich, poniewaz umlauty sa klasyfikowane jako UWAGA.",
+  "status": "ARBITRAZ: ODRZUCONY - umlauty celowo UWAGA (legalne w EN, np. Pokemon; asymetria ryzyka)"
+ },
+ {
+  "typ": "Hungarian Double Acute",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK f\u0151fajl",
+  "dlaczego": "Wegierska litera 'o z podwojnym akcentem ostrym' omija filtr wegierski przez jawny wyjatek w sekcji UWAGA."
+ },
+ {
+  "typ": "Bopomofo Letter",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u3105okument",
+  "dlaczego": "Znak azjatyckiego pisma fonetycznego Bopomofo omija blokade CJK, gdyz lezy poza zakresem U+4E00-9FFF."
+ },
+ {
+  "typ": "Glagolitic Letter",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u2c00okument",
+  "dlaczego": "Litera ze staroslowianskiej glagolicy omija filtr cyrylicy, mimo ze to obcy i archaiczny alfabet."
+ },
+ {
+  "typ": "Combining Mark Zalgo",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK d\u0315okument",
+  "dlaczego": "Znak laczacy bez postaci prekomponowanej w NFC pozostaje osobnym znakiem i omija filtry jako UWAGA."
+ },
+ {
+  "typ": "Full-width Spoofing",
+  "oczekiwane": "BLAD",
+  "tekst": "\uff21\uff32\uff2b",
+  "dlaczego": "Pelnoszerokosciowe litery lacinskie umozliwiaja zapisanie slowa ARK z pominieciem filtracji (status UWAGA)."
+ },
+ {
+  "typ": "Letterlike Homoglyph",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u2102onfig",
+  "dlaczego": "Znak zbioru liczb zespolonych wyglada jak litera 'C', ale omija filtry jako symbol matematyczny."
+ },
+ {
+  "typ": "Cyrillic Extended-C",
+  "oczekiwane": "BLAD",
+  "tekst": "ARK \u1c80okument",
+  "dlaczego": "Rzadki znak cyrylicy z bloku Extended-C omija glowny filtr cyrylicy."
+ }
+]
