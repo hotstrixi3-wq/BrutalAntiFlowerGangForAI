@@ -82,6 +82,9 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.4 - KOMPLECIK przelozony na manifest aktualnego drzewa (45 plikow, sha256);
+  poprzedni (v8.0.1) mial 26 zerwanych linkow - zostaje w historii gita.
+
 - v8.2.3 - rename na BrutalAntiFlowerGangForAI + MOTTO (opis repo): Pogromca i
   Zaglada zastapieni marka "the Brutal Anti-Flower Gang"; URL-e w zywych
   dokumentach, tytul README z linia EN. Stare URL-e przekierowuja (301).

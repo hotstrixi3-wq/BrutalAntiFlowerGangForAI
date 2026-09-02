@@ -1,0 +1,1013 @@
+[
+  {
+    "plik": "test-50/praca/fixtures/test_brudne_dane.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 3,
+      "GREKA": 2,
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "UMORZONE",
+    "powod": "allowlist: celowo brudna amunicja testowa",
+    "dowody": [
+      "CYRYLICA: linia 87, znak 'U+043E' | ...U+043E                     _re...",
+      "CYRYLICA: linia 105, znak 'U+0430' | ...def __U+0430new__(mcls, name, bases, [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 130, znak 'U+0430' | ...ive_cache_version) = _getU+0430_dump(cls) [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 133, znak 'U+03BF' | ...{_abc_negative_cache!r}\",U+03BF file=file) [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 173, znak 'U+03BF' | ...value = getattr(U+03BFcls, name, None) [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 147, znak 'U+1F534' | ...U+1F534   \"\"\"Recalculate the se..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/bisect.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (soft hyphen)": 1
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "NIEWIDZIALNE (soft hyphen): linia 51, znak '\\xad' | ...U+00ADhi = mid [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/bz2.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "GREKA": 1,
+      "CYRYLICA": 2,
+      "NIEWIDZIALNE (spacje)": 1,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 346, znak '\\u2029' | ...raise  # Error on the f irst iteration; bail out....",
+      "GREKA: linia 108, znak 'U+03B1' | ...self._mode == _MODE_WRITU+03B1E: [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 150, znak 'U+0430' | ...self._cheU+0430ck_not_closed() [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 234, znak 'U+0430' | ...# accept anU+0430y data that supports the [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 161, znak '\\xa0' | ...ne byte (except at EOF), U+00A0independent [NIEWIDZIALNY!]...",
+      "CJK (chińskie/japońskie): linia 166, znak 'U+4E2D' | ...U+4E2D  \"\"\"Read up to size unc..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/cProfile.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 2,
+      "BRAILLE": 1,
+      "NIEWIDZIALNE (BOM)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "GREKA": 3,
+      "CYRYLICA": 3,
+      "OBSZAR PRYWATNY (PUA)": 3,
+      "NIEWIDZIALNE (spacje)": 2,
+      "CJK (chińskie/japońskie)": 3,
+      "PELNOSZEROKOSCIOWE": 1,
+      "LACZACE (zalgo)": 1,
+      "NIEWIDZIALNE (soft hyphen)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 113, znak '\\u2028' | ...:             return func (*args, **kw)         fin...",
+      "LAMACZE LINII (niewidoczne): linia 182, znak '\\u2028' | ...: spec.name,                  '__package__': None,...",
+      "BRAILLE: linia 17, znak 'U+2800' | ...def run(statemeU+2800nt, filename=NoneU+FEFF, sort [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (BOM): linia 17, znak '\\ufeff' | ...statemeU+2800nt, filename=NoneU+FEFF, sort=-1): [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 20, znak 'U+1F534' | ...cals, filename=None, sortU+1F534=-1): [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 61, znak 'U+1F534' | ...callU+1F534ersdicts = {} [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 78, znak 'U+1F680' | ...callers = callersU+E123dicts[U+1F680id(subentry.code)] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 22, znak 'U+03B1' | ...U+03B1            filename, so...",
+      "GREKA: linia 46, znak 'U+03B1' | ...pstats.Stats(selU+03B1f).strip_dirs().sort_sta [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 62, znak 'U+03BF' | ...U+03BF    # call information..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/cmd.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "CYRYLICA: linia 166, znak 'U+0435' | ...U+0435       \"\"\"Hook method ex..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/code.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CJK (chińskie/japońskie)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "CJK (chińskie/japońskie): linia 11, znak 'U+4E2D' | ...from codeop import CU+4E2DommandCompiler, compile_ [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 144, znak 'U+2167' | ...thook is sys.__excepthookU+2167__: [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/codeop.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LACZACE (zalgo)": 1,
+      "BRAILLE": 1,
+      "CJK (chińskie/japońskie)": 3,
+      "CYRYLICA": 1,
+      "PELNOSZEROKOSCIOWE": 1,
+      "GREKA": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LACZACE (zalgo): linia 52, znak 'U+0301' | ...U+0301 for line in source.spli...",
+      "BRAILLE: linia 54, znak 'U+2800' | ...U+2800        if line and line...",
+      "CJK (chińskie/japońskie): linia 65, znak 'U+4E2D' | ...except SynU+4E2DtaxError:  # Let other c [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 103, znak 'U+4E2D' | ...rn _maybe_compile(_compilU+4E2De, source, filename, sU+FF21y [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 155, znak 'U+4E2D' | ...return _maybe_compile(selU+4E2Df.compiler, source, file [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 67, znak 'U+0430' | ...U+0430                compiler...",
+      "PELNOSZEROKOSCIOWE: linia 103, znak 'U+FF21' | ...ilU+4E2De, source, filename, sU+FF21ymbol) [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 118, znak 'U+03B1' | ...codeob = compile(sourU+03B1ce, filename, symbol, fl [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 155, znak '\\u200b' | ...U+200B        return _maybe_co [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/colorsys.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 33, znak '\\u2029' | ...e video signals (linear c ombinations of RGB) # Y:...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 72, znak '\\u200b' | ...# H: position in U+200Bthe spectrum [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/copy.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "NIEWIDZIALNE (zero-width/RTL): linia 87, znak '\\u200b' | ...if reduU+200Bctor is not None: [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/copyreg.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "GREKA": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "PIKTOGRAM/EMOJI spoza palety: linia 8, znak 'U+1F680' | ...\"remove_extension\", \"cleaU+1F680r_extension_cache\"] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 193, znak 'U+1F680' | ...keU+1F680y = (module, name) [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 35, znak 'U+03B1' | ...return functools.U+03B1reduce, (operator.or_, o [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 102, znak '\\u200b' | ...nstead of __newobj__ to aU+200Bllow classes with [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 135, znak 'U+2167' | ...U+2167 slots = (slots,)..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/csv.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 1,
+      "BRAILLE": 1,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 375, znak '\\u2028' | ...iteration = 0         cha rFrequency = {}         m...",
+      "PRANIE NFC (udaje czysty znak): linia 184, znak 'U+212A' | ...wU+212Ahile row == []: [PRANY! u212A -> 'K'!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 107, znak '\\u200b' | ...defU+200B __init__(self): [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 157, znak 'U+1F680' | ...dU+1F680ef __iter__(self): [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 401, znak 'U+2800' | ...U+2800                   modes...",
+      "CJK (chińskie/japońskie): linia 415, znak 'U+4E2D' | ...U+4E2D            if v[0] > 0..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/decimal.py",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 2
+    },
+    "decyzja": "POUCZENIE",
+    "powod": ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy",
+    "dowody": [
+      "CYRYLICA: linia 102, znak 'U+043E' | ...fromU+043E _decimal import * [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 108, znak 'U+0430' | ...U+0430_pydecimal.__doc__ = __d [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web1.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (spacje)": 2,
+      "CYRYLICA": 3,
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "NIEWIDZIALNE (spacje): linia 1, znak '\\xa0' | ...function U+00A0oblicz1(a, b) { [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 3, znak '\\xa0' | ...let wyU+044Anik U+00A0= a * b + U+043Eśtala; [NIEWIDZIALNY!]...",
+      "CYRYLICA: linia 2, znak 'U+043E' | ...const staU+043Ela U+1F680= 7; [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+044A' | ...let wyU+044Anik U+00A0= a * b + U+043Eśtala; [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+043E' | ...let wyU+044Anik U+00A0= a * b + U+043Eśtala; [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 2, znak 'U+1F680' | ...const staU+043Ela U+1F680= 7;..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web2.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 3,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "NIEWIDZIALNE (soft hyphen)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "PELNOSZEROKOSCIOWE": 1,
+      "CJK (chińskie/japońskie)": 3,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "NIEWIDZIALNE (BOM)": 2,
+      "NIEWIDZIALNE (spacje)": 1,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "GREKA": 3
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "CYRYLICA: linia 1, znak 'U+043E' | ...functU+043Eion oblicU+1F680zU+00AD2(U+200Ba, b)U+0435 { [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...unctU+043Eion oblicU+1F680zU+00AD2(U+200Ba, b)U+0435 { [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+044A' | ...U+2167lU+044Aet wynik = a * b +U+043E U+1F534sta [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F680' | ...functU+043Eion oblicU+1F680zU+00AD2(U+200Ba, b)U+0435 { [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 2, znak 'U+1F534' | ...U+1F534  cU+FF21onst stala = 14U+4E2D;...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...U+2167lU+044Aet wynik = a * b +U+043E U+1F534stala; [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (soft hyphen): linia 1, znak '\\xad' | ...functU+043Eion oblicU+1F680zU+00AD2(U+200Ba, b)U+0435 { [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 1, znak '\\u200b' | ...functU+043Eion oblicU+1F680zU+00AD2(U+200Ba, b)U+0435 { [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PELNOSZEROKOSCIOWE: linia 2, znak 'U+FF21' | ...U+1F534  cU+FF21onst stala = 14U+4E2D; [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 2, znak 'U+4E2D' | ...U+1F534  cU+FF21onst stala = 14U+4E2D;..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web3.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "GREKA": 2,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "PISMO OBCYE (litera poza lacinie)": 1,
+      "CYRYLICA": 3
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "GREKA: linia 1, znak 'U+03B1' | ...U+03B1function oblicz3(a, b) { [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 7, znak 'U+03B1' | ...moU+03B1dule.exports = { obliU+0430cz [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F680' | ...let U+1F680wynik = a * b + stala; [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F680' | ...if U+1F680(U+1E83ynikU+1F534 > 100) { returnU+043E [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F534' | ...if U+1F680(U+1E83ynikU+1F534 > 100) { returnU+043E `duzo: [HOMOGLIF: slowo mieszane!]...",
+      "PISMO OBCYE (litera poza lacinie): linia 4, znak 'U+1E83' | ...if U+1F680(U+1E83ynikU+1F534 > 100) { returnU+043E ` [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+043E' | ...U+1F680(U+1E83ynikU+1F534 > 100) { returnU+043E `duzo: ${wynik}`; } [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 5, znak 'U+0435' | ...return wynU+0435ik - 1; [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 7, znak 'U+0430' | ...moU+03B1dule.exports = { obliU+0430cz3 }; [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web4.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F680' | ...let wynikU+1F680 = a * b + stala; [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web5.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CJK (chińskie/japońskie)": 1,
+      "LACZACE (zalgo)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CJK (chińskie/japońskie): linia 4, znak 'U+4E2D' | ...f (wynik > 100) { return U+4E2D`U+0301duzo: ${wynik}`; } [HOMOGLIF: slowo mieszane!]...",
+      "LACZACE (zalgo): linia 4, znak 'U+0301' | ...(wynik > 100) { return U+4E2D`U+0301duzo: ${wynik}`; } [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/api1.ts",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "NIEWIDZIALNE (spacje)": 2,
+      "GREKA": 1,
+      "NIEWIDZIALNE (BOM)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 6, znak '\\u2028' | ...implements Config1 {   ho st = \"serwer-1\";   port =...",
+      "PRANIE NFC (udaje czysty znak): linia 1, znak 'U+212A' | ...inU+1F6A8terface CU+212Aonfig1 { [PRANY! u212A -> 'K'!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F6A8' | ...inU+1F6A8terface CKonfig1 { [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 9, znak 'U+1F534' | ...opis(): string U+1F534{ returU+4E2Dn `${this.host}:...",
+      "NIEWIDZIALNE (spacje): linia 2, znak '\\xa0' | ...hosU+03BFt: string; [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 5, znak '\\xa0' | ...exportU+00A0 class Serwis1 implement [NIEWIDZIALNY!]...",
+      "GREKA: linia 2, znak 'U+03BF' | ...hosU+03BFt: string; [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (BOM): linia 3, znak '\\ufeff' | ...port: numbU+FEFFerU+2167; [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 3, znak 'U+2167' | ...port: numbU+FEFFerU+2167; [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 9, znak 'U+4E2D' | ...opis(): string U+1F534{ returU+4E2Dn `${this.host}:${this.p [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/api2.ts",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 5, znak '\\u2028' | ...rt: number; } export clas s Serwis2 implements Conf..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/api3.ts",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "CYRYLICA": 3,
+      "LACZACE (zalgo)": 1,
+      "PELNOSZEROKOSCIOWE": 2,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "NIEWIDZIALNE (spacje)": 3,
+      "CJK (chińskie/japońskie)": 2,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "GREKA": 3,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 5, znak '\\u2028' | ...Serwis3 implemU+1F6A8ents CoU+044AnU+1F6A8 fig3 {  U+043E hosU+2167t = \"serwer...",
+      "CYRYLICA: linia 1, znak 'U+043E' | ...interfaceU+043E Config3 U+0301U+FF21{ [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 2, znak 'U+043E' | ...U+043Ehost:U+E123 striU+00A0ng; [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 5, znak 'U+044A' | ...expoU+00A0U+03BFrtU+1F534 cU+044Alass Serwis3 implemU+1F6A8ents [HOMOGLIF: slowo mieszane!]...",
+      "LACZACE (zalgo): linia 1, znak 'U+0301' | ...interfaceU+043E Config3 U+0301U+FF21{...",
+      "PELNOSZEROKOSCIOWE: linia 1, znak 'U+FF21' | ...interfaceU+043E Config3 U+0301U+FF21{...",
+      "PELNOSZEROKOSCIOWE: linia 9, znak 'U+FF21' | ...U+FF21opis(): string {U+1F680U+1F680U+4E2D retU+0430 [HOMOGLIF: slowo mieszane!]...",
+      "OBSZAR PRYWATNY (PUA): linia 2, znak '\\ue123' | ...U+043Ehost:U+E123 striU+00A0ng; [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 2, znak '\\xa0' | ...U+043Ehost:U+E123 striU+00A0ng; [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 5, znak '\\xa0' | ...expoU+00A0U+03BFrtU+1F534 cU+044Alass Serwis3 impl [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/Kalk1.java",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "PELNOSZEROKOSCIOWE": 1,
+      "NIEWIDZIALNE (spacje)": 2,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 2, znak 'U+2167' | ...private inU+2167t stala = 3; [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F680' | ...U+1F680U+FF21  public int policz(int...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 5, znak 'U+1F680' | ...0) U+00A0{ return U+4E2Dwynik - 1; U+1F680}...",
+      "PELNOSZEROKOSCIOWE: linia 3, znak 'U+FF21' | ...U+1F680U+FF21  public int policz(int...",
+      "NIEWIDZIALNE (spacje): linia 3, znak '\\xa0' | ...blic int policz(int a, inU+00A0t b) { [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 5, znak '\\xa0' | ...if (wynik > 50) U+00A0{ return U+4E2Dwynik - 1; U+1F680} [NIEWIDZIALNY!]...",
+      "CJK (chińskie/japońskie): linia 5, znak 'U+4E2D' | ...f (wynik > 50) U+00A0{ return U+4E2Dwynik - 1; U+1F680} [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/Kalk2.java",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CYRYLICA: linia 3, znak 'U+0430' | ...lic int policz(int a, intU+0430 b) { [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 5, znak 'U+4E2D' | ...if (wynik > 50) { returU+4E2Dn wynik - 1; } [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/Kalk3.java",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 3,
+      "NIEWIDZIALNE (spacje)": 2,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "CYRYLICA": 3,
+      "GREKA": 3,
+      "OBSZAR PRYWATNY (PUA)": 2,
+      "CJK (chińskie/japońskie)": 3,
+      "BRAILLE": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 2, znak '\\u2028' | ...ss KaU+00A0U+1F534lkulator3 {     pr iva te U+043Eint st ala = U+03BF9;...",
+      "LAMACZE LINII (niewidoczne): linia 2, znak '\\u2029' | ...aU+00A0U+1F534lkulator3 {     pr iva te U+043Eint st ala = U+03BF9;...",
+      "LAMACZE LINII (niewidoczne): linia 2, znak '\\u2028' | ...3 {     pr iva te U+043Eint st ala = U+03BF9;     U+00A0pubU+0430lic in...",
+      "NIEWIDZIALNE (spacje): linia 1, znak '\\xa0' | ...public class KaU+00A0U+1F534lkulator3 { [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 6, znak '\\xa0' | ...pubU+0430lic int poU+1F680lU+03BFicz(int [NIEWIDZIALNY!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F534' | ...public class KaU+00A0U+1F534lkulator3 { [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 6, znak 'U+1F680' | ...pubU+0430lic int poU+1F680lU+03BFicz(int U+E123a, int bU+1F680)U+0430 { [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 6, znak 'U+1F680' | ...nt poU+1F680lU+03BFicz(int U+E123a, int bU+1F680)U+0430 { [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+043E' | ...te U+043Eint st [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 6, znak 'U+0430' | ...pubU+0430lic int poU+1F680lU+03BFicz(int U+E123a, [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/serwer1.go",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "CYRYLICA": 1,
+      "NIEWIDZIALNE (spacje)": 1,
+      "NIEWIDZIALNE (BOM)": 1,
+      "GREKA": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "PRANIE NFC (udaje czysty znak): linia 1, znak 'U+212A' | ...package mU+212Aain [PRANY! u212A -> 'K'!]...",
+      "OBSZAR PRYWATNY (PUA): linia 3, znak '\\ue123' | ...impoU+E123rt \"fmt\" [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 5, znak 'U+0430' | ...func Serwer1() intU+0430 { [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 7, znak '\\xa0' | ...fmt.PU+00A0rintU+FEFFln(\"nasluch na\", po [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (BOM): linia 7, znak '\\ufeff' | ...fmt.PU+00A0rintU+FEFFln(\"nasluch na\", port) [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 8, znak 'U+03BF' | ...return poU+03BFrt [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/serwer2.go",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "CYRYLICA": 3,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "BRAILLE": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 1,
+      "NIEWIDZIALNE (spacje)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 3, znak '\\u2029' | ...ckage maiU+0435n  import \"U+044AfmU+200B t\"  func Serwer2() int {...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...package maiU+0435n [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+044A' | ...import \"U+044AfmU+200B [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 8, znak 'U+043E' | ...fmt.Println(\"U+043EU+2800nasluch naU+1F680\", port) [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 3, znak '\\u200b' | ...import \"U+044AfmU+200B [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 8, znak 'U+2800' | ...fmt.Println(\"U+043EU+2800nasluch naU+1F680\", port) [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 8, znak 'U+1F680' | ...fmt.Println(\"U+043EU+2800nasluch naU+1F680\", port) [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 9, znak '\\xa0' | ...return port [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/serwer3.go",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "NIEWIDZIALNE (zero-width/RTL)": 2,
+      "GREKA": 1,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "NIEWIDZIALNE (soft hyphen)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 5, znak '\\u2029' | ...mtU+1F680\"  func Serwer3() intU+200B  {  port :=U+1F680 9003  fmt.Pr...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F680' | ...import \"fmtU+1F680\" [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 7, znak 'U+1F680' | ...port :=U+1F680 9003...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 5, znak '\\u200b' | ...func Serwer3() intU+200B [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 8, znak '\\u200b' | ...fmt.Println(U+03BFU+E123\"U+200Bnasluch na\", port) [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 8, znak 'U+03BF' | ...fmt.Println(U+03BFU+E123\"U+200Bnasluch na\", port) [HOMOGLIF: slowo mieszane!]...",
+      "OBSZAR PRYWATNY (PUA): linia 8, znak '\\ue123' | ...fmt.Println(U+03BFU+E123\"U+200Bnasluch na\", port) [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (soft hyphen): linia 9, znak '\\xad' | ...U+00ADreturn port [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/main1.rs",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (spacje)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "NIEWIDZIALNE (spacje): linia 8, znak '\\xa0' | ...println!(\"{}:{}\", c.hos [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/main2.rs",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 3,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "CYRYLICA": 3,
+      "BRAILLE": 2,
+      "CJK (chińskie/japońskie)": 3,
+      "GREKA": 3,
+      "OBSZAR PRYWATNY (PUA)": 2,
+      "NIEWIDZIALNE (spacje)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "LACZACE (zalgo)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 2,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 1, znak '\\u2029' | ...U+0430U+2800struU+0435ctU+4E2D  CoU+043Enfig2U+03B1 {     port:U+03B1 u3...",
+      "LAMACZE LINII (niewidoczne): linia 3, znak '\\u2029' | ...U+03B1 {     port:U+03B1 u32,     h ost:U+E123 U+4E2DString, }  fn main...",
+      "LAMACZE LINII (niewidoczne): linia 7, znak '\\u2028' | ...host: U+1F534String:U+212A:fU+03BFU+0301rom(\" U+03BFlU+03B1oU+03BF cal\") }; U+0301    print...",
+      "PRANIE NFC (udaje czysty znak): linia 9, znak 'U+212A' | ...ort: 7002, host: U+1F534String:U+212A:fU+03BFU+0301rom(\" [PRANY! u212A -> 'K'!]...",
+      "CYRYLICA: linia 1, znak 'U+0430' | ...U+0430U+2800struU+0435ctU+4E2D [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...U+0430U+2800struU+0435ctU+4E2D [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 2, znak 'U+043E' | ...CoU+043Enfig2U+03B1 { [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 1, znak 'U+2800' | ...U+0430U+2800struU+0435ctU+4E2D [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 12, znak 'U+2800' | ...U+0301    printU+200Bln!(U+2800\"{U+E123}:{U+1F680U+044A}\", cU+0435.U+2167hoU+200Bst, U+044A [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 1, znak 'U+4E2D' | ...U+0430U+2800struU+0435ctU+4E2D [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/main3.rs",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1,
+      "GREKA": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CYRYLICA: linia 7, znak 'U+0435' | ...c = Config3 { port: 7003,U+0435 host: String::fromU+03B1(\"lo...",
+      "GREKA: linia 7, znak 'U+03B1' | ...7003,U+0435 host: String::fromU+03B1(\"local\") }; [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/Serwis1.cs",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1,
+      "NIEWIDZIALNE (soft hyphen)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CYRYLICA: linia 4, znak 'U+043E' | ...public string OpU+043Eis() { [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (soft hyphen): linia 6, znak '\\xad' | ...U+00AD} [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/Serwis2.cs",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CJK (chińskie/japońskie)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CJK (chińskie/japońskie): linia 3, znak 'U+4E2D' | ...prU+4E2Divate const int Port = 6 [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 5, znak 'U+2167' | ...U+2167  return $\"serwis {Port}..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/policz1.c",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CJK (chińskie/japońskie)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CJK (chińskie/japońskie): linia 1, znak 'U+4E2D' | ...#include <stdio.hU+4E2D> [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 3, znak '\\u200b' | ...int stala = U+200B1; [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/policz2.c",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "CYRYLICA": 2,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "PELNOSZEROKOSCIOWE": 1,
+      "GREKA": 2
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 3, znak '\\u2028' | ...t a) {     int U+212AstU+1F6A8ala =  2;   U+FF21  rU+03BFetU+03B1urn a + stal...",
+      "PRANIE NFC (udaje czysty znak): linia 3, znak 'U+212A' | ...int U+212AstU+1F6A8ala = [PRANY! u212A -> 'K'!]...",
+      "CYRYLICA: linia 1, znak 'U+043E' | ...#incluU+043Ede <stdiU+0435oU+E123.h> [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...#incluU+043Ede <stdiU+0435oU+E123.h> [HOMOGLIF: slowo mieszane!]...",
+      "OBSZAR PRYWATNY (PUA): linia 1, znak '\\ue123' | ...#incluU+043Ede <stdiU+0435oU+E123.h> [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F6A8' | ...int KstU+1F6A8ala = [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 6, znak 'U+1F534' | ...U+1F534}...",
+      "PELNOSZEROKOSCIOWE: linia 5, znak 'U+FF21' | ...U+FF21  rU+03BFetU+03B1urn a + stala;...",
+      "GREKA: linia 5, znak 'U+03BF' | ...U+FF21  rU+03BFetU+03B1urn a + stala; [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 5, znak 'U+03B1' | ...U+FF21  rU+03BFetU+03B1urn a + stala; [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/start1.sh",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "CYRYLICA": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 4, znak '\\u2028' | ...1 2 3; do echo \"tick $i\" ; done...",
+      "CYRYLICA: linia 1, znak 'U+043E' | ...#!/bin/baU+043Esh [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/start2.sh",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CYRYLICA: linia 2, znak 'U+0430' | ...PORT=400U+04302 [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 4, znak '\\u200b' | ...for i in 1 2 3; do U+200Becho \"tick $i\"; done [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/strona1.html",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "NIEWIDZIALNE (spacje)": 3,
+      "GREKA": 3,
+      "OBSZAR PRYWATNY (PUA)": 1,
+      "CJK (chińskie/japońskie)": 3,
+      "CYRYLICA": 1,
+      "NIEWIDZIALNE (BOM)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 1, znak '\\u2028' | ...<U+1F680!DOCTYPU+1F6A8EU+00A0  htU+1F680ml> <htmU+00A0l><heaU+03B1d><U+03B1ti...",
+      "PRANIE NFC (udaje czysty znak): linia 3, znak 'U+212A' | ...aU+03B1d><U+03B1titU+03BFle>Serwer 1</tU+E123U+212Aitle></U+00A0hU+4E2Dead> [PRANY! u212A -> 'K'!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F680' | ...<U+1F680!DOCTYPU+1F6A8E [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F6A8' | ...<U+1F680!DOCTYPU+1F6A8E [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 2, znak 'U+1F680' | ...htU+1F680ml> [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 1, znak '\\xa0' | ...<U+1F680!DOCTYPU+1F6A8E [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 3, znak '\\xa0' | ...<htmU+00A0l><heaU+03B1d><U+03B1titU+03BFle>Serwer [NIEWIDZIALNY!]...",
+      "NIEWIDZIALNE (spacje): linia 3, znak '\\xa0' | ...tU+03BFle>Serwer 1</tU+E123Kitle></U+00A0hU+4E2Dead> [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 3, znak 'U+03B1' | ...<htmU+00A0l><heaU+03B1d><U+03B1titU+03BFle>Serwer 1</tU+E123K [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 3, znak 'U+03B1' | ...<htmU+00A0l><heaU+03B1d><U+03B1titU+03BFle>Serwer 1</tU+E123Kitle [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/strona2.html",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (BOM)": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "CYRYLICA": 2
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "NIEWIDZIALNE (BOM): linia 2, znak '\\ufeff' | ...<html><head><titleU+FEFFU+200B>Serwer 2</title>U+1F6A8</hea [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 2, znak '\\u200b' | ...<html><head><titleU+FEFFU+200B>Serwer 2</title>U+1F6A8</head [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 2, znak 'U+1F6A8' | ...<titleU+FEFFU+200B>Serwer 2</title>U+1F6A8</head> [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...<U+1F534body>U+0430<h1>RapoU+0435rt 2</h1> [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F6A8' | ...><p>wszystko dziala</p></U+1F6A8body></html> [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+0430' | ...<U+1F534body>U+0430<h1>RapoU+0435rt 2</h1><p>wsz [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+0435' | ...<U+1F534body>U+0430<h1>RapoU+0435rt 2</h1><p>wszystko dzi [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/i18n/pl.json",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 3,
+      "GREKA": 1,
+      "CJK (chińskie/japońskie)": 1
+    },
+    "decyzja": "UMORZONE",
+    "powod": "allowlist i18n / tlumaczenia",
+    "dowody": [
+      "CYRYLICA: linia 2, znak 'U+0435' | ...\"serU+0435wer\": \"iU+043Enst-1\", [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 2, znak 'U+043E' | ...\"serU+0435wer\": \"iU+043Enst-1\", [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+0430' | ...\"U+0430port\": 5001, [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 5, znak 'U+03B1' | ...\"config\": { \"rU+03B1etry\": 3, \"timeU+4E2Dout\": 30 [HOMOGLIF: slowo mieszane!]...",
+      "CJK (chińskie/japońskie): linia 5, znak 'U+4E2D' | ...ig\": { \"rU+03B1etry\": 3, \"timeU+4E2Dout\": 30 } [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/konfig2.json",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "PELNOSZEROKOSCIOWE": 1,
+      "GREKA": 1,
+      "NIEWIDZIALNE (spacje)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 5, znak '\\u2029' | ...edgU+FF21U+03B1e\"],   \"config\": { \" retryU+1F680U+00A0\": 3, \"timeout\": 3...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F534' | ...\"tagi\": [\"caU+1F534che\", \"edgU+FF21U+03B1e\"], [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 6, znak 'U+1F680' | ...retryU+1F680U+00A0\": 3, \"timeout\": 30 } [HOMOGLIF: slowo mieszane!]...",
+      "PELNOSZEROKOSCIOWE: linia 4, znak 'U+FF21' | ...\"tagi\": [\"caU+1F534che\", \"edgU+FF21U+03B1e\"], [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 4, znak 'U+03B1' | ...\"tagi\": [\"caU+1F534che\", \"edgU+FF21U+03B1e\"], [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 6, znak '\\xa0' | ...retryU+1F680U+00A0\": 3, \"timeout\": 30 } [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/srodowisko.env",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "LAMACZE LINII (niewidoczne)": 2,
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "CYRYLICA": 3,
+      "NIEWIDZIALNE (BOM)": 1,
+      "GREKA": 3,
+      "NIEWIDZIALNE (zero-width/RTL)": 2,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "PELNOSZEROKOSCIOWE": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "BRAILLE": 2,
+      "CJK (chińskie/japońskie)": 2
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "LAMACZE LINII (niewidoczne): linia 1, znak '\\u2029' | ...U+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435U+212A1.U+0435lU+043Eoc U+03B1U+03BF U+FF21aU+2167l U+0435U+03BFPOU+03BFRTU+2800=U+1F5343001 RE...",
+      "LAMACZE LINII (niewidoczne): linia 1, znak '\\u2029' | ...U+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435U+212A1.U+0435lU+043Eoc U+03B1U+03BF U+FF21aU+2167l U+0435U+03BFPOU+03BFRTU+2800=U+1F5343001 RETRU+03BF...",
+      "PRANIE NFC (udaje czysty znak): linia 1, znak 'U+212A' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435U+212A1.U+0435lU+043Eoc [PRANY! u212A -> 'K'!]...",
+      "CYRYLICA: linia 1, znak 'U+044A' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 1, znak 'U+043E' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (BOM): linia 1, znak '\\ufeff' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 1, znak 'U+03B1' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 1, znak 'U+03B1' | ...HOSTU+044AU+043EU+FEFFU+03B1U+200B=serU+1F6A8werU+03B1U+1F680-U+0435K1.U+0435lU+043Eoc [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 2, znak 'U+03B1' | ...U+03B1U+03BF..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/ustawienia.yaml",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "BRAILLE": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "CYRYLICA": 1,
+      "NIEWIDZIALNE (spacje)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "NIEWIDZIALNE (zero-width/RTL): linia 1, znak '\\u200b' | ...serU+200Bwer: [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 2, znak 'U+2800' | ...U+2800  host: inst-2...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 4, znak 'U+2167' | ...rU+2167etry: 3 [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 6, znak 'U+043E' | ...- U+043EcaU+00A0che [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 6, znak '\\xa0' | ...- U+043EcaU+00A0che [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 7, znak 'U+1F534' | ...- eU+1F534dge [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/konfig.toml",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (BOM)": 2,
+      "GREKA": 1,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "NIEWIDZIALNE (soft hyphen)": 1,
+      "PELNOSZEROKOSCIOWE": 1,
+      "CYRYLICA": 2,
+      "PIKTOGRAM/EMOJI spoza palety": 1,
+      "BRAILLE": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "NIEWIDZIALNE (BOM): linia 1, znak '\\ufeff' | ...[seU+FEFFrU+03B1weU+FEFFr] [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (BOM): linia 1, znak '\\ufeff' | ...[seU+FEFFrU+03B1weU+FEFFr] [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 1, znak 'U+03B1' | ...[seU+FEFFrU+03B1weU+FEFFr] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 3, znak '\\u200b' | ...pU+200Bort = 1U+00AD003 [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (soft hyphen): linia 3, znak '\\xad' | ...pU+200Bort = 1U+00AD003 [NIEWIDZIALNY!]...",
+      "PELNOSZEROKOSCIOWE: linia 4, znak 'U+FF21' | ...U+FF21retU+0430ryU+1F6A8 =U+2800U+0435 3 [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+0430' | ...U+FF21retU+0430ryU+1F6A8 =U+2800U+0435 3 [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+0435' | ...U+FF21retU+0430ryU+1F6A8 =U+2800U+0435 3...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F6A8' | ...U+FF21retU+0430ryU+1F6A8 =U+2800U+0435 3 [HOMOGLIF: slowo mieszane!]...",
+      "BRAILLE: linia 4, znak 'U+2800' | ...U+FF21retU+0430ryU+1F6A8 =U+2800U+0435 3..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/dane.csv",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "NIEWIDZIALNE (zero-width/RTL): linia 2, znak '\\u200b' | ...inst-4,904U+200B,ok [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...inst-U+1F534b,2,ok [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/NOTATKA.md",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1,
+      "GREKA": 2,
+      "CYRYLICA": 2,
+      "NIEWIDZIALNE (spacje)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...Serwer U+1F534dziala poprawnie. U+1F534Wydaj [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...erwer U+1F534dziala poprawnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...awnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 3, znak '\\u200b' | ...la poprawnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 3, znak 'U+2167' | ...poprawnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 3, znak 'U+03BF' | ...prawnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 3, znak 'U+03B1' | ...rawnie. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 3, znak 'U+043E' | ...e. U+1F534Wydajnosc U+200BsU+2167taU+03BFU+03B1U+1F534bilU+043Ena, [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+044A' | ...latU+044Aencja poU+00A0nizej progu. Za [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 4, znak '\\xa0' | ...latU+044Aencja poU+00A0nizej progu. Zalecana ko [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/README-testu.md",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 1,
+      "GREKA": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "CYRYLICA: linia 1, znak 'U+0435' | ...# RaporU+0435t wdrozenia 6 [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 4, znak 'U+03B1' | ...latencja poU+03B1nizej progu. Zalecana ko [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web11.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PRANIE NFC (udaje czysty znak)": 1,
+      "NIEWIDZIALNE (spacje)": 1,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "CYRYLICA": 3,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "PRANIE NFC (udaje czysty znak): linia 2, znak 'U+212A' | ...U+212Aconst stala = 77; [PRANY! u212A -> 'K'!]...",
+      "NIEWIDZIALNE (spacje): linia 3, znak '\\xa0' | ...let wynU+1F680ik = a * b + sta [NIEWIDZIALNY!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F680' | ...let wynU+1F680ik = a * b + stala; [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F680' | ...U+0430  U+1F680if (U+0435wyU+1F534nik > 100) { ret [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F534' | ...U+0430  U+1F680if (U+0435wyU+1F534nik > 100) { returnU+2167 `du [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 4, znak 'U+0430' | ...U+0430  U+1F680if (U+0435wyU+1F534nik > 100) {...",
+      "CYRYLICA: linia 4, znak 'U+0435' | ...U+0430  U+1F680if (U+0435wyU+1F534nik > 100) { returnU+2167 [HOMOGLIF: slowo mieszane!]...",
+      "CYRYLICA: linia 5, znak 'U+043E' | ...return U+043Ewynik - 1; [HOMOGLIF: slowo mieszane!]...",
+      "CYFRY RZYMSKIE (pisz ASCII I V X): linia 4, znak 'U+2167' | ...(U+0435wyU+1F534nik > 100) { returnU+2167 `duzo: ${wynik}`; } [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/web12.js",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 2,
+      "NIEWIDZIALNE (zero-width/RTL)": 1,
+      "GREKA": 3,
+      "PIKTOGRAM/EMOJI spoza palety": 2,
+      "NIEWIDZIALNE (spacje)": 1
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "CYRYLICA: linia 2, znak 'U+0430' | ...U+0430  coU+200Bnst stala = 84;...",
+      "CYRYLICA: linia 4, znak 'U+0435' | ...if (wyU+1F534nik > 100) {U+03BF U+0435return `duzo: ${wynik}`; [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (zero-width/RTL): linia 2, znak '\\u200b' | ...U+0430  coU+200Bnst stala = 84; [NIEWIDZIALNY!] [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 3, znak 'U+03BF' | ...let wU+03BFynik = a * b + sU+1F534tala; [HOMOGLIF: slowo mieszane!]...",
+      "GREKA: linia 4, znak 'U+03BF' | ...if (wyU+1F534nik > 100) {U+03BF U+0435return `duzo: ${wynik}...",
+      "GREKA: linia 7, znak 'U+03BF' | ...module.exports U+03BF= { oblicz12U+00A0 };...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F534' | ...let wU+03BFynik = a * b + sU+1F534tala; [HOMOGLIF: slowo mieszane!]...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 4, znak 'U+1F534' | ...if (wyU+1F534nik > 100) {U+03BF U+0435return `d [HOMOGLIF: slowo mieszane!]...",
+      "NIEWIDZIALNE (spacje): linia 7, znak '\\xa0' | ...ule.exports U+03BF= { oblicz12U+00A0 }; [NIEWIDZIALNY!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/api11.ts",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PIKTOGRAM/EMOJI spoza palety": 1
+    },
+    "decyzja": "ZAGLADA",
+    "powod": "BLAD do dekontaminacji przez Zaglade",
+    "dowody": [
+      "PIKTOGRAM/EMOJI spoza palety: linia 2, znak 'U+1F6A8' | ...host:U+1F6A8 string; [HOMOGLIF: slowo mieszane!]..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/SABOTAZ-1.md",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "PELNOSZEROKOSCIOWE": 3,
+      "CYRYLICA": 3,
+      "GREKA": 3,
+      "CYFRY RZYMSKIE (pisz ASCII I V X)": 3
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 1, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "PELNOSZEROKOSCIOWE: linia 4, znak 'U+FF21' | ...U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21...",
+      "PELNOSZEROKOSCIOWE: linia 4, znak 'U+FF22' | ...U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22...",
+      "PELNOSZEROKOSCIOWE: linia 4, znak 'U+FF21' | ...U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21U+FF22U+FF21...",
+      "CYRYLICA: linia 6, znak 'U+0430' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430...",
+      "CYRYLICA: linia 6, znak 'U+0435' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435...",
+      "CYRYLICA: linia 6, znak 'U+043E' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043E...",
+      "GREKA: linia 9, znak 'U+03B1' | ...U+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1..."
+    ]
+  },
+  {
+    "plik": "test-50/praca/SABOTAZ-2.md",
+    "werdykt_pogromcy": "BLAD",
+    "klasy": {
+      "CYRYLICA": 3,
+      "PIKTOGRAM/EMOJI spoza palety": 3,
+      "GREKA": 3,
+      "BRAILLE": 3
+    },
+    "decyzja": "BLOKADA",
+    "powod": "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny",
+    "dowody": [
+      "CYRYLICA: linia 1, znak 'U+0430' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430...",
+      "CYRYLICA: linia 1, znak 'U+0435' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435...",
+      "CYRYLICA: linia 1, znak 'U+043E' | ...U+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043EU+0430U+0435U+043E...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "PIKTOGRAM/EMOJI spoza palety: linia 3, znak 'U+1F6A8' | ...U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8U+1F6A8...",
+      "GREKA: linia 6, znak 'U+03B1' | ...U+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BF...",
+      "GREKA: linia 6, znak 'U+03BF' | ...U+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BF...",
+      "GREKA: linia 6, znak 'U+03B1' | ...U+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BFU+03B1U+03BF...",
+      "BRAILLE: linia 7, znak 'U+2800' | ...U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800U+2800..."
+    ]
+  }
+]
