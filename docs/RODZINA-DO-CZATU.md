@@ -20,8 +20,8 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
 - Pobierz lub wytnij kody 4 narzedzi:
   PogromcaKwiatkow.py v8.0.3
-  ZagladaKultury.py v1.0.6
-  ProkuratorOgrodnik.py v1.0.0
+  ZagladaKultury.py v1.0.7
+  ProkuratorOgrodnik.py v1.0.1
   AnihilatorChwastow.py v1.0.0
 - Zapoznaj sie z ich rola:
   Pogromca = detektor BLAD/UWAGA/OK - widzi niewidzialny brud
@@ -94,6 +94,7 @@ TRYB STALY: kazda wiadomosc z tekstem z zewnatrz - skan PRZED wyslaniem.
 
 ## KOD NARZEDZI - 4 bloki ponizej
 ### PogromcaKwiatkow.py
+
 # -*- coding: utf-8 -*-
 """PogromcaKwiatków: wykrywacz obcojęzycznych "kwiatków" w polskich tekstach projektu.
 
@@ -590,8 +591,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
 ### ZagladaKultury.py
 
 #!/usr/bin/env python3
@@ -619,15 +618,17 @@ Użycie:
 Exit: 0 = czysto (nic do zrobienia / po zagładzie czysto poza chronionymi),
       1 = jest obca kultura do zagłady (tryb raportu), 2 = błąd wejścia.
 
+(v1.0.7) OSTRZEZENIA: gdy po --zaglada plik .py/.json nadal sie nie parsuje, drukowane jest [OSTRZEZENIE] (exit bez zmian).
 (v1.0.4) OPERATOR — agencie AI: Twoj regulamin uzycia (drabina uprawnien,
 plan->act, combo z PogromcaKwiatkow) jest w PROTOKOL-OPERATORA.md.
 """
 import io
+import json
 import os
 import sys
 import unicodedata
 
-WERSJA = "1.0.6"
+WERSJA = "1.0.7"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -884,6 +885,8 @@ def raport_sciezka(sciezka, wykonaj):
         return 2
     nowy, licznik = przetworz(tekst, sciezka)
     if licznik is None:
+        # (v1.0.7) OBSERWOWALNOSC: bramka nie przepuscila - plik nietkniety
+        print("[OSTRZEZENIE] %s: bramka compile() nie przepuscila zadnego wariantu - plik ZOSTAL NIETKNIETY" % sciezka)
         return 0
     zmienione = sum(licznik.values())
     if zmienione == 0:
@@ -893,6 +896,17 @@ def raport_sciezka(sciezka, wykonaj):
         with io.open(sciezka, "w", encoding="utf-8", newline="") as f:
             f.write(nowy)
         print("[ZAGLADA] %s: %s" % (sciezka, " | ".join(czesci)))
+        # (v1.0.7) OBSERWOWALNOSC: kultura usunieta, ale parsowalnosc moze nie wrocic
+        if sciezka.endswith(".py"):
+            try:
+                compile(nowy, sciezka, "exec")
+            except SyntaxError:
+                print("[OSTRZEZENIE] %s: nie przywrocono parsowalnosci - wymaga recznej naprawy (kontrakt: kultura, nie skladnia)" % sciezka)
+        elif sciezka.endswith((".json", ".jsonl")):
+            try:
+                json.loads(nowy)
+            except ValueError:
+                print("[OSTRZEZENIE] %s: nie przywrocono waznosci JSON - wymaga recznej naprawy (kontrakt: kultura, nie struktura)" % sciezka)
         return 0
     print("[DO ZAGLADY] %s: %s" % (sciezka, " | ".join(czesci)))
     return 1
@@ -900,7 +914,7 @@ def raport_sciezka(sciezka, wykonaj):
 
 def selftest():
     """Selftest Zaglady - dowod ze transliteruje i usuwa, a polskie zostawia."""
-    print("SELFTEST Zaglady Kultury v1.0.6")
+    print("SELFTEST Zaglady Kultury v1.0.7")
     testy = [
         ("cyrylica U+0430 -> a", "a\u0430b", "txt", "aab", True),
         ("greka U+03B1 -> a", "x\u03b1y", "txt", "xay", True),
@@ -959,14 +973,12 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
 ### ProkuratorOgrodnik.py
 
 # -*- coding: utf-8 -*-
 """Prokurator Ogrodnik: uzupelnienie Zaglady Kultury, czlonek rodziny Pogromcy Kwiatkow.
 
-(v1.0.0) OPERATOR — agencie AI: Twoj regulamin uzycia tego narzedzia
+(v1.0.1) OPERATOR — agencie AI: Twoj regulamin uzycia tego narzedzia
 jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
 z rodzenstwem). Przeczytaj przed pierwszym uzyciem.
 
@@ -1013,7 +1025,7 @@ import re
 from pathlib import Path
 from collections import defaultdict, Counter
 
-WERSJA = "1.0.0"
+WERSJA = "1.0.1"
 
 # --- polityka domyslna -------------------------------------------------
 ALLOWLIST_GLOBS = [
@@ -1067,6 +1079,17 @@ def parse_pogromca_output(output: str):
         elif "PODSUMOWANIE" in line:
             continue
     return findings
+
+
+# (v1.0.1) notacja U+XXXX dla akt: raport Pogromcy niesie ZYWE znaki obce,
+# akta jako artefakt archiwalny musza byc czyste (PROTOKOL: "akta w U+XXXX")
+_PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
+_TYPO = "—–„”…€%§°²³±·«»"
+_DOZWOLONE = set(chr(c) for c in range(0x20, 0x7F)) | set(_PL) | set(_TYPO)
+
+def notacja_uxxxx(tekst):
+    """Zamienia kazdy znak spoza kultury dozwolonej na opis U+XXXX."""
+    return "".join(c if c in _DOZWOLONE else "U+%04X" % ord(c) for c in tekst)
 
 def classify_findings(findings):
     """Klasyfikuje na UMORZONE / POUCZENIE / ZAGLADA / BLOKADA."""
@@ -1124,7 +1147,7 @@ def classify_findings(findings):
             "klasy": dict(class_counter),
             "decyzja": decyzja,
             "powod": powod,
-            "dowody": details[:10],  # max 10 dowodow, w notacji U+XXXX (Pogromca juz tak raportuje)
+            "dowody": [notacja_uxxxx(d) for d in details[:10]],  # (v1.0.1) escape: raport Pogromcy niesie zywe znaki
         })
     return akta, summary
 
@@ -1145,7 +1168,7 @@ def run_zaglada_if_allowed(akta):
             print(f"[KONTROLA] {plik} -> nadal BLAD {code} - wymaga recznej interwencji")
 
 def selftest():
-    print("SELFTEST Prokuratora Ogrodnika v1.0.0")
+    print("SELFTEST Prokuratora Ogrodnika v1.0.1")
     # stworz fixtures
     os.makedirs("tmp_prokurator_test", exist_ok=True)
     # czysty
@@ -1231,8 +1254,6 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
-
-
 ### AnihilatorChwastow.py
 
 # -*- coding: utf-8 -*-

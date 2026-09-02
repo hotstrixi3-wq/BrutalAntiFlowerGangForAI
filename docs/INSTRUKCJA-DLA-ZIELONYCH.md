@@ -30,7 +30,7 @@ Agent musi moc zapisac plik na dysk (sandbox) i uruchomic Pythona (python3). Tyl
 
 ### METODA 1 — czat przyjmuje zalaczniki .md (najczestszy)
 
-1. Pobierz jeden plik: RODZINA-DO-CZATU.md z https://github.com/hotstrixi3-wq/pogromca-kwiatkow (zawiera kompletny kod 4 narzedzi w srodku).
+1. Pobierz jeden plik: RODZINA-DO-CZATU.md z https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI (zawiera kompletny kod 4 narzedzi w srodku).
 2. Zalacz go do czatu (spinacz / plus) lub upusc na czat.
 3. Wklej ponizsza wiadomosc:
 
@@ -38,7 +38,7 @@ Agent musi moc zapisac plik na dysk (sandbox) i uruchomic Pythona (python3). Tyl
 Hej! W zalaczonym pliku .md masz rodzine Pogromcy - combo 4 plikow ktore ida wszedzie razem. Zrob dokladnie tak - FLOW USWIADOMIENIE, nie skanuj od razu moich plikow:
 
 KROK 1 - ANALIZA REPO I USWIADOMIENIE:
-- Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/pogromca-kwiatkow
+- Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
 - Pobierz lub wytnij kody 4 narzedzi
 - Zapoznaj sie z ich rola i ZAPODAJ MI krotki i rzeczowy opis CO TO i PO CO TO, po ludzku, bez zargonu U+XXXX, wyjasnij ze to nie slownik ortograficzny tylko filtr na niewidzialny brud ktory marnuje godziny i tokeny
 
@@ -59,7 +59,7 @@ KROK 4 - NATURALNA REAKCJA:
 Wklej do agenta:
 
 ```
-Pobierz narzedzia rodziny z https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+Pobierz narzedzia rodziny z https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
 Pliki: PogromcaKwiatkow.py, ZagladaKultury.py, ProkuratorOgrodnik.py, AnihilatorChwastow.py, PROTOKOL-OPERATORA.md, RODZINA-DO-CZATU.md
 Postepuj zgodnie z FLOW USWIADOMIENIE z RODZINA-DO-CZATU.md
 ```

@@ -82,6 +82,10 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.2 - sync all-in-one: docs/RODZINA-DO-CZATU.md dostal aktualne kody rodziny
+  (Prokurator v1.0.1, Zaglada v1.0.7 - wczesniej osadzone kopie v1.0.0/v1.0.6);
+  URL-e w INSTRUKCJI-DLA-ZIELONYCH; KOMPLECIK oznaczony jako stan historyczny v8.0.1.
+
 - v8.2.1 - domkniecie README po reorganizacji: wersje rodziny (Prokurator v1.0.1,
   Zaglada v1.0.7), naprawiona struktura (podwojny prefiks docs/docs, martwy link
   zip), swieze URL-e w zywych dokumentach docs/.

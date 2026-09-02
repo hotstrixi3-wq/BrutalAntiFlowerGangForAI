@@ -319,7 +319,7 @@ def raport_sciezka(sciezka, wykonaj):
 
 def selftest():
     """Selftest Zaglady - dowod ze transliteruje i usuwa, a polskie zostawia."""
-    print("SELFTEST Zaglady Kultury v1.0.6")
+    print("SELFTEST Zaglady Kultury v1.0.7")
     testy = [
         ("cyrylica U+0430 -> a", "a\u0430b", "txt", "aab", True),
         ("greka U+03B1 -> a", "x\u03b1y", "txt", "xay", True),
