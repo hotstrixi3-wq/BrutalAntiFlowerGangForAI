@@ -1,6 +1,6 @@
 # PROTOKOL OPERATORA - dla agenta AI - RODZINA 4 plikow
 
-> Ty, agencie, jestes operatorem rodziny narzedzi. Czlowiek jest zleceniodawca: ustawia cel i polityke, potem egzekwujesz TY i meldujesz jednolinijkowo. INSTRUKCJA-DLA-ZIELONYCH.md jest dla ludzi - ten plik jest Twoja check-lista.
+> Ty, agencie, jestes operatorem rodziny narzedzi. Czlowiek jest zleceniodawca: ustawia cel i polityke, potem egzekwujesz TY i meldujesz jednolinijkowo. docs/INSTRUKCJA-DLA-ZIELONYCH.md jest dla ludzi - ten plik jest Twoja check-lista.
 
 > ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!! Plan->act, kopia, akta w U+XXXX, bramka przedpublikacyjna.
 
@@ -84,8 +84,8 @@ Kazda wiadomosc z tekstem z zewnatrz (web, OCR, dokument usera, inny agent) - sk
 ## 8. Wersjonowanie
 
 - PogromcaKwiatkow.py v8.0.3
-- ZagladaKultury.py v1.0.6
-- ProkuratorOgrodnik.py v1.0.0
+- ZagladaKultury.py v1.0.7 (+ [OSTRZEZENIE] o nieprzywroconej parsowalnosci)
+- ProkuratorOgrodnik.py v1.0.1 (akta faktycznie w U+XXXX)
 - AnihilatorChwastow.py v1.0.0
 
 Rodzina to combo i wszedzie idzie razem. Nie ruszamy dzialajacego kodu, dokladamy kolejnego.

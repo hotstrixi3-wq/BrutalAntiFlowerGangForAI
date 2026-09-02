@@ -82,6 +82,11 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.6 - zgodnosc dokumentow z rodzina: wersje w PROTOKOL §8 i w wniosku
+  (byly v1.0.6/v1.0.0), sciezka INSTRUKCJI w PROTOKOL §0, precyzja sciezki
+  w INSTRUKCJI METODA 1. Przeglad osobisty: 46/46 plikow; infrastruktura dev
+  zielona (T1/T2/T3/Z1/Z2) oprocz wstepnie czerwonego fuzz-C (patrz dev/).
+
 - v8.2.5 - higiena: usuniety z gita wyciek __pycache__/*.pyc (znany wektor,
   dodany .gitignore); KOMPLECIK nie listuje juz samego siebie (paradoks
   wlasnego skrotu); manifest zgodny z drzewem w 100 procentach.

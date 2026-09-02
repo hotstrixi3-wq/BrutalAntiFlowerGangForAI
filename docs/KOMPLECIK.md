@@ -12,10 +12,10 @@ zostaje w historii gita tego pliku.
 | [.gitignore](.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](AnihilatorChwastow.py) | 18659 B | `ab840a275842` |
 | [LICENSE](LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md) | 4148 B | `55e4dfa75cbe` |
+| [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md) | 4230 B | `e55f2be09abd` |
 | [PogromcaKwiatkow.py](PogromcaKwiatkow.py) | 22800 B | `4daa483163bc` |
 | [ProkuratorOgrodnik.py](ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](README.md) | 5345 B | `cb51d3e73464` |
+| [README.md](README.md) | 5650 B | `6e258dfd27a7` |
 | [ZagladaKultury.py](ZagladaKultury.py) | 14883 B | `6bcfc0bb877c` |
 
 ## docs/ (13 plikow, bez tego manifestu) - dokumenty i dowody
@@ -24,7 +24,7 @@ zostaje w historii gita tego pliku.
 |---|---|---|
 | [CERTYFIKAT-PEWNIAKA.md](docs/CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](docs/CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
-| [INSTRUKCJA-DLA-ZIELONYCH.md](docs/INSTRUKCJA-DLA-ZIELONYCH.md) | 4052 B | `959a7183d20b` |
+| [INSTRUKCJA-DLA-ZIELONYCH.md](docs/INSTRUKCJA-DLA-ZIELONYCH.md) | 4057 B | `1a4cb120e9b2` |
 | [MEDAL-PEWNIAKA-v8.0.2.md](docs/MEDAL-PEWNIAKA-v8.0.2.md) | 3299 B | `48e80707f51a` |
 | [MEDAL-ZAGLADY-v1.0.3.md](docs/MEDAL-ZAGLADY-v1.0.3.md) | 5570 B | `38bf39d89c2f` |
 | [RAPORT-TESTU-KWITNICA.md](docs/RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
@@ -34,7 +34,7 @@ zostaje w historii gita tego pliku.
 | [RODZINA-DO-CZATU.md](docs/RODZINA-DO-CZATU.md) | 72344 B | `cc56513ee190` |
 | [logi/petla-rodzinna.log](docs/logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [logi/petla-turniejowa.log](docs/logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [wniosek_publiczny_do_redakcji.md](docs/wniosek_publiczny_do_redakcji.md) | 6908 B | `a8b36af23316` |
+| [wniosek_publiczny_do_redakcji.md](docs/wniosek_publiczny_do_redakcji.md) | 6908 B | `c792087e53b0` |
 
 ## dev/ (24 plikow) - amunicja i narzedzia testowe (CELOWO BRUDNE - poza bramka wydania)
 
