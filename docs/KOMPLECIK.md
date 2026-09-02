@@ -15,7 +15,7 @@ zostaje w historii gita tego pliku.
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4171 B | `8379a513a601` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 22800 B | `4daa483163bc` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](../README.md) | 6139 B | `13be79492d41` |
+| [README.md](../README.md) | 6442 B | `33227292158a` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 14883 B | `6bcfc0bb877c` |
 
 ## docs/ (13 plikow, bez tego manifestu) - dokumenty i dowody

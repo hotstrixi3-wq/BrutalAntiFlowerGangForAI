@@ -20,8 +20,8 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 
 - **PogromcaKwiatkow.py v8.0.3** - oczy, detektor BLAD/UWAGA/OK
 - **ZagladaKultury.py v1.0.7** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ ostrzezenia o nieprzywroconej parsowalnosci)
-- **ProkuratorOgrodnik.py v1.0.1** - mozg, polityka UMORZONE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
-- **AnihilatorChwastow.py v1.0.0** - rece dla js/ts/java/go/rs/cs z ochrona literalow
+- **ProkuratorOgrodnik.py v1.0.1** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
+- **AnihilatorChwastow.py v1.0.0** - rece dla js/ts/java/go/rs/cs/py/json/md z ochrona literalow
 
 Zasada: nie ruszamy dzialajacego kodu, dokladamy kolejnego. Rodzina to combo i wszedzie idzie razem.
 
@@ -81,6 +81,11 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 - Nie jest poprawiaczem ortografii - pilnuje alfabetow, nie bledow
 
 ## Historia zmian
+
+- v8.2.8 - README mowi prawde o rodzinie w pelni (zlecenie Magusa, znaleziska
+  1a/1b z relektury PROTOKOLU): Anihilator obejmuje tez py/json/md (zgadza
+  sie z dokstringiem narzedzia i PROTOKOL 0; wczesniej README zanizal);
+  Prokurator: pelna lista werdykow z POUCZENIE (UWAGA).
 
 - v8.2.7 - kanon zasady bakapu: zdanie zasady konczy sie na "!!!"; usuniety
   doklejony tekst po wykrzyknikach z README, PROTOKOLU i RODZINY (wzor:
