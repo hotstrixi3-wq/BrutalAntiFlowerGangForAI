@@ -102,7 +102,7 @@ Skopiuj ponizsza wiadomosc i wklej do czatu z Twoim agentem AI ,agent mode, na A
 Hej! Masz narzedzia rodziny Pogromcy - combo 4 plikow ktore ida wszedzie razem. Zrob dokladnie tak - FLOW USWIADOMIENIE, nie skanuj od razu moich plikow:
 
 KROK 1 - ANALIZA REPO I USWIADOMIENIE:
-- Przeczytaj README.md, PROTOKOL-OPERATORA.md z github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI lub z zalaczonego RODZINA-DO-CZATU.md
+- Przeczytaj README.md, PROTOKOL-OPERATORA.md z github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI lub z zalaczonego RODZINA-DO-CZATU.md
 - Pobierz 4 narzedzia i PROTOKOL-OPERATORA
   PROTOKOL-OPERATORA.md - regulamin dla agenta
   PogromcaKwiatkow.py v8.0.3
@@ -130,6 +130,6 @@ KROK 4 - NATURALNA REAKCJA AGENTA:
 - Uzywaj notacji U+XXXX zamiast zywych kwiatkow w raporcie. Nie zmieniaj moich plikow bez zgody.
 ```
 
-Repo: github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
+Repo: github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
 
 przeczytane, zredagowane przez autora pomysłu ... Piotr / Magus ... 100% zgodne z prawdą co za chwile potwierdzi twoj agent jesli tylko mu pozwolisz :) miłego
