@@ -19,8 +19,8 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 ## Rodzina - 4 pliki ktore ida wszedzie razem
 
 - **PogromcaKwiatkow.py v8.0.3** - oczy, detektor BLAD/UWAGA/OK
-- **ZagladaKultury.py v1.0.6** - rece dla py/json/proza, dekontaminator z ochrona literalow py
-- **ProkuratorOgrodnik.py v1.0.0** - mozg, polityka UMORZONE/ZAGLADA/BLOKADA + akta w U+XXXX
+- **ZagladaKultury.py v1.0.7** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ ostrzezenia o nieprzywroconej parsowalnosci)
+- **ProkuratorOgrodnik.py v1.0.1** - mozg, polityka UMORZONE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
 - **AnihilatorChwastow.py v1.0.0** - rece dla js/ts/java/go/rs/cs z ochrona literalow
 
 Zasada: nie ruszamy dzialajacego kodu, dokladamy kolejnego. Rodzina to combo i wszedzie idzie razem.
@@ -54,7 +54,7 @@ KROK 4 - REAKCJA:
 
 ### Dla czlowieka:
 
-1. Pobierz docs/RODZINA-DO-CZATU.md (zawiera 4 kody w srodku) lub rodzina_pogromcy_czysty_zip.zip (9 plikow)
+1. Pobierz docs/RODZINA-DO-CZATU.md (zawiera 4 kody w srodku) lub wydanie ZIP z Releases
 2. Zalacz do czatu z agentem
 3. Wklej wiadomosc z sekcji FLOW USWIADOMIENIE z docs/RODZINA-DO-CZATU.md
 
@@ -66,19 +66,32 @@ ZagladaKultury.py            dekontaminator py/json/proza
 ProkuratorOgrodnik.py        polityka + akta
 AnihilatorChwastow.py        anihilator uniwersalny z ochrona literalow
 PROTOKOL-OPERATORA.md        regulamin dla agenta
-docs/docs/RODZINA-DO-CZATU.md     all-in-one do czatu + FLOW USWIADOMIENIE + 4 kody
-docs/INSTRUKCJA-DLA-ZIELONYCH.md  dla czlowieka
 README.md                    ten plik
 LICENSE                      MIT
+docs/                        RODZINA-DO-CZATU (all-in-one + FLOW), INSTRUKCJA-DLA-ZIELONYCH, wniosek, certyfikaty
+dev/                         amunicja i narzedzia testowe (celowo brudne - poza bramka wydania)
 ```
 
-9 plikow, kazdy BLAD 0, selftest PASS. Zero zaleznosci, czysty Python 3 stdlib.
+Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdlib.
 
 ## Co to NIE jest
 
 - Nie jest spell-checkerem - klasyfikuje znaki, nie slowa
 - Nie jest langdetectem - widzi glify, nie jezyk
 - Nie jest poprawiaczem ortografii - pilnuje alfabetow, nie bledow
+
+## Historia zmian
+
+- v8.2.1 - domkniecie README po reorganizacji: wersje rodziny (Prokurator v1.0.1,
+  Zaglada v1.0.7), naprawiona struktura (podwojny prefiks docs/docs, martwy link
+  zip), swieze URL-e w zywych dokumentach docs/.
+- v8.2.0 - reorganizacja repo i zmiana nazwy na BrutalnyGangAntyKwiatkowyDlaAI
+  (MOTTO w opisie bez zmian): narzedzia rodziny zostaja na root, dokumenty w docs/,
+  dev/ = amunicja testowa.
+- v8.1.8 - Prokurator v1.0.1: akta w notacji U+XXXX (0 zywych znakow, werdykty
+  niezmienione; wykryte testem 50 kodow). Zaglada v1.0.7: [OSTRZEZENIE] o
+  nieprzywroconej parsowalnosci po --zaglada (exit bez zmian).
+- v8.1.7 - pelna anglicyzacja wydania, kasacja starszych wydAN i tagow.
 
 ## Licencja
 

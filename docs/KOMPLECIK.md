@@ -1,6 +1,6 @@
 # KOMPLECIK - PogromcaKwiatkow v8.0.1 - zawartosc wydania
 
-Oficjalne repozytorium: https://github.com/hotstrixi3-wq/pogromca-kwiatkow
+Oficjalne repozytorium: https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
 Zasada struktury (Piotr): KORZEN = tylko to, co potrzebne do integracji
 pogromcy z agentem AI; dowody i infrastruktura -> dev/ i docs/.
 

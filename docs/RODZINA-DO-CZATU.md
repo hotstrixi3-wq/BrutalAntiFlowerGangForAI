@@ -17,7 +17,7 @@ Ten plik zawiera wszystko: instrukcje dla Ciebie, polecenie dla agenta AI oraz k
 Hej! W zalaczonym pliku .md masz rodzine Pogromcy - combo 4 plikow ktore ida wszedzie razem. Zrob dokladnie tak - FLOW USWIADOMIENIE, nie skanuj od razu plikow usera:
 
 KROK 1 - ANALIZA REPO I USWIADOMIENIE:
-- Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/pogromca-kwiatkow
+- Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
 - Pobierz lub wytnij kody 4 narzedzi:
   PogromcaKwiatkow.py v8.0.3
   ZagladaKultury.py v1.0.6
