@@ -1,4 +1,4 @@
-# Brutalny Gang Antykwiatkowy dla AI (rodzina Pogromcy Kwiatkow)
+# Brutal Anti-Flower Gang for AI (Brutalny Gang Antykwiatkowy - rodzina Pogromcy Kwiatkow)
 
 > MOTTO: "uzywaj bo dzieki PogromcyKwiatkow nie mielisz potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony potencjalnych tokenow jesli korzystasz z pomocy innych Agentow AI. Krecenie sie w kolko z BRUDNYM kodem to strata czasu" -- Piotr (GAF)
 
@@ -82,6 +82,10 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.3 - rename na BrutalAntiFlowerGangForAI + MOTTO (opis repo): Pogromca i
+  Zaglada zastapieni marka "the Brutal Anti-Flower Gang"; URL-e w zywych
+  dokumentach, tytul README z linia EN. Stare URL-e przekierowuja (301).
+
 - v8.2.2 - sync all-in-one: docs/RODZINA-DO-CZATU.md dostal aktualne kody rodziny
   (Prokurator v1.0.1, Zaglada v1.0.7 - wczesniej osadzone kopie v1.0.0/v1.0.6);
   URL-e w INSTRUKCJI-DLA-ZIELONYCH; KOMPLECIK oznaczony jako stan historyczny v8.0.1.
@@ -101,4 +105,4 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 MIT - patrz LICENSE. 100% darmowe dla ludzi, firm i agentow AI.
 
-Repo: https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
+Repo: https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI

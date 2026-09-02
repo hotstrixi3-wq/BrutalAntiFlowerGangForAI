@@ -3,7 +3,7 @@
 > STAN HISTORYCZNY (v8.0.1, 26 plikow): linki i sha256 odnosza sie do tamtej epoki.
 > Obecne drzewo i wersje: patrz README.md -> Historia zmian.
 
-Oficjalne repozytorium: https://github.com/hotstrixi3-wq/BrutalnyGangAntyKwiatkowyDlaAI
+Oficjalne repozytorium: https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
 Zasada struktury (Piotr): KORZEN = tylko to, co potrzebne do integracji
 pogromcy z agentem AI; dowody i infrastruktura -> dev/ i docs/.
 
