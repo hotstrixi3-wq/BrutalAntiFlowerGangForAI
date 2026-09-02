@@ -1,11 +1,11 @@
-# KOMPLECIK - Brutal Anti-Flower Gang - zawartosc wydania v8.2.3
+# KOMPLECIK - Brutal Anti-Flower Gang - manifest drzewa
 
-Manifest AKTUALNEGO drzewa (generowany maszynowo z HEAD 595e2e2, 2026-09-02).
-Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek; dowody i
-infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow) zostaje w
-historii gita tego pliku.
+Manifest AKTUALNEGO drzewa (generowany maszynowo, 2026-09-02). Zasada struktury
+(Piotr): KORZEN = tylko integracja agent+czlowiek; dowody i infrastruktura ->
+docs/ i dev/. Manifest wydania v8.0.1 (26 plikow) zostaje w historii gita
+tego pliku.
 
-## Korzen (8 plikow) - narzedzia i start
+## Korzen (7 plikow) - narzedzia i start
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
@@ -14,9 +14,8 @@ historii gita tego pliku.
 | [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md) | 4148 B | `55e4dfa75cbe` |
 | [PogromcaKwiatkow.py](PogromcaKwiatkow.py) | 22800 B | `4daa483163bc` |
 | [ProkuratorOgrodnik.py](ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](README.md) | 4975 B | `266a7b716329` |
+| [README.md](README.md) | 5132 B | `989e5556a92d` |
 | [ZagladaKultury.py](ZagladaKultury.py) | 14883 B | `6bcfc0bb877c` |
-| [akta_prokuratora.json](akta_prokuratora.json) | 56495 B | `ef85a52c0c4e` |
 
 ## docs/ (14 plikow) - dokumenty i dowody
 
@@ -25,7 +24,7 @@ historii gita tego pliku.
 | [CERTYFIKAT-PEWNIAKA.md](docs/CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](docs/CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](docs/INSTRUKCJA-DLA-ZIELONYCH.md) | 4052 B | `959a7183d20b` |
-| [KOMPLECIK.md](docs/KOMPLECIK.md) | 5495 B | `b1f4da243013` |
+| [KOMPLECIK.md](docs/KOMPLECIK.md) | 4925 B | `92913b01d640` |
 | [MEDAL-PEWNIAKA-v8.0.2.md](docs/MEDAL-PEWNIAKA-v8.0.2.md) | 3299 B | `48e80707f51a` |
 | [MEDAL-ZAGLADY-v1.0.3.md](docs/MEDAL-ZAGLADY-v1.0.3.md) | 5570 B | `38bf39d89c2f` |
 | [RAPORT-TESTU-KWITNICA.md](docs/RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
@@ -66,5 +65,5 @@ historii gita tego pliku.
 | [turnieje/zaglada-turniej-niepsucie.py](dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [turnieje/zaglada-turniej-wykrywania.py](dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 
-Lacznie: 46 plikow. Bramka wydania (korzen + docs): BLAD 0. Zip wydania:
+Lacznie: 45 plikow. Bramka wydania (korzen + docs): BLAD 0. Zip wydania:
 Releases (SHA powyzej = kontrola integralnosci po pobraniu).
