@@ -1,0 +1,188 @@
+[
+ {
+  "typ": "podwojny_acute",
+  "oczekiwane": "BLAD",
+  "tekst": "tempo\u0301\u0301 wzrostu",
+  "dlaczego": "dwa akcenty ostre na jedno o: pierwszy sie skomponuje, drugi zostanie wisial - zalgo"
+ },
+ {
+  "typ": "akcent_bez_bazy",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0301start tekstu",
+  "dlaczego": "akcent ostry bez litery bazowej na starcie - typowy smiec po kopipelaste"
+ },
+ {
+  "typ": "ogonek_bez_pary",
+  "oczekiwane": "BLAD",
+  "tekst": "x\u0328",
+  "dlaczego": "ogonek na x - nie ma takiej kompozycji, zostaje znak lacz\u0105cy"
+ },
+ {
+  "typ": "l_z_ogonkiem",
+  "oczekiwane": "BLAD",
+  "tekst": "l\u0328ud",
+  "dlaczego": "l z ogonkiem wyglada jak polskie \u0142, ale \u0142 to inna litera - pulapka homoglifowa, brak kompozycji"
+ },
+ {
+  "typ": "c_caron",
+  "oczekiwane": "BLAD",
+  "tekst": "c\u030caja",
+  "dlaczego": "c z daszkiem komponuje sie do czeskiego c-caron - pranie do CUDZEJ litera"
+ },
+ {
+  "typ": "d_caron",
+  "oczekiwane": "BLAD",
+  "tekst": "d\u030cop",
+  "dlaczego": "d z daszkiem = czeskie d-caron po kompozycji"
+ },
+ {
+  "typ": "o_dwa_kreski",
+  "oczekiwane": "BLAD",
+  "tekst": "o\u030b",
+  "dlaczego": "o z podwojnym kreska = wegierskie o-dwa-kreski po kompozycji"
+ },
+ {
+  "typ": "cyrylica_z_akcentem",
+  "oczekiwane": "BLAD",
+  "tekst": "ku\u0440\u0301wa",
+  "dlaczego": "cyriliczne r z akcentem ostrym - oba znaki brudne naraz"
+ },
+ {
+  "typ": "celsjusz_blok",
+  "oczekiwane": "BLAD",
+  "tekst": "temperatura \u2103 30 stopni",
+  "dlaczego": "znak Celsjusza U+2103 z bloku letterlike - pseudolitera udajaca C ze stopniami"
+ },
+ {
+  "typ": "omikron_tonos",
+  "oczekiwane": "BLAD",
+  "tekst": "w\u03ccd",
+  "dlaczego": "greckie omikron z tonosem wyglada jak o z akcentem - homoglif literowy"
+ },
+ {
+  "typ": "grecki_kappa",
+  "oczekiwane": "BLAD",
+  "tekst": "kos\u03bft",
+  "dlaczego": "greckie kappa w polskim slowie - homoglif k"
+ },
+ {
+  "typ": "joiner_grafemowy",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u034fb",
+  "dlaczego": "COMBINING GRAPHEME JOINER U+034F - niewidzialny klej miedzy grafemami"
+ },
+ {
+  "typ": "duze_sharp_s",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1e9e TRASSE",
+  "dlaczego": "duza niemiecka litera ostro-zet z Latin Ext - poza dozwolonym zakresem liter"
+ },
+ {
+  "typ": "ae_kolko",
+  "oczekiwane": "BLAD",
+  "tekst": "\u01fd",
+  "dlaczego": "ae z kolkiem z Latin Ext-B - zaden jezyk projektu tego nie uzywa"
+ },
+ {
+  "typ": "modyfikator_apostrof",
+  "oczekiwane": "BLAD",
+  "tekst": "can\u02bct",
+  "dlaczego": "apostrof-modyfikator U+02BC udaje zwykly apostrof"
+ },
+ {
+  "typ": "cyfra_z_akcentem",
+  "oczekiwane": "BLAD",
+  "tekst": "7\u0301",
+  "dlaczego": "akcent ostry na cyfrze - nie ma kompozycji, czysty zalgo"
+ },
+ {
+  "typ": "minus_z_akcentem",
+  "oczekiwane": "BLAD",
+  "tekst": "-\u0301",
+  "dlaczego": "akcent na myslniku - znak lacz\u0105cy bez bazy literowej"
+ },
+ {
+  "typ": "runa",
+  "oczekiwane": "BLAD",
+  "tekst": "znak \u16a1 runiczny",
+  "dlaczego": "runa - pismo martwe, zaden kontekst projektu tego nie potrzebuje"
+ },
+ {
+  "typ": "tifinagh",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u2d30 tifinagh",
+  "dlaczego": "pismo tifinagh (berberyjskie) - litera poza lacin\u0105"
+ },
+ {
+  "typ": "cham",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1a00 cham",
+  "dlaczego": "pismo cham (Wietnam/Kambodza) - litera poza lacin\u0105"
+ },
+ {
+  "typ": "ugaryckie",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud800\udf81 klin",
+  "dlaczego": "pismo ugaryckie - klinowe litera poza lacin\u0105"
+ },
+ {
+  "typ": "linear_b",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud800\udc00 zabytek",
+  "dlaczego": "Linear B - najstarsze pismo greckie, ideogram"
+ },
+ {
+  "typ": "staroitalskie",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud800\udf00",
+  "dlaczego": "pismo starowloskie (etruskie pochodne) - litera poza lacin\u0105"
+ },
+ {
+  "typ": "cyfra_sinhala_piec",
+  "oczekiwane": "BLAD",
+  "tekst": "bylo \u0deb sztuk",
+  "dlaczego": "cyfra piec pisma syngaleskiego U+0DEB (Nd) - cyfra obcego pisma [poprawka po biegu 1: kozak podal U+0DE5, ktory jest nieprzypisany (Cn)]"
+ },
+ {
+  "typ": "dekomp_o",
+  "oczekiwane": "BLAD",
+  "tekst": "wo\u0301da morska",
+  "dlaczego": "DEKOMPONOWANE o z akcentem: zrodlo brudne (zn. lacz\u0105cy), render czysty - pranie do palety przez NFC",
+  "status": "POLITYKA-NFD - kozak 2A (r1, utrzymane v3-v7): NFD nie szumi; analizuj robi NFC przed skanem, wiec werdykt dotyczy formy zlozonej (render identyczny); --fix NFC-uje pliki u zrodla. Dekomponowane zrodlo z kompozycja do palety = czysto, deklarowane"
+ },
+ {
+  "typ": "dekomp_e",
+  "oczekiwane": "BLAD",
+  "tekst": "we\u0328dka u brzegu",
+  "dlaczego": "dekomponowane e z ogonkiem: zrodlo ma ogonek jako znak lacz\u0105cy, po NFC czysty a-ogonek z palety",
+  "status": "POLITYKA-NFD - kozak 2A (r1, utrzymane v3-v7): NFD nie szumi; analizuj robi NFC przed skanem, wiec werdykt dotyczy formy zlozonej (render identyczny); --fix NFC-uje pliki u zrodla. Dekomponowane zrodlo z kompozycja do palety = czysto, deklarowane"
+ },
+ {
+  "typ": "dekomp_z",
+  "oczekiwane": "BLAD",
+  "tekst": "moz\u0307e byc",
+  "dlaczego": "dekomponowane z z kropka: po NFC zet z kropka z palety - identyczny render, brudne zrodlo",
+  "status": "POLITYKA-NFD - kozak 2A (r1, utrzymane v3-v7): NFD nie szumi; analizuj robi NFC przed skanem, wiec werdykt dotyczy formy zlozonej (render identyczny); --fix NFC-uje pliki u zrodla. Dekomponowane zrodlo z kompozycja do palety = czysto, deklarowane"
+ },
+ {
+  "typ": "cr_solo",
+  "oczekiwane": "BLAD",
+  "tekst": "rekord\rdrugi",
+  "dlaczego": "samo CR lamiie linie jak LS/PS z r4 - dla spojnosci z polityka LAMACZY powinno byc BLAD, a jest czysto",
+  "status": "POLITYKA-WHITELISTA - \\t\\n\\r to jedyne legalne kontrolne (dokumentacja klasyfikuj); CR/LF = legalne koncowki linii plikow; LAMACZE (r4) swiadomie obejmuje pozostale 8 niewidocznych lamaczy - spelnione"
+ },
+ {
+  "typ": "sharp_s_maly",
+  "oczekiwane": "OK",
+  "tekst": "Strase czy stra\u00dfe - sekcja DE",
+  "dlaczego": "mala niemiecka litera ostro-zet w sekcji angielsko-niemieckiej dokumentacji",
+  "status": "POLITYKA-UWAGA - deklarowane (OBIETNICA r2): litery Latin-1/Ext-A spoza palety = UWAGA do oceny czlowieka (sekcje EN projektu); korpus 0 wystapien"
+ },
+ {
+  "typ": "oe_ligatura",
+  "oczekiwane": "OK",
+  "tekst": "c\u0153ur de serveur - opis FR",
+  "dlaczego": "ligatura oe w nazwie francuskiej - legalna litera Latin Ext-A",
+  "status": "POLITYKA-UWAGA - deklarowane (OBIETNICA r2): litery Latin-1/Ext-A spoza palety = UWAGA do oceny czlowieka (sekcje EN projektu); korpus 0 wystapien"
+ }
+]
