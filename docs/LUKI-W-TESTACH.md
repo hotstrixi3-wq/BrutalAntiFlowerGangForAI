@@ -1,5 +1,10 @@
 # Czego testy nie sprawdzaja — burza mozgow + weryfikacja
 
+> **STATUS (v8.6.0 / 1.4.0): luka krytyczna f-string ZALATANA, Z1 ZALATANE,
+> kryterium wykonania DODANE** — patrz `docs/NAPRAWA-v8.6.0.md`.
+> Dowod `dev/luki/luka-fstring.py` daje teraz 0/5 zepsutych (exit 0),
+> a nowy `dev/turnieje/turniej-4-runtime.py` pilnuje, zeby nie wrocila.
+
 Data: 2026-09-04 · Stan repo: commit `f159d80`
 
 Metoda: najpierw ustalenie z kodu, co testy **naprawde** pokrywaja, potem

@@ -54,7 +54,7 @@ import unicodedata
 from functools import lru_cache
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-WERSJA = "8.4.0"
+WERSJA = "8.6.0"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -495,6 +495,113 @@ def _lamacze_poza_literalami_surowy(tekst):
     return "".join(out)
 
 
+def _kod_we_fstringu(tresc, baza):
+    """(v1.4.0) Zbior ABSOLUTNYCH indeksow, ktore wewnatrz tokenu f-stringa
+    sa KODEM (wnetrze pol nawiasow klamrowych), a nie danymi.
+
+    Powod: do v1.3.0 caly f-string byl chroniony jako literal. Ochrona
+    danych dzialala, ale rozjezdzala kod: definicja zmiennej poza stringiem
+    byla czyszczona, a jej UZYCIE wewnatrz f-stringa nie — plik, ktory
+    dzialal, po czyszczeniu wybuchal NameError, mimo ze compile() przechodzi
+    (skladnia pozostaje poprawna, wiec bramka tego nie widzi).
+
+        PRZED:  vo = 7 ; print(f"wynik: {vo}")   -> dziala, pisze 7
+        PO:     v  = 7 ; print(f"wynik: {vo}")   -> NameError
+
+    Na Pythonie 3.12+ tokenize rozbija f-string na FSTRING_START/MIDDLE/END
+    i problem znika sam; na 3.11 i starszych caly f-string to jeden token
+    STRING, wiec pola trzeba znalezc samodzielnie.
+
+    Zasada: kodem jest wnetrze pol; NIE sa kodem tekst dookola, podwojone
+    nawiasy klamrowe, konwersje !r/!s/!a ani staly tekst format-spec po
+    dwukropku. Zagniezdzone literaly wewnatrz wyrazenia pozostaja chronione
+    jak dane, chyba ze same sa f-stringami — wtedy rekurencja."""
+    i = 0
+    while i < len(tresc) and tresc[i] not in "\"'":
+        i += 1
+    if "f" not in tresc[:i].lower():
+        return set()
+    dl = 3 if tresc[i:i + 3] in ('"""', "'''") else 1
+    i += dl
+    koniec = len(tresc) - dl
+    kod = set()
+    while i < koniec:
+        c = tresc[i]
+        if c == "\\" and dl == 1:
+            i += 2
+            continue
+        if c in "{}" and tresc[i:i + 2] == c * 2:
+            i += 2
+            continue
+        if c != "{":
+            i += 1
+            continue
+        i += 1
+        glebokosc, nawiasy, cudz = 1, 0, ""
+        while i < koniec and glebokosc:
+            d = tresc[i]
+            if d in "\"'":
+                p = i - 1
+                while p >= 0 and tresc[p].isalpha():
+                    p -= 1
+                pref = tresc[p + 1:i].lower()
+                dl2 = 3 if tresc[i:i + 3] in ('"""', "'''") else 1
+                j = i + dl2
+                while j < koniec:
+                    if tresc[j] == "\\" and dl2 == 1:
+                        j += 2
+                        continue
+                    if tresc[j:j + dl2] == d * dl2:
+                        j += dl2
+                        break
+                    j += 1
+                if "f" in pref:
+                    kod |= _kod_we_fstringu(tresc[p + 1:j], baza + p + 1)
+                i = j
+                continue
+            if d in "([":
+                nawiasy += 1
+            elif d in ")]":
+                nawiasy -= 1
+            elif d == "{":
+                glebokosc += 1
+            elif d == "}":
+                glebokosc -= 1
+                if not glebokosc:
+                    i += 1
+                    break
+            elif (d == "!" and glebokosc == 1 and nawiasy == 0
+                    and tresc[i + 1:i + 2] in ("r", "s", "a")
+                    and tresc[i + 2:i + 3] in ("}", ":")):
+                i += 2
+                continue
+            elif d == ":" and glebokosc == 1 and nawiasy == 0:
+                i += 1
+                while i < koniec and glebokosc:
+                    e = tresc[i]
+                    if e == "{":
+                        glebokosc += 1
+                        i += 1
+                        while i < koniec and glebokosc > 1:
+                            if tresc[i] == "}":
+                                glebokosc -= 1
+                            elif tresc[i] == "{":
+                                glebokosc += 1
+                            else:
+                                kod.add(baza + i)
+                            i += 1
+                        continue
+                    if e == "}":
+                        glebokosc -= 1
+                        i += 1
+                        break
+                    i += 1
+                break
+            kod.add(baza + i)
+            i += 1
+    return kod
+
+
 def _regiony_literalow(tekst):
     """(v8.2.0) Zbior indeksow znakow lezacych WEWNATRZ literalow .py.
 
@@ -512,16 +619,20 @@ def _regiony_literalow(tekst):
         starty.append(poz)
         poz += len(linia) + 1
     chronione = set()
+    kod_fstring = set()
     try:
         for tok in tokenize.generate_tokens(io.StringIO(tekst).readline):
             if tok.type in typy:
                 s = starty[tok.start[0] - 1] + tok.start[1]
                 e = starty[tok.end[0] - 1] + tok.end[1]
                 chronione.update(range(s, e))
+                if tok.type == tokenize.STRING:
+                    # (v8.6.0) wnetrze pol f-stringa to KOD, nie dane
+                    kod_fstring |= _kod_we_fstringu(tok.string, s)
     except (tokenize.TokenError, SyntaxError, IndentationError,
             UnicodeError, IndexError, ValueError):
         return None
-    return chronione
+    return chronione - kod_fstring
 
 
 def _wyczysc_fragment(frag):

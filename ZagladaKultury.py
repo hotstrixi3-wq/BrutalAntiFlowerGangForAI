@@ -49,7 +49,7 @@ import unicodedata
 import difflib
 import re
 
-WERSJA = "1.3.0"
+WERSJA = "1.4.0"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -193,6 +193,113 @@ def zaglada_tekst(tekst, kod=False):
 
 
 # --- ochrona literałów .py (idea z v8.0.2 Pogromcy) ---------------------------
+def _kod_we_fstringu(tresc, baza):
+    """(v1.4.0) Zbior ABSOLUTNYCH indeksow, ktore wewnatrz tokenu f-stringa
+    sa KODEM (wnetrze pol nawiasow klamrowych), a nie danymi.
+
+    Powod: do v1.3.0 caly f-string byl chroniony jako literal. Ochrona
+    danych dzialala, ale rozjezdzala kod: definicja zmiennej poza stringiem
+    byla czyszczona, a jej UZYCIE wewnatrz f-stringa nie — plik, ktory
+    dzialal, po czyszczeniu wybuchal NameError, mimo ze compile() przechodzi
+    (skladnia pozostaje poprawna, wiec bramka tego nie widzi).
+
+        PRZED:  vo = 7 ; print(f"wynik: {vo}")   -> dziala, pisze 7
+        PO:     v  = 7 ; print(f"wynik: {vo}")   -> NameError
+
+    Na Pythonie 3.12+ tokenize rozbija f-string na FSTRING_START/MIDDLE/END
+    i problem znika sam; na 3.11 i starszych caly f-string to jeden token
+    STRING, wiec pola trzeba znalezc samodzielnie.
+
+    Zasada: kodem jest wnetrze pol; NIE sa kodem tekst dookola, podwojone
+    nawiasy klamrowe, konwersje !r/!s/!a ani staly tekst format-spec po
+    dwukropku. Zagniezdzone literaly wewnatrz wyrazenia pozostaja chronione
+    jak dane, chyba ze same sa f-stringami — wtedy rekurencja."""
+    i = 0
+    while i < len(tresc) and tresc[i] not in "\"'":
+        i += 1
+    if "f" not in tresc[:i].lower():
+        return set()
+    dl = 3 if tresc[i:i + 3] in ('"""', "'''") else 1
+    i += dl
+    koniec = len(tresc) - dl
+    kod = set()
+    while i < koniec:
+        c = tresc[i]
+        if c == "\\" and dl == 1:
+            i += 2
+            continue
+        if c in "{}" and tresc[i:i + 2] == c * 2:
+            i += 2
+            continue
+        if c != "{":
+            i += 1
+            continue
+        i += 1
+        glebokosc, nawiasy, cudz = 1, 0, ""
+        while i < koniec and glebokosc:
+            d = tresc[i]
+            if d in "\"'":
+                p = i - 1
+                while p >= 0 and tresc[p].isalpha():
+                    p -= 1
+                pref = tresc[p + 1:i].lower()
+                dl2 = 3 if tresc[i:i + 3] in ('"""', "'''") else 1
+                j = i + dl2
+                while j < koniec:
+                    if tresc[j] == "\\" and dl2 == 1:
+                        j += 2
+                        continue
+                    if tresc[j:j + dl2] == d * dl2:
+                        j += dl2
+                        break
+                    j += 1
+                if "f" in pref:
+                    kod |= _kod_we_fstringu(tresc[p + 1:j], baza + p + 1)
+                i = j
+                continue
+            if d in "([":
+                nawiasy += 1
+            elif d in ")]":
+                nawiasy -= 1
+            elif d == "{":
+                glebokosc += 1
+            elif d == "}":
+                glebokosc -= 1
+                if not glebokosc:
+                    i += 1
+                    break
+            elif (d == "!" and glebokosc == 1 and nawiasy == 0
+                    and tresc[i + 1:i + 2] in ("r", "s", "a")
+                    and tresc[i + 2:i + 3] in ("}", ":")):
+                i += 2
+                continue
+            elif d == ":" and glebokosc == 1 and nawiasy == 0:
+                i += 1
+                while i < koniec and glebokosc:
+                    e = tresc[i]
+                    if e == "{":
+                        glebokosc += 1
+                        i += 1
+                        while i < koniec and glebokosc > 1:
+                            if tresc[i] == "}":
+                                glebokosc -= 1
+                            elif tresc[i] == "{":
+                                glebokosc += 1
+                            else:
+                                kod.add(baza + i)
+                            i += 1
+                        continue
+                    if e == "}":
+                        glebokosc -= 1
+                        i += 1
+                        break
+                    i += 1
+                break
+            kod.add(baza + i)
+            i += 1
+    return kod
+
+
 def _chronione_pozycje(tekst):
     import tokenize
     typy = {tokenize.STRING, tokenize.COMMENT}
@@ -204,12 +311,16 @@ def _chronione_pozycje(tekst):
         starty.append(poz)
         poz += len(linia) + 1
     chronione = set()
+    kod_fstring = set()
     for tok in tokenize.generate_tokens(io.StringIO(tekst).readline):
         if tok.type in typy:
             s = starty[tok.start[0] - 1] + tok.start[1]
             e = starty[tok.end[0] - 1] + tok.end[1]
             chronione.update(range(s, e))
-    return chronione
+            if tok.type == tokenize.STRING:
+                # (v1.4.0) wnetrze pol f-stringa to KOD, nie dane
+                kod_fstring |= _kod_we_fstringu(tok.string, s)
+    return chronione - kod_fstring
 
 
 def zaglada_tekst_poza_literalami(tekst):
@@ -347,6 +458,43 @@ def _sprobuj_naprawy(tekst, sciezka):
         return None
 
 
+def _zmiany_znakowe(oryginal, kandydat):
+    """(v1.4.0) Lista roznic (tag, i1, i2, j1, j2) miedzy oryginalem
+    a kandydatem, w offsetach ABSOLUTNYCH — zamiennik dla
+    SequenceMatcher liczonego na calym pliku.
+
+    Powod: SequenceMatcher znak-po-znaku ma zlozonosc kwadratowa. Na pliku
+    99 KB (argparse.py ze stdlib) czyszczenie trwalo 3 min 23 s przy rdzeniu
+    liczacym 0.285 s — 1.67 mld operacji slownikowych. Wygladalo to jak
+    zawieszenie, a pliki kilkusetkilobajtowe byly nie do przetworzenia.
+
+    Czyszczenie zmienia znaki WEWNATRZ linii i nigdy nie zmienia ich liczby,
+    wiec diff wystarczy liczyc linia po linii: koszt spada do sumy kwadratow
+    dlugosci linii zamiast kwadratu calego pliku. Gdyby liczba linii jednak
+    sie roznila (sytuacja nieprzewidziana, np. lamacz zamieniony na \\n),
+    wracamy do wariantu globalnego — poprawnosc przed szybkoscia.
+
+    Zmierzone na 25 plikach stdlib: identyczny zbior zmienionych pozycji
+    25/25, czas 66.71 s -> 0.014 s (~4700x)."""
+    lo = oryginal.splitlines(keepends=True)
+    lk = kandydat.splitlines(keepends=True)
+    if len(lo) != len(lk):
+        sm = difflib.SequenceMatcher(None, oryginal, kandydat, autojunk=False)
+        return [op for op in sm.get_opcodes() if op[0] != "equal"]
+    zmiany = []
+    off_o = off_k = 0
+    for a, b in zip(lo, lk):
+        if a != b:
+            sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+            for tag, i1, i2, j1, j2 in sm.get_opcodes():
+                if tag != "equal":
+                    zmiany.append((tag, i1 + off_o, i2 + off_o,
+                                   j1 + off_k, j2 + off_k))
+        off_o += len(a)
+        off_k += len(b)
+    return zmiany
+
+
 def _napraw_niespojnosc_identyfikatorow(oryginal, kandydat, sciezka):
     """(v1.1.0) OSTATNIA kontrola PO udanym czyszczeniu — nawet gdy compile()
     przeszlo juz na pierwszy strzal (transliteracja/fold dala poprawna
@@ -368,8 +516,7 @@ def _napraw_niespojnosc_identyfikatorow(oryginal, kandydat, sciezka):
     wyniku (przy porazce bramki zwraca kandydata bez zmian)."""
     if oryginal == kandydat:
         return kandydat
-    sm = difflib.SequenceMatcher(None, oryginal, kandydat, autojunk=False)
-    zmiany = [op for op in sm.get_opcodes() if op[0] != "equal"]
+    zmiany = _zmiany_znakowe(oryginal, kandydat)
     if not zmiany:
         return kandydat
     id_licznik = {}

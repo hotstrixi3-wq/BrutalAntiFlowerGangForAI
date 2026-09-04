@@ -56,7 +56,7 @@ publisher's note in its header), loop logs: docs/logi/.
 
 > Komplet narzędzi sędziego niezależnego: turnieje detekcji, sprawdzające,
 > nie-psucia-kodu i pętle. Stan po produkcji: **1393 zielone sprawdziany
-> w 199 cyklach pętli rodzinnej, zero awarii.** Silnik: Pogromca v8.4.0
+> w 199 cyklach pętli rodzinnej, zero awarii.** Silnik: Pogromca v8.6.0
 > (PEWNIAK), Zagłada v1.3.0 (MEDAL — patrz README Historia zmian).
 
 ## Szybki start (Python 3, stdlib, skrypty w `dev/turnieje/`)

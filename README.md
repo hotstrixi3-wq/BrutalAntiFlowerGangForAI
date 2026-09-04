@@ -18,10 +18,10 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 
 ## Rodzina - 4 pliki ktore ida wszedzie razem
 
-- **PogromcaKwiatkow.py v8.4.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
-- **ZagladaKultury.py v1.3.0** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
+- **PogromcaKwiatkow.py v8.6.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
+- **ZagladaKultury.py v1.4.0** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
 - **ProkuratorOgrodnik.py v1.2.0** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
-- **AnihilatorChwastow.py v1.3.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
+- **AnihilatorChwastow.py v1.4.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
 
 Zasada: nie ruszamy dzialajacego kodu, dokladamy kolejnego. Rodzina to combo i wszedzie idzie razem.
 
@@ -434,3 +434,34 @@ Zmieniasz wersje narzedzia -> zmieniasz `WERSJE.json` -> uruchamiasz skrypt.
 MIT - patrz LICENSE. 100% darmowe dla ludzi, firm i agentow AI.
 
 Repo: https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
+
+## v8.6.0 / Zaglada 1.4.0 / Anihilator 1.4.0 - naprawa luki f-string i wydajnosci
+
+Trzy zmiany, wszystkie z dowodem w `dev/`:
+
+1. **Luka krytyczna: wnetrze f-stringa bylo chronione jak dane.**
+   Definicja zmiennej poza stringiem byla czyszczona, a jej uzycie w
+   `f"{...}"` nie - plik, ktory DZIALAL, po czyszczeniu dawal `NameError`,
+   mimo ze `compile()` przechodzil. To samo w JS: template literal `${...}`.
+   Naprawione w Zagladzie, Pogromcy i Anihilatorze (`_kod_we_fstringu`).
+   Dowod: `python3 dev/luki/luka-fstring.py` (0/5 zepsutych, exit 0).
+
+2. **Wydajnosc: kwadratowy diff.** `_napraw_niespojnosc_identyfikatorow`
+   liczyl `SequenceMatcher` znak-po-znaku na calym pliku. `argparse.py`
+   (99 KB) = **3 min 23 s**. Teraz diff jest liczony per linia
+   (`_zmiany_znakowe`), z awaryjnym powrotem do wariantu globalnego gdy
+   liczba linii sie zmieni: **0.137 s** (~1480x), wynik identyczny.
+
+3. **Nowe kryterium testow: URUCHOM I POROWNAJ WYNIK.**
+   `dev/turnieje/turniej-4-runtime.py` - dotad turnieje uznawaly plik za
+   caly, jesli przechodzil `compile()`, a wlasnie ta klasa bledow
+   (f-string, niespojnosc nazw) `compile()` PRZECHODZI. T4 uruchamia
+   program przed i po i porownuje wyjscie. Sprawdza tez sile naprawcza:
+   pliki zepsute PRZED musza dzialac PO.
+   Zweryfikowany w obie strony: na starej wersji exit 1, na nowej exit 0.
+
+Regresja po zmianach: tor 348/0/0/0 | fuzz 3x500/0 | T2 992 0/0/0 |
+T3 190 0 popsutych | Z1 1545 0/0 | Z2 200 0 popsutych | T4 ZDANE |
+selftesty 4/4 PASS | bramka 0 rozjazdow.
+Na 40 prawdziwych modulach stdlib: 0 niekompilujacych sie,
+40/40 importuje sie z identycznym publicznym API.

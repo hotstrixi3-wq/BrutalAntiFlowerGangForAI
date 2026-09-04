@@ -49,7 +49,7 @@ import sys
 import unicodedata
 import re
 
-WERSJA = "1.3.0"
+WERSJA = "1.4.0"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -475,10 +475,42 @@ def zaglada_tekst_poza_literalami_multi(tekst, jezyk):
                 stan="kod"
             continue
         elif stan == "string_backtick":
+            # (v1.4.0) wnetrze ${...} to KOD, nie dane — patrz ta sama luka
+            # co w f-stringach Pythona: czyszczenie definicji zmiennej przy
+            # nietknietym uzyciu w template literal dawalo ReferenceError
+            # w pliku, ktory wczesniej dzialal.
+            if c == "\\" and i + 1 < n:
+                out.append(c); out.append(tekst[i+1]); i += 2
+                continue
+            if c == "$" and nxt == "{":
+                out.append(c); out.append(nxt); i += 2
+                glebokosc = 1
+                cudz = ""
+                while i < n and glebokosc:
+                    d = tekst[i]
+                    if cudz:
+                        out.append(d); i += 1
+                        if d == "\\" and i < n:
+                            out.append(tekst[i]); i += 1
+                        elif d == cudz:
+                            cudz = ""
+                        continue
+                    if d in "\"'`":
+                        cudz = d; out.append(d); i += 1
+                        continue
+                    if d == "{":
+                        glebokosc += 1; out.append(d); i += 1
+                        continue
+                    if d == "}":
+                        glebokosc -= 1; out.append(d); i += 1
+                        continue
+                    z = zamien_znak(d, licznik, kod=True)
+                    if z is not None:
+                        out.append(z)
+                    i += 1
+                continue
             out.append(c); i+=1
-            if c == "\\" and i < n:
-                out.append(tekst[i]); i+=1
-            elif c == "`":
+            if c == "`":
                 stan="kod"
             continue
         elif stan == "regex":
