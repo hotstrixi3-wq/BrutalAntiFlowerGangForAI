@@ -148,3 +148,35 @@ na nich zrobiloby szum, ktory kazdy zaczalby ignorowac.
 Przyklady skazen w dokumentacji zapisuj notacja `<U+XXXX>`, nigdy zywcem
 (par. 5). Inaczej dokument o kwiatkach sam je roznosi - nastepny agent
 skopiuje fragment i przeniesie zaraze dalej.
+
+## 11. ZWIAD przed naprawa - obowiazkowa kolejnosc
+
+Zasada operatora (2026-09-04):
+
+> "Narzedzie ma ci pomagac, a nie slepo wykonywac glupie opcje. To, ze
+> skrypt ma byc sprytny i nieomylny, oznacza, ze ma byc narzedziem, ktore
+> nie wprowadza cie w blad, a pokazuje prawde."
+
+Wynika z tego kolejnosc, ktorej nie wolno odwracac:
+
+```
+1. python3 zwiad.py PLIK          <- WIEDZA (nic nie zapisuje)
+2. cp PLIK PLIK.kopia             <- TWOJA kopia, nie narzedzia
+3. python3 zwiad.py --podglad PLIK <- co dokladnie sie zmieni
+4. dopiero teraz Zaglada/Anihilator
+5. sprawdz, czy plik nadal dziala
+```
+
+Nigdy odwrotnie. Nie uruchamiaj naprawy, zeby dowiedziec sie, co ona robi.
+
+**Kopia zapasowa nalezy do CIEBIE.** Zaglada i Anihilator robia wprawdzie
+wlasne `.bak-*`, ale to ich mechanizm, nie twoje zabezpieczenie. Na pliku
+uzytkownika kopie robisz sam, zanim cokolwiek uruchomisz.
+
+**Kody wyjscia zwiadu:** 0 czysto | 1 sa skazenia | 2 sa skazenia
+NIENAPRAWIALNE (znaki zostana USUNIETE bezpowrotnie - sprawdz podgladem,
+czy to nie tresc potrzebna uzytkownikowi, np. chinski tekst na stronie).
+
+**Masz prawo probowac wielokrotnie.** Zwiad + kopia znacza, ze nieudana
+proba nie kosztuje nic poza czasem. Lepiej naprawic za czwartym podejsciem
+majac dane, niz za pierwszym na slepo.

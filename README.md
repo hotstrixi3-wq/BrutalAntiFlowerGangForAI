@@ -593,3 +593,77 @@ Naprawione przy okazji: 16 zywych homoglifow w `docs/INZYNIERIA-WSTECZNA.md`,
 `docs/LUKI-W-TESTACH.md`, `docs/NAPRAWA-v8.6.0.md` zamienione na `<U+XXXX>`.
 Przyklady staly sie przy tym CZYTELNIEJSZE - widac dokladnie, gdzie siedzi
 podmiana. Wpadka zapisana w PAMIETNIK-OPERATORA.md (sekcja 5).
+
+## v9.1.0 - ZWIAD: narzedzie ma pokazywac prawde, nie wykonywac opcje
+
+Zasada operatora, ktora zmienila definicje slowa "nieomylny":
+
+> "Narzedzie ma ci pomagac, a nie slepo wykonywac glupie opcje. To, ze
+> skrypt ma byc sprytny i nieomylny, oznacza, ze ma byc narzedziem, ktore
+> nie wprowadza cie w blad, a pokazuje prawde."
+
+Rodzina dawala LICZBY. Na skazonym pliku Zaglada mowila:
+
+```
+[DO ZAGLADY] app.py: cyr 4
+```
+
+Cztery co? Gdzie? W kodzie czy w komentarzu? Na co zostana zamienione?
+Czy plik po naprawie zadziala? Pogromca pokazywal trzy trafienia i
+"...i 3 dalszych". Zeby poznac odpowiedzi, trzeba bylo skopiowac plik,
+uruchomic naprawe i porownac diffem - czyli DZIALAC, zeby sie DOWIEDZIEC.
+
+`zwiad.py` odwraca kolejnosc. Ten sam plik:
+
+```
+Znalezisk: 6   (w KODZIE: 4 | w danych: 2)      <- Pogromca pokazywal 4
+Kompiluje sie teraz: TAK | po naprawie: TAK
+
+-- W KODZIE (zmieni dzialanie programu) --
+   2:2   U+043E cyr  ->  'o'      conter = 0
+   7:25  U+043E cyr  ->  'o'      return f"licznik: {conter}"
+
+-- W DANYCH (literaly, komentarze) --
+   1:12  U+043E cyr  ->  'o'      # licznik poczatkowy
+   3:15  U+0430 cyr  ->  'a'      NAZWA = "Moskwa"
+```
+
+Widac od razu, ze wnetrze f-stringa to KOD mimo ze wyglada jak tekst,
+a komentarz i literal sa bezpieczne.
+
+Na pliku HTML z chinskim tekstem zwiad ostrzega **zanim** cokolwiek zniknie:
+
+```
+NIENAPRAWIALNE (zostana USUNIETE): 2
+   1:14  U+4E2D pisma  ->  USUNIECIE     <p lang="zh">...</p>
+exit=2
+```
+
+### ZWIAD NICZEGO NIE ZAPISUJE
+
+Nie ma tu flagi zapisu i nie bedzie. Selftest sprawdza to osobnym testem:
+po pelnym badaniu plik na dysku musi byc bajt w bajt taki sam.
+
+```
+python3 zwiad.py PLIK              # raport dla czlowieka
+python3 zwiad.py --json PLIK       # to samo maszynowo, dla agenta
+python3 zwiad.py --podglad PLIK    # dokladna roznica przed/po, bez zapisu
+python3 zwiad.py --selftest
+```
+Kody wyjscia: 0 czysto | 1 sa skazenia | 2 sa skazenia NIENAPRAWIALNE.
+
+### Kolejnosc, ktorej nie wolno odwracac (PROTOKOL par. 11)
+
+```
+1. zwiad.py PLIK           <- wiedza
+2. cp PLIK PLIK.kopia      <- TWOJA kopia, nie narzedzia
+3. zwiad.py --podglad PLIK <- co dokladnie sie zmieni
+4. dopiero teraz naprawa
+5. sprawdz, czy plik dziala
+```
+
+Kopia zapasowa nalezy do operatora. Zaglada robi wprawdzie wlasne
+`.bak-*`, ale to jej mechanizm, nie twoje zabezpieczenie.
+
+Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem - lepiej
+naprawic za czwartym podejsciem majac dane, niz za pierwszym na slepo.

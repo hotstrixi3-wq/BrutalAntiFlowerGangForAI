@@ -50,13 +50,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 6382 B | `dafd3d906ecb` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 7060 B | `47ce7e2f6ae1` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 7310 B | `1dbab637b3f8` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 8342 B | `b80e26f7049e` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
 | [README.md](../README.md) | 33531 B | `5cd9400a30ad` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2410 B | `1309ed52fea3` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `5a9776d4b54c` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `ae4921ca768f` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -108,11 +108,12 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 13033 B | `f53412a4c0d4` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 15875 B | `46e55ec0eb65` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
 | [sprawdz-teksty.py](../sprawdz-teksty.py) | 4512 B | `a2599bd2d033` |
+| [zwiad.py](../zwiad.py) | 11858 B | `e7ac795058c4` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).
