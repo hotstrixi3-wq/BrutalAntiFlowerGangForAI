@@ -503,3 +503,37 @@ Zweryfikowany 5 sabotazami - kazdy zlapany.
 Regresja: tor 348/0/0/0 | fuzz 3x500/0 | T2 992 0/0/0 | T3 190 0 popsutych |
 Z1 1545 0/0 | Z2 200 0 popsutych | T4 ZDANE | T5 ZDANE | T6 ZDANE |
 luka-fstring 0/5 | selftesty 4/4 PASS | bramka 0 rozjazdow.
+
+## Pamietnik operatora (v8.8.0)
+
+`PAMIETNIK-OPERATORA.md` + `pamietnik.py` - pamiec miedzy sesjami agentow.
+
+Repo mialo dotad dwa rodzaje wiedzy: **jak system ma dzialac** (README,
+PROTOKOL-OPERATORA, SZYBKI-START) i **co udowodniono** (docs/, certyfikaty,
+raporty turniejow). Brakowalo trzeciego: **co poszlo nie tak komus, kto tu
+pracowal wczesniej**. Ta wiedza gina wraz z koncem sesji, wiec kolejny agent
+nadeptuje na te same grabie.
+
+17 wpisow startowych w 5 sekcjach, wszystkie z realnej pracy nad repo:
+praca z repozytorium, pisanie testow, pulapki w kodzie rodziny,
+dokumentacja i bramka, wspolpraca z czlowiekiem. Kazdy wpis ma trzy pola:
+**Objaw** (konkretny - komunikat, liczba), **Przyczyna**, **Wniosek**
+(czynnosc na przyszlosc).
+
+```
+python3 pamietnik.py                 # ostatnie wpisy
+python3 pamietnik.py --lista         # spis wszystkich
+python3 pamietnik.py --szukaj testy  # przeszukaj tresc
+python3 pamietnik.py --dodaj         # dopisz wpis (pyta o pola)
+python3 pamietnik.py --sprawdz       # walidacja formatu, 0 = OK
+python3 pamietnik.py --selftest      # test wlasny
+```
+
+Dlaczego osobne narzedzie do zwyklego markdowna: pamietnik jest uzyteczny
+tylko dopoki ma jeden format. Recznie dopisywane wpisy rozjezdzaja sie po
+kilku sesjach i plik staje sie smietnikiem, ktorego nikt nie czyta.
+`--sprawdz` wymusza komplet pol - wpis bez Wniosku jest bezuzyteczny dla
+nastepnego agenta. Walidator od razu zlapal brak pola **Przyczyna** w
+jednym z wpisow startowych pisanych recznie.
+
+Podpiete w SZYBKI-START-DLA-AGENTA.md (krok 4) i PROTOKOL-OPERATORA.md (par. 9).

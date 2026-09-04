@@ -41,6 +41,12 @@ sam sobie przed chwilą zrobiłeś w kroku 1.
 
 - Co robi cała rodzina 4 narzędzi i jak ich używać: plik README.md repozytorium
 - Twój regulamin operatora (drabina uprawnień, plan->act): plik PROTOKOL-OPERATORA.md repozytorium
+- **Grabie, na które nadepnęli agenci przed tobą: plik PAMIETNIK-OPERATORA.md**
+  (`python3 pamietnik.py` pokazuje ostatnie wpisy, `--szukaj SLOWO` przeszukuje).
+  Zajrzyj tam ZANIM zaczniesz zmieniać kod albo pisać testy — kilka z tych
+  wpisów opisuje pomyłki, które kosztowały godzinę i nie da się ich
+  przewidzieć z samej dokumentacji. Gdy sam stracisz czas na coś
+  nieoczywistego, dopisz wpis: `python3 pamietnik.py --dodaj`.
 
 Jeśli krok 1 zadziałał i krok 3 dał PASS — rozumiesz już sedno. Reszta
 dokumentacji to szczegóły wykonania, nie coś, w co musisz wierzyć na słowo.

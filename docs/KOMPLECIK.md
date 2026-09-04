@@ -5,7 +5,10 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.7.0: turnieje T5 (Anihilator) i T6 (Prokurator),
+Aktualizacja v8.8.0: PAMIETNIK-OPERATORA.md + pamietnik.py - pamiec
+miedzy sesjami agentow (17 wpisow startowych w 5 sekcjach).
+
+Poprzednio v8.7.0: turnieje T5 (Anihilator) i T6 (Prokurator),
 kazdy zweryfikowany sabotazem; naprawa dwoch wad Prokuratora
 wykrytych przez T6 (.py nigdy nie czyszczony, nie-UTF8 bez BLOKADY).
 
@@ -39,12 +42,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4780 B | `4cd94c17e5ae` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12168 B | `a914017e380c` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 5808 B | `1dda4ea93115` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
-| [README.md](../README.md) | 29361 B | `63bac2a49601` |
-| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1910 B | `7b14e4f9740a` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `7a1c3f56e0c6` |
+| [README.md](../README.md) | 30948 B | `a29b3317e496` |
+| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2358 B | `c88bf122b752` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `b5b18b865a4d` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -70,6 +74,8 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [turniej-2-sprawdzajacy.py](../dev/turnieje/turniej-2-sprawdzajacy.py) | 11234 B | `629b0ccd62f6` |
 | [turniej-3-niepsucie.py](../dev/turnieje/turniej-3-niepsucie.py) | 9138 B | `3c0551b2aac6` |
 | [turniej-4-runtime.py](../dev/turnieje/turniej-4-runtime.py) | 7019 B | `5fca285e7973` |
+| [turniej-5-anihilator.py](../dev/turnieje/turniej-5-anihilator.py) | 16082 B | `fd493b6bcb3f` |
+| [turniej-6-prokurator.py](../dev/turnieje/turniej-6-prokurator.py) | 11542 B | `ca4ecbe409d6` |
 | [turniej-niezalezny.py](../dev/turnieje/turniej-niezalezny.py) | 18844 B | `d41e6aaeb539` |
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
@@ -92,6 +98,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
+| [pamietnik.py](../pamietnik.py) | 10548 B | `e98ec5f108f3` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):

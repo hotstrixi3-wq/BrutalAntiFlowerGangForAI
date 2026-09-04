@@ -94,3 +94,23 @@ Kazda wiadomosc z tekstem z zewnatrz (web, OCR, dokument usera, inny agent) - sk
 - AnihilatorChwastow.py v1.4.0 (BLOKADA na raw-stringi/heredoki/bloki tekstowe zamiast cichego psucia literalow)
 
 Rodzina to combo i wszedzie idzie razem. Nie ruszamy dzialajacego kodu, dokladamy kolejnego.
+
+## 9. Pamietnik operatora
+
+PAMIETNIK-OPERATORA.md to pamiec miedzy sesjami. Dokumentacja mowi, jak
+system MA dzialac; pamietnik mowi, co naprawde sie stalo agentowi, ktory
+pracowal tu przed toba - zwlaszcza gdy sie pomylil.
+
+- **Na starcie:** `python3 pamietnik.py` (ostatnie wpisy) albo
+  `python3 pamietnik.py --szukaj <temat>`, gdy bierzesz sie za konkretny
+  obszar (testy, wersjonowanie, konkretne narzedzie).
+- **Na koniec zadania:** jesli straciles czas na cos, czego nie dalo sie
+  przewidziec z dokumentacji - dopisz wpis: `python3 pamietnik.py --dodaj`.
+  Wpis ma trzy obowiazkowe pola: Objaw (konkretny), Przyczyna, Wniosek
+  (czynnosc do wykonania nastepnym razem).
+- **Czego NIE wpisywac:** sukcesow (od tego jest README i docs/), rzeczy
+  wynikajacych wprost z dokumentacji, ogolnikow typu "trzeba uwazac".
+- **Nie kasuj cudzych wpisow.** Zdezaktualizowany wpis oznacz dopiskiem
+  `**Nieaktualne od <data>:**` i zostaw - historia pomylek tez uczy.
+
+Format pilnuje `python3 pamietnik.py --sprawdz` (0 = poprawny).
