@@ -46,8 +46,10 @@ import json
 import os
 import sys
 import unicodedata
+import difflib
+import re
 
-WERSJA = "1.0.9"
+WERSJA = "1.1.1"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -229,6 +231,7 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
     out = []
     i, n = 0, len(tekst)
     stan = "kod"
+    cudzyslow = None  # (v1.1.1) pamieta KTORY znak otworzyl lancuch
     licznik = dict((k, 0) for k in KATEGORIE)
     nr_podatny = 0
     while i < n:
@@ -238,11 +241,13 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 stan = "hash"
             elif tekst[i:i + 3] in ("'''", '"""'):
                 stan = "trojka"
+                cudzyslow = tekst[i:i + 3]
                 out.append(tekst[i:i + 3])
                 i += 3
                 continue
             elif c in ("'", '"'):
                 stan = "lancuch"
+                cudzyslow = c
             elif c in LAMACZE:
                 licznik["lamacze"] += 1
                 biezacy_nr = nr_podatny
@@ -277,8 +282,9 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 out.append(tekst[i])
                 i += 1
                 continue
-            if c in ("'", '"') or c == "\n":
+            if c == cudzyslow or c == "\n":
                 stan = "kod"
+                cudzyslow = None
         else:
             if c == "\\" and i + 1 < n:
                 out.append(c)
@@ -286,8 +292,9 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 out.append(tekst[i])
                 i += 1
                 continue
-            if tekst[i:i + 3] in ("'''", '"""'):
+            if tekst[i:i + 3] == cudzyslow:
                 stan = "kod"
+                cudzyslow = None
                 out.append(tekst[i:i + 3])
                 i += 3
                 continue
@@ -323,6 +330,78 @@ def _sprobuj_naprawy(tekst, sciezka):
         return None
 
 
+def _napraw_niespojnosc_identyfikatorow(oryginal, kandydat, sciezka):
+    """(v1.1.0) OSTATNIA kontrola PO udanym czyszczeniu — nawet gdy compile()
+    przeszlo juz na pierwszy strzal (transliteracja/fold dala poprawna
+    SKLADNIOWO nazwe). Znalezisko z turnieju zewnetrznego (2026-09-02):
+    pojedyncze wystapienie identyfikatora zanieczyszczone znakiem
+    fold-NFKC (np. U+2167 rzymska osemka/Kelvin) transliterowanym na litery daje SKLADNIOWO
+    poprawna, ale INNA nazwe niz reszta wystapien tej samej zmiennej w
+    pliku (np. self._scandir_path w __slots__ i przy odczycie, ale
+    self._VIIIscandir_patKh przy zapisie) — plik kompiluje sie, ale
+    wybucha AttributeError w runtime. compile() tego nie widzi, bo
+    sprawdza tylko skladnie, nie spojnosc nazw.
+
+    Metoda: diff oryginal<->kandydat lokalizuje kazda zmiane; rozszerzona
+    do pelnej granicy identyfikatora (\\w+); jesli WERSJA-Z-USUNIETYM-
+    FRAGMENTEM tego identyfikatora juz istnieje jako INNY identyfikator
+    gdzie indziej w kandydacie (silny sygnal ze to ta sama zmienna,
+    zabrudzona tylko w jednym miejscu) — probuje usuniecia zamiast
+    transliteracji, weryfikuje compile() jak zawsze. Nigdy nie pogarsza
+    wyniku (przy porazce bramki zwraca kandydata bez zmian)."""
+    if oryginal == kandydat:
+        return kandydat
+    sm = difflib.SequenceMatcher(None, oryginal, kandydat, autojunk=False)
+    zmiany = [op for op in sm.get_opcodes() if op[0] != "equal"]
+    if not zmiany:
+        return kandydat
+    id_licznik = {}
+    for tok in re.findall(r'[A-Za-z_][A-Za-z0-9_]*', kandydat):
+        id_licznik[tok] = id_licznik.get(tok, 0) + 1
+    # grupuj zmiany po tokenie ktory obejmuja (jeden identyfikator moze miec
+    # KILKA niezaleznych podstawien naraz - musza byc usuniete RAZEM, bo
+    # usuniecie tylko jednego z dwoch nie odtworzy oryginalnej nazwy)
+    grupy = {}
+    for _, _, _, j1, j2 in zmiany:
+        lewo, prawo = j1, j2
+        while lewo > 0 and (kandydat[lewo - 1].isalnum() or kandydat[lewo - 1] == "_"):
+            lewo -= 1
+        while prawo < len(kandydat) and (kandydat[prawo].isalnum() or kandydat[prawo] == "_"):
+            prawo += 1
+        if lewo >= prawo:
+            continue
+        pelny_tok = kandydat[lewo:prawo]
+        if not pelny_tok or not (pelny_tok[0].isalpha() or pelny_tok[0] == "_"):
+            continue
+        grupy.setdefault((lewo, prawo), []).append((j1, j2))
+    poprawki = []
+    for (lewo, prawo), spany in grupy.items():
+        pelny_tok = kandydat[lewo:prawo]
+        wariant = []
+        kursor = lewo
+        for j1, j2 in sorted(spany):
+            wariant.append(kandydat[kursor:j1])
+            kursor = j2
+        wariant.append(kandydat[kursor:prawo])
+        wariant = "".join(wariant)
+        if wariant == pelny_tok or not wariant:
+            continue
+        if not (wariant[0].isalpha() or wariant[0] == "_"):
+            continue
+        if id_licznik.get(wariant, 0) > 0:
+            poprawki.extend(spany)
+    if not poprawki:
+        return kandydat
+    nowy = kandydat
+    for j1, j2 in sorted(set(poprawki), reverse=True):
+        nowy = nowy[:j1] + nowy[j2:]
+    try:
+        compile(nowy, sciezka, "exec")
+    except SyntaxError:
+        return kandydat
+    return nowy
+
+
 def przetworz(tekst, sciezka):
     """Zwraca (nowy_tekst, licznik). .py bezpiecznie, .json jak kod
     (twarde spacje SKLEJAJA - dane strukturalne, v1.0.3), proza agresywnie."""
@@ -330,6 +409,18 @@ def przetworz(tekst, sciezka):
         return zaglada_tekst(tekst, kod=True)
     if not sciezka.endswith(".py"):
         return zaglada_tekst(tekst)
+    wynik = _przetworz_py(tekst, sciezka)
+    nowy, licznik = wynik
+    if licznik is not None and nowy != tekst:
+        naprawiony = _napraw_niespojnosc_identyfikatorow(tekst, nowy, sciezka)
+        if naprawiony != nowy:
+            licznik = dict(licznik)
+            licznik["spojnosc_naprawiona"] = licznik.get("spojnosc_naprawiona", 0) + 1
+            nowy = naprawiony
+    return nowy, licznik
+
+
+def _przetworz_py(tekst, sciezka):
     try:
         compile(tekst, sciezka, "exec")
     except SyntaxError:
@@ -395,7 +486,7 @@ def raport_sciezka(sciezka, wykonaj):
 
 def selftest():
     """Selftest Zaglady - dowod ze transliteruje i usuwa, a polskie zostawia."""
-    print("SELFTEST Zaglady Kultury v1.0.9")
+    print("SELFTEST Zaglady Kultury v1.1.1")
     testy = [
         ("cyrylica U+0430 -> a", "a\u0430b", "txt", "aab", True),
         ("greka U+03B1 -> a", "x\u03b1y", "txt", "xay", True),

@@ -1,0 +1,182 @@
+[
+ {
+  "typ": "cyrylica_jat",
+  "oczekiwane": "BLAD",
+  "tekst": "przedrewolucyjny \u0462",
+  "dlaczego": "cyrylicki jat - litera martwego jezyka, blok 0462"
+ },
+ {
+  "typ": "greka_wau",
+  "oczekiwane": "BLAD",
+  "tekst": "liczba \u03dc",
+  "dlaczego": "grecki wau (digamma) - martwa litera grecka"
+ },
+ {
+  "typ": "arabski_ain",
+  "oczekiwane": "BLAD",
+  "tekst": "slowo \u0639arabskie",
+  "dlaczego": "arabska litera ain na poczatku slowa"
+ },
+ {
+  "typ": "hebrajski_alef",
+  "oczekiwane": "BLAD",
+  "tekst": "alef \u05d0",
+  "dlaczego": "hebrajski alef"
+ },
+ {
+  "typ": "dewanagari_ka",
+  "oczekiwane": "BLAD",
+  "tekst": "sylaba \u0915",
+  "dlaczego": "dewanagari ka - sanskryt/hindi"
+ },
+ {
+  "typ": "tajski_kokai",
+  "oczekiwane": "BLAD",
+  "tekst": "kokai \u0e01",
+  "dlaczego": "tajskie kokai - litera k"
+ },
+ {
+  "typ": "katakana_a",
+  "oczekiwane": "BLAD",
+  "tekst": "zapis \u30a2",
+  "dlaczego": "katakana a - japonskie pismo sylabowe"
+ },
+ {
+  "typ": "CJK_wan",
+  "oczekiwane": "BLAD",
+  "tekst": "dziesiec \u4e07 tysiecy",
+  "dlaczego": "CJK wan (dziesiec tysiecy) - chi\u0144ski homoglif slownika"
+ },
+ {
+  "typ": "hangul_ga",
+  "oczekiwane": "BLAD",
+  "tekst": "sylaba \uac00",
+  "dlaczego": "hangul ga - koreanska sylaba"
+ },
+ {
+  "typ": "pelne_Q",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \uff51",
+  "dlaczego": "pelnoszerokosciowe Q udajace zwykle"
+ },
+ {
+  "typ": "zalgo_cedilla",
+  "oczekiwane": "BLAD",
+  "tekst": "a\u035cb",
+  "dlaczego": "lacz\u0105ca cedilla - zalgo w srodku slowa"
+ },
+ {
+  "typ": "spacja_czterema",
+  "oczekiwane": "BLAD",
+  "tekst": "odstep\u2005miedzy zdaniami",
+  "dlaczego": "czterostopniowa spacja typograficzna Zs - formatujaca, nie tekstu"
+ },
+ {
+  "typ": "script_H",
+  "oczekiwane": "BLAD",
+  "tekst": "funkcja \u210b(x)",
+  "dlaczego": "script capital H (Hamiltonian) - pseudolitera matematyczna"
+ },
+ {
+  "typ": "math_Z",
+  "oczekiwane": "BLAD",
+  "tekst": "wektor \ud835\udc19",
+  "dlaczego": "pogrubione Z z bloku matematycznego"
+ },
+ {
+  "typ": "ipa_qhook",
+  "oczekiwane": "BLAD",
+  "tekst": "dzwiek \u02a0",
+  "dlaczego": "IPA glottalna w polskim opisie audio"
+ },
+ {
+  "typ": "braille_a",
+  "oczekiwane": "BLAD",
+  "tekst": "dotyk \u2801",
+  "dlaczego": "braille a - pojedyncza kropka brajlowska"
+ },
+ {
+  "typ": "mongolski",
+  "oczekiwane": "BLAD",
+  "tekst": "litera \u1826",
+  "dlaczego": "mongolski pismo wzgledne"
+ },
+ {
+  "typ": "deseret",
+  "oczekiwane": "BLAD",
+  "tekst": "pismo \ud801\udc30",
+  "dlaczego": "deseret - alfabet mormonski"
+ },
+ {
+  "typ": "katakana_polowa",
+  "oczekiwane": "BLAD",
+  "tekst": "polowiczna \uff71",
+  "dlaczego": "katakana polszerokosciowa"
+ },
+ {
+  "typ": "kolo_8",
+  "oczekiwane": "BLAD",
+  "tekst": "krok \u2467 z 10",
+  "dlaczego": "kolo z osmem w srodku - numeracja pozycji"
+ },
+ {
+  "typ": "rzymskie_iii",
+  "oczekiwane": "BLAD",
+  "tekst": "rozdzial \u2172",
+  "dlaczego": "male rzymskie trzy - Nl, piszemy ASCII"
+ },
+ {
+  "typ": "karta_walet",
+  "oczekiwane": "BLAD",
+  "tekst": "karta \ud83c\udcbf",
+  "dlaczego": "karta do gry - pikto 1F0BF"
+ },
+ {
+  "typ": "puzzel",
+  "oczekiwane": "BLAD",
+  "tekst": "brakujaca \ud83e\udde9",
+  "dlaczego": "puzzel - wspolczesne emoji So"
+ },
+ {
+  "typ": "BEL",
+  "oczekiwane": "BLAD",
+  "tekst": "sygnal\u0007koniec",
+  "dlaczego": "BEL - dzwiek terminala, kontrolny"
+ },
+ {
+  "typ": "combo_kelvin_ls",
+  "oczekiwane": "BLAD",
+  "tekst": "limit 300\u212a\u2028norma",
+  "dlaczego": "PODWODNY: pranie NFC (Kelvin) plus niewidoczny lamacz linii w jednym"
+ },
+ {
+  "typ": "combo_grek_cyryl",
+  "oczekiwane": "BLAD",
+  "tekst": "znaki \u037e i \u0443 razem",
+  "dlaczego": "dwa prania/homoglify w jednym zdaniu"
+ },
+ {
+  "typ": "combo_lamacz_koniec",
+  "oczekiwane": "BLAD",
+  "tekst": "ostatnia\u2028",
+  "dlaczego": "lamacz jako ostatni znak tekstu - granica petli"
+ },
+ {
+  "typ": "combo_cr_ls",
+  "oczekiwane": "BLAD",
+  "tekst": "a\r\u2028b",
+  "dlaczego": "legalne CR plus nielegalny LS - mieszane koncowki"
+ },
+ {
+  "typ": "degenerata",
+  "oczekiwane": "BLAD",
+  "tekst": "\u2028\u2029",
+  "dlaczego": "caly tekst to dwa lamacze"
+ },
+ {
+  "typ": "combo_tabela",
+  "oczekiwane": "BLAD",
+  "tekst": "| komorka |\u000b| druga |",
+  "dlaczego": "VT w komorce tabeli markdown - rozjazd kolumn po renderze"
+ }
+]

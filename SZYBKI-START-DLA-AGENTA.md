@@ -39,8 +39,8 @@ sam sobie przed chwilą zrobiłeś w kroku 1.
 
 ## 4. Dopiero teraz — jeśli chcesz wiedzieć więcej
 
-- Co robi cała rodzina 4 narzędzi i jak ich używać: [README.md](README.md)
-- Twój regulamin operatora (drabina uprawnień, plan->act): [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md)
+- Co robi cała rodzina 4 narzędzi i jak ich używać: plik README.md repozytorium
+- Twój regulamin operatora (drabina uprawnień, plan->act): plik PROTOKOL-OPERATORA.md repozytorium
 
 Jeśli krok 1 zadziałał i krok 3 dał PASS — rozumiesz już sedno. Reszta
 dokumentacji to szczegóły wykonania, nie coś, w co musisz wierzyć na słowo.

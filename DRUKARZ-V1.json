@@ -1,0 +1,149 @@
+[
+ {
+  "typ": "ogonki_full",
+  "oczekiwane": "OK",
+  "tekst": "Za\u017c\u00f3\u0142\u0107 g\u0119\u015bl\u0105 ja\u017a\u0144 \u2014 zaprasza \u0141\u00f3d\u017a, Bia\u0142ystok i Ko\u015bci\u00f3\u0142",
+  "dlaczego": "pelny zestaw polskich ogonkow maly i wielkich plus pauza"
+ },
+ {
+  "typ": "cudzyslowy_polskie",
+  "oczekiwane": "OK",
+  "tekst": "\u201eRegulamin serwera\u201d obowi\u0105zuje od 1 maja.\u201d \u2014 administracja",
+  "dlaczego": "polskie cudzyslowy typograficzne zamykaja cytat"
+ },
+ {
+  "typ": "pauzy_minus",
+  "oczekiwane": "OK",
+  "tekst": "start \u2014 stop \u2013 przerwa \u22125 min przerwy technicznej",
+  "dlaczego": "em dash, en dash i matematyczny minus w jednym zdaniu operacyjnym"
+ },
+ {
+  "typ": "cytatyFrancuskie",
+  "oczekiwane": "OK",
+  "tekst": "Tryb \u00ab hardcore \u00bb i \u00ab PvE \u00bb \u2014 wyb\u00f3r przy wej\u015bciu.",
+  "dlaczego": "cudzyslowy francuskie (gilzes) jako oznaczenie trybow gry"
+ },
+ {
+  "typ": "wielokropek_apostrof",
+  "oczekiwane": "OK",
+  "tekst": "Koniec sezonu\u2026 i co dalej? O\u2019Brien wie.",
+  "dlaczego": "wielokropek typograficzny plus apostrof right-single-quote w nazwisku"
+ },
+ {
+  "typ": "lista_punkty",
+  "oczekiwane": "OK",
+  "tekst": "\u2022 gracze \u2022 admini \u2022 obserwatorzy \u2014 \u25cf online, \u25cb offline",
+  "dlaczego": "punkty listy oraz kola pelne/puste do statusow"
+ },
+ {
+  "typ": "strzalki_mapa",
+  "oczekiwane": "OK",
+  "tekst": "Trasa: \u2190 zachod \u2192 wschod, skrzy\u017cowanie \u2194, wymiana \u21c4, wyjscia \u2191 i \u2193",
+  "dlaczego": "pelny zestaw strzaek projektu (mapa, logika przeplywow)"
+ },
+ {
+  "typ": "relacje_matematyczne",
+  "oczekiwane": "OK",
+  "tekst": "ping \u2264 50 ms, FPS \u2265 60, ping \u2248 30, straty \u2260 0%",
+  "dlaczego": "relacje matematyczne w wymaganiach technicznych"
+ },
+ {
+  "typ": "jednostki_fizyczne",
+  "oczekiwane": "OK",
+  "tekst": "\u22125\u00b0C na zewn\u0105trz, \u00b10.2 s tolerancja, transfer 3 \u00d7 szybszy, 100% mocy",
+  "dlaczego": "minus, stopnie Celsjusza, plus-minus, mnozenie, procent"
+ },
+ {
+  "typ": "waluty",
+  "oczekiwane": "OK",
+  "tekst": "Cena pakietu: 20 \u20ac, 15 \u00a3 albo 75 z\u0142 \u2014 do wyboru.",
+  "dlaczego": "euro, funt i zloty w jednym cenniku"
+ },
+ {
+  "typ": "ulamki",
+  "oczekiwane": "OK",
+  "tekst": "\u00bd serwera pelna, \u00be RAM zaj\u0119te, \u00bc dysku wolne",
+  "dlaczego": "ulamki 1/2 1/4 3/4 z palety w opisie obciazenia"
+ },
+ {
+  "typ": "potegi_jednostki",
+  "oczekiwane": "OK",
+  "tekst": "Powierzchnia 10 m\u00b2, kubatura 5\u00b3, skala 10\u00b9, czas 20\u00b5s, licencja ASA\u2122",
+  "dlaczego": "potegi, mikro-sekundy i znak towarowy"
+ },
+ {
+  "typ": "pilcrow_paragraf",
+  "oczekiwane": "OK",
+  "tekst": "\u00b6 tres\u0107i i \u00a7 4 regulaminu \u2014 bez zmian.",
+  "dlaczego": "pilcrow i paragraf w spisie tresci"
+ },
+ {
+  "typ": "statusy_emoji",
+  "oczekiwane": "OK",
+  "tekst": "\u2705 dzia\u0142a, \u274c pad\u0142, \u2753 do wyja\u015bnienia \u2014 raport dzienny.",
+  "dlaczego": "emoji statusow z palety projektowej"
+ },
+ {
+  "typ": "pinezki",
+  "oczekiwane": "OK",
+  "tekst": "\ud83d\udccc zasady serwera, \ud83d\udccd punkt spawnu \u2014 przypiete w kanale.",
+  "dlaczego": "pinezka i lokalizacja (dymek) z palety"
+ },
+ {
+  "typ": "flagi_serwerow",
+  "oczekiwane": "OK",
+  "tekst": "Regiony: \ud83c\uddf5\ud83c\uddf1 PL, \ud83c\udde9\ud83c\uddea DE, \ud83c\uddec\ud83c\udde7 UK, \ud83c\uddfa\ud83c\uddf8 US",
+  "dlaczego": "flagi regionalne z listy serwerow"
+ },
+ {
+  "typ": "diagram_box",
+  "oczekiwane": "OK",
+  "tekst": "\u250c\u2500\u2500\u2500\u2510  \u2502ARK\u2502  \u2514\u2500\u2500\u2500\u2518  \u251c\u2500 moduly  \u2524\u2500 pluginy",
+  "dlaczego": "linie diagramow box-drawing z MAPA logiki"
+ },
+ {
+  "typ": "skroty_klawisz",
+  "oczekiwane": "OK",
+  "tekst": "Skr\u00f3ty: \u2318C kopiuj, \u2325ALT opcje, \u21e7SHIFT+X, \u2303CTRL+R",
+  "dlaczego": "symbole klawiszy Mac z MAPA-LOGIKI"
+ },
+ {
+  "typ": "wielolinia_ascii",
+  "oczekiwane": "OK",
+  "tekst": "[sekcja]\tkolumna=warto\u015b\u0107\n[druga]\tidentyfikator=7",
+  "dlaczego": "tabulatory i nowe linie ASCII w snippecie configu"
+ },
+ {
+  "typ": "testy_znaki",
+  "oczekiwane": "OK",
+  "tekst": "Wyniki: \u2713 zaliczony, \u2714 potwierdzony, \u2715 odrzucony \u2014 podsumowanie.",
+  "dlaczego": "znaki zgody i odmowy z palety"
+ },
+ {
+  "typ": "mix_wszystko",
+  "oczekiwane": "OK",
+  "tekst": "\u2514\u2500\u2192 mod v3 \u2014 10\u00b2 pobra\u0144, \u00b1 0 b\u0142\u0119d\u00f3w, \u00a7 done\u2026 \u2705 \u201eostatnia wersja\u201d",
+  "dlaczego": "stres: diagram + potega + relacja + paragraf + wielokropek + emoji + cudzyslowy w jednej linii"
+ },
+ {
+  "typ": "challenge_dzielenie",
+  "oczekiwane": "OK",
+  "tekst": "Skladnia: 12 \u00f7 4 = 3",
+  "dlaczego": "WYZWANIE: znak dzielenia U+00F7 z Latin-1 - typowy w matematyce szkolnej, wg mnie OK jak \u00d7",
+  "status": "POLITYKA-PALETA - korpus skanowany: 0 wystapien (doktryna: paleta = udokumentowane uzycie w projekcie; precedens Ext-B r3)"
+ },
+ {
+  "typ": "challenge_prime",
+  "oczekiwane": "OK",
+  "tekst": "Wspolrzedne: 10\u2032 30\u2033 E",
+  "dlaczego": "WYZWANIE: primy (minuty/sekundy katowe) U+2032/U+2033 - geografia i nawigacja, nie obce pismo",
+  "status": "POLITYKA-PALETA - korpus skanowany: 0 wystapien (doktryna: paleta = udokumentowane uzycie w projekcie; precedens Ext-B r3)"
+ },
+ {
+  "typ": "challenge_nbhyphen",
+  "oczekiwane": "OK",
+  "tekst": "ASA\u2011only \u2014 tryb\u2011test\u2011serwera",
+  "dlaczego": "WYZWANIE: nie\u0142amliwy myslnik U+2011 - poprawna typografia lacze dla zlozonych nazw, wyglada jak myslnik bo nia jest",
+  "status": "POLITYKA-PALETA/HOMOGLIF - korpus skanowany: 0 wystapien U+2011; dodatkowo homoglif ASCII '-' (doktryna Kelvina r3: znak udajacy czysty ASCII to kwiatek-niewidka, nie kandydat do palety); w projekcie tylko wklejki badawcze KOZAK-ANALIZA"
+ }
+]
