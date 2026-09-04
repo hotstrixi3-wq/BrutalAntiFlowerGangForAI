@@ -88,8 +88,8 @@ Kazda wiadomosc z tekstem z zewnatrz (web, OCR, dokument usera, inny agent) - sk
 
 ## 8. Wersjonowanie
 
-- PogromcaKwiatkow.py v8.0.3
-- ZagladaKultury.py v1.0.9 (+ naprawa podatnych podstawien w kodzie: litery i lamacze)
+- PogromcaKwiatkow.py v8.1.0 (+ RYZYKO-KLUCZA: literal skazony a uzywany jako klucz)
+- ZagladaKultury.py v1.1.1 (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow)
 - ProkuratorOgrodnik.py v1.0.1 (akta faktycznie w U+XXXX)
 - AnihilatorChwastow.py v1.0.0
 

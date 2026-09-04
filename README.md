@@ -18,8 +18,8 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 
 ## Rodzina - 4 pliki ktore ida wszedzie razem
 
-- **PogromcaKwiatkow.py v8.0.3** - oczy, detektor BLAD/UWAGA/OK
-- **ZagladaKultury.py v1.0.9** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa podatnych podstawien w kodzie: litery i lamacze)
+- **PogromcaKwiatkow.py v8.1.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
+- **ZagladaKultury.py v1.1.1** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
 - **ProkuratorOgrodnik.py v1.0.1** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
 - **AnihilatorChwastow.py v1.0.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
 
@@ -86,6 +86,93 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 - Nie jest poprawiaczem ortografii - pilnuje alfabetow, nie bledow
 
 ## Historia zmian
+
+- v8.2.20 - Pogromca v8.1.0: nowa warstwa raportu RYZYKO-KLUCZA, decyzja
+  własna agenta-operatora po analizie misji ("Gang chroni kod przed
+  popsuciem, użytkownikiem jest agent AI — agent decyduje co zrobić, żeby
+  narzędzie było skuteczne"). Adresuje jedyne znane, udokumentowane, NIE
+  naprawione ryzyko z sesji: literal string w kodzie .py zawierający obcy
+  znak, którego oczyszczona wersja pasuje do innego identyfikatora/literalu
+  już w pliku (sygnał: to prawdopodobnie ta sama nazwa, skażona tylko w
+  jednym miejscu, pełniąca funkcję klucza/identyfikatora gdzie indziej).
+  Zagłada SŁUSZNIE nie rusza treści literałów (kontrakt: święte) — więc
+  taki plik kompiluje się czysto i wybucha AttributeError/KeyError dopiero
+  w runtime. Pogromca to teraz WYKRYWA (przez tokenize, tylko dla .py,
+  tylko gdy plik się tokenizuje) i OSTRZEGA — nic nie modyfikuje, nic nie
+  usuwa z literału, decyzja zostaje przy operatorze. Zweryfikowane: 0/19
+  fałszywych alarmów na czystym korpusie (test-50 czyste + własne 4
+  narzędzia + 3 oryginały z GitHuba), 0/27 awarii na korpusie brudnym,
+  łapie dokładnie przypadek znaleziony wczoraj (literal "niewidzialne"
+  skażony jednym znakiem, użyty jako klucz słownika gdzie indziej).
+
+  UCZCIWIE: podczas wdrażania tej łatki sam sobie wprowadziłem prawdziwy
+  bug — `str_replace` przypadkiem skasował nagłówek `def domyslne_pliki():`
+  (ciało funkcji zostało, ale bez definicji — `python3 PogromcaKwiatkow.py`
+  bez argumentów kończył się `NameError` zamiast normalnym skanem).
+  Złapane przez T2 (FN 1, dwa seedy pod rząd, wektor `s5-cli:bez
+  argumentow`), nie przez ręczny przegląd — dokładnie po to jest ten
+  test. Naprawione, T1/T2/T3 + tor + fuzz + bramka całego repo ponownie
+  zielone po naprawie. Osobno, drugi raz w tej samej rundzie: użyłem
+  żywego znaku cyrylickiego w przykładzie w dokstringu zamiast notacji
+  U+XXXX (trzeci raz w tej sesji ten sam błąd) — złapane przez bramkę
+  Pogromcy na własnym pliku, naprawione.
+
+- v8.2.19 - Zagłada v1.1.1: naprawa desynchronizacji stanu w awaryjnym
+  skanerze (`zaglada_tekst_poza_literalami_surowy`), znaleziona
+  ABSURDALNYM testem na żądanie użytkownika: Zagłada atakuje i czyści
+  zaatakowaną kopię WŁASNEGO kodu źródłowego (100 wstrzyknięć w słowa
+  kluczowe/identyfikatory, seed 666). Znalezisko: stany `lancuch`/`trojka`
+  zamykały się na DOWOLNYM znaku cudzysłowu, nie na tym samym, który je
+  otworzył (`if c in ("'", '"')` zamiast dopasowania do zapamiętanego
+  otwierającego). Na zwykłym kodzie nieszkodliwe, ale na pliku, który sam
+  zawiera na przemian `"'''"` i `'"""'` jako dane (dokładnie taki jest kod
+  samej Zagłady — sędzia cudzysłowów zawiera cudzysłowy jako dane) —
+  rozjeżdża stan skanera, przez co całe fragmenty pliku po takiej linii
+  są cicho pomijane (ani transliterowane, ani liczone jako podatne).
+  Naprawa: skaner pamięta KTÓRY znak/sekwencja otworzyła literał
+  (`cudzyslow = c`), zamyka tylko na dokładnym dopasowaniu. Regresja: 0
+  (test-50 nadal 11/11, 50/50 czystych bez zmian, 16/16 turnieju
+  zewnętrznego, tor 348/0/0/0). Reset medalu (4. raz w tej sesji) —
+  odzyskany.
+
+  DRUGIE znalezisko tego samego absurdalnego testu, NIE naprawione —
+  udokumentowana granica architektury, nie błąd implementacji: string
+  literal użyty jako klucz słownika gdzie indziej w tym samym pliku
+  (`"niewidzialne"` w krotce KATEGORIE, odczytywane jako
+  `licznik["niewidzialne"]`) może zostać skażony wewnątrz cudzysłowu
+  (przykład z testu: cyrylickie U+0430 wstrzyknięte tuż po "nie", dając
+  wizualnie nierozróżnialny ciąg) i Zagłada SŁUSZNIE
+  go nie rusza (kontrakt: zawartość literału jest święta). Plik wtedy
+  kompiluje się, ale wybucha `KeyError` w runtime. To nie jest do
+  naprawienia bez złamania obietnicy "nie ruszamy zawartości stringów" —
+  to jest cena tej obietnicy, nazwana wprost, nie ukryta.
+
+  Nowe narzędzie: `dev/turnieje/SUMA-KONTROLNA-TESTOW.py` — mechanizm
+  złotego pliku z sumami sha256 (wejście/wyjście/źródło Zagłady) do
+  szybkiej weryfikacji testów bez ponownego czytania każdego pliku;
+  ostrzega jeśli źródło Zagłady zmieniło się od zapisania manifestu.
+
+- v8.2.18 - Zagłada v1.1.0: naprawa spójności identyfikatorów, znaleziona
+  turniejem zewnętrznym (3 prawdziwe pliki .py z GitHuba, 6 nowych kategorii
+  ataku niepróbowanych wcześniej). Znalezisko: plik może skompilować się
+  przez samą transliterację (szybka ścieżka, bez wywołania naprawy z
+  v1.0.8/1.0.9), ale wynik jest SKŁADNIOWO poprawny a SEMANTYCZNIE inny —
+  np. `self._scandir_path` w jednym miejscu pliku, `self._VIIIscandir_patKh`
+  w drugim (po foldzie NFKC dwóch znaków: rzymska osemka U+2167→VIII + znak
+  Kelvina→K wstrzykniętych w jedno słowo). `compile()` tego nie widzi —
+  sprawdza składnię, nie spójność nazw. W runtime: `AttributeError`.
+  Nowa funkcja `_napraw_niespojnosc_identyfikatorow()`: po czyszczeniu
+  diffuje oryginał z wynikiem, dla każdej zmiany rozszerza do granic
+  identyfikatora, i jeśli wariant-z-usunięciem pasuje do INNEGO
+  identyfikatora już istniejącego w pliku (silny sygnał że to ta sama
+  zmienna zabrudzona w jednym miejscu) — usuwa zamiast zostawiać
+  transliterację, weryfikuje `compile()` jak zawsze. Zweryfikowane na
+  żywo: naprawiony plik faktycznie się importuje i działa (nie tylko
+  kompiluje). Regresja: 0 (test-50 nadal 11/11, 50/50 czystych bez zmian,
+  16/16 wariantów turnieju zewnętrznego kompiluje się, tor 348/0/0/0,
+  selftesty PASS). Reset medalu (3. raz w tej sesji, własna zasada):
+  Z1 3x zielone (seed 7/21/55: 1572/0/0 każdy) + Z2 3x zielone (200/0
+  każdy) = medal odzyskany.
 
 - v8.2.16 - Zagłada v1.0.9: DRUGA i głębsza przyczyna tego samego problemu,
   znaleziona przy ponownej analizie wstecznej (priorytet nad SZYBKIM

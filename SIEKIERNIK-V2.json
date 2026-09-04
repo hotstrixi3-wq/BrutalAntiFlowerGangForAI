@@ -1,0 +1,182 @@
+[
+ {
+  "typ": "rzymska_nl",
+  "oczekiwane": "BLAD",
+  "tekst": "\u2160",
+  "dlaczego": "Znak nalezy do kategorii Nl (Letter Number) i omija blokade liter oraz cyfr Nd."
+ },
+ {
+  "typ": "rzymska_5000_nl",
+  "oczekiwane": "BLAD",
+  "tekst": "\u2181",
+  "dlaczego": "Cyfra rzymska 5000 poza zablokowanym blokiem Letterlike, traktowana jako dozwolony szum Nl."
+ },
+ {
+  "typ": "gruzinski_paragraf",
+  "oczekiwane": "BLAD",
+  "tekst": "\u10fb",
+  "dlaczego": "Interpunkcja gruzinska (Po) omija filtr liter obcych, a blok gruzinski nie jest na czarnej liscie."
+ },
+ {
+  "typ": "tybetanski_tsheg",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0f0b",
+  "dlaczego": "Znak interpunkcyjny (Po) z nieblokowanego bloku tybetanskiego omija reguly kategorii L*."
+ },
+ {
+  "typ": "etiopski_wordspace",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1361",
+  "dlaczego": "Etiopska spacja (Po) omija filtr liter obcych, poniewaz blok etiopski nie zostal zablokowany."
+ },
+ {
+  "typ": "etiopska_dziesiatka",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1372",
+  "dlaczego": "Liczba etiopska omija filtr cyfr, poniewaz nalezy do kategorii No, a nie Nd."
+ },
+ {
+  "typ": "bengalska_rupia",
+  "oczekiwane": "BLAD",
+  "tekst": "\u09f2",
+  "dlaczego": "Symbol waluty bengalskiej (Sc) omija filtr liter i nieblokowany zakres bengalski."
+ },
+ {
+  "typ": "bengalska_ganda",
+  "oczekiwane": "BLAD",
+  "tekst": "\u09f4",
+  "dlaczego": "Bengalski znak numeryczny omija filtr cyfr Nd, bedac sklasyfikowany jako No."
+ },
+ {
+  "typ": "tamilski_numer",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0bf0",
+  "dlaczego": "Tamilski symbol numeryczny (So) omija filtr cyfr Nd i nieblokowany zakres tamilski."
+ },
+ {
+  "typ": "telugu_ulamek",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0c78",
+  "dlaczego": "Znak ulamka telugu (No) omija filtr cyfr Nd i nieblokowany zakres telugu."
+ },
+ {
+  "typ": "malajalam_data",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0d79",
+  "dlaczego": "Symbol daty malajalam (So) omija filtr liter obcych i nieblokowany zakres malajalam."
+ },
+ {
+  "typ": "gudzarati_rupia",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0af1",
+  "dlaczego": "Symbol waluty gudzarati (Sc) omija filtr liter obcych i nieblokowany zakres gudzarati."
+ },
+ {
+  "typ": "sinhala_kunddaliya",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0df4",
+  "dlaczego": "Sinhala znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres sinhala."
+ },
+ {
+  "typ": "khmer_lek_attak",
+  "oczekiwane": "BLAD",
+  "tekst": "\u17f0",
+  "dlaczego": "Khmerski symbol numeryczny (So) omija filtr cyfr Nd i nieblokowany zakres khmerski."
+ },
+ {
+  "typ": "myanmar_shan_one",
+  "oczekiwane": "BLAD",
+  "tekst": "\u109e",
+  "dlaczego": "Znak numeryczny Myanmar Shan (No) omija filtr cyfr Nd i nieblokowany zakres mjanmarski."
+ },
+ {
+  "typ": "vai_interpunkcja",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua60e",
+  "dlaczego": "Znak interpunkcyjny pisma Vai (Po) omija filtr liter obcych i nieblokowany zakres Vai."
+ },
+ {
+  "typ": "yi_interpunkcja",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua4fe",
+  "dlaczego": "Znak interpunkcyjny pisma Yi (Po) omija filtr liter obcych i nieblokowany zakres Yi."
+ },
+ {
+  "typ": "jawajski_piseleh",
+  "oczekiwane": "BLAD",
+  "tekst": "\ua9c5",
+  "dlaczego": "Jawajski znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres jawajski."
+ },
+ {
+  "typ": "cham_interpunkcja",
+  "oczekiwane": "BLAD",
+  "tekst": "\uaa5c",
+  "dlaczego": "Znak interpunkcyjny pisma Cham (Po) omija filtr liter obcych i nieblokowany zakres Cham."
+ },
+ {
+  "typ": "balijski_carik",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1b5e",
+  "dlaczego": "Balijski znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres balijski."
+ },
+ {
+  "typ": "sundajski_bindu",
+  "oczekiwane": "BLAD",
+  "tekst": "\u1ce2",
+  "dlaczego": "Sundajski znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres sundajski."
+ },
+ {
+  "typ": "nko_gbakurun",
+  "oczekiwane": "BLAD",
+  "tekst": "\u07f6",
+  "dlaczego": "Symbol pisma Nko (So) omija filtr liter obcych i nieblokowany zakres Nko."
+ },
+ {
+  "typ": "samarytanski_nequda",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0830",
+  "dlaczego": "Samarytanski znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres samarytanski."
+ },
+ {
+  "typ": "linear_b_vessel",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud800\udce0",
+  "dlaczego": "Ideogram pisma Linear B (So) omija filtr liter obcych i nieblokowany zakres starozytny."
+ },
+ {
+  "typ": "rzymski_waga_so",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud800\udd90",
+  "dlaczego": "Starozytny rzymski znak wagi (So) omija filtr cyfr Nd i nieblokowany zakres starozytny."
+ },
+ {
+  "typ": "modyfikator_dwukropek",
+  "oczekiwane": "BLAD",
+  "tekst": "\u02d0",
+  "dlaczego": "Litera modyfikujaca (Lm) powyzej U+017F, ktora moze omijac filtry nastawione wylacznie na Ll/Lu."
+ },
+ {
+  "typ": "modyfikator_ring",
+  "oczekiwane": "BLAD",
+  "tekst": "\u02d4",
+  "dlaczego": "Litera modyfikujaca (Lm) powyzej U+017F, czesto pomijana przez naiwne filtry alfabetow obcych."
+ },
+ {
+  "typ": "syriacki_punkt",
+  "oczekiwane": "BLAD",
+  "tekst": "\u0701",
+  "dlaczego": "Syriacki znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres syriacki."
+ },
+ {
+  "typ": "mandejski_punkt",
+  "oczekiwane": "BLAD",
+  "tekst": "\u085e",
+  "dlaczego": "Mandejski znak interpunkcyjny (Po) omija filtr liter obcych i nieblokowany zakres mandejski."
+ },
+ {
+  "typ": "klinowe_numeryczne",
+  "oczekiwane": "BLAD",
+  "tekst": "\ud809\udc00",
+  "dlaczego": "Pismo klinowe znak numeryczny (No) omija filtr cyfr Nd i nieblokowany zakres pisma klinowego."
+ }
+]

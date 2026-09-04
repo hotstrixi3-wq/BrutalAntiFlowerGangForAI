@@ -6,6 +6,18 @@ jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
 z rodzina: ZagladaKultury, ProkuratorOgrodnik, AnihilatorChwastow).
 Przeczytaj przed pierwszym uzyciem.
 
+(v8.1.0, 2026-09-04) RYZYKO-KLUCZA: nowa, dodatkowa warstwa raportu.
+Znalezisko z turnieju absurdalnego (Zagłada czyszcząca zaatakowaną kopię
+własnego kodu): literal string zawierający obcy znak, którego "oczyszczona"
+wersja pasuje do innego identyfikatora/literalu już w pliku (np. literal
+"niewidzialne" z jednym znakiem podmienionym na cyrylicki odpowiednik,
+obok użycia jako klucz slownika licznik["niewidzialne"]) —
+plik kompiluje się czysto, wybucha AttributeError/KeyError dopiero w
+runtime. Zagłada SŁUSZNIE nie rusza treści literałów (kontrakt: święte),
+więc to jest ryzyko, którego żadne narzędzie w rodzinie nie naprawi — ale
+Pogromca może je teraz WYKRYĆ i zgłosić, zamiast pozwolić przejść cicho.
+Nic nie modyfikuje, tylko ostrzega. Patrz analizuj_literaly_jako_klucze().
+
 Slownik kulturalny: "kwiatek" = w slangu pisarzy i redaktorow GAFa w tekscie,
 literowka, potkniecie pisarskie (nie bukiet!). Stad nazwa: narzedzie
 TERMINUJE kwiatki, zanim ujrzą swiatlo dzienne.
@@ -36,6 +48,7 @@ Exit: 0 = czysto, 1 = BLAD.
 import io
 import os
 import sys
+import tokenize
 import unicodedata
 from functools import lru_cache
 
@@ -223,6 +236,72 @@ def analizuj(tekst):
             else:
                 uwagi.append((nr, znak, kontekst))
     return bledy, uwagi
+
+
+def _oczysc_kandydatow(wartosc):
+    """Zwraca zbior mozliwych 'oczyszczonych' wersji stringu (bez wiedzy o
+    tabelach transliteracji Zaglady - Pogromca ma zostac bez zaleznosci od
+    siostry). Dwie strategie: usun podejrzane znaki / zlozenie NFKD+ascii."""
+    kandydaci = set()
+    oczyszczony_usun = "".join(
+        c for c in wartosc if klasyfikuj(c)[0] == "OK" or c in " \t"
+    )
+    if oczyszczony_usun != wartosc:
+        kandydaci.add(oczyszczony_usun)
+    zlozony = unicodedata.normalize("NFKD", wartosc)
+    ascii_fold = zlozony.encode("ascii", "ignore").decode("ascii")
+    if ascii_fold and ascii_fold != wartosc:
+        kandydaci.add(ascii_fold)
+    return kandydaci
+
+
+def analizuj_literaly_jako_klucze(tekst, sciezka):
+    """(v8.1.0, znalezisko 2026-09-03) Zwraca liste ostrzezen: literal
+    string w kodzie .py zawiera podejrzany (obcy/homoglif) znak, a jego
+    'oczyszczona' wersja pasuje do INNEGO identyfikatora lub literalu juz
+    obecnego w tym samym pliku. To silny sygnal, ze literal pelni funkcje
+    klucza/identyfikatora (dict key, __slots__, getattr) gdzie indziej w
+    pliku - a Zagłada SLUSZNIE nie rusza tresci literalow (kontrakt: swiete),
+    wiec taki plik moze skompilowac sie czysto i wybuchnac dopiero w runtime
+    (AttributeError/KeyError). To TYLKO ostrzezenie - nic nie modyfikuje,
+    nic nie usuwa z literalu. Dziala tylko gdy plik .py sie tokenizuje
+    (jesli nie, po prostu nic nie zwraca - to jest dodatek, nie wymog)."""
+    if not sciezka.endswith(".py"):
+        return []
+    try:
+        tokeny = list(tokenize.generate_tokens(io.StringIO(tekst).readline))
+    except (tokenize.TokenError, SyntaxError, IndentationError, UnicodeError):
+        return []
+    nazwy = set()
+    literaly = []  # (wartosc, linia)
+    for tok in tokeny:
+        if tok.type == tokenize.NAME:
+            nazwy.add(tok.string)
+        elif tok.type == tokenize.STRING:
+            surowy = tok.string
+            for prefiks in ("rb", "br", "Rb", "bR", "rB", "BR", "r", "R", "b", "B", "f", "F", "u", "U"):
+                if surowy.lower().startswith(prefiks.lower()) and len(surowy) > len(prefiks):
+                    if surowy[len(prefiks):len(prefiks) + 1] in ("'", '"'):
+                        surowy = surowy[len(prefiks):]
+                        break
+            for cudzyslow in ('"""', "'''", '"', "'"):
+                if surowy.startswith(cudzyslow) and surowy.endswith(cudzyslow) and len(surowy) >= 2 * len(cudzyslow):
+                    wartosc = surowy[len(cudzyslow):-len(cudzyslow)]
+                    literaly.append((wartosc, tok.start[0]))
+                    break
+    wszystkie_literaly = set(w for w, _ in literaly)
+    ostrzezenia = []
+    for wartosc, linia in literaly:
+        if not any(klasyfikuj(c)[0] == "BLAD" for c in wartosc):
+            continue
+        for kandydat in _oczysc_kandydatow(wartosc):
+            if kandydat in nazwy or kandydat in (wszystkie_literaly - {wartosc}):
+                ostrzezenia.append(
+                    (linia, wartosc, kandydat,
+                     "identyfikator" if kandydat in nazwy else "inny literal")
+                )
+                break
+    return ostrzezenia
 
 
 def domyslne_pliki():
@@ -467,6 +546,7 @@ def main():
             n_blad += 1
             continue
         bledy, uwagi = analizuj(tekst)
+        ryzyko_kluczy = analizuj_literaly_jako_klucze(tekst, sciezka)
         nazwa = os.path.relpath(sciezka, HOME)
         if bledy:
             n_blad += 1
@@ -484,6 +564,15 @@ def main():
                 print("        linia %d, znak %r | ...%s..." % (nr, znak, kontekst))
         else:
             print("[OK]    %s" % nazwa)
+        if ryzyko_kluczy:
+            for nr, wartosc, kandydat, typ in ryzyko_kluczy[:3]:
+                print("        [RYZYKO-KLUCZA] linia %d: literal zawiera obcy znak, "
+                      "oczyszczona wersja pasuje do %s '%s' juz w pliku — "
+                      "Zaglada NIE dotknie tresci literalu (kontrakt: swiety), "
+                      "sprawdz recznie przed uznaniem pliku za bezpieczny"
+                      % (nr, typ, kandydat))
+            if len(ryzyko_kluczy) > 3:
+                print("        [RYZYKO-KLUCZA] ...i %d dalszych" % (len(ryzyko_kluczy) - 3))
     print("-" * 72)
     print("PODSUMOWANIE: %d plikow | BLAD: %d | UWAGA: %d" %
           (len(pliki), n_blad, n_uwag))

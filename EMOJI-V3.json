@@ -1,0 +1,134 @@
+[
+ {
+  "typ": "status_ok",
+  "oczekiwane": "OK",
+  "tekst": "Status serwera: \u2705 Aktywny. Zapraszamy do gry!",
+  "dlaczego": "Uzywa wylacznie znakow ASCII, polskich ogonkow oraz emoji sukcesu z dozwolonej palety."
+ },
+ {
+  "typ": "status_err",
+  "oczekiwane": "OK",
+  "tekst": "Server error: \u274c Connection timed out. Please retry.",
+  "dlaczego": "Uzywa standardowego ASCII oraz emoji bledu z dozwolonej palety."
+ },
+ {
+  "typ": "flag_pl",
+  "oczekiwane": "OK",
+  "tekst": "Language set to Polish \ud83c\uddf5\ud83c\uddf1 (PL).",
+  "dlaczego": "Flaga Polski zlozona z dwoch wskaznikow regionalnych z dozwolonego zakresu."
+ },
+ {
+  "typ": "flag_us",
+  "oczekiwane": "OK",
+  "tekst": "Default region: \ud83c\uddfa\ud83c\uddf8 US West.",
+  "dlaczego": "Flaga USA zlozona z dwoch wskaznikow regionalnych z dozwolonego zakresu."
+ },
+ {
+  "typ": "console_cmd",
+  "oczekiwane": "OK",
+  "tekst": "Run: ARK\u2122_Server.exe \u2212useallavailablecores \u2212microtime=20\u00b5s \u2212area=5\u00b2",
+  "dlaczego": "Uzywa legalnego TM, minusa typograficznego, mikro oraz potegi drugiej z palety."
+ },
+ {
+  "typ": "temp_unit",
+  "oczekiwane": "OK",
+  "tekst": "Optimal temperature is 30\u00b0C, safe zone: \u221210\u00b0C to 45\u00b0C.",
+  "dlaczego": "Uzywa znaku stopnia, minusa typograficznego oraz standardowych jednostek."
+ },
+ {
+  "typ": "area_unit",
+  "oczekiwane": "OK",
+  "tekst": "Base footprint: 5 m\u00b2, volume: 12 m\u00b3.",
+  "dlaczego": "Uzywa legalnych indeksow gornych dla metrow kwadratowych i szesciennych."
+ },
+ {
+  "typ": "diagram_box",
+  "oczekiwane": "OK",
+  "tekst": "\u250c\u2500\u2500\u2510\n\u2502OK\u2502\n\u2514\u2500\u2500\u2518",
+  "dlaczego": "Uzywa wylacznie linii diagramow z dozwolonego przedzialu U+2500-257F."
+ },
+ {
+  "typ": "fraction_counter",
+  "oczekiwane": "OK",
+  "tekst": "Server capacity: \u00bd full, queue: \u00be of max.",
+  "dlaczego": "Uzywa ulamkow jedna druga i trzy czwarte z dozwolonej palety."
+ },
+ {
+  "typ": "shortcut_mac",
+  "oczekiwane": "OK",
+  "tekst": "To open console press \u2318 + \u2325 + C on macOS.",
+  "dlaczego": "Uzywa legalnych symboli klawiszy Command i Option z palety."
+ },
+ {
+  "typ": "shortcut_win",
+  "oczekiwane": "OK",
+  "tekst": "Use \u21e7 + \u2303 + Esc to open Task Manager.",
+  "dlaczego": "Uzywa legalnych symboli klawiszy Shift i Control z palety."
+ },
+ {
+  "typ": "win_path",
+  "oczekiwane": "OK",
+  "tekst": "Load mod from C:\\ARK\\ShooterGame\\Content\\Mods\\12345\\.",
+  "dlaczego": "Klasyczna sciezka Windows zawierajaca wylacznie bezpieczne znaki ASCII."
+ },
+ {
+  "typ": "rcon_quote",
+  "oczekiwane": "OK",
+  "tekst": "RCON: Broadcast \u201eServer update in 5 minutes!\u201d",
+  "dlaczego": "Uzywa poprawnych typograficznie cudzyslowow otwierajacych i zamykajacych z palety."
+ },
+ {
+  "typ": "pl_apostrophe",
+  "oczekiwane": "OK",
+  "tekst": "Gracz\u2019s inventory: \u0141\u00f3d\u017a ratunkowa \u015bpi\u0105cego.",
+  "dlaczego": "Polskie znaki diakrytyczne oraz prawidlowy apostrof typograficzny z palety."
+ },
+ {
+  "typ": "eula_euro",
+  "oczekiwane": "OK",
+  "tekst": "See \u00a7 4.2 of EULA. Refund fee is \u20ac15.",
+  "dlaczego": "Uzywa znaku paragrafu oraz symbolu waluty Euro z dozwolonej palety."
+ },
+ {
+  "typ": "price_pound",
+  "oczekiwane": "OK",
+  "tekst": "Price: \u00a345, discount: \u2212\u00a35.",
+  "dlaczego": "Uzywa symbolu funta szterlinga oraz minusa typograficznego z palety."
+ },
+ {
+  "typ": "question_emoji",
+  "oczekiwane": "OK",
+  "tekst": "Missing config file? \u2753 Check your path.",
+  "dlaczego": "Uzywa czerwonego znaku zapytania z dozwolonej palety emoji."
+ },
+ {
+  "typ": "pin_emoji",
+  "oczekiwane": "OK",
+  "tekst": "Spawn point \ud83d\udccc pinned at \ud83d\udccd coordinates.",
+  "dlaczego": "Uzywa pinezek z dozwolonej palety emoji bez niedozwolonych modyfikatorow."
+ },
+ {
+  "typ": "rcon_fraction",
+  "oczekiwane": "OK",
+  "tekst": "SetAdminOption \u2212SpeedMultiplier \u00bc",
+  "dlaczego": "Uzywa minusa typograficznego oraz ulamka jedna czwarta z dozwolonej palety."
+ },
+ {
+  "typ": "win_path_pl",
+  "oczekiwane": "OK",
+  "tekst": "Path: D:\\Gry\\ARK\\Zapisy_Serwera\\G\u00f3ra_Przeznaczenia\\",
+  "dlaczego": "Sciezka Windows z polskimi znakami diakrytycznymi mieszczacymi sie w standardzie."
+ },
+ {
+  "typ": "diagram_multi",
+  "oczekiwane": "OK",
+  "tekst": "\u251c\u2500\u2500\u2524\n\u2514\u2500\u2500\u2518",
+  "dlaczego": "Uzywa wylacznie znakow rysowania ramek z dozwolonego zakresu."
+ },
+ {
+  "typ": "manager_tm",
+  "oczekiwane": "OK",
+  "tekst": "ARK\u2122 Server Manager v1.0 \u2014 100 m\u00b2 coverage.",
+  "dlaczego": "Uzywa znaku towarowego TM, pauzy oraz metrow kwadratowych z palety."
+ }
+]
