@@ -32,12 +32,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1910 B | `7b14e4f9740a` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 22637 B | `f43abc566a5d` |
 
-## docs/ (15 plikow, bez tego manifestu) - dokumenty i dowody
+## docs/ (17 plikow, bez tego manifestu) - dokumenty i dowody
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 3308 B | `723c364c544a` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
+| [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6040 B | `7919a39b4c27` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4330 B | `11cd6f64a713` |
@@ -82,5 +83,5 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 
-Lacznie w drzewie: 49 plikow (+ ten manifest). Bramka wydania (korzen + docs):
+Lacznie w drzewie: 50 plikow (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).
