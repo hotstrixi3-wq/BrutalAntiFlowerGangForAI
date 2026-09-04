@@ -18,10 +18,10 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 
 ## Rodzina - 4 pliki ktore ida wszedzie razem
 
-- **PogromcaKwiatkow.py v8.1.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
-- **ZagladaKultury.py v1.1.1** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
-- **ProkuratorOgrodnik.py v1.0.1** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
-- **AnihilatorChwastow.py v1.0.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
+- **PogromcaKwiatkow.py v8.4.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
+- **ZagladaKultury.py v1.3.0** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
+- **ProkuratorOgrodnik.py v1.2.0** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
+- **AnihilatorChwastow.py v1.3.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
 
 Zasada: nie ruszamy dzialajacego kodu, dokladamy kolejnego. Rodzina to combo i wszedzie idzie razem.
 
@@ -85,7 +85,61 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 - Nie jest langdetectem - widzi glify, nie jezyk
 - Nie jest poprawiaczem ortografii - pilnuje alfabetow, nie bledow
 
+## Bramka spojnosci wersji
+
+```
+python3 sprawdz-spojnosc.py     # exit 0 = spojne, 1 = rozjazd
+```
+
+Jedno zrodlo prawdy: `WERSJE.json`. Skrypt pilnuje trzech rzeczy naraz:
+
+1. stala `WERSJA` w kodzie == `WERSJE.json`
+2. warstwa czytana przez agenta nie DEKLARUJE innej wersji niz prawdziwa
+3. kopie osadzone w `docs/RODZINA-DO-CZATU.md` sa identyczne bajt-w-bajt
+   z realnymi plikami narzedzi
+
+Punkt 3 to najczesciej lamana spojnosc w tym repo (dwa razy pod rzad):
+kod sie zmienia, all-in-one dla agenta zostaje ze starym - i agent
+dostaje INNE narzedzie niz to, ktore lezy w repo.
+
+Zmieniasz wersje narzedzia -> zmieniasz `WERSJE.json` -> uruchamiasz skrypt.
+
 ## Historia zmian
+
+- v8.5.0 - BRAMKA SPOJNOSCI WERSJI: `WERSJE.json` (jedno zrodlo prawdy) +
+  `sprawdz-spojnosc.py`. Szkielet skryptu od autora, zaadaptowany do
+  realiow tego repo po weryfikacji na zywym drzewie.
+
+  DLACZEGO ADAPTACJA, A NIE WKLEJENIE 1:1 - oryginal zakladal dwa pliki,
+  ktorych tu nie ma (`WERSJE.json`, `START.md`), i porownywal KAZDY numer
+  pasujacy do `\d+\.\d+\.\d+` w warstwie agenta z lista dozwolonych.
+  Na tym repo dalo to **~40 falszywych rozjazdow**, bo README zawiera
+  HISTORIE ZMIAN, ktora z definicji mowi o starych wersjach ("v8.2.14 -
+  Zaglada v1.0.8: naprawa..."). Zabicie historii zmian, zeby uciszyc
+  walidator, byloby lekiem gorszym od choroby - to najcenniejsza czesc
+  tego repo. Rozwiazanie: skrypt sprawdza DEKLARACJE (numer stojacy przy
+  nazwie narzedzia), nie wzmianki, i rozpoznaje wieloliniowe bloki
+  changelogu, strzalki przejscia (`v1.1.1 -> v1.3.0`) oraz linie wewnatrz
+  osadzonego kodu (`print("SELFTEST ... v1.0.0")` to tresc literalu,
+  ktorej nie wolno ruszac - kontrakt: literal swiety).
+
+  DOLOZONA TRZECIA KONTROLA, ktorej oryginal nie mial: zgodnosc kopii
+  osadzonych w `docs/RODZINA-DO-CZATU.md` z realnymi plikami. To jest
+  dokladnie ta spojnosc, ktora w tym repo pekla DWA RAZY pod rzad
+  (v8.2.21 i v8.3.0) - i ktorej zaden test funkcjonalny nie lapie, bo
+  narzedzia dzialaja poprawnie, tylko agent dostaje inna ich wersje.
+
+  ZNALEZISKO PRZY PIERWSZYM URUCHOMIENIU (prawdziwe, nie falszywy alarm):
+  sekcja "Rodzina - 4 pliki ktore ida wszedzie razem" w README - czyli
+  pierwsza rzecz, jaka czyta agent - deklarowala Pogromce v8.1.0, Zaglade
+  v1.1.1, Prokuratora v1.0.1 i Anihilatora v1.0.0, gdy w repo lezaly juz
+  v8.4.0/v1.3.0/v1.2.0/v1.3.0. Naprawione.
+
+  Walidator zweryfikowany 4 testami NEGATYWNYMI na kopii repo (bramka,
+  ktora zawsze mowi OK, jest bezwartosciowa): podmiana stalej w kodzie -
+  zlapane; klamstwo w README - zlapane; rozjechany embed o JEDEN znak
+  przy identycznym rozmiarze pliku - zlapane; brak `WERSJE.json` -
+  czytelny blad, exit 1. Na czystym repo: 0 rozjazdow.
 
 - v8.3.0 - WGRANIE NOWSZYCH WERSJI CALEJ RODZINY (kod dostarczony przez
   autora, wklejony wprost do czatu — zalaczniki nie dochodzily). Skok

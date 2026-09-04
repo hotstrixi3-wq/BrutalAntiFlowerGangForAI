@@ -5,7 +5,9 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.3.0: wgrane nowsze wersje calej rodziny (Pogromca v8.4.0,
+Aktualizacja v8.5.0: bramka spojnosci wersji - WERSJE.json (jedno zrodlo
+prawdy) + sprawdz-spojnosc.py (kod vs dokumentacja vs osadzone kopie w
+RODZINIE). Patrz README. Poprzednio v8.3.0: wgrane nowsze wersje calej rodziny (Pogromca v8.4.0,
 Zaglada v1.3.0, Prokurator v1.2.0, Anihilator v1.3.0) - patrz README
 Historia zmian. RODZINA-DO-CZATU re-embedowana bajt-w-bajt (4/4).
 Poprzednio v8.2.21: PORZADKI W DRZEWIE. Korzen zawieral rownolegly,
@@ -21,7 +23,7 @@ Pogromcy na korzeniu+docs: BLAD 0, audyt linkow: 49/49 zywych.
 Poprzednia aktualizacja v8.2.20: PogromcaKwiatkow.py -> v8.1.0 (warstwa
 raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 
-## Korzen (9 plikow) - narzedzia i start
+## Korzen (11 plikow) - narzedzia i start
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
@@ -31,7 +33,9 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4780 B | `5d9388a7d660` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 34722 B | `f03241c25169` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 17049 B | `6bbb0c13f521` |
-| [README.md](../README.md) | 22887 B | `8cae8ce2621d` |
+| [README.md](../README.md) | 25602 B | `fd9004bb0471` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `1d8b7b67dca7` |
+| [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1910 B | `7b14e4f9740a` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 26220 B | `78564f1ec63a` |
 
@@ -86,5 +90,5 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 
-Lacznie w drzewie: 50 plikow (+ ten manifest). Bramka wydania (korzen + docs):
+Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).
