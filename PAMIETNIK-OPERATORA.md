@@ -234,3 +234,8 @@ zmiana logiki. Potem nie da sie cofnac samej naprawy bez cofania kosmetyki.
 przeformatowania) w tym samym commicie co zmiana logiki = nie — utrudnia
 cofniecie naprawy. Rozdzielaj commity. Przed zmiana w rodzinie zrob kopie
 poza repo (`cp *.py /tmp/backup-rodziny/`).
+
+### [2026-09-04] Agent sam wstawia kwiatki do tekstu - takze do zdan o kwiatkach
+**Objaw:** User wylapal w odpowiedzi agenta na czacie slowo 'z realnymi grabiami', gdzie 'gra' to trzy znaki CYRYLICY (U+0433 U+0440 U+0430) doklejone do lacinskiego 'biami'. Kontrolny skan repo znalazl 16 kolejnych zywych homoglifow w trzech dokumentach napisanych przez agenta w tej samej sesji (INZYNIERIA-WSTECZNA, LUKI-W-TESTACH, NAPRAWA-v8.6.0).
+**Przyczyna:** Dokladnie mechanizm opisany w SZYBKI-START: model generuje token po tokenie i przy slowach zawierajacych a/e/o/c/p potrafi wskoczyc w zly alfabet. Agent NIE widzi tego u siebie ani przy pisaniu, ani przy wlasnym przegladzie. Tu doszlo sprzezenie: im wiecej agent pisal O cyrylicy, tym czesciej mu sie wstawiala.
+**Wniosek:** Nie ufaj wlasnemu tekstowi. Po napisaniu KAZDEGO dokumentu i przed KAZDYM commitem uruchom: python3 PogromcaKwiatkow.py $(git ls-files). Przyklady skazen w dokumentacji zapisuj wylacznie notacja <U+XXXX>, nigdy zywcem - inaczej dokument o kwiatkach sam roznosi kwiatki. Dotyczy to takze tekstu wysylanego na czat, ktorego zaden skaner nie sprawdza.

@@ -40,13 +40,13 @@ dopiero w runtime.
 Nie hipoteza — plik, ktory **dzialal** przed Gangiem, po Gangu **wybucha**.
 
 ```
-PRZED:   vо = 7
-         print(f"wynik: {vо}")        -> dziala, wypisuje "wynik: 7"
+PRZED:   v<U+043E> = 7
+         print(f"wynik: {v<U+043E>}")        -> dziala, wypisuje "wynik: 7"
 
 PO ZAGLADZIE:
          v  = 7                        <- definicja WYCZYSZCZONA
-         print(f"wynik: {vо}")         <- uzycie NIE (bo to "literal")
-         -> NameError: name 'vо' is not defined
+         print(f"wynik: {v<U+043E>}")         <- uzycie NIE (bo to "literal")
+         -> NameError: name 'v<U+043E>' is not defined
 ```
 
 ### Przyczyna
@@ -73,8 +73,8 @@ Dotyczy **dwoch narzedzi**, wszystkich wariantow skladni:
 To samo w JS — template literal `` `${...}` `` w `AnihilatorChwastow.py`:
 
 ```
-PRZED:  let vо = 7; console.log(`wynik: ${vо}`);   -> "wynik: 7"
-PO:     let vo = 7; console.log(`wynik: ${vо}`);   -> ReferenceError
+PRZED:  let v<U+043E> = 7; console.log(`wynik: ${v<U+043E>}`);   -> "wynik: 7"
+PO:     let vo = 7; console.log(`wynik: ${v<U+043E>}`);   -> ReferenceError
 ```
 
 `PogromcaKwiatkow.py --fix` na tej probce **nie zmienil nic** (zostawil
@@ -124,8 +124,8 @@ i **nie wykazaly problemu**:
 | Backup przy 2. przebiegu | **nie nadpisuje** pierwotnego oryginalu |
 | Plik nie-UTF8 / binarny z `.py` | czysty `[BLAD WEJSCIA]`, bez tracebacka |
 | Exit codes | Pogromca 1, Prokurator 1, Anihilator 2, czysty 0 |
-| Dekorator `@dekо` | OK |
-| Nazwa importu `import jsоn` | naprawiony poprawnie |
+| Dekorator `@dek<U+043E>` | OK |
+| Nazwa importu `import js<U+043E>n` | naprawiony poprawnie |
 
 Warstwa obronna jest solidna. Luka jest **jedna, ale trafia w samo serce tezy**.
 

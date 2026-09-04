@@ -114,3 +114,28 @@ pracowal tu przed toba - zwlaszcza gdy sie pomylil.
   `**Nieaktualne od <data>:**` i zostaw - historia pomylek tez uczy.
 
 Format pilnuje `python3 pamietnik.py --sprawdz` (0 = poprawny).
+
+## 10. Bramka tekstow - obowiazkowa przed commitem
+
+Agent NIE WIDZI wlasnych kwiatkow. Nie jest to kwestia starannosci: to ten
+sam mechanizm, ktory opisuje SZYBKI-START, tyle ze zwrocony do wewnatrz.
+W jednej sesji agent napisal trzy dokumenty OSTRZEGAJACE przed homoglifami
+i wstawil do nich 16 zywych homoglifow; siedemnasty poszedl w zdaniu na
+czat i wylapal go dopiero czlowiek.
+
+Dlatego przed KAZDYM commitem:
+
+```
+python3 sprawdz-teksty.py      # 0 = czysto, 1 = jest zywe skazenie
+```
+
+Skanuje wszystkie pliki wersjonowane (`git ls-files`), pomijajac celowo
+brudna amunicje (`dev/kwiatki-testy/`, `dev/turnieje/`, `dev/luki/`,
+`fixtures/`). Szuka homoglifow LITER (cyrylica, greka, ormianski, koptyjski,
+czirokeski) oraz znakow niewidzialnych i twardych spacji. Symboli
+typograficznych (€, ±, ✓) NIE zglasza - widac je golym okiem, a alarmowanie
+na nich zrobiloby szum, ktory kazdy zaczalby ignorowac.
+
+Przyklady skazen w dokumentacji zapisuj notacja `<U+XXXX>`, nigdy zywcem
+(par. 5). Inaczej dokument o kwiatkach sam je roznosi - nastepny agent
+skopiuje fragment i przeniesie zaraze dalej.

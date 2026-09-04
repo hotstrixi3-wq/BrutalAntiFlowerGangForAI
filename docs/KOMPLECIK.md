@@ -5,7 +5,11 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.8.0: PAMIETNIK-OPERATORA.md + pamietnik.py - pamiec
+Aktualizacja v8.9.0: sprawdz-teksty.py - bramka wykrywajaca ZYWE
+homoglify w dokumentacji (agent wstawil 16 wlasnych w 3 dokumenty
+ostrzegajace przed homoglifami; 17. wylapal user na czacie).
+
+Poprzednio v8.8.0: PAMIETNIK-OPERATORA.md + pamietnik.py - pamiec
 miedzy sesjami agentow (17 wpisow startowych w 5 sekcjach).
 
 Poprzednio v8.7.0: turnieje T5 (Anihilator) i T6 (Prokurator),
@@ -42,13 +46,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12168 B | `a914017e380c` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 5808 B | `1dda4ea93115` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 13291 B | `9728d4a14c72` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 6913 B | `b133ddbe8552` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
-| [README.md](../README.md) | 30948 B | `a29b3317e496` |
+| [README.md](../README.md) | 32704 B | `0430f7c8841d` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2358 B | `c88bf122b752` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `b5b18b865a4d` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `9afa16c7dc4e` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -85,11 +89,11 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4330 B | `11cd6f64a713` |
-| [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10516 B | `b3170a9bb4a4` |
-| [LUKI-W-TESTACH.md](LUKI-W-TESTACH.md) | 7361 B | `22b95351c84a` |
+| [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10540 B | `5bc6e5fc09dc` |
+| [LUKI-W-TESTACH.md](LUKI-W-TESTACH.md) | 7415 B | `94b7f5a29b33` |
 | [MEDAL-PEWNIAKA-v8.0.2.md](MEDAL-PEWNIAKA-v8.0.2.md) | 3299 B | `48e80707f51a` |
 | [MEDAL-ZAGLADY-v1.0.3.md](MEDAL-ZAGLADY-v1.0.3.md) | 5570 B | `38bf39d89c2f` |
-| [NAPRAWA-v8.6.0.md](NAPRAWA-v8.6.0.md) | 7601 B | `b828adf2236d` |
+| [NAPRAWA-v8.6.0.md](NAPRAWA-v8.6.0.md) | 7619 B | `656efd87728d` |
 | [RAPORT-TESTU-KWITNICA.md](RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
 | [RAPORT-TURNIEJU-NIEZALEZNEGO.md](RAPORT-TURNIEJU-NIEZALEZNEGO.md) | 12458 B | `1d88ab4f90e5` |
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
@@ -100,6 +104,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
 | [pamietnik.py](../pamietnik.py) | 10548 B | `e98ec5f108f3` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
+| [sprawdz-teksty.py](../sprawdz-teksty.py) | 4512 B | `a2599bd2d033` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).

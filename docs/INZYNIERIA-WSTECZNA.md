@@ -12,8 +12,8 @@ Kazda liczba nizej jest wynikiem wykonanego testu.
 
 Gang rozwiazuje jeden problem: **tekst wygladajacy na ASCII, ktory nim nie jest**.
 
-Model jezykowy albo wklejka z sieci potrafi wstawic do kodu cyrylickie `а`
-(U+0430) zamiast `a`, greckie `ο` zamiast `o`, twarda spacje zamiast spacji,
+Model jezykowy albo wklejka z sieci potrafi wstawic do kodu cyrylickie `<U+0430>`
+(U+0430) zamiast `a`, greckie `<U+03BF>` zamiast `o`, twarda spacje zamiast spacji,
 zero-width space w srodku nazwy zmiennej. Efekt: kod wyglada poprawnie na
 ekranie, a nie dziala — albo, gorzej, dziala inaczej niz wyglada.
 `NameError: name 'diet' is not defined. Did you mean: 'dict'?` przy nazwie,
@@ -28,7 +28,7 @@ Gang wykrywa takie znaki i przywraca ASCII.
 To zalozenie jest trudniejsze, niz brzmi, bo naiwne czyszczenie psuje kod
 na trzy sposoby naraz:
 
-1. **Podmiana w literale** — `print("cena: 5 zl")` z cyrylickim `с` w slowie
+1. **Podmiana w literale** — `print("cena: 5 zl")` z cyrylickim `<U+0441>` w slowie
    polskim. Zamiana zmienia DANE programu, nie jego kod.
 2. **Rozbicie tokena** — twarda spacja miedzy `def` a nazwa: wstawienie
    zwyklej spacji naprawia, ale twarda spacja W SRODKU nazwy zamieniona na
@@ -108,7 +108,7 @@ ufac wlasnej amunicji, wziolem **prawdziwe moduly biblioteki standardowej
 Pythona 3.11** (171 dostepnych), skazil je i przepuscil przez Zaglade.
 
 Kluczowa poprawka metodyczna w trakcie: pierwsze podejscie skazalo pliki
-znakami takimi jak cyrylickie `р` -> transliterowane na `r`, podczas gdy
+znakami takimi jak cyrylickie `<U+0440>` -> transliterowane na `r`, podczas gdy
 oryginalem bylo `s`. Taki test jest **nieuczciwy** — informacja zostala
 zniszczona przeze mnie, zadne narzedzie jej nie odtworzy. Dlatego
 zbudowalem zbior **52 wiernych homoglifow**: znakow, dla ktorych

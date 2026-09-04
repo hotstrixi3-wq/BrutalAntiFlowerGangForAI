@@ -23,8 +23,8 @@ wybuchal, a `compile()` niczego nie zglaszal, bo skladnia pozostawala
 poprawna.
 
 ```
-PRZED:  vо = 7 ; print(f"wynik: {vо}")   -> dziala, pisze "wynik: 7"
-PO:     v  = 7 ; print(f"wynik: {vо}")   -> NameError
+PRZED:  v<U+043E> = 7 ; print(f"wynik: {v<U+043E>}")   -> dziala, pisze "wynik: 7"
+PO:     v  = 7 ; print(f"wynik: {v<U+043E>}")   -> NameError
 ```
 
 Dotyczylo Zaglady i Pogromcy (Python) oraz Anihilatora (JS `${...}`).

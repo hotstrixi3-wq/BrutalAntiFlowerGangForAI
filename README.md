@@ -537,3 +537,40 @@ nastepnego agenta. Walidator od razu zlapal brak pola **Przyczyna** w
 jednym z wpisow startowych pisanych recznie.
 
 Podpiete w SZYBKI-START-DLA-AGENTA.md (krok 4) i PROTOKOL-OPERATORA.md (par. 9).
+
+## v8.9.0 - bramka tekstow (sprawdz-teksty.py)
+
+User wylapal w odpowiedzi agenta na czacie slowo, w ktorym `gra` bylo
+zapisane cyrylica (U+0433 U+0440 U+0430) doklejona do lacinskiego `biami`.
+Kontrolny skan repo znalazl **16 kolejnych zywych homoglifow w trzech
+dokumentach, ktore agent napisal w tej samej sesji** - w tym w dokumentach
+OSTRZEGAJACYCH przed homoglifami.
+
+To nie jest niedbalstwo, tylko ten sam mechanizm co w SZYBKI-START,
+zwrocony do wewnatrz: agent nie widzi tego u siebie ani przy pisaniu, ani
+przy wlasnym przegladzie. Doszlo sprzezenie - im wiecej pisal O cyrylicy,
+tym czesciej mu sie wstawiala.
+
+Odpowiedz: jedno polecenie, zawsze to samo, przed kazdym commitem.
+
+```
+python3 sprawdz-teksty.py            # skan repo, 0 = czysto
+python3 sprawdz-teksty.py PLIK...    # wskazane pliki
+python3 sprawdz-teksty.py --selftest
+```
+
+Szuka homoglifow LITER (cyrylica, greka, ormianski, koptyjski, czirokeski)
+plus znakow niewidzialnych i twardych spacji. Pomija celowo brudna amunicje
+(`dev/kwiatki-testy/`, `dev/turnieje/`, `dev/luki/`, `fixtures/`).
+Symboli typograficznych (€, ±, ✓, ½) NIE zglasza: widac je golym okiem,
+a narzedzia rodziny musza je wymieniac w stalych `TYPO`/`TYPOGRAFIA`.
+Pierwsza wersja alarmowala na nich i dala 8 falszywych trafien - bramka,
+ktora szumi, zostaje zignorowana i wtedy przepusci prawdziwy kwiatek.
+
+Zweryfikowana w obie strony: czyste repo exit 0, repo z jednym wstrzyknietym
+U+043E w README exit 1.
+
+Naprawione przy okazji: 16 zywych homoglifow w `docs/INZYNIERIA-WSTECZNA.md`,
+`docs/LUKI-W-TESTACH.md`, `docs/NAPRAWA-v8.6.0.md` zamienione na `<U+XXXX>`.
+Przyklady staly sie przy tym CZYTELNIEJSZE - widac dokladnie, gdzie siedzi
+podmiana. Wpadka zapisana w PAMIETNIK-OPERATORA.md (sekcja 5).
