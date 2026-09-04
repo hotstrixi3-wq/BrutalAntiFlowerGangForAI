@@ -22,8 +22,8 @@ KROK 0 - DOWOD WLASNORECZNY (przed czymkolwiek innym):
 KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
 - Pobierz lub wytnij kody 4 narzedzi:
-  PogromcaKwiatkow.py v8.0.3
-  ZagladaKultury.py v1.0.9
+  PogromcaKwiatkow.py v8.1.0
+  ZagladaKultury.py v1.1.1
   ProkuratorOgrodnik.py v1.0.1
   AnihilatorChwastow.py v1.0.0
 - Zapoznaj sie z ich rola:
@@ -137,13 +137,14 @@ sam sobie przed chwilą zrobiłeś w kroku 1.
 
 ## 4. Dopiero teraz — jeśli chcesz wiedzieć więcej
 
-- Co robi cała rodzina 4 narzędzi i jak ich używać: [README.md](README.md)
-- Twój regulamin operatora (drabina uprawnień, plan->act): [PROTOKOL-OPERATORA.md](PROTOKOL-OPERATORA.md)
+- Co robi cała rodzina 4 narzędzi i jak ich używać: plik README.md repozytorium
+- Twój regulamin operatora (drabina uprawnień, plan->act): plik PROTOKOL-OPERATORA.md repozytorium
 
 Jeśli krok 1 zadziałał i krok 3 dał PASS — rozumiesz już sedno. Reszta
 dokumentacji to szczegóły wykonania, nie coś, w co musisz wierzyć na słowo.
 
 ### PogromcaKwiatkow.py
+
 # -*- coding: utf-8 -*-
 """PogromcaKwiatków: wykrywacz obcojęzycznych "kwiatków" w polskich tekstach projektu.
 
@@ -151,6 +152,18 @@ dokumentacji to szczegóły wykonania, nie coś, w co musisz wierzyć na słowo.
 jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
 z rodzina: ZagladaKultury, ProkuratorOgrodnik, AnihilatorChwastow).
 Przeczytaj przed pierwszym uzyciem.
+
+(v8.1.0, 2026-09-04) RYZYKO-KLUCZA: nowa, dodatkowa warstwa raportu.
+Znalezisko z turnieju absurdalnego (Zagłada czyszcząca zaatakowaną kopię
+własnego kodu): literal string zawierający obcy znak, którego "oczyszczona"
+wersja pasuje do innego identyfikatora/literalu już w pliku (np. literal
+"niewidzialne" z jednym znakiem podmienionym na cyrylicki odpowiednik,
+obok użycia jako klucz slownika licznik["niewidzialne"]) —
+plik kompiluje się czysto, wybucha AttributeError/KeyError dopiero w
+runtime. Zagłada SŁUSZNIE nie rusza treści literałów (kontrakt: święte),
+więc to jest ryzyko, którego żadne narzędzie w rodzinie nie naprawi — ale
+Pogromca może je teraz WYKRYĆ i zgłosić, zamiast pozwolić przejść cicho.
+Nic nie modyfikuje, tylko ostrzega. Patrz analizuj_literaly_jako_klucze().
 
 Slownik kulturalny: "kwiatek" = w slangu pisarzy i redaktorow GAFa w tekscie,
 literowka, potkniecie pisarskie (nie bukiet!). Stad nazwa: narzedzie
@@ -182,6 +195,7 @@ Exit: 0 = czysto, 1 = BLAD.
 import io
 import os
 import sys
+import tokenize
 import unicodedata
 from functools import lru_cache
 
@@ -369,6 +383,72 @@ def analizuj(tekst):
             else:
                 uwagi.append((nr, znak, kontekst))
     return bledy, uwagi
+
+
+def _oczysc_kandydatow(wartosc):
+    """Zwraca zbior mozliwych 'oczyszczonych' wersji stringu (bez wiedzy o
+    tabelach transliteracji Zaglady - Pogromca ma zostac bez zaleznosci od
+    siostry). Dwie strategie: usun podejrzane znaki / zlozenie NFKD+ascii."""
+    kandydaci = set()
+    oczyszczony_usun = "".join(
+        c for c in wartosc if klasyfikuj(c)[0] == "OK" or c in " \t"
+    )
+    if oczyszczony_usun != wartosc:
+        kandydaci.add(oczyszczony_usun)
+    zlozony = unicodedata.normalize("NFKD", wartosc)
+    ascii_fold = zlozony.encode("ascii", "ignore").decode("ascii")
+    if ascii_fold and ascii_fold != wartosc:
+        kandydaci.add(ascii_fold)
+    return kandydaci
+
+
+def analizuj_literaly_jako_klucze(tekst, sciezka):
+    """(v8.1.0, znalezisko 2026-09-03) Zwraca liste ostrzezen: literal
+    string w kodzie .py zawiera podejrzany (obcy/homoglif) znak, a jego
+    'oczyszczona' wersja pasuje do INNEGO identyfikatora lub literalu juz
+    obecnego w tym samym pliku. To silny sygnal, ze literal pelni funkcje
+    klucza/identyfikatora (dict key, __slots__, getattr) gdzie indziej w
+    pliku - a Zagłada SLUSZNIE nie rusza tresci literalow (kontrakt: swiete),
+    wiec taki plik moze skompilowac sie czysto i wybuchnac dopiero w runtime
+    (AttributeError/KeyError). To TYLKO ostrzezenie - nic nie modyfikuje,
+    nic nie usuwa z literalu. Dziala tylko gdy plik .py sie tokenizuje
+    (jesli nie, po prostu nic nie zwraca - to jest dodatek, nie wymog)."""
+    if not sciezka.endswith(".py"):
+        return []
+    try:
+        tokeny = list(tokenize.generate_tokens(io.StringIO(tekst).readline))
+    except (tokenize.TokenError, SyntaxError, IndentationError, UnicodeError):
+        return []
+    nazwy = set()
+    literaly = []  # (wartosc, linia)
+    for tok in tokeny:
+        if tok.type == tokenize.NAME:
+            nazwy.add(tok.string)
+        elif tok.type == tokenize.STRING:
+            surowy = tok.string
+            for prefiks in ("rb", "br", "Rb", "bR", "rB", "BR", "r", "R", "b", "B", "f", "F", "u", "U"):
+                if surowy.lower().startswith(prefiks.lower()) and len(surowy) > len(prefiks):
+                    if surowy[len(prefiks):len(prefiks) + 1] in ("'", '"'):
+                        surowy = surowy[len(prefiks):]
+                        break
+            for cudzyslow in ('"""', "'''", '"', "'"):
+                if surowy.startswith(cudzyslow) and surowy.endswith(cudzyslow) and len(surowy) >= 2 * len(cudzyslow):
+                    wartosc = surowy[len(cudzyslow):-len(cudzyslow)]
+                    literaly.append((wartosc, tok.start[0]))
+                    break
+    wszystkie_literaly = set(w for w, _ in literaly)
+    ostrzezenia = []
+    for wartosc, linia in literaly:
+        if not any(klasyfikuj(c)[0] == "BLAD" for c in wartosc):
+            continue
+        for kandydat in _oczysc_kandydatow(wartosc):
+            if kandydat in nazwy or kandydat in (wszystkie_literaly - {wartosc}):
+                ostrzezenia.append(
+                    (linia, wartosc, kandydat,
+                     "identyfikator" if kandydat in nazwy else "inny literal")
+                )
+                break
+    return ostrzezenia
 
 
 def domyslne_pliki():
@@ -613,6 +693,7 @@ def main():
             n_blad += 1
             continue
         bledy, uwagi = analizuj(tekst)
+        ryzyko_kluczy = analizuj_literaly_jako_klucze(tekst, sciezka)
         nazwa = os.path.relpath(sciezka, HOME)
         if bledy:
             n_blad += 1
@@ -630,6 +711,15 @@ def main():
                 print("        linia %d, znak %r | ...%s..." % (nr, znak, kontekst))
         else:
             print("[OK]    %s" % nazwa)
+        if ryzyko_kluczy:
+            for nr, wartosc, kandydat, typ in ryzyko_kluczy[:3]:
+                print("        [RYZYKO-KLUCZA] linia %d: literal zawiera obcy znak, "
+                      "oczyszczona wersja pasuje do %s '%s' juz w pliku — "
+                      "Zaglada NIE dotknie tresci literalu (kontrakt: swiety), "
+                      "sprawdz recznie przed uznaniem pliku za bezpieczny"
+                      % (nr, typ, kandydat))
+            if len(ryzyko_kluczy) > 3:
+                print("        [RYZYKO-KLUCZA] ...i %d dalszych" % (len(ryzyko_kluczy) - 3))
     print("-" * 72)
     print("PODSUMOWANIE: %d plikow | BLAD: %d | UWAGA: %d" %
           (len(pliki), n_blad, n_uwag))
@@ -641,7 +731,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-
 ### ZagladaKultury.py
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -691,8 +780,10 @@ import json
 import os
 import sys
 import unicodedata
+import difflib
+import re
 
-WERSJA = "1.0.9"
+WERSJA = "1.1.1"
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -874,6 +965,7 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
     out = []
     i, n = 0, len(tekst)
     stan = "kod"
+    cudzyslow = None  # (v1.1.1) pamieta KTORY znak otworzyl lancuch
     licznik = dict((k, 0) for k in KATEGORIE)
     nr_podatny = 0
     while i < n:
@@ -883,11 +975,13 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 stan = "hash"
             elif tekst[i:i + 3] in ("'''", '"""'):
                 stan = "trojka"
+                cudzyslow = tekst[i:i + 3]
                 out.append(tekst[i:i + 3])
                 i += 3
                 continue
             elif c in ("'", '"'):
                 stan = "lancuch"
+                cudzyslow = c
             elif c in LAMACZE:
                 licznik["lamacze"] += 1
                 biezacy_nr = nr_podatny
@@ -922,8 +1016,9 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 out.append(tekst[i])
                 i += 1
                 continue
-            if c in ("'", '"') or c == "\n":
+            if c == cudzyslow or c == "\n":
                 stan = "kod"
+                cudzyslow = None
         else:
             if c == "\\" and i + 1 < n:
                 out.append(c)
@@ -931,8 +1026,9 @@ def zaglada_tekst_poza_literalami_surowy(tekst, pomin_n=frozenset()):
                 out.append(tekst[i])
                 i += 1
                 continue
-            if tekst[i:i + 3] in ("'''", '"""'):
+            if tekst[i:i + 3] == cudzyslow:
                 stan = "kod"
+                cudzyslow = None
                 out.append(tekst[i:i + 3])
                 i += 3
                 continue
@@ -968,6 +1064,78 @@ def _sprobuj_naprawy(tekst, sciezka):
         return None
 
 
+def _napraw_niespojnosc_identyfikatorow(oryginal, kandydat, sciezka):
+    """(v1.1.0) OSTATNIA kontrola PO udanym czyszczeniu — nawet gdy compile()
+    przeszlo juz na pierwszy strzal (transliteracja/fold dala poprawna
+    SKLADNIOWO nazwe). Znalezisko z turnieju zewnetrznego (2026-09-02):
+    pojedyncze wystapienie identyfikatora zanieczyszczone znakiem
+    fold-NFKC (np. U+2167 rzymska osemka/Kelvin) transliterowanym na litery daje SKLADNIOWO
+    poprawna, ale INNA nazwe niz reszta wystapien tej samej zmiennej w
+    pliku (np. self._scandir_path w __slots__ i przy odczycie, ale
+    self._VIIIscandir_patKh przy zapisie) — plik kompiluje sie, ale
+    wybucha AttributeError w runtime. compile() tego nie widzi, bo
+    sprawdza tylko skladnie, nie spojnosc nazw.
+
+    Metoda: diff oryginal<->kandydat lokalizuje kazda zmiane; rozszerzona
+    do pelnej granicy identyfikatora (\\w+); jesli WERSJA-Z-USUNIETYM-
+    FRAGMENTEM tego identyfikatora juz istnieje jako INNY identyfikator
+    gdzie indziej w kandydacie (silny sygnal ze to ta sama zmienna,
+    zabrudzona tylko w jednym miejscu) — probuje usuniecia zamiast
+    transliteracji, weryfikuje compile() jak zawsze. Nigdy nie pogarsza
+    wyniku (przy porazce bramki zwraca kandydata bez zmian)."""
+    if oryginal == kandydat:
+        return kandydat
+    sm = difflib.SequenceMatcher(None, oryginal, kandydat, autojunk=False)
+    zmiany = [op for op in sm.get_opcodes() if op[0] != "equal"]
+    if not zmiany:
+        return kandydat
+    id_licznik = {}
+    for tok in re.findall(r'[A-Za-z_][A-Za-z0-9_]*', kandydat):
+        id_licznik[tok] = id_licznik.get(tok, 0) + 1
+    # grupuj zmiany po tokenie ktory obejmuja (jeden identyfikator moze miec
+    # KILKA niezaleznych podstawien naraz - musza byc usuniete RAZEM, bo
+    # usuniecie tylko jednego z dwoch nie odtworzy oryginalnej nazwy)
+    grupy = {}
+    for _, _, _, j1, j2 in zmiany:
+        lewo, prawo = j1, j2
+        while lewo > 0 and (kandydat[lewo - 1].isalnum() or kandydat[lewo - 1] == "_"):
+            lewo -= 1
+        while prawo < len(kandydat) and (kandydat[prawo].isalnum() or kandydat[prawo] == "_"):
+            prawo += 1
+        if lewo >= prawo:
+            continue
+        pelny_tok = kandydat[lewo:prawo]
+        if not pelny_tok or not (pelny_tok[0].isalpha() or pelny_tok[0] == "_"):
+            continue
+        grupy.setdefault((lewo, prawo), []).append((j1, j2))
+    poprawki = []
+    for (lewo, prawo), spany in grupy.items():
+        pelny_tok = kandydat[lewo:prawo]
+        wariant = []
+        kursor = lewo
+        for j1, j2 in sorted(spany):
+            wariant.append(kandydat[kursor:j1])
+            kursor = j2
+        wariant.append(kandydat[kursor:prawo])
+        wariant = "".join(wariant)
+        if wariant == pelny_tok or not wariant:
+            continue
+        if not (wariant[0].isalpha() or wariant[0] == "_"):
+            continue
+        if id_licznik.get(wariant, 0) > 0:
+            poprawki.extend(spany)
+    if not poprawki:
+        return kandydat
+    nowy = kandydat
+    for j1, j2 in sorted(set(poprawki), reverse=True):
+        nowy = nowy[:j1] + nowy[j2:]
+    try:
+        compile(nowy, sciezka, "exec")
+    except SyntaxError:
+        return kandydat
+    return nowy
+
+
 def przetworz(tekst, sciezka):
     """Zwraca (nowy_tekst, licznik). .py bezpiecznie, .json jak kod
     (twarde spacje SKLEJAJA - dane strukturalne, v1.0.3), proza agresywnie."""
@@ -975,6 +1143,18 @@ def przetworz(tekst, sciezka):
         return zaglada_tekst(tekst, kod=True)
     if not sciezka.endswith(".py"):
         return zaglada_tekst(tekst)
+    wynik = _przetworz_py(tekst, sciezka)
+    nowy, licznik = wynik
+    if licznik is not None and nowy != tekst:
+        naprawiony = _napraw_niespojnosc_identyfikatorow(tekst, nowy, sciezka)
+        if naprawiony != nowy:
+            licznik = dict(licznik)
+            licznik["spojnosc_naprawiona"] = licznik.get("spojnosc_naprawiona", 0) + 1
+            nowy = naprawiony
+    return nowy, licznik
+
+
+def _przetworz_py(tekst, sciezka):
     try:
         compile(tekst, sciezka, "exec")
     except SyntaxError:
@@ -1040,7 +1220,7 @@ def raport_sciezka(sciezka, wykonaj):
 
 def selftest():
     """Selftest Zaglady - dowod ze transliteruje i usuwa, a polskie zostawia."""
-    print("SELFTEST Zaglady Kultury v1.0.9")
+    print("SELFTEST Zaglady Kultury v1.1.1")
     testy = [
         ("cyrylica U+0430 -> a", "a\u0430b", "txt", "aab", True),
         ("greka U+03B1 -> a", "x\u03b1y", "txt", "xay", True),

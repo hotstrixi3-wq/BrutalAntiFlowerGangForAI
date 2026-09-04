@@ -87,6 +87,32 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.2.21 - PORZADKI W DRZEWIE (zero zmian w kodzie rodziny). Korzen repo
+  zawieral rownolegly, zduplikowany komplet plikow obok `docs/` i `dev/`:
+  14 dokumentow .md, 15 plikow amunicji JSON, 9 narzedzi testowych .py i
+  2 logi — lacznie 40 plikow, ktore lamaly wlasna zasade struktury
+  deklarowana w KOMPLECIKU („KORZEN = tylko integracja agent+czlowiek;
+  dowody i infrastruktura -> docs/ i dev/"). Kluczowe znalezisko: te
+  kopie NIE byly rownowazne. 15 JSON-ow, 9 narzedzi i 2 logi byly
+  bit-w-bit identyczne (czysty smiec), ale 5 dokumentow ROZJECHALO sie —
+  i to wersja w korzeniu byla NOWSZA (Pogromca v8.1.0 / Zaglada v1.1.1),
+  podczas gdy `docs/` — czyli to, co czyta agent i co linkuje README —
+  serwowalo nieaktualne v8.0.3 / v1.0.9. Repo dokumentowalo samo siebie
+  niezgodnie z wlasnym kodem. Rozwiazanie: nowsze wersje z korzenia
+  przeniesione do `docs/` (tresc zachowana, bo swiezsza), duplikaty
+  bit-w-bit skasowane, `SUMA-KONTROLNA-TESTOW.py` przeniesiona do
+  `dev/turnieje/` (tam ja deklarowal manifest i ten README — plik lezal
+  w korzeniu, wiec link byl martwy), usuniety plik-smiec `download`
+  (przypadkowa kopia `.gitignore` bez rozszerzenia). KOMPLECIK
+  przeliczony maszynowo od zera: 49 plikow, wszystkie sha256 i rozmiary
+  swieze (poprzedni manifest podawal sumy sprzed v8.2.18 — np. Pogromca
+  22804 B zamiast realnych 27484 B). Weryfikacja po zmianach: 4/4
+  selftesty PASS, bramka Pogromcy na korzen+docs BLAD 0 / UWAGA 0 (23
+  pliki), audyt linkow 49/49 zywych, tor 348/0/0/0, fuzz A/B/C
+  500/0-500/0-500/0. Zaden plik rodziny nie zostal zmodyfikowany —
+  operacja czysto strukturalna, wykonana przez `git mv`/`git rm`, wiec
+  cala historia jest zachowana.
+
 - v8.2.20 - Pogromca v8.1.0: nowa warstwa raportu RYZYKO-KLUCZA, decyzja
   własna agenta-operatora po analizie misji ("Gang chroni kod przed
   popsuciem, użytkownikiem jest agent AI — agent decyduje co zrobić, żeby

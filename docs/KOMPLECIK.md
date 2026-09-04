@@ -5,13 +5,18 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.2.17: dodany docs/CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md
-(rozszerzona weryfikacja na zadanie usera: fresh-clone + 7 seedow Z1/Z2 +
-4 seedy T2/T3 + petla rodzinna 58 cykli/406 przebiegow, 0 awarii).
-v8.2.16: ZagladaKultury.py -> v1.0.9 (druga przyczyna naprawiona -
-LAMACZE dolaczone do puli naprawy, 11/11 testu 50 kodow, patrz README
-Historia zmian). v8.2.15: dodany SZYBKI-START-DLA-AGENTA.md (KROK 0
-FLOW USWIADOMIENIA).
+Aktualizacja v8.2.21: PORZADKI W DRZEWIE. Korzen zawieral rownolegly,
+zduplikowany komplet plikow obok docs/ i dev/ (14 dokumentow, 15 plikow
+amunicji JSON, 9 narzedzi testowych, 2 logi - wszystkie bit-w-bit identyczne
+z kopiami docelowymi albo NOWSZE od nich). Rozwiazanie: nowsze wersje
+dokumentow przeniesione do docs/ (zachowana tresc z korzenia, bo byla
+swiezsza - v8.1.0/v1.1.1 zamiast v8.0.3/v1.0.9), duplikaty bit-w-bit
+usuniete, SUMA-KONTROLNA-TESTOW.py przeniesiona do dev/turnieje/ (tam ja
+deklarowal manifest i README). Usuniety plik-smiec `download` (przypadkowa
+kopia .gitignore). Kod rodziny NIE RUSZONY - 4/4 selftesty PASS, bramka
+Pogromcy na korzeniu+docs: BLAD 0, audyt linkow: 49/49 zywych.
+Poprzednia aktualizacja v8.2.20: PogromcaKwiatkow.py -> v8.1.0 (warstwa
+raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 
 ## Korzen (9 plikow) - narzedzia i start
 
@@ -20,19 +25,20 @@ FLOW USWIADOMIENIA).
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 18903 B | `5af77c9be2f1` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4511 B | `776bc0eed6c6` |
-| [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 22804 B | `895c84982be5` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4587 B | `2d9c821f8dc7` |
+| [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 27484 B | `d63d2bef2921` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](../README.md) | 12024 B | `b493eeada8a7` |
-| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1912 B | `9c507d4f46ee` |
-| [ZagladaKultury.py](../ZagladaKultury.py) | 18716 B | `21fc32d7848d` |
+| [README.md](../README.md) | 19623 B | `af288221ac28` |
+| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1910 B | `7b14e4f9740a` |
+| [ZagladaKultury.py](../ZagladaKultury.py) | 22637 B | `f43abc566a5d` |
 
-## docs/ (14 plikow, bez tego manifestu) - dokumenty i dowody
+## docs/ (15 plikow, bez tego manifestu) - dokumenty i dowody
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
+| [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 3308 B | `723c364c544a` |
+| [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
-| [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 2843 B | `d126eed922ed` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4330 B | `11cd6f64a713` |
 | [MEDAL-PEWNIAKA-v8.0.2.md](MEDAL-PEWNIAKA-v8.0.2.md) | 3299 B | `48e80707f51a` |
@@ -40,13 +46,13 @@ FLOW USWIADOMIENIA).
 | [RAPORT-TESTU-KWITNICA.md](RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
 | [RAPORT-TURNIEJU-NIEZALEZNEGO.md](RAPORT-TURNIEJU-NIEZALEZNEGO.md) | 12458 B | `1d88ab4f90e5` |
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
-| [README-TURNIEJ.md](README-TURNIEJ.md) | 5688 B | `1771e70a279c` |
-| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 78815 B | `9caa0a85986b` |
+| [README-TURNIEJ.md](README-TURNIEJ.md) | 5716 B | `cbaffb6679e3` |
+| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 87414 B | `57bef3db4c6d` |
+| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `03237dafb488` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `013231f616cc` |
 
-## dev/ (24 plikow) - amunicja i narzedzia testowe (CELOWO BRUDNE - poza bramka wydania)
+## dev/ (25 plikow) - amunicja i narzedzia testowe (CELOWO BRUDNE - poza bramka wydania)
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
@@ -67,6 +73,7 @@ FLOW USWIADOMIENIA).
 | [RECYKLER-V1.json](../dev/kwiatki-testy/RECYKLER-V1.json) | 3810 B | `dd0dd5afb4ea` |
 | [SIEKIERNIK-V2.json](../dev/kwiatki-testy/SIEKIERNIK-V2.json) | 5555 B | `49a23834a0be` |
 | [tor-pogromcy.py](../dev/tor-pogromcy.py) | 3108 B | `d23a0e6338a8` |
+| [SUMA-KONTROLNA-TESTOW.py](../dev/turnieje/SUMA-KONTROLNA-TESTOW.py) | 5428 B | `7c7478a78a53` |
 | [petla-rodzinna.py](../dev/turnieje/petla-rodzinna.py) | 2943 B | `8b19d509c12b` |
 | [petla-turniejowa.py](../dev/turnieje/petla-turniejowa.py) | 3080 B | `fadabe3ecf1c` |
 | [turniej-2-sprawdzajacy.py](../dev/turnieje/turniej-2-sprawdzajacy.py) | 11234 B | `629b0ccd62f6` |
@@ -75,5 +82,5 @@ FLOW USWIADOMIENIA).
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 
-Lacznie w drzewie: 47 plikow (+ ten manifest). Bramka wydania (korzen + docs):
+Lacznie w drzewie: 49 plikow (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).

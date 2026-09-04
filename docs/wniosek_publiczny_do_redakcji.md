@@ -109,8 +109,8 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Pobierz 4 narzedzia i PROTOKOL-OPERATORA + SZYBKI-START-DLA-AGENTA.md
   SZYBKI-START-DLA-AGENTA.md - dowod wlasnoreczny, 30 linii, czytaj pierwsze
   PROTOKOL-OPERATORA.md - regulamin dla agenta
-  PogromcaKwiatkow.py v8.0.3
-  ZagladaKultury.py v1.0.9
+  PogromcaKwiatkow.py v8.1.0
+  ZagladaKultury.py v1.1.1
   ProkuratorOgrodnik.py v1.0.1
   AnihilatorChwastow.py v1.0.0
 - Zapoznaj sie z rola: Pogromca detektor BLAD/UWAGA/OK, Zaglada dekontaminator py/json/proza, ProkuratorOgrodnik polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX, AnihilatorChwastow anihilator uniwersalny z ochrona literalow

@@ -1,5 +1,13 @@
 # CERTYFIKAT PEWNIAKA — ZagladaKultury v1.0.9
 
+> **UAKTUALNIONE 2026-09-03: ten certyfikat jest SUPERSEDOWANY.** Turniej
+> zewnętrzny znalazł błąd w wersji opisanej tu jako „PEWNIAK" (spójność
+> identyfikatorów — kod kompilował się, ale dawał błędny wynik w runtime).
+> Naprawione w v1.1.0. Aktualny certyfikat:
+> `docs/CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md`. Ten plik zostaje jako
+> historyczny zapis — dokładnie to, co wtedy wiedzieliśmy, uczciwie
+> niepełne wobec tego, co wiemy teraz.
+
 ## WERDYKT
 
 PEWNIAK. Dwie kolejne poprawki (v1.0.8, v1.0.9) w jednej sesji, każda
