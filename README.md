@@ -665,5 +665,6 @@ Kody wyjscia: 0 czysto | 1 sa skazenia | 2 sa skazenia NIENAPRAWIALNE.
 Kopia zapasowa nalezy do operatora. Zaglada robi wprawdzie wlasne
 `.bak-*`, ale to jej mechanizm, nie twoje zabezpieczenie.
 
-Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem - lepiej
-naprawic za czwartym podejsciem majac dane, niz za pierwszym na slepo.
+Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem: wracasz
+do kopii i probujesz inaczej. Liczba podejsc nie ma znaczenia - liczy sie
+to, ze kazde opierasz na danych, a nie na zgadywaniu.

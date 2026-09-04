@@ -178,5 +178,7 @@ NIENAPRAWIALNE (znaki zostana USUNIETE bezpowrotnie - sprawdz podgladem,
 czy to nie tresc potrzebna uzytkownikowi, np. chinski tekst na stronie).
 
 **Masz prawo probowac wielokrotnie.** Zwiad + kopia znacza, ze nieudana
-proba nie kosztuje nic poza czasem. Lepiej naprawic za czwartym podejsciem
-majac dane, niz za pierwszym na slepo.
+proba nie kosztuje nic poza czasem: wracasz do kopii i probujesz inaczej.
+Liczba podejsc nie ma znaczenia - liczy sie to, ze KAZDE opierasz na
+danych ze zwiadu, a nie na zgadywaniu. Proba na slepo bywa gorsza od
+zadnej, bo niszczy plik i nie zostawia wiedzy.
