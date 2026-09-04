@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **21 wpisow** z **1 sesji**.
+Stan: **22 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -59,6 +59,9 @@ Stan: **21 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Komentarz obiecywal heurystyke, ktorej nie bylo w kodzie**
   - nie ufaj komentarzom przy ocenie, co kod robi. Sprawdzaj zachowaniem (uruchom) albo AST. Ten sam blad moze siedziec gdzie indziej. ---
+  - `2026-09-04__01a06e18.md`
+- [2026-09-04] **Zaglada i Anihilator maja ROZNE tablice znakow - 24 rozbieznosci**
+  - Przy KAZDEJ zmianie tablic znakow (CYR, GRK, HOMOGLIFY, NIEWIDZ, DOZWOLONE, LAMACZE) zmieniaj je w OBU plikach naraz i sprawdzaj rownosc zbiorow. Docelowo: jedno zrodlo prawdy dla tablic i test rownow
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki
