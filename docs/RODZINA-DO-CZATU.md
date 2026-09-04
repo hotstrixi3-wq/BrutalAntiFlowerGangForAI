@@ -24,7 +24,7 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Pobierz lub wytnij kody 4 narzedzi:
   PogromcaKwiatkow.py v8.6.0
   ZagladaKultury.py v1.4.0
-  ProkuratorOgrodnik.py v1.2.0
+  ProkuratorOgrodnik.py v1.3.0
   AnihilatorChwastow.py v1.4.0
 - Zapoznaj sie z ich rola:
   Pogromca = detektor BLAD/UWAGA/OK - widzi niewidzialny brud
@@ -1840,7 +1840,7 @@ import re
 from pathlib import Path
 from collections import defaultdict, Counter
 
-WERSJA = "1.2.0"
+WERSJA = "1.3.0"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -2004,6 +2004,42 @@ def notacja_uxxxx(tekst):
     """Zamienia kazdy znak spoza kultury dozwolonej na opis U+XXXX."""
     return "".join(c if c in _DOZWOLONE else "U+%04X" % ord(c) for c in tekst)
 
+def _py_skazenie_tylko_w_literalach(path):
+    """(v1.3.0) Czy w tym pliku .py skazone znaki siedza WYLACZNIE wewnatrz
+    literalow i komentarzy?
+
+    Jesli tak — Zaglada faktycznie ich nie ruszy (chroni dane), wiec jedyne
+    co ma sens to POUCZENIE dla czlowieka. Jesli nie — skazenie jest w KODZIE,
+    Zaglada umie je naprawic i blokowanie jej byloby zostawieniem zepsutego
+    pliku bez powodu.
+
+    Przy jakiejkolwiek watpliwosci (plik nieczytelny, nie parsuje sie)
+    zwracamy True — czyli ostrozniej, recznie. Fail-closed: nie wysylamy
+    Zaglady tam, gdzie nie umiemy powiedziec, co sie stanie."""
+    try:
+        tekst = io.open(path, encoding="utf-8").read()
+    except Exception:
+        return True
+    try:
+        import tokenize
+        starty, poz = [], 0
+        for linia in tekst.split("\n"):
+            starty.append(poz)
+            poz += len(linia) + 1
+        chronione = set()
+        for tok in tokenize.generate_tokens(io.StringIO(tekst).readline):
+            if tok.type in (tokenize.STRING, tokenize.COMMENT):
+                s = starty[tok.start[0] - 1] + tok.start[1]
+                e = starty[tok.end[0] - 1] + tok.end[1]
+                chronione.update(range(s, e))
+    except Exception:
+        return True
+    for i, c in enumerate(tekst):
+        if ord(c) > 127 and i not in chronione:
+            return False          # skazenie w KODZIE -> Zaglada ma robote
+    return True
+
+
 def classify_findings(findings):
     """Klasyfikuje na UMORZONE / POUCZENIE / ZAGLADA / BLOKADA."""
     akta = []
@@ -2028,6 +2064,25 @@ def classify_findings(findings):
             })
             summary["BLOKADA"] += 1
             continue
+        # (v1.3.0) FAIL-CLOSED na uszkodzone kodowanie. Pogromca czyta
+        # tolerancyjnie (errors="replace"), wiec plik nie-UTF8 wraca jako
+        # zwykly BLAD z podmienionym U+FFFD zamiast jako BLAD_WEJSCIA.
+        # Do v1.2.0 Prokurator bral to za normalne skazenie i wydawal
+        # decyzje na podstawie tresci, ktorej NIE PRZECZYTAL. Znak zastepczy
+        # w dowodach oznacza, ze oryginalnych bajtow nikt nie zna.
+        if any("U+FFFD" in d or "\ufffd" in d for d in details):
+            akta.append({
+                "plik": path,
+                "werdykt_pogromcy": verdict,
+                "klasy": {"USZKODZONE KODOWANIE": 1},
+                "decyzja": "BLOKADA",
+                "powod": "plik nie jest poprawnym UTF-8 (U+FFFD w odczycie) - "
+                         "decyzja bez znajomosci oryginalnych bajtow byla by zgadywaniem",
+                "dowody": [notacja_uxxxx(d) for d in details[:10]],
+            })
+            summary["BLOKADA"] += 1
+            continue
+
         # policz klasy
         classes = []
         for d in details:
@@ -2057,8 +2112,13 @@ def classify_findings(findings):
                 decyzja = "BLOKADA"
                 powod = "wiele obcych kultur + emoji - podejrzenie sabotażu lub celowego kwiatka, wymaga recznej oceny"
                 summary["BLOKADA"] += 1
-            elif is_py:
-                # dla .py - jesli w detail jest cudzyslow, to prawdopodobnie literal
+            elif is_py and _py_skazenie_tylko_w_literalach(path):
+                # (v1.3.0) POUCZENIE tylko wtedy, gdy skazenie NAPRAWDE siedzi
+                # w literalach. Do v1.2.0 wystarczylo, ze plik ma rozszerzenie
+                # .py — komentarz obiecywal heurystyke "czy w detalu jest
+                # cudzyslow", ale jej nie bylo, wiec KAZDY skazony .py dostawal
+                # POUCZENIE i --wykonaj nigdy nie czyscil Pythona. Zaglada
+                # potrafi te pliki naprawic i sama chroni literaly.
                 decyzja = "POUCZENIE"
                 powod = ".py literal - Zaglada nie rusza (sacred), wymaga recznej poprawy"
                 summary["POUCZENIE"] += 1

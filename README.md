@@ -465,3 +465,41 @@ T3 190 0 popsutych | Z1 1545 0/0 | Z2 200 0 popsutych | T4 ZDANE |
 selftesty 4/4 PASS | bramka 0 rozjazdow.
 Na 40 prawdziwych modulach stdlib: 0 niekompilujacych sie,
 40/40 importuje sie z identycznym publicznym API.
+
+## v8.7.0 / Prokurator 1.3.0 - turnieje dla Prokuratora i Anihilatora
+
+Dwa narzedzia rodziny nie mialy ANI JEDNEGO testu poza wlasnym selftestem,
+mimo ze oba pisza po plikach, a Prokurator dodatkowo DECYDUJE o uruchomieniu
+Zaglady. Teraz maja turnieje, ktore zostaly sprawdzone SABOTAZEM: kazdy z
+nich musial oblac na celowo popsutym narzedziu, inaczej byly bezwartosciowe.
+
+**T5 — Anihilator** (`dev/turnieje/turniej-5-anihilator.py`), 5 kategorii:
+wykrywanie (15 przypadkow, FN/FP), niepsucie danych (11), poprawnosc naprawy
+(8 - czy znak zamieniony na WLASCIWA litere, nie usuniety), fail-closed
+(8 blokad + kontrola, ze plik nie zostal tkniety), wykonanie na realnym
+runtime (node/gcc, 9 probek).
+Zweryfikowany 4 sabotazami: wylaczony fail-closed (8 naruszen), brak ochrony
+literalow (5), cofnieta naprawa template literal (3), slepota na cyrylice (4).
+
+**T6 — Prokurator** (`dev/turnieje/turniej-6-prokurator.py`), 5 kategorii:
+polityka (9 przypadkow: UMORZONE/POUCZENIE/ZAGLADA/BLOKADA), allowlista,
+czyste akta (par. 5 - zero zywych znakow w raporcie), plan-act (raport nie
+rusza, --wykonaj rusza), fail-closed.
+Zweryfikowany 5 sabotazami - kazdy zlapany.
+
+**T6 od razu znalazl dwie realne wady Prokuratora (naprawione w 1.3.0):**
+
+1. `--wykonaj` NIGDY nie czyscil plikow .py. Kod mowil "elif is_py:" i
+   dawal POUCZENIE kazdemu skazonemu Pythonowi; komentarz obiecywal
+   heurystyke "czy skazenie jest w literale", ale jej nie bylo. Zaglada
+   potrafi te pliki naprawic i sama chroni literaly.
+   Naprawa: `_py_skazenie_tylko_w_literalach()` - sprawdza tokenize, czy
+   skazenie siedzi w literalach; przy watpliwosci zwraca True (ostrozniej).
+2. Pliki nie-UTF8 dostawaly zwykla decyzje zamiast BLOKADY. Pogromca czyta
+   tolerancyjnie (errors="replace"), wiec uszkodzony bajt wracal jako
+   U+FFFD i Prokurator orzekal o tresci, ktorej NIE PRZECZYTAL.
+   Naprawa: U+FFFD w dowodach -> BLOKADA.
+
+Regresja: tor 348/0/0/0 | fuzz 3x500/0 | T2 992 0/0/0 | T3 190 0 popsutych |
+Z1 1545 0/0 | Z2 200 0 popsutych | T4 ZDANE | T5 ZDANE | T6 ZDANE |
+luka-fstring 0/5 | selftesty 4/4 PASS | bramka 0 rozjazdow.
