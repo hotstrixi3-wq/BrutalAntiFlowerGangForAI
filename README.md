@@ -504,39 +504,58 @@ Regresja: tor 348/0/0/0 | fuzz 3x500/0 | T2 992 0/0/0 | T3 190 0 popsutych |
 Z1 1545 0/0 | Z2 200 0 popsutych | T4 ZDANE | T5 ZDANE | T6 ZDANE |
 luka-fstring 0/5 | selftesty 4/4 PASS | bramka 0 rozjazdow.
 
-## Pamietnik operatora (v8.8.0)
+## Dziennik operatora (v9.0.0)
 
-`PAMIETNIK-OPERATORA.md` + `pamietnik.py` - pamiec miedzy sesjami agentow.
+`dziennik/` + `pamietnik.py` - pamiec miedzy sesjami agentow.
 
-Repo mialo dotad dwa rodzaje wiedzy: **jak system ma dzialac** (README,
-PROTOKOL-OPERATORA, SZYBKI-START) i **co udowodniono** (docs/, certyfikaty,
-raporty turniejow). Brakowalo trzeciego: **co poszlo nie tak komus, kto tu
-pracowal wczesniej**. Ta wiedza gina wraz z koncem sesji, wiec kolejny agent
-nadeptuje na te same grabie.
+Repo mialo dwa rodzaje wiedzy: **jak system ma dzialac** (README, PROTOKOL,
+SZYBKI-START) i **co udowodniono** (docs/, certyfikaty, turnieje). Brakowalo
+trzeciego: **co poszlo nie tak komus, kto pracowal tu wczesniej**. Ta wiedza
+ginela z koncem sesji i kolejny agent nadeptywal na te same grabie.
 
-17 wpisow startowych w 5 sekcjach, wszystkie z realnej pracy nad repo:
-praca z repozytorium, pisanie testow, pulapki w kodzie rodziny,
-dokumentacja i bramka, wspolpraca z czlowiekiem. Kazdy wpis ma trzy pola:
-**Objaw** (konkretny - komunikat, liczba), **Przyczyna**, **Wniosek**
+### Model: jeden plik na sesje
+
+```
+dziennik/2026-09-04__01a06e18.md
+         ^data        ^id sesji (z galezi gita)
+```
+
+- **Piszesz tylko do swojego pliku** - tworzy sie sam przy `--dodaj`.
+- **Cudze sa tylko do odczytu.** `--sprawdz` porownuje `dziennik/` z gitem
+  i zglasza kazda zmiane w cudzym pliku, na gorze listy problemow. W gicie
+  nie ma technicznej blokady zapisu - chodzi o wykrywalnosc przed commitem.
+- **Ale wolno prostowac.** Rada sprzed roku moze byc nieaktualna. Nie
+  edytujesz cudzego pliku - dopisujesz wlasny wpis z polem
+  `**Zastepuje:** <tytul starego>`. Widok oznaczy tamten jako
+  `[NIEAKTUALNY]` z odsylaczem. Zla rada przestaje szkodzic, historia
+  pomylki zostaje.
+- **Czytasz calosc.** Trzydziesci osobnych plikow to trzydziesci plikow,
+  ktorych nikt nie otworzy - dlatego domyslny widok **scala wszystkie
+  sesje**, pogrupowane tematami, a `PAMIETNIK-OPERATORA.md` w korzeniu jest
+  generowanym spisem tresci.
+
+```
+python3 pamietnik.py                  # widok scalony
+python3 pamietnik.py --temat testy    # jeden temat
+python3 pamietnik.py --szukaj SLOWO   # przeszukaj wszystkie sesje
+python3 pamietnik.py --sesje          # kto pisal, ile wpisow
+python3 pamietnik.py --dodaj          # dopisz do swojej sesji
+python3 pamietnik.py --sprawdz        # bramka: format + nietykalnosc
+python3 pamietnik.py --indeks         # odswiez spis w korzeniu
+```
+
+20 wpisow startowych w 5 tematach (repo, testy, kod, dokumentacja,
+wspolpraca), wszystkie z realnej pracy nad repo. Kazdy ma trzy obowiazkowe
+pola: **Objaw** (konkretny - komunikat, liczba), **Przyczyna**, **Wniosek**
 (czynnosc na przyszlosc).
 
-```
-python3 pamietnik.py                 # ostatnie wpisy
-python3 pamietnik.py --lista         # spis wszystkich
-python3 pamietnik.py --szukaj testy  # przeszukaj tresc
-python3 pamietnik.py --dodaj         # dopisz wpis (pyta o pola)
-python3 pamietnik.py --sprawdz       # walidacja formatu, 0 = OK
-python3 pamietnik.py --selftest      # test wlasny
-```
+Dlaczego osobne narzedzie do zwyklego markdowna: dziennik jest uzyteczny
+tylko dopoki ma jeden format. `--sprawdz` wymusza komplet pol - wpis bez
+Wniosku jest bezuzyteczny dla nastepnego agenta. Walidator od razu zlapal
+brak pola **Przyczyna** w recznie pisanym wpisie startowym.
 
-Dlaczego osobne narzedzie do zwyklego markdowna: pamietnik jest uzyteczny
-tylko dopoki ma jeden format. Recznie dopisywane wpisy rozjezdzaja sie po
-kilku sesjach i plik staje sie smietnikiem, ktorego nikt nie czyta.
-`--sprawdz` wymusza komplet pol - wpis bez Wniosku jest bezuzyteczny dla
-nastepnego agenta. Walidator od razu zlapal brak pola **Przyczyna** w
-jednym z wpisow startowych pisanych recznie.
-
-Podpiete w SZYBKI-START-DLA-AGENTA.md (krok 4) i PROTOKOL-OPERATORA.md (par. 9).
+Pelny opis modelu: `dziennik/README.md`. Podpiete w SZYBKI-START (krok 4)
+i PROTOKOL-OPERATORA (par. 9).
 
 ## v8.9.0 - bramka tekstow (sprawdz-teksty.py)
 

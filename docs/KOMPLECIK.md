@@ -5,7 +5,11 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.9.0: sprawdz-teksty.py - bramka wykrywajaca ZYWE
+Aktualizacja v9.0.0: dziennik wielosesyjny - katalog dziennik/,
+jeden plik na sesje, cudze tylko do odczytu (bramka --sprawdz),
+prostowanie przez pole Zastepuje, widok scalony.
+
+Poprzednio v8.9.0: sprawdz-teksty.py - bramka wykrywajaca ZYWE
 homoglify w dokumentacji (agent wstawil 16 wlasnych w 3 dokumenty
 ostrzegajace przed homoglifami; 17. wylapal user na czacie).
 
@@ -46,13 +50,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 13291 B | `9728d4a14c72` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 6913 B | `b133ddbe8552` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 6382 B | `dafd3d906ecb` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 7060 B | `47ce7e2f6ae1` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
-| [README.md](../README.md) | 32704 B | `0430f7c8841d` |
-| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2358 B | `c88bf122b752` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `9afa16c7dc4e` |
+| [README.md](../README.md) | 33531 B | `5cd9400a30ad` |
+| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2410 B | `1309ed52fea3` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `5a9776d4b54c` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -102,7 +106,9 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
-| [pamietnik.py](../pamietnik.py) | 10548 B | `e98ec5f108f3` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 13033 B | `f53412a4c0d4` |
+| [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
+| [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
 | [sprawdz-teksty.py](../sprawdz-teksty.py) | 4512 B | `a2599bd2d033` |
 

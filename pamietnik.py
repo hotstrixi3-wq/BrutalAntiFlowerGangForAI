@@ -1,296 +1,514 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""PAMIETNIK OPERATORA - dopisywanie i sprawdzanie wpisow.
+"""DZIENNIK OPERATORA - pamiec miedzy sesjami agentow.
 
-Po co osobne narzedzie, skoro to zwykly markdown? Bo pamietnik jest
-uzyteczny tylko dopoki ma jeden format. Recznie dopisywane wpisy rozjezdzaja
-sie po trzech sesjach i plik staje sie smietnikiem, ktorego nikt nie czyta.
+MODEL PRACY (v2.0.0)
+--------------------
+Kazda sesja pisze do WLASNEGO pliku w `dziennik/`:
+
+    dziennik/2026-09-04__01a06e18.md
+
+Zasady, ktore z tego wynikaja:
+
+1. **Piszesz tylko do swojego pliku.** Tworzy sie sam przy pierwszym
+   `--dodaj`. Nazwa bierze sie z daty i identyfikatora sesji (galaz gita
+   albo zmienna PAMIETNIK_SESJA).
+2. **Cudze pliki sa nietykalne.** `--sprawdz` porownuje je z gitem i
+   zglasza kazda zmiane. Nie chodzi o zakaz techniczny (w gicie takiego
+   nie ma), tylko o wykrywalnosc: jesli ktos ruszy cudzy wpis, bramka to
+   pokaze przed commitem.
+3. **Ale wolno prostowac.** Nie edytujesz cudzego pliku - dopisujesz
+   WLASNY wpis z polem `**Zastepuje:**` i tytulem starego. Widok scalony
+   oznaczy tamten jako NIEAKTUALNY i pokaze, co go zastapilo. Zla rada
+   przestaje szkodzic, a historia pomylki zostaje.
+4. **Czytasz wszystko naraz.** Trzydziesci osobnych plikow to trzydziesci
+   plikow, ktorych nikt nie otworzy. Domyslny widok scala je w jeden,
+   pogrupowany tematami.
 
 Uzycie:
-    python3 pamietnik.py                 # ostatnie wpisy (domyslnie 5)
-    python3 pamietnik.py --lista         # spis wszystkich wpisow
-    python3 pamietnik.py --sekcje        # dostepne sekcje z numerami
-    python3 pamietnik.py --szukaj SLOWO  # przeszukaj tresc wpisow
-    python3 pamietnik.py --dodaj         # dopisz wpis (pyta interaktywnie)
-    python3 pamietnik.py --sprawdz       # walidacja formatu (do CI)
-    python3 pamietnik.py --selftest      # test wlasny
+    python3 pamietnik.py                  # widok scalony (wszystkie sesje)
+    python3 pamietnik.py --temat testy    # tylko jeden temat
+    python3 pamietnik.py --szukaj SLOWO   # przeszukaj wszystkie sesje
+    python3 pamietnik.py --sesje          # lista sesji z liczba wpisow
+    python3 pamietnik.py --moje           # wpisy z biezacej sesji
+    python3 pamietnik.py --dodaj          # dopisz wpis (pyta o pola)
+    python3 pamietnik.py --sprawdz        # format + nietykalnosc cudzych
+    python3 pamietnik.py --indeks         # odswiez PAMIETNIK-OPERATORA.md
+    python3 pamietnik.py --selftest
 
-Dopisywanie nieinteraktywne (dla agenta w skrypcie):
-    python3 pamietnik.py --dodaj --sekcja 3 \\
-        --tytul "Cos sie zepsulo" \\
-        --objaw "Co widac" --przyczyna "Dlaczego" --wniosek "Co robic"
+Dopisanie bez pytan (dla agenta w skrypcie):
+    python3 pamietnik.py --dodaj --temat testy --tytul "..." \\
+        --objaw "..." --przyczyna "..." --wniosek "..."
 """
 
 import io
 import os
 import re
+import subprocess
 import sys
 from datetime import date
 
-WERSJA = "1.0.0"
+WERSJA = "2.0.0"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
-PAMIETNIK = os.path.join(KORZEN, "PAMIETNIK-OPERATORA.md")
+DZIENNIK = os.path.join(KORZEN, "dziennik")
+INDEKS = os.path.join(KORZEN, "PAMIETNIK-OPERATORA.md")
 
-WZOR_SEKCJI = re.compile(r"^## (\d+)\. (.+)$")
+TEMATY = {
+    "repo": "Praca z repozytorium i narzedziami agenta",
+    "testy": "Pisanie testow dla tej rodziny",
+    "kod": "Pulapki w samym kodzie rodziny",
+    "dokumentacja": "Dokumentacja i bramki",
+    "wspolpraca": "Wspolpraca z operatorem-czlowiekiem",
+}
+
 WZOR_WPISU = re.compile(r"^### \[(\d{4}-\d{2}-\d{2})\] (.+)$")
-POLA = ("Objaw", "Przyczyna", "Wniosek")
+POLA_WYMAGANE = ("Temat", "Objaw", "Przyczyna", "Wniosek")
 
 
-# --------------------------------------------------------------- odczyt
-def wczytaj(sciezka=None):
-    sciezka = sciezka or PAMIETNIK
-    if not os.path.exists(sciezka):
-        raise SystemExit("[BLAD] brak pliku %s" % sciezka)
-    return io.open(sciezka, encoding="utf-8").read()
+# ------------------------------------------------------------ sesja
+def id_sesji():
+    """Identyfikator biezacej sesji: zmienna srodowiskowa albo galaz gita."""
+    jawny = os.environ.get("PAMIETNIK_SESJA", "").strip()
+    if jawny:
+        return re.sub(r"[^A-Za-z0-9_-]", "-", jawny)[:40]
+    try:
+        r = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"],
+                           capture_output=True, text=True, cwd=KORZEN, timeout=15)
+        galaz = r.stdout.strip()
+    except Exception:
+        galaz = ""
+    if not galaz or galaz == "HEAD":
+        return "lokalna"
+    # arena/01a06e18-nazwa-repo -> 01a06e18
+    ogon = galaz.split("/")[-1]
+    m = re.match(r"([0-9a-f]{6,})", ogon)
+    return m.group(1) if m else re.sub(r"[^A-Za-z0-9_-]", "-", ogon)[:40]
 
 
-def sekcje(tekst):
-    """[(numer, tytul, indeks_linii)]"""
-    wynik = []
-    for i, linia in enumerate(tekst.split("\n")):
-        m = WZOR_SEKCJI.match(linia)
-        if m:
-            wynik.append((int(m.group(1)), m.group(2), i))
-    return wynik
+def plik_sesji(sesja=None, dzien=None):
+    sesja = sesja or id_sesji()
+    dzien = dzien or date.today().isoformat()
+    return os.path.join(DZIENNIK, "%s__%s.md" % (dzien, sesja))
 
 
-def wpisy(tekst):
-    """[(data, tytul, sekcja, tresc)] w kolejnosci wystepowania."""
+def moj_plik():
+    """Sciezka pliku biezacej sesji - istniejacego (z dowolnego dnia) lub nowego."""
+    sesja = id_sesji()
+    for f in sorted(pliki_dziennika()):
+        if f.endswith("__%s.md" % sesja):
+            return os.path.join(DZIENNIK, os.path.basename(f))
+    return plik_sesji(sesja)
+
+
+def pliki_dziennika():
+    if not os.path.isdir(DZIENNIK):
+        return []
+    return sorted(os.path.join(DZIENNIK, f) for f in os.listdir(DZIENNIK)
+                  if f.endswith(".md") and "__" in f)
+
+
+# ------------------------------------------------------------ odczyt
+def wpisy_z_pliku(sciezka):
+    """[{data,tytul,temat,tresc,pola,sesja,plik}]"""
+    try:
+        tekst = io.open(sciezka, encoding="utf-8").read()
+    except OSError:
+        return []
+    nazwa = os.path.basename(sciezka)
+    sesja = nazwa[:-3].split("__")[-1]
     linie = tekst.split("\n")
-    granice = sekcje(tekst)
     wynik = []
-    biezaca = "(bez sekcji)"
     for i, linia in enumerate(linie):
-        m_sek = WZOR_SEKCJI.match(linia)
-        if m_sek:
-            biezaca = "%d. %s" % (int(m_sek.group(1)), m_sek.group(2))
-            continue
         m = WZOR_WPISU.match(linia)
         if not m:
             continue
         tresc = []
         for j in range(i + 1, len(linie)):
-            if WZOR_WPISU.match(linie[j]) or WZOR_SEKCJI.match(linie[j]):
+            if WZOR_WPISU.match(linie[j]):
                 break
             tresc.append(linie[j])
-        wynik.append((m.group(1), m.group(2), biezaca, "\n".join(tresc).strip()))
+        blok = "\n".join(tresc).strip()
+        pola = {}
+        for p in re.finditer(r"^\*\*([A-Za-zzZ]+):\*\*\s*(.*)$", blok, re.M):
+            pola[p.group(1)] = p.group(2).strip()
+        # wieloliniowe wartosci pol
+        for klucz in list(pola):
+            wzor = re.search(r"\*\*%s:\*\*(.*?)(?=\n\*\*[A-Za-z]+:\*\*|\Z)"
+                             % klucz, blok, re.S)
+            if wzor:
+                pola[klucz] = " ".join(wzor.group(1).split())
+        wynik.append({
+            "data": m.group(1), "tytul": m.group(2).strip(),
+            "temat": pola.get("Temat", "").lower() or "repo",
+            "zastepuje": pola.get("Zastepuje", ""),
+            "pola": pola, "tresc": blok, "sesja": sesja, "plik": sciezka,
+        })
     return wynik
 
 
-# --------------------------------------------------------------- widoki
-def pokaz_ostatnie(n=5):
-    w = wpisy(wczytaj())
-    if not w:
-        print("Pamietnik jest pusty.")
+def wszystkie_wpisy():
+    w = []
+    for f in pliki_dziennika():
+        w.extend(wpisy_z_pliku(f))
+    w.sort(key=lambda x: (x["data"], x["sesja"]))
+    return w
+
+
+def mapa_zastapien(wpisy):
+    """{tytul_starego: wpis_ktory_go_zastepuje}"""
+    m = {}
+    for w in wpisy:
+        if w["zastepuje"]:
+            m[w["zastepuje"].strip().strip('"').lower()] = w
+    return m
+
+
+# ------------------------------------------------------------ widoki
+def _drukuj_wpis(w, zastapiony_przez=None, wciecie="  "):
+    znacznik = " [NIEAKTUALNY]" if zastapiony_przez else ""
+    print("%s[%s] %s%s" % (wciecie, w["data"], w["tytul"], znacznik))
+    print("%s    sesja: %s" % (wciecie, w["sesja"]))
+    if zastapiony_przez:
+        print("%s    ZASTAPIONY przez wpis z %s: %s"
+              % (wciecie, zastapiony_przez["data"], zastapiony_przez["tytul"]))
+    for pole in ("Objaw", "Przyczyna", "Wniosek"):
+        if pole in w["pola"]:
+            tekst = w["pola"][pole]
+            print("%s    %-10s %s" % (wciecie, pole + ":", tekst[:150]))
+    print()
+
+
+def widok_scalony(temat=None):
+    wpisy = wszystkie_wpisy()
+    if not wpisy:
+        print("Dziennik jest pusty. Pierwszy wpis: python3 pamietnik.py --dodaj")
         return 0
-    print("PAMIETNIK OPERATORA - %d wpisow, ostatnie %d:\n"
-          % (len(w), min(n, len(w))))
-    for data, tytul, sekcja, tresc in w[-n:]:
-        print("  [%s] %s" % (data, tytul))
-        print("      sekcja: %s" % sekcja)
-        for linia in tresc.split("\n"):
-            if linia.strip():
-                print("      %s" % linia.strip()[:96])
-        print()
+    zast = mapa_zastapien(wpisy)
+    print("DZIENNIK OPERATORA - %d wpisow z %d sesji\n"
+          % (len(wpisy), len(pliki_dziennika())))
+    for klucz, opis in TEMATY.items():
+        if temat and klucz != temat:
+            continue
+        grupa = [w for w in wpisy if w["temat"] == klucz]
+        if not grupa:
+            continue
+        print("== %s (%s) ==" % (opis, klucz))
+        for w in grupa:
+            _drukuj_wpis(w, zast.get(w["tytul"].strip().lower()))
+    nieznane = [w for w in wpisy if w["temat"] not in TEMATY]
+    if nieznane and not temat:
+        print("== Bez rozpoznanego tematu ==")
+        for w in nieznane:
+            _drukuj_wpis(w, zast.get(w["tytul"].strip().lower()))
     return 0
 
 
-def pokaz_liste():
-    w = wpisy(wczytaj())
-    print("PAMIETNIK OPERATORA - %d wpisow\n" % len(w))
-    biezaca = None
-    for data, tytul, sekcja, _ in w:
-        if sekcja != biezaca:
-            print("  %s" % sekcja)
-            biezaca = sekcja
-        print("     [%s] %s" % (data, tytul))
+def widok_sesji():
+    pliki = pliki_dziennika()
+    if not pliki:
+        print("Brak sesji w dziennik/.")
+        return 0
+    biezaca = os.path.basename(moj_plik())
+    print("SESJE W DZIENNIKU:\n")
+    for f in pliki:
+        w = wpisy_z_pliku(f)
+        nazwa = os.path.basename(f)
+        znacznik = "  <- TWOJA (zapis)" if nazwa == biezaca else "     (tylko odczyt)"
+        print("  %-34s %2d wpisow%s" % (nazwa, len(w), znacznik))
     return 0
 
 
-def pokaz_sekcje():
-    for numer, tytul, _ in sekcje(wczytaj()):
-        print("  %d. %s" % (numer, tytul))
+def widok_moje():
+    f = moj_plik()
+    if not os.path.exists(f):
+        print("Twoja sesja nie ma jeszcze pliku (%s)." % os.path.basename(f))
+        print("Pierwszy wpis: python3 pamietnik.py --dodaj")
+        return 0
+    w = wpisy_z_pliku(f)
+    print("TWOJA SESJA: %s - %d wpisow\n" % (os.path.basename(f), len(w)))
+    for x in w:
+        _drukuj_wpis(x)
     return 0
 
 
 def szukaj(fraza):
     f = fraza.lower()
-    trafienia = [x for x in wpisy(wczytaj())
-                 if f in x[1].lower() or f in x[3].lower()]
-    if not trafienia:
-        print("Brak wpisow zawierajacych %r." % fraza)
+    wpisy = wszystkie_wpisy()
+    zast = mapa_zastapien(wpisy)
+    traf = [w for w in wpisy if f in w["tytul"].lower() or f in w["tresc"].lower()]
+    if not traf:
+        print("Brak wpisow dla %r." % fraza)
         return 1
-    print("Znaleziono %d wpisow dla %r:\n" % (len(trafienia), fraza))
-    for data, tytul, sekcja, tresc in trafienia:
-        print("  [%s] %s   (%s)" % (data, tytul, sekcja))
-        for linia in tresc.split("\n"):
-            if f in linia.lower():
-                print("      ...%s" % linia.strip()[:96])
-        print()
+    print("Znaleziono %d wpisow dla %r:\n" % (len(traf), fraza))
+    for w in traf:
+        _drukuj_wpis(w, zast.get(w["tytul"].strip().lower()))
     return 0
 
 
-# --------------------------------------------------------------- zapis
-def zbuduj_wpis(tytul, objaw, przyczyna, wniosek, dzien=None):
-    dzien = dzien or date.today().isoformat()
-    return ("### [%s] %s\n"
-            "**Objaw:** %s\n"
-            "**Przyczyna:** %s\n"
-            "**Wniosek:** %s\n" % (dzien, tytul, objaw, przyczyna, wniosek))
+# ------------------------------------------------------------ zapis
+def naglowek_pliku(sesja, dzien):
+    return (
+        "# Dziennik sesji %s (%s)\n\n"
+        "Plik nalezy do JEDNEJ sesji agenta i jest dopisywany tylko przez nia.\n"
+        "Inne sesje maja go **tylko do odczytu** - `python3 pamietnik.py --sprawdz`\n"
+        "zglasza kazda zmiane w cudzym pliku.\n\n"
+        "Prostowanie cudzego wpisu: nie edytuj tamtego pliku, dopisz wlasny wpis\n"
+        "z polem `**Zastepuje:** <tytul starego wpisu>`.\n\n"
+        "---\n" % (sesja, dzien))
 
 
-def dodaj(nr_sekcji, tytul, objaw, przyczyna, wniosek, sciezka=None):
-    """Wstawia wpis na KONCU wskazanej sekcji (chronologicznie)."""
-    sciezka = sciezka or PAMIETNIK
-    tekst = wczytaj(sciezka)
-    linie = tekst.split("\n")
-    lista = sekcje(tekst)
-    numery = [s[0] for s in lista]
-    if nr_sekcji not in numery:
-        raise SystemExit("[BLAD] nie ma sekcji %d. Dostepne: %s"
-                         % (nr_sekcji, ", ".join(str(n) for n in numery)))
-    idx = numery.index(nr_sekcji)
-    poczatek = lista[idx][2]
-    koniec = lista[idx + 1][2] if idx + 1 < len(lista) else len(linie)
-    # cofnij sie przed puste linie konczace sekcje
-    wstaw = koniec
-    while wstaw > poczatek and not linie[wstaw - 1].strip():
-        wstaw -= 1
-    nowy = zbuduj_wpis(tytul, objaw, przyczyna, wniosek).split("\n")
-    linie[wstaw:wstaw] = [""] + nowy[:-1]
-    io.open(sciezka, "w", encoding="utf-8").write("\n".join(linie))
-    return True
+def dodaj(temat, tytul, objaw, przyczyna, wniosek, zastepuje="", sciezka=None):
+    sciezka = sciezka or moj_plik()
+    os.makedirs(os.path.dirname(sciezka), exist_ok=True)
+    nowy = not os.path.exists(sciezka)
+    if nowy:
+        nazwa = os.path.basename(sciezka)[:-3]
+        dzien, sesja = nazwa.split("__")
+        io.open(sciezka, "w", encoding="utf-8").write(naglowek_pliku(sesja, dzien))
+    blok = ["", "### [%s] %s" % (date.today().isoformat(), tytul),
+            "**Temat:** %s" % temat]
+    if zastepuje:
+        blok.append("**Zastepuje:** %s" % zastepuje)
+    blok += ["**Objaw:** %s" % objaw,
+             "**Przyczyna:** %s" % przyczyna,
+             "**Wniosek:** %s" % wniosek, ""]
+    with io.open(sciezka, "a", encoding="utf-8") as fh:
+        fh.write("\n".join(blok))
+    return sciezka
 
 
 def dodaj_interaktywnie():
-    tekst = wczytaj()
-    print("Dostepne sekcje:")
-    for numer, tytul, _ in sekcje(tekst):
-        print("   %d. %s" % (numer, tytul))
+    print("Tematy:")
+    for k, v in TEMATY.items():
+        print("   %-14s %s" % (k, v))
+    print("\nPiszesz do: %s\n" % os.path.basename(moj_plik()))
     try:
-        nr = int(input("\nNumer sekcji: ").strip())
+        temat = input("Temat: ").strip().lower()
         tytul = input("Tytul (krotko, czego dotyczy): ").strip()
         objaw = input("Objaw (co zobaczyles - konkretnie): ").strip()
         przyczyna = input("Przyczyna (dlaczego tak bylo): ").strip()
         wniosek = input("Wniosek (co robic nastepnym razem): ").strip()
+        zastepuje = input("Zastepuje wpis (tytul, ENTER = zaden): ").strip()
     except (EOFError, KeyboardInterrupt):
         print("\n[ANULOWANO]")
+        return 1
+    if temat not in TEMATY:
+        print("[BLAD] nieznany temat %r. Dostepne: %s"
+              % (temat, ", ".join(TEMATY)))
         return 1
     if not all([tytul, objaw, przyczyna, wniosek]):
         print("[BLAD] wszystkie pola sa wymagane - wpis bez ktoregos z nich "
               "jest bezuzyteczny dla nastepnego agenta")
         return 1
-    dodaj(nr, tytul, objaw, przyczyna, wniosek)
-    print("\n[OK] Wpis dopisany do sekcji %d. Sprawdz: git diff %s"
-          % (nr, os.path.basename(PAMIETNIK)))
+    p = dodaj(temat, tytul, objaw, przyczyna, wniosek, zastepuje)
+    print("\n[OK] Wpis dopisany do %s" % os.path.basename(p))
     return 0
 
 
-# --------------------------------------------------------------- kontrola
-def sprawdz(sciezka=None, cicho=False):
-    """Walidacja formatu. Zwraca liczbe problemow."""
-    tekst = wczytaj(sciezka)
+# ------------------------------------------------------------ kontrola
+def _zmienione_wzgledem_gita():
+    """Pliki dziennika zmienione/usuniete wzgledem HEAD."""
+    try:
+        r = subprocess.run(["git", "diff", "--name-only", "HEAD", "--", "dziennik/"],
+                           capture_output=True, text=True, cwd=KORZEN, timeout=20)
+        if r.returncode != 0:
+            return []
+        return [x.strip() for x in r.stdout.split("\n") if x.strip()]
+    except Exception:
+        return []
+
+
+def sprawdz(cicho=False):
     problemy = []
-    w = wpisy(tekst)
-    if not w:
-        problemy.append("pamietnik nie zawiera zadnego wpisu")
-    for data, tytul, sekcja, tresc in w:
-        for pole in POLA:
-            if ("**%s:**" % pole) not in tresc:
-                problemy.append("wpis [%s] %s - brakuje pola **%s:**"
-                                % (data, tytul[:40], pole))
-        if len(tytul) < 8:
-            problemy.append("wpis [%s] - tytul za krotki, nic nie mowi" % data)
-        try:
-            r, m, d = (int(x) for x in data.split("-"))
-            date(r, m, d)
-        except ValueError:
-            problemy.append("wpis %r - niepoprawna data" % tytul[:40])
+    wpisy = wszystkie_wpisy()
+    if not wpisy:
+        problemy.append("dziennik nie zawiera zadnego wpisu")
+
+    # NIETYKALNOSC cudzych plikow - sprawdzana PIERWSZA i pokazywana na
+    # gorze. Gdy ktos podmieni cudzy dziennik, posypia sie tez duplikaty
+    # tytulow i braki pol; bez tego wlasciwa przyczyna ginie w szumie.
+    # Kontrola dotyczy tylko PRAWDZIWEGO dziennika repo - selftest pracuje
+    # na katalogu tymczasowym, ktorego git nie zna.
+    if os.path.abspath(DZIENNIK) == os.path.join(KORZEN, "dziennik"):
+        biezacy = os.path.relpath(moj_plik(), KORZEN).replace(os.sep, "/")
+        for zmieniony in _zmienione_wzgledem_gita():
+            if zmieniony != biezacy:
+                problemy.append("RUSZONY CUDZY DZIENNIK: %s - cudze sesje sa "
+                                "tylko do odczytu; prostuj wpisem "
+                                "**Zastepuje:** we wlasnym pliku (%s)"
+                                % (zmieniony, os.path.basename(biezacy)))
+
+    tytuly = set()
+    for w in wpisy:
+        for pole in POLA_WYMAGANE:
+            if pole not in w["pola"] or not w["pola"][pole]:
+                problemy.append("[%s] %s - brakuje pola **%s:**"
+                                % (w["sesja"], w["tytul"][:44], pole))
+        if w["temat"] not in TEMATY:
+            problemy.append("[%s] %s - nieznany temat %r"
+                            % (w["sesja"], w["tytul"][:44], w["temat"]))
+        if len(w["tytul"]) < 8:
+            problemy.append("[%s] tytul za krotki, nic nie mowi" % w["sesja"])
+        klucz = w["tytul"].strip().lower()
+        if klucz in tytuly:
+            problemy.append("[%s] duplikat tytulu: %s" % (w["sesja"], w["tytul"][:44]))
+        tytuly.add(klucz)
+
+    # odsylacze Zastepuje musza wskazywac na istniejacy wpis
+    for w in wpisy:
+        if w["zastepuje"] and w["zastepuje"].strip().strip('"').lower() not in tytuly:
+            problemy.append("[%s] %s - Zastepuje wskazuje na nieistniejacy wpis %r"
+                            % (w["sesja"], w["tytul"][:34], w["zastepuje"][:40]))
+
     if not cicho:
         if problemy:
-            print("PAMIETNIK: %d problemow" % len(problemy))
+            print("DZIENNIK: %d problemow" % len(problemy))
             for p in problemy:
                 print("  [BLAD] %s" % p)
         else:
-            print("PAMIETNIK: %d wpisow w %d sekcjach - format poprawny"
-                  % (len(w), len(sekcje(tekst))))
+            print("DZIENNIK: %d wpisow z %d sesji - format poprawny, "
+                  "cudze pliki nietkniete" % (len(wpisy), len(pliki_dziennika())))
     return len(problemy)
 
 
+def zbuduj_indeks():
+    """Odswieza PAMIETNIK-OPERATORA.md - spis tresci calego dziennika."""
+    wpisy = wszystkie_wpisy()
+    zast = mapa_zastapien(wpisy)
+    L = ["# PAMIETNIK OPERATORA - spis tresci dziennika", "",
+         "**Ten plik jest generowany.** Nie edytuj go recznie -",
+         "`python3 pamietnik.py --indeks` nadpisze zmiany.", "",
+         "Wpisy zyja w `dziennik/`, po jednym pliku na sesje agenta.",
+         "Piszesz tylko do swojego pliku; cudze sa do odczytu.",
+         "Pelny opis modelu pracy: `dziennik/README.md`.", "",
+         "```", "python3 pamietnik.py              # widok scalony",
+         "python3 pamietnik.py --szukaj SLOWO",
+         "python3 pamietnik.py --dodaj      # dopisz do swojej sesji",
+         "python3 pamietnik.py --sprawdz    # bramka przed commitem", "```", "",
+         "Stan: **%d wpisow** z **%d sesji**." % (len(wpisy), len(pliki_dziennika())),
+         ""]
+    for klucz, opis in TEMATY.items():
+        grupa = [w for w in wpisy if w["temat"] == klucz]
+        if not grupa:
+            continue
+        L += ["## %s" % opis, ""]
+        for w in grupa:
+            n = " **[NIEAKTUALNY]**" if zast.get(w["tytul"].strip().lower()) else ""
+            L.append("- [%s] **%s**%s" % (w["data"], w["tytul"], n))
+            if "Wniosek" in w["pola"]:
+                L.append("  - %s" % w["pola"]["Wniosek"][:200])
+            L.append("  - `%s`" % os.path.basename(w["plik"]))
+        L.append("")
+    io.open(INDEKS, "w", encoding="utf-8").write("\n".join(L))
+    print("[OK] %s odswiezony (%d wpisow)" % (os.path.basename(INDEKS), len(wpisy)))
+    return 0
+
+
+# ------------------------------------------------------------ selftest
 def selftest():
+    import shutil
     import tempfile
+    global DZIENNIK, INDEKS
+    stary_d, stary_i = DZIENNIK, INDEKS
+    tmp = tempfile.mkdtemp(prefix="dz-")
+    DZIENNIK = os.path.join(tmp, "dziennik")
+    INDEKS = os.path.join(tmp, "INDEKS.md")
     ok = True
-    prob = os.path.join(tempfile.mkdtemp(prefix="pam-"), "P.md")
-    io.open(prob, "w", encoding="utf-8").write(
-        "# Naglowek\n\n## 1. Pierwsza\n\n### [2026-01-01] Wpis pierwszy testowy\n"
-        "**Objaw:** a\n**Przyczyna:** b\n**Wniosek:** c\n\n"
-        "## 2. Druga\n\n### [2026-01-02] Wpis drugi testowy\n"
-        "**Objaw:** d\n**Przyczyna:** e\n**Wniosek:** f\n")
+    try:
+        p1 = os.path.join(DZIENNIK, "2026-01-01__aaa111.md")
+        p2 = os.path.join(DZIENNIK, "2026-02-02__bbb222.md")
+        dodaj("testy", "Pierwszy wpis testowy sesji A", "o", "p", "w", sciezka=p1)
+        dodaj("kod", "Drugi wpis testowy sesji A", "o", "p", "w", sciezka=p1)
+        dodaj("testy", "Wpis z sesji B prostujacy", "o", "p", "w",
+              zastepuje="Pierwszy wpis testowy sesji A", sciezka=p2)
 
-    t = wczytaj(prob)
-    if len(sekcje(t)) != 2:
-        print("  [FAIL] wykrywanie sekcji"); ok = False
-    if len(wpisy(t)) != 2:
-        print("  [FAIL] wykrywanie wpisow"); ok = False
-    if sprawdz(prob, cicho=True) != 0:
-        print("  [FAIL] walidacja poprawnego pliku"); ok = False
+        if len(wszystkie_wpisy()) != 3:
+            print("  [FAIL] scalanie wpisow z wielu sesji"); ok = False
+        if len(pliki_dziennika()) != 2:
+            print("  [FAIL] wykrywanie plikow sesji"); ok = False
+        z = mapa_zastapien(wszystkie_wpisy())
+        if "pierwszy wpis testowy sesji a" not in z:
+            print("  [FAIL] rozpoznanie pola Zastepuje"); ok = False
+        if sprawdz(cicho=True) != 0:
+            print("  [FAIL] walidacja poprawnego dziennika"); ok = False
 
-    # dopisanie do sekcji 1 nie moze wpasc do sekcji 2
-    dodaj(1, "Wpis dopisany przez test", "x", "y", "z", sciezka=prob)
-    w = wpisy(wczytaj(prob))
-    if len(w) != 3:
-        print("  [FAIL] dopisywanie wpisu"); ok = False
-    elif not w[1][2].startswith("1."):
-        print("  [FAIL] wpis trafil do zlej sekcji: %s" % w[1][2]); ok = False
-    if sprawdz(prob, cicho=True) != 0:
-        print("  [FAIL] plik po dopisaniu nie przechodzi walidacji"); ok = False
+        # brak pola musi byc wykryty
+        io.open(p2, "a", encoding="utf-8").write(
+            "\n### [2026-02-03] Wpis niekompletny testowy\n**Temat:** testy\n"
+            "**Objaw:** tylko to\n")
+        if sprawdz(cicho=True) == 0:
+            print("  [FAIL] nie wykryl braku pol"); ok = False
 
-    # brak pola musi byc wykryty
-    io.open(prob, "a", encoding="utf-8").write(
-        "\n### [2026-01-03] Wpis niekompletny testowy\n**Objaw:** tylko to\n")
-    if sprawdz(prob, cicho=True) == 0:
-        print("  [FAIL] nie wykryl braku pol"); ok = False
+        # odsylacz w prozne musi byc wykryty
+        io.open(p2, "a", encoding="utf-8").write(
+            "\n### [2026-02-04] Wpis ze zlym odsylaczem testowy\n**Temat:** kod\n"
+            "**Zastepuje:** Nie ma takiego wpisu\n**Objaw:** a\n"
+            "**Przyczyna:** b\n**Wniosek:** c\n")
+        if sprawdz(cicho=True) < 2:
+            print("  [FAIL] nie wykryl odsylacza w prozne"); ok = False
 
-    # prawdziwy pamietnik repo tez musi byc poprawny
-    if os.path.exists(PAMIETNIK) and sprawdz(PAMIETNIK, cicho=True) != 0:
-        print("  [FAIL] PAMIETNIK-OPERATORA.md ma bledy formatu"); ok = False
+        zbuduj_indeks()
+        tresc = io.open(INDEKS, encoding="utf-8").read()
+        if "NIEAKTUALNY" not in tresc:
+            print("  [FAIL] indeks nie oznacza wpisow zastapionych"); ok = False
+    finally:
+        DZIENNIK, INDEKS = stary_d, stary_i
+        shutil.rmtree(tmp, ignore_errors=True)
 
+    if os.path.isdir(DZIENNIK) and sprawdz(cicho=True) != 0:
+        print("  [FAIL] prawdziwy dziennik repo ma bledy"); ok = False
     print("SELFTEST: %s" % ("PASS" if ok else "FAIL"))
     return ok
 
 
 def main():
     args = sys.argv[1:]
+
+    def opcja(nazwa):
+        return args[args.index(nazwa) + 1] if nazwa in args and \
+            args.index(nazwa) + 1 < len(args) else None
+
     if "--selftest" in args:
         return 0 if selftest() else 1
     if "--sprawdz" in args:
         return 1 if sprawdz() else 0
-    if "--sekcje" in args:
-        return pokaz_sekcje()
-    if "--lista" in args:
-        return pokaz_liste()
+    if "--indeks" in args:
+        return zbuduj_indeks()
+    if "--sesje" in args:
+        return widok_sesji()
+    if "--moje" in args:
+        return widok_moje()
     if "--szukaj" in args:
-        i = args.index("--szukaj")
-        if i + 1 >= len(args):
+        f = opcja("--szukaj")
+        if not f:
             print("[BLAD] --szukaj wymaga slowa")
             return 1
-        return szukaj(args[i + 1])
+        return szukaj(f)
     if "--dodaj" in args:
-        def opcja(nazwa):
-            return args[args.index(nazwa) + 1] if nazwa in args else None
         tytul = opcja("--tytul")
         if tytul:
-            sek = opcja("--sekcja")
-            dodaj(int(sek) if sek else 1, tytul, opcja("--objaw") or "",
-                  opcja("--przyczyna") or "", opcja("--wniosek") or "")
-            print("[OK] wpis dopisany")
+            temat = (opcja("--temat") or "repo").lower()
+            if temat not in TEMATY:
+                print("[BLAD] nieznany temat %r. Dostepne: %s"
+                      % (temat, ", ".join(TEMATY)))
+                return 1
+            p = dodaj(temat, tytul, opcja("--objaw") or "",
+                      opcja("--przyczyna") or "", opcja("--wniosek") or "",
+                      opcja("--zastepuje") or "")
+            print("[OK] wpis dopisany do %s" % os.path.basename(p))
             return 0
         return dodaj_interaktywnie()
     if "--help" in args or "-h" in args:
         print(__doc__)
         return 0
-    return pokaz_ostatnie()
+    if "--temat" in args:
+        t = (opcja("--temat") or "").lower()
+        if t not in TEMATY:
+            print("[BLAD] nieznany temat. Dostepne: %s" % ", ".join(TEMATY))
+            return 1
+        return widok_scalony(t)
+    return widok_scalony()
 
 
 if __name__ == "__main__":
