@@ -87,6 +87,57 @@ Root + docs: kazdy BLAD 0, selftesty PASS. Zero zaleznosci, czysty Python 3 stdl
 
 ## Historia zmian
 
+- v8.3.0 - WGRANIE NOWSZYCH WERSJI CALEJ RODZINY (kod dostarczony przez
+  autora, wklejony wprost do czatu — zalaczniki nie dochodzily). Skok
+  wszystkich czterech naraz: Pogromca v8.1.0 -> **v8.4.0**, Zaglada
+  v1.1.1 -> **v1.3.0**, Prokurator v1.0.1 -> **v1.2.0**, Anihilator
+  v1.0.0 -> **v1.3.0**. Repo bylo o kilka wydan w tyle za kodem autora.
+
+  Co realnie przyszlo (zweryfikowane wykonaniem, nie lektura dokstringow):
+
+  * **Zaglada v1.3.0 — straznik przed sklejeniem dwoch zmiennych w jedna.**
+    Naprawa spojnosci identyfikatorow z v1.1.0 byla ZA CHCIWA: wystarczylo,
+    ze skrocona nazwa gdziekolwiek istnieje, i `wartosc` oraz `wartosc<obcy>`
+    (dwie ROZNE zmienne) byly scalane w jedna. Plik kompilowal sie, a program
+    liczyl co innego. Nowy warunek: naprawa tylko gdy zabrudzona nazwa jest
+    odludkiem (wystepuje DOKLADNIE RAZ), a jej czysty odpowiednik istnieje
+    gdzie indziej. Zweryfikowane na przypadku z dokstringu: zmienne pozostaja
+    rozroznialne, plik sie kompiluje.
+  * **Anihilator v1.2.0/v1.3.0 — BLOKADA zamiast cichego psucia.** Automat
+    stanow nie jest lekserem: literaly mogace zawierac niesparowany cudzyslow
+    (C++ `R"(...)"`, Rust `r#"..."#`, bloki tekstowe Javy/Kotlina/Swifta,
+    heredoki Ruby/PHP, backticki Go) rozjezdzaly mu stan i fragment literalu
+    byl czyszczony wbrew kontraktowi. Teraz takie pliki sa ODRZUCANE (exit 2).
+    Zweryfikowane: 6/6 konstrukcji zablokowanych, przy tym C# `@"..."` i
+    szablony JS nadal przechodza (brak nadgorliwosci).
+  * **Prokurator v1.1.0/v1.2.0 — koniec fail-open.** Do v1.0.1 awaria
+    rodzenstwa (zla sciezka wzgledna, katalog jako argument, pusty stdout)
+    konczyla sie kodem 0 i meldunkiem "czysto" na plikach brudnych. Teraz:
+    sciezki absolutne z `__file__`, katalogi rozwijane do listy plikow,
+    kazda awaria = BLOKADA.
+  * **Pogromca v8.2.0-v8.4.0 — ochrona literalow w `--fix`.** Kontrakt
+    "tresc literalu jest swieta" obowiazywal Zaglade, ale NIE `--fix` —
+    a to wlasnie `--fix` protokol stawia na poziomie "rutynowo, bez pytania".
+    Dodatkowo fail-closed na plikach o zlym kodowaniu (wczesniej `--fix`
+    zapisywal uszkodzone bajty jako U+FFFD, trwale niszczac oryginal).
+  * **Wspolne dla calej rodziny: backup + zapis atomowy (R3/R4/R7).**
+    Wczesniej `open(sciezka,"w").write(...)` — przerwanie w polowie
+    zostawialo plik obciety bez mozliwosci powrotu. Teraz kopia `.bak-*`,
+    zapis do pliku tymczasowego, `fsync`, `os.replace()`. Zweryfikowane:
+    R3 (odmowa zapisu na kopii zapasowej), R4 (drugi przebieg nie kasuje
+    pierwszej kopii, dostaje sufiks `.2`), R7 (`--fix` bez argumentow =
+    BLOKADA, wczesniej szedl po katalogu NADRZEDNYM wobec narzedzia).
+
+  Regresja po wgraniu: **ZERO**. Selftesty 4/4 PASS, tor 348/0/0/0,
+  fuzz A/B/C 500/0 kazdy, T2 992 wektorow 0/0/0, T3 190 plikow 0 popsutych,
+  Z1 1545 wektorow 0/0/0, Z2 200 plikow 0 popsutych, bramka Pogromcy na
+  korzeniu+docs BLAD 0 / UWAGA 0 (24 pliki).
+
+  RODZINA-DO-CZATU: wszystkie 4 osadzone kopie re-embedowane bajt-w-bajt
+  (po wgraniu byly rozjechane wzgledem realnych plikow — ta sama klasa
+  bledu, ktora naprawiano w v8.2.21; teraz 4/4 identyczne). Numery wersji
+  zsynchronizowane w PROTOKOLE, RODZINIE, wniosku i README-TURNIEJ.
+
 - v8.2.21 - PORZADKI W DRZEWIE (zero zmian w kodzie rodziny). Korzen repo
   zawieral rownolegly, zduplikowany komplet plikow obok `docs/` i `dev/`:
   14 dokumentow .md, 15 plikow amunicji JSON, 9 narzedzi testowych .py i

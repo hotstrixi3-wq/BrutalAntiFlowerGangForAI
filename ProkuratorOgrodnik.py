@@ -48,7 +48,43 @@ import re
 from pathlib import Path
 from collections import defaultdict, Counter
 
-WERSJA = "1.0.1"
+WERSJA = "1.2.0"
+
+# (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
+# nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
+# literalow - chroniona tresc ginela wlasnie w kopii ratunkowej, a obok
+# powstawal "mod.py.bak-zaglada.bak-zaglada".
+_KOPIE = ("bak-pogromca", "bak-zaglada", "bak-anihilator")
+
+
+def jest_kopia_zapasowa(sciezka):
+    """True dla plikow .bak-pogromca / .bak-zaglada / .bak-anihilator (takze
+    z sufiksem liczbowym, np. .bak-zaglada.3)."""
+    n = os.path.basename(sciezka)
+    for z in _KOPIE:
+        if ("." + z) in n:
+            return True
+    return False
+
+
+# (v1.1.0) FAIL-CLOSED: rodzenstwo wolane po sciezkach ABSOLUTNYCH liczonych
+# z __file__. Do v1.0.1 bylo "PogromcaKwiatkow.py" - sciezka wzgledna, wiec
+# Prokurator uruchomiony z innego katalogu roboczego dostawal returncode 2 i
+# puste stdout, nie sprawdzal tego, i meldowal "czysto" z kodem wyjscia 0 na
+# plikach brudnych. To byl fail-open w narzedziu, ktore ma byc fail-closed.
+TU = os.path.dirname(os.path.abspath(__file__))
+
+
+class BladRodziny(Exception):
+    """Awaria uruchomienia rodzenstwa. Zawsze konczy sie BLOKADA, nigdy 'czysto'."""
+
+
+def sciezka_rodzenstwa(nazwa):
+    """Absolutna sciezka do czlonka rodziny lezacego obok tego pliku."""
+    p = os.path.join(TU, nazwa)
+    if not os.path.isfile(p):
+        raise BladRodziny("brak czlonka rodziny: %s (szukano w %s)" % (nazwa, TU))
+    return p
 
 # --- polityka domyslna -------------------------------------------------
 ALLOWLIST_GLOBS = [
@@ -74,10 +110,62 @@ def match_allowlist(path: str) -> bool:
     return False
 
 def run_pogromca(files):
-    """Uruchamia PogromcaKwiatkow.py i zwraca stdout."""
-    cmd = [sys.executable, "PogromcaKwiatkow.py"] + files
+    """Uruchamia PogromcaKwiatkow.py i zwraca (stdout, returncode).
+
+    (v1.1.0) Kody wyjscia Pogromcy: 0 = czysto, 1 = jest BLAD. KAZDY inny kod
+    oznacza, ze podproces nie wystartowal albo sie wysypal - wtedy rzucamy
+    BladRodziny zamiast parsowac puste stdout jako 'brak znalezisk'."""
+    cmd = [sys.executable, sciezka_rodzenstwa("PogromcaKwiatkow.py")] + files
     result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode not in (0, 1):
+        raise BladRodziny(
+            "Pogromca zakonczyl sie kodem %d (spodziewane 0 lub 1). stderr: %s"
+            % (result.returncode, (result.stderr or "").strip()[:300]))
+    if result.returncode == 1 and not result.stdout.strip():
+        raise BladRodziny("Pogromca zglosil BLAD, ale nie wypisal nic na stdout")
     return result.stdout, result.returncode
+
+
+def rozwin_argumenty(pliki):
+    """(v1.1.0) Zamienia katalogi na liste plikow i odrzuca sciezki nieistniejace.
+
+    Do v1.0.1 katalog szedl wprost do Pogromcy, wracal jako
+    '[BLAD] <sciezka>: nie czyta sie (Is a directory)', a parser bral CALY
+    ten komunikat bledu za nazwe pliku i dopisywal do akt zmyslone
+    znalezisko z decyzja ZAGLADA."""
+    wynik, brakujace = [], []
+    for a in pliki:
+        if os.path.isdir(a):
+            for korzen, _katalogi, nazwy in os.walk(a):
+                for n in sorted(nazwy):
+                    pelna = os.path.join(korzen, n)
+                    if jest_kopia_zapasowa(pelna):
+                        continue          # (R3) nie tykamy kopii ratunkowych
+                    wynik.append(pelna)
+        elif os.path.isfile(a):
+            wynik.append(a)
+        else:
+            brakujace.append(a)
+    return wynik, brakujace
+
+def rozwiaz_sciezke_z_raportu(kandydat):
+    """(v1.1.0) Zamienia sciezke z raportu Pogromcy na istniejacy plik albo None.
+
+    Pogromca wypisuje nazwy przez os.path.relpath(sciezka, HOME), gdzie HOME to
+    katalog NADRZEDNY wobec katalogu rodziny - a nie katalog roboczy Prokuratora.
+    Dlatego samo os.path.isfile() na tym, co wydrukowal, odrzuca poprawne pliki.
+    Sprawdzamy wiec obie bazy, zanim uznamy linie za komunikat bledu."""
+    if not kandydat:
+        return None
+    bazy = (os.path.dirname(TU), TU, os.getcwd())
+    if os.path.isabs(kandydat):
+        return kandydat if os.path.isfile(kandydat) else None
+    for baza in bazy:
+        p = os.path.normpath(os.path.join(baza, kandydat))
+        if os.path.isfile(p):
+            return p
+    return None
+
 
 def parse_pogromca_output(output: str):
     """Parsuje output Pogromcy na liste znalezisk."""
@@ -92,7 +180,17 @@ def parse_pogromca_output(output: str):
             #         KLASA: linia X, znak 'Y' | ...
             m = re.match(r"\[(BLAD|UWAGA|OK)\]\s+(.+)", line)
             if m:
-                current_file = m.group(2).strip()
+                kandydat = m.group(2).strip()
+                # (v1.1.0) Pogromca wypisuje bledy wejscia w tym samym formacie
+                # co werdykty ("[BLAD] <sciezka>: nie czyta sie (...)"). Bez tego
+                # sprawdzenia komunikat bledu ladowal w aktach jako nazwa pliku
+                # z decyzja ZAGLADA - sfabrykowana sprawa.
+                if rozwiaz_sciezke_z_raportu(kandydat) is None:
+                    findings.append({"file": kandydat, "verdict": "BLAD_WEJSCIA",
+                                     "details": [], "surowa_linia": line})
+                    current_file = None
+                    continue
+                current_file = kandydat
                 findings.append({"file": current_file, "verdict": m.group(1), "details": []})
         elif "linia" in line and "znak" in line:
             # linia z klasa
@@ -124,6 +222,19 @@ def classify_findings(findings):
         details = f["details"]
         if verdict == "OK":
             summary["OK"] += 1
+            continue
+        if verdict == "BLAD_WEJSCIA":
+            # (v1.1.0) fail-closed: nie umiemy powiedziec nic o pliku, ktorego
+            # Pogromca nie przeczytal. To NIE jest "czysto".
+            akta.append({
+                "plik": path,
+                "werdykt_pogromcy": "BLAD_WEJSCIA",
+                "klasy": {},
+                "decyzja": "BLOKADA",
+                "powod": "Pogromca nie przeczytal wejscia - brak podstaw do jakiejkolwiek decyzji",
+                "dowody": [notacja_uxxxx(f.get("surowa_linia", ""))],
+            })
+            summary["BLOKADA"] += 1
             continue
         # policz klasy
         classes = []
@@ -180,9 +291,14 @@ def run_zaglada_if_allowed(akta):
     if not do_zaglady:
         return
     for plik in do_zaglady:
-        cmd = [sys.executable, "ZagladaKultury.py", "--zaglada", plik]
+        cmd = [sys.executable, sciezka_rodzenstwa("ZagladaKultury.py"), "--zaglada", plik]
         result = subprocess.run(cmd, capture_output=True, text=True)
         print(result.stdout.strip())
+        # (v1.1.0) awaria Zaglady to nie jest cichy brak zmian
+        if result.returncode != 0:
+            print("[BLOKADA] %s -> Zaglada zakonczyla sie kodem %d: %s"
+                  % (plik, result.returncode, (result.stderr or "").strip()[:200]))
+            continue
         # kontrola Pogromca po zagladzie (combo §1a)
         out, code = run_pogromca([plik])
         if code == 0:
@@ -246,8 +362,24 @@ def main():
         print("Podaj pliki do oskarzenia")
         return 2
 
+    # (v1.1.0) katalogi -> pliki, sciezki nieistniejace -> BLOKADA
+    pliki, brakujace = rozwin_argumenty(pliki)
+    if brakujace:
+        for b in brakujace:
+            print("[BLOKADA] nie istnieje: %s" % b)
+        return 2
+    if not pliki:
+        print("[BLOKADA] po rozwinieciu argumentow nie zostal zaden plik")
+        return 2
+
     # 1. Dry-run: Pogromca
-    out, code = run_pogromca(pliki)
+    try:
+        out, code = run_pogromca(pliki)
+    except BladRodziny as e:
+        # (v1.1.0) fail-closed: awaria rodzenstwa NIGDY nie moze wygladac
+        # jak "czysto". Do v1.0.1 konczylo sie to kodem 0 i pustym podsumowaniem.
+        print("[BLOKADA] awaria rodzenstwa: %s" % e)
+        return 2
     print(out)
 
     findings = parse_pogromca_output(out)

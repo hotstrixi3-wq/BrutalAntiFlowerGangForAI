@@ -1,5 +1,14 @@
 # AUDYT POWIAZAN FUNKCJI - weryfikacja niezalezna (2026-09-04)
 
+> **AKTUALIZACJA po wgraniu wersji v8.4.0/v1.3.0/v1.2.0/v1.3.0:** oba
+> znaleziska ponizej sprawdzone ponownie na NOWYM kodzie i **nadal
+> aktualne**. `baza_bez_ogonkow` wciaz zdefiniowana 1x w Zagladzie i 1x w
+> Anihilatorze, wolana 0x. `--help` wciaz nieobslugiwane w Prokuratorze i
+> Anihilatorze (Pogromca i Zaglada reaguja poprawnie). Nowe wersje
+> przyniosly powazne naprawy bezpieczenstwa (fail-closed, backup, zapis
+> atomowy, straznik przed sklejeniem zmiennych) - te dwa drobiazgi po
+> prostu nie byly ich tematem.
+
 Powod: zgloszenie „duzo brakow powiazan funkcji". Zalaczone pliki z analiza
 NIE DOTARLY do srodowiska (katalog uploads pusty), wiec audyt wykonany
 OD ZERA, wlasnymi narzedziami, bez zaufania do cudzych wnioskow i bez

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""ZAGŁADA KULTURY v1.0.0 — siostrzana wobec PogromcaKwiatkow.py.
+"""ZAGŁADA KULTURY — siostrzana wobec PogromcaKwiatkow.py.
 Pogromca = detektor (niczego nie zmienia). Zagłada = dekontaminator
 (unicestwia OBCĄ kulturę znaków, polską zostawia świętą).
 
-Kontrakt v1.0.0:
+Kontrakt (numer wersji: WERSJA ponizej i WERSJE.json):
 - cyrylica/greka -> transliteracja PO POLSKU (U+043FU+0440U+0438U+0432U+0435U+0442 -> priwet, U+041CU+043EU+0441U+043AU+0432U+0430 -> Moskwa)
 - homoglify łacińskie -> baza (U+017F->s, U+00DF->ss, U+0153->oe, U+00F8->o, U+0111->d, U+00FE->th, U+0131->i)
 - litery łacińskie spoza dozwolonych -> zdejmij ogonki (U+010D->c, U+0101->a);
@@ -49,7 +49,24 @@ import unicodedata
 import difflib
 import re
 
-WERSJA = "1.1.1"
+WERSJA = "1.3.0"
+
+# (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
+# nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
+# literalow - chroniona tresc ginela wlasnie w kopii ratunkowej, a obok
+# powstawal "mod.py.bak-zaglada.bak-zaglada".
+_KOPIE = ("bak-pogromca", "bak-zaglada", "bak-anihilator")
+
+
+def jest_kopia_zapasowa(sciezka):
+    """True dla plikow .bak-pogromca / .bak-zaglada / .bak-anihilator (takze
+    z sufiksem liczbowym, np. .bak-zaglada.3)."""
+    n = os.path.basename(sciezka)
+    for z in _KOPIE:
+        if ("." + z) in n:
+            return True
+    return False
+
 
 # --- kultura dozwolona (nic jej nie robiemy) --------------------------------
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -388,6 +405,21 @@ def _napraw_niespojnosc_identyfikatorow(oryginal, kandydat, sciezka):
             continue
         if not (wariant[0].isalpha() or wariant[0] == "_"):
             continue
+        # (v1.3.0) STRAZNIK PRZED SKLEJENIEM DWOCH ZMIENNYCH W JEDNA.
+        # Do v1.2.0 wystarczylo, ze skrocona nazwa gdzies istnieje - i wtedy
+        # "wartosc" oraz "wartosca" (dwie ROZNE zmienne) byly sklejane:
+        #   PRZED: wartosc = 1 ; wartosc<U+0430> = 2 ; print(wartosc, wartosc<U+0430>)
+        #   PO:    wartosc = 1 ; wartosc  = 2 ; print(wartosc, wartosc)
+        # Plik kompilowal sie, a program liczyl co innego. compile() tego nie
+        # widzi, bo skladnia jest poprawna.
+        #
+        # Odroznik: naprawa ma sens TYLKO wtedy, gdy zabrudzona nazwa jest
+        # odludkiem - pojawia sie DOKLADNIE RAZ, a jej czysty odpowiednik
+        # wystepuje gdzie indziej (to znalezisko z turnieju: _scandir_path
+        # kilka razy, _VIIIscandir_patKh raz). Nazwa uzywana konsekwentnie
+        # wiele razy jest osobna zmienna i nie wolno jej scalac.
+        if id_licznik.get(pelny_tok, 0) != 1:
+            continue
         if id_licznik.get(wariant, 0) > 0:
             poprawki.extend(spany)
     if not poprawki:
@@ -465,9 +497,13 @@ def raport_sciezka(sciezka, wykonaj):
         return 0
     czesci = ["%s %d" % (k, v) for k, v in licznik.items() if v]
     if wykonaj:
-        with io.open(sciezka, "w", encoding="utf-8", newline="") as f:
-            f.write(nowy)
-        print("[ZAGLADA] %s: %s" % (sciezka, " | ".join(czesci)))
+        try:
+            kopia = zapisz_bezpiecznie(sciezka, nowy)
+        except RuntimeError as e:
+            print("[BLOKADA] %s: %s" % (sciezka, e))
+            return 2
+        print("[ZAGLADA] %s: %s | kopia: %s"
+              % (sciezka, " | ".join(czesci), os.path.basename(kopia)))
         # (v1.0.7) OBSERWOWALNOSC: kultura usunieta, ale parsowalnosc moze nie wrocic
         if sciezka.endswith(".py"):
             try:
@@ -523,6 +559,51 @@ def selftest():
     print("WERDYKT: PASS - anihiluje obce, polskie zostawia" if ok == len(testy) else "WERDYKT: FAIL")
     return 0 if ok == len(testy) else 1
 
+
+
+def zapisz_bezpiecznie(sciezka, tresc, znacznik='.bak-zaglada'):
+    """(v1.2.0) BACKUP + ZAPIS ATOMOWY.
+
+    Wczesniej bylo io.open(sciezka, "w").write(...) - przerwanie w polowie
+    zostawialo plik uzytkownika obciety i nie bylo z czego wrocic.
+    Teraz: kopia %s (odmowa zapisu, gdy kopia sie nie uda), zapis do pliku
+    tymczasowego w TYM SAMYM katalogu, flush + fsync, os.replace() - podmiana
+    jest atomowa albo nie ma jej wcale. Uprawnienia oryginalu przeniesione,
+    dowiazanie symboliczne rozwiazane (podmieniamy cel, nie link)."""
+    import shutil, tempfile
+    rzeczywista = os.path.realpath(sciezka)
+    if jest_kopia_zapasowa(rzeczywista):
+        raise RuntimeError("ODMOWA ZAPISU: %s to kopia zapasowa (R3)" % rzeczywista)
+    kopia = rzeczywista + znacznik
+    # (R4) NIE NADPISUJ istniejacej kopii. Do teraz drugi przebieg kasowal
+    # kopie z pierwszego, czyli jedyny slad prawdziwego oryginalu. Pierwsza
+    # kopia wygrywa; kolejne przebiegi dostaja kopie z sufiksem liczbowym.
+    if os.path.exists(kopia):
+        i = 2
+        while os.path.exists("%s.%d" % (kopia, i)):
+            i += 1
+        kopia = "%s.%d" % (kopia, i)
+    try:
+        shutil.copy2(rzeczywista, kopia)
+    except Exception as e:
+        raise RuntimeError("ODMOWA ZAPISU: nie udalo sie zrobic kopii %s (%s)" % (kopia, e))
+    katalog = os.path.dirname(rzeczywista) or "."
+    fd, tmp = tempfile.mkstemp(dir=katalog, prefix=".gang-", suffix=".tmp")
+    try:
+        with io.open(fd, "w", encoding="utf-8", newline="") as f:
+            f.write(tresc)
+            f.flush()
+            os.fsync(f.fileno())
+        try:
+            shutil.copystat(rzeczywista, tmp)
+        except Exception:
+            pass
+        os.replace(tmp, rzeczywista)
+    except Exception:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+    return kopia
 
 def main():
     args = [a for a in sys.argv[1:]]

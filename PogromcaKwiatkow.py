@@ -6,6 +6,7 @@ jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
 z rodzina: ZagladaKultury, ProkuratorOgrodnik, AnihilatorChwastow).
 Przeczytaj przed pierwszym uzyciem.
 
+(v8.2.0, 2026-09-04) OCHRONA LITERALOW w --fix + backup i zapis atomowy.
 (v8.1.0, 2026-09-04) RYZYKO-KLUCZA: nowa, dodatkowa warstwa raportu.
 Znalezisko z turnieju absurdalnego (Zagłada czyszcząca zaatakowaną kopię
 własnego kodu): literal string zawierający obcy znak, którego "oczyszczona"
@@ -53,6 +54,25 @@ import unicodedata
 from functools import lru_cache
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+WERSJA = "8.4.0"
+
+# (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
+# nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
+# literalow - chroniona tresc ginela wlasnie w kopii ratunkowej, a obok
+# powstawal "mod.py.bak-zaglada.bak-zaglada".
+_KOPIE = ("bak-pogromca", "bak-zaglada", "bak-anihilator")
+
+
+def jest_kopia_zapasowa(sciezka):
+    """True dla plikow .bak-pogromca / .bak-zaglada / .bak-anihilator (takze
+    z sufiksem liczbowym, np. .bak-zaglada.3)."""
+    n = os.path.basename(sciezka)
+    for z in _KOPIE:
+        if ("." + z) in n:
+            return True
+    return False
+
+
 HOME = os.path.dirname(HERE)
 
 OGONKI = set("ąćęłńóśźżĄĆĘŁŃÓŚŹŻ")
@@ -475,6 +495,96 @@ def _lamacze_poza_literalami_surowy(tekst):
     return "".join(out)
 
 
+def _regiony_literalow(tekst):
+    """(v8.2.0) Zbior indeksow znakow lezacych WEWNATRZ literalow .py.
+
+    Zwraca None, gdy tokenize nie da rady - wtedy wolajacy ma NIE czyscic
+    (fail-closed), bo nie wie, gdzie konczy sie kod, a zaczyna dane.
+    Chronimy WNETRZE literalu, nie cudzyslowy - prefiksy (r, b, f) i same
+    ogranczniki zostaja poza ochrona, wiec nadal daja sie normalizowac."""
+    import tokenize
+    typy = {tokenize.STRING}
+    for a in ("FSTRING_MIDDLE",):
+        if hasattr(tokenize, a):
+            typy.add(getattr(tokenize, a))
+    starty, poz = [], 0
+    for linia in tekst.split("\n"):
+        starty.append(poz)
+        poz += len(linia) + 1
+    chronione = set()
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(tekst).readline):
+            if tok.type in typy:
+                s = starty[tok.start[0] - 1] + tok.start[1]
+                e = starty[tok.end[0] - 1] + tok.end[1]
+                chronione.update(range(s, e))
+    except (tokenize.TokenError, SyntaxError, IndentationError,
+            UnicodeError, IndexError, ValueError):
+        return None
+    return chronione
+
+
+def _wyczysc_fragment(frag):
+    """NFC + twarde spacje -> spacja + usuniecie niewidzialnych. Zwraca
+    (tekst, ile_niewidzialnych, ile_spacji)."""
+    frag = unicodedata.normalize("NFC", frag)
+    out, n_widz, n_sp = [], 0, 0
+    for c in frag:
+        if c != " " and unicodedata.category(c) == "Zs":
+            out.append(" ")
+            n_sp += 1
+        elif c in NIEWIDZ:
+            n_widz += 1
+        else:
+            out.append(c)
+    return "".join(out), n_widz, n_sp
+
+
+def _zapisz_bezpiecznie(sciezka, tresc):
+    """(v8.2.0) BACKUP + ZAPIS ATOMOWY.
+
+    Do v8.1.0 bylo io.open(sciezka, "w").write(...) - przerwanie w polowie
+    zostawialo plik uzytkownika obciety, i nie bylo z czego wrocic.
+    Teraz: kopia .bak-pogromca (odmowa zapisu, gdy kopia sie nie uda),
+    zapis do pliku tymczasowego w TYM SAMYM katalogu, flush + fsync,
+    os.replace() - podmiana jest atomowa albo nie ma jej wcale.
+    Uprawnienia oryginalu sa przenoszone; dowiazanie symboliczne jest
+    rozwiazywane, wiec podmieniamy plik docelowy, a nie sam link."""
+    import shutil, tempfile
+    rzeczywista = os.path.realpath(sciezka)
+    if jest_kopia_zapasowa(rzeczywista):
+        raise RuntimeError("ODMOWA ZAPISU: %s to kopia zapasowa (R3)" % rzeczywista)
+    kopia = rzeczywista + ".bak-pogromca"
+    # (R4) pierwsza kopia wygrywa - nie kasujemy sladu oryginalu
+    if os.path.exists(kopia):
+        i = 2
+        while os.path.exists("%s.%d" % (kopia, i)):
+            i += 1
+        kopia = "%s.%d" % (kopia, i)
+    try:
+        shutil.copy2(rzeczywista, kopia)
+    except Exception as e:
+        raise RuntimeError("ODMOWA ZAPISU: nie udalo sie zrobic kopii %s (%s)"
+                           % (kopia, e))
+    katalog = os.path.dirname(rzeczywista) or "."
+    fd, tmp = tempfile.mkstemp(dir=katalog, prefix=".pogromca-", suffix=".tmp")
+    try:
+        with io.open(fd, "w", encoding="utf-8", newline="") as f:
+            f.write(tresc)
+            f.flush()
+            os.fsync(f.fileno())
+        try:
+            shutil.copystat(rzeczywista, tmp)
+        except Exception:
+            pass
+        os.replace(tmp, rzeczywista)
+    except Exception:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+    return kopia
+
+
 def napraw(tekst, sciezka):
     """--fix (kozak 3): NFC + usuwanie NIEWIDZIALNYCH. Podmiana liter = NIGDY
     (kwiatka nie maskujemy - decyzja zawsze nalezy do czlowieka).
@@ -510,20 +620,55 @@ def napraw(tekst, sciezka):
             except Exception:
                 propozycja = tekst  # (bezpieczenstwo) tokenize nie dal rady - nie ruszaj
     n_lam = sum(1 for a, b in zip(tekst, propozycja) if a != b and b == "\n")
-    tekst = unicodedata.normalize("NFC", propozycja)
-    out, n_widz, n_sp = [], 0, 0
-    for c in tekst:
-        if c != " " and unicodedata.category(c) == "Zs":
-            out.append(" ")   # (sedzia) NBSP/en-space -> spacja, nie sklejaj slow
-            n_sp += 1
-        elif c in NIEWIDZ:
-            n_widz += 1
-            continue
-        else:
-            out.append(c)
-    nowe = "".join(out)
+
+    # (v8.2.0) OCHRONA LITERALOW W --fix.
+    # Do v8.1.0 normalizacja NFC, zamiana twardych spacji i usuwanie
+    # niewidzialnych znakow leciały po CALYM pliku, takze wewnatrz stringow.
+    # Skutek: TOKEN = "abc<U+200B>def" po --fix mial inna wartosc i o jeden
+    # znak mniej. Kontrakt "tresc literalu jest swieta" obowiazywal Zaglade,
+    # ale nie --fix - i to wlasnie --fix protokol stawia na poziomie 2
+    # ("rutynowo, bez pytania"). Teraz dla .py czyscimy wylacznie POZA
+    # literalami; gdy tokenize nie da rady, nie czyscimy wcale (fail-closed).
+    chronione = None
+    if sciezka.endswith(".py"):
+        chronione = _regiony_literalow(propozycja)
+        if chronione is None:
+            print("[POMINIETO] %s: tokenize nie dal rady - literaly nie do "
+                  "odroznienia, wiec NFC/spacje/niewidzialne pominiete "
+                  "(fail-closed)" % os.path.relpath(sciezka, HOME))
+            nowe = propozycja
+            if n_lam:
+                _zapisz_bezpiecznie(sciezka, nowe)
+                print("[FIX]   %s: lamacze->LF %d | usuniete niewidzialne 0 | spacje 0"
+                      % (os.path.relpath(sciezka, HOME), n_lam))
+            return nowe
+
+    tekst = propozycja
+    # Segmenty: na przemian [do czyszczenia] i [chronione]. Dzieki temu nie
+    # trzeba mapowac pozycji po usunieciu znakow - kazdy kawalek jest
+    # przetwarzany osobno i sklejany w kolejnosci.
+    nowe, n_widz, n_sp = [], 0, 0
+    bufor, w_ochronie = [], False
+    for i, c in enumerate(tekst):
+        teraz = chronione is not None and i in chronione
+        if teraz != w_ochronie:
+            frag = "".join(bufor)
+            if w_ochronie:
+                nowe.append(frag)                      # literal - bajt w bajt
+            else:
+                f, a, b = _wyczysc_fragment(frag)
+                nowe.append(f); n_widz += a; n_sp += b
+            bufor, w_ochronie = [], teraz
+        bufor.append(c)
+    frag = "".join(bufor)
+    if w_ochronie:
+        nowe.append(frag)
+    else:
+        f, a, b = _wyczysc_fragment(frag)
+        nowe.append(f); n_widz += a; n_sp += b
+    nowe = "".join(nowe)
     if nowe != tekst or n_lam:
-        io.open(sciezka, "w", encoding="utf-8").write(nowe)
+        _zapisz_bezpiecznie(sciezka, nowe)
         print("[FIX]   %s: lamacze->LF %d | usuniete niewidzialne %d | spacje %d" %
               (os.path.relpath(sciezka, HOME), n_lam, n_widz, n_sp))
     return nowe
@@ -534,13 +679,38 @@ def main():
         sys.exit(0 if selftest() else 1)
     argv = [a for a in sys.argv[1:] if not a.startswith("--")]
     FIX = "--fix" in sys.argv
+    if FIX and not argv:
+        # (R7) --fix bez argumentow szedl na domyslne_pliki(), a te licza sie
+        # wzgledem HOME = katalog NADRZEDNY wobec narzedzia. Potwierdzone:
+        # przepisywalo pliki, ktorych uzytkownik nie wskazal.
+        print("[BLOKADA] --fix wymaga jawnie podanych plikow "
+              "(bez nich szedlby po katalogu nadrzednym wobec narzedzia)")
+        sys.exit(2)   # main() konczy przez sys.exit, nie przez wartosc zwracana
     pliki = argv if argv else domyslne_pliki()
     n_blad = n_uwag = 0
     for sciezka in pliki:
         try:
-            tekst = io.open(sciezka, encoding="utf-8", errors="replace").read()
+            # (v8.3.0) Detekcja czyta tolerancyjnie (errors="replace"), zeby
+            # zaraportowac cokolwiek nawet o pliku z uszkodzonym kodowaniem.
+            # ALE --fix na takim pliku zapisywalby tekst PO podmianie bajtow
+            # na U+FFFD - czyli trwale niszczyl oryginal. Sprawdzone: bajty
+            # \xff\xfe w .md z jednoczesna twarda spacja gasly bezpowrotnie.
+            # Teraz --fix wymaga poprawnego UTF-8 (fail-closed).
+            surowe = io.open(sciezka, "rb").read()
+            try:
+                tekst = surowe.decode("utf-8")
+                utf8_ok = True
+            except UnicodeDecodeError:
+                tekst = surowe.decode("utf-8", errors="replace")
+                utf8_ok = False
             if FIX:
-                tekst = napraw(tekst, sciezka)
+                if utf8_ok:
+                    tekst = napraw(tekst, sciezka)
+                else:
+                    print("[POMINIETO] %s: plik nie jest poprawnym UTF-8 - "
+                          "--fix zapisalby uszkodzone bajty jako U+FFFD "
+                          "(fail-closed); napraw kodowanie recznie"
+                          % os.path.relpath(sciezka, HOME))
         except OSError as e:
             print("[BLAD]  %s: nie czyta sie (%s)" % (sciezka, e))
             n_blad += 1

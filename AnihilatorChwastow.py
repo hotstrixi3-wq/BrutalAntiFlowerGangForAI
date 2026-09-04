@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Anihilator Chwastow: czwarty czlonek rodziny, uzupelnia Zaglade o ochrone literalow we wszystkich jezykach.
+"""Anihilator Chwastow: czwarty czlonek rodziny, chroni literaly w jezykach innych niz Python.
 
 (v1.0.0) OPERATOR — agencie AI: Twoj regulamin uzycia tego narzedzia
 jest w pliku PROTOKOL-OPERATORA.md (drabina uprawnien, plan->act, combo
@@ -9,21 +9,26 @@ Rola w rodzinie:
 - PogromcaKwiatkow.py = detektor (widzi, niczego nie zmienia)
 - ZagladaKultury.py = dekontaminator dla py/json/prozy (niszczy obca kulture, polska zostawia swieta, dla .py chroni literaly przez tokenize)
 - ProkuratorOgrodnik.py = ogrodnik-prokurator (prowadzi akta chwastow, decyduje co wyrwac wg polityki allowlisty)
-- AnihilatorChwastow.py = anihilator uniwersalny (niszczy chwasty we wszystkich jezykach: js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py z pelna ochrona literalow i komentarzy; json/jsonl w trybie kodu, md/proza agresywnie)
+- AnihilatorChwastow.py = anihilator wielojezyczny (js/ts/cs/java/c/cpp/h/hpp/kt/swift/rb/go/rs/php/py; json/jsonl w trybie kodu, md/proza agresywnie)
 
 Problem ktory rozwiazuje:
 Zaglada ma ochrone literalow tylko dla .py. Dla js/ts/java/go/rs/cs dziala w trybie prozy agresywnej - wyrwie tez celowa tresc w stringu.
-Anihilator ma ochrone literalow dla 13 jezykow (skaner stanow: js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt) + py (tokenize); json/jsonl w trybie kodu, md/proza agresywnie. Dzieki temu mozesz bezpiecznie czyscic projekty wielojezyczne.
+Anihilator chroni literaly automatem stanow (js/ts/cs/java/c/cpp/h/hpp/kt/swift/rb/go/rs/php) + tokenize dla py.
+UWAGA (v1.2.0): automat NIE jest lekserem. Literaly mogace zawierac niesparowany
+cudzyslow rozjezdzaja mu stan, wiec pliki z takimi konstrukcjami sa ODRZUCANE
+(BLOKADA, exit 2), a nie czyszczone: C++ R"(...)", Rust r#"..."#, bloki tekstowe
+Javy/Kotlina/Swifta (potrojny cudzyslow), heredoki Ruby i PHP, backticki Go. Patrz NIEOBSLUGIWANE.
 
 Kontrakt v1.0.0:
 - cyrylica/greka -> transliteracja PL (jak Zaglada)
 - homoglify -> baza, ogonki obce -> zdjecie, cyfry Nd -> ASCII, fullwidth -> pol, CJK/emoji/niewidzialne -> USUN, lamacze -> LF, twarde spacje -> spacja (kod: USUN jak w Zagladzie)
-- OCHRONA LITERALOW: dla kazdego jezyka skaner stanow chroni:
-  js/ts: '...' "..." `...` ${} // /* */ /regex/
-  java/cs: "..." '...' // /* */
-  go: "..." '...' `...` // /* */
-  rs: "..." '...' // /* */ r#"..."# 
-  c/cpp/h/hpp/php/rb/swift/kt: "..." '...' // /* */
+- OCHRONA LITERALOW (automat stanow, nie lekser):
+  js/ts: '...' "..." `...` // /* */  - sprawdzone, dziala takze dla szablonow
+  cs: "..." @"..." '...' // /* */    - podwojony "" nie psuje parzystosci
+  java/c/cpp/h/hpp/kt/swift/rb: "..." '...' // /* */ - tylko literaly jednolinijkowe
+  go/rs/php: "..." '...' // /* */
+  konstrukcje ODRZUCANE (BLOKADA, patrz NIEOBSLUGIWANE): R-raw C++, r-hash Rust,
+  potrojny cudzyslow (Java/Kotlin/Swift), heredoki (<<~, <<-, <<<), backticki Go, literale Ruby %q/%Q/%w/%i
   py: tokenize (jak Zaglada) + awaryjny skaner
   json/jsonl: kod=True (twarde spacje sklejaja)
   md/txt: agresywnie (proza)
@@ -44,7 +49,24 @@ import sys
 import unicodedata
 import re
 
-WERSJA = "1.0.0"
+WERSJA = "1.3.0"
+
+# (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
+# nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
+# literalow - chroniona tresc ginela wlasnie w kopii ratunkowej, a obok
+# powstawal "mod.py.bak-zaglada.bak-zaglada".
+_KOPIE = ("bak-pogromca", "bak-zaglada", "bak-anihilator")
+
+
+def jest_kopia_zapasowa(sciezka):
+    """True dla plikow .bak-pogromca / .bak-zaglada / .bak-anihilator (takze
+    z sufiksem liczbowym, np. .bak-zaglada.3)."""
+    n = os.path.basename(sciezka)
+    for z in _KOPIE:
+        if ("." + z) in n:
+            return True
+    return False
+
 
 PL = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
 TYPOGRAFIA = "—–„”…€%§°²³±·«»"
@@ -278,6 +300,56 @@ def zaglada_tekst_poza_literalami_multi(tekst, jezyk):
 
     return unicodedata.normalize("NFC", "".join(out)), licznik
 
+class BlokadaAnihilatora(Exception):
+    """(v1.1.0) Skaner nie umie bezpiecznie odroznic kodu od danych w tym
+    pliku. Lepiej nie tknac niczego, niz cicho zmienic tresc literalu."""
+
+
+# (v1.2.0) Konstrukcje, ktorych automat stanow NIE rozpoznaje.
+#
+# Automat traktuje kazdy " jako przelacznik stanu kod<->string. Dla literalow,
+# ktore moga ZAWIERAC niesparowany cudzyslow (raw stringi, bloki tekstowe,
+# heredoki), znaczy to, ze stan rozjezdza sie z rzeczywistoscia i fragment
+# literalu ladu je w trybie "kod" - czyli zostaje wyczyszczony wbrew kontraktowi.
+#
+# Sprawdzone eksperymentalnie 2026-09-04 przypadkiem zlosliwym postaci
+# R"(a "k_<U+0430>" b)" - skazenie umieszczone MIEDZY wewnetrznymi cudzyslowami:
+#   ZEPSUTE:  C++ R"(...)", Rust r#"..."#, Java """...""", Kotlin """...""",
+#             Swift """...""", Ruby heredoc, Go backticki, PHP heredoc
+#   BEZPIECZNE: C# @"..." (podwojony "" nie zmienia parzystosci),
+#             szablony JS/TS w backtickach (automat ma dla nich wlasny stan)
+#
+# UWAGA na pulapke metodyczna: pierwszy test (skazenie bez cudzyslowu obok)
+# pokazywal C++, Jave, Kotlin i Swift jako bezpieczne. Ocalaly na PARZYSTOSCI
+# cudzyslowow, nie dlatego, ze skaner je rozumie. Testujac ochrone literalow,
+# stawiaj skazenie po NIEPARZYSTEJ liczbie cudzyslowow od poczatku literalu.
+#
+# Do czasu prawdziwego leksera takie pliki sa ODRZUCANE, nie czyszczone na oslep.
+NIEOBSLUGIWANE = {
+    "go":    [("`", "surowy literal Go w backtickach")],
+    "php":   [("<<<", "heredoc/nowdoc PHP")],
+    "cpp":   [('R"', "surowy literal C++ R\"(...)\"")],
+    "c":     [('R"', "surowy literal C++ R\"(...)\"")],
+    "h":     [('R"', "surowy literal C++ R\"(...)\"")],
+    "hpp":   [('R"', "surowy literal C++ R\"(...)\"")],
+    "rs":    [('r#"', 'surowy literal Rust r#"..."#'), ('r"', 'surowy literal Rust r"..."')],
+    "java":  [('"""', "blok tekstowy Javy")],
+    "kt":    [('"""', "wielolinijkowy literal Kotlina")],
+    "swift": [('"""', "wielolinijkowy literal Swifta")],
+    "rb":    [("<<~", "heredoc Ruby"), ("<<-", "heredoc Ruby"),
+              ("%q", "literal Ruby %q"), ("%Q", "literal Ruby %Q"),
+              ("%w", "literal Ruby %w"), ("%i", "literal Ruby %i")],
+}
+
+
+def wykryj_nieobslugiwane(tekst, ext):
+    """Zwraca opis niebezpiecznej konstrukcji albo None."""
+    for marker, opis in NIEOBSLUGIWANE.get(ext, ()):
+        if marker in tekst:
+            return opis
+    return None
+
+
 def przetworz(tekst, sciezka):
     ext = sciezka.split(".")[-1].lower() if "." in sciezka else ""
     # json
@@ -286,22 +358,25 @@ def przetworz(tekst, sciezka):
     # py - uzyj tokenize jak Zaglada
     if ext == "py":
         try:
-            import tokenize
-            # proba kompilacji
             compile(tekst, sciezka, "exec")
-            # tokenize
-            out = []
-            licznik = {k:0 for k in KATEGORIE}
-            # uprosc: uzyj zaglada_tekst_poza_literalami_multi dla py tez (chroni ' " #)
-            # ale dla pelnej zgodnosci uzyjemy multi z pythonowym komentarzem #
-            # tu wywolamy wersje multi dla py (rozszerzona)
-            return zaglada_tekst_poza_literalami_multi(tekst, "py")
-        except Exception:
-            # awaryjnie proza
-            return zaglada_tekst(tekst, kod=True)
+        except Exception as e:
+            # (v1.1.0) FAIL-CLOSED. Do v1.0.0 bylo tu przejscie na
+            # zaglada_tekst(kod=True), czyli czyszczenie CALEGO zrodla bez
+            # ochrony literalow - na pliku, ktorego wlasnie nie dalo sie
+            # sparsowac. Zaglada na tym samym pliku literalow nie ruszala,
+            # wiec rodzenstwo dawalo sprzeczne wyniki.
+            raise BlokadaAnihilatora(
+                ".py nie kompiluje sie (%s) - bez parsera nie wiadomo, gdzie "
+                "konczy sie kod, a zaczyna literal" % type(e).__name__)
+        return zaglada_tekst_poza_literalami_multi(tekst, "py")
     # inne jezyki kodu
     if ext in ("js", "ts", "java", "go", "rs", "cs", "c", "cpp", "h", "hpp", "php", "rb", "swift", "kt"):
-        return zaglada_tekst_poza_literalami_multi(tekst, ext if ext in ("js","ts") else ext)
+        powod = wykryj_nieobslugiwane(tekst, ext)
+        if powod:
+            raise BlokadaAnihilatora(
+                "%s - skaner stanow tego nie rozpoznaje i zmienilby tresc "
+                "literalu" % powod)
+        return zaglada_tekst_poza_literalami_multi(tekst, ext)
     # proza
     return zaglada_tekst(tekst, kod=False)
 
@@ -426,7 +501,11 @@ def raport_sciezka(sciezka, wykonaj):
     except (OSError, UnicodeDecodeError) as e:
         print(f"[BLAD WEJSCIA] {sciezka}: {e}")
         return 2
-    nowy, licznik = przetworz(tekst, sciezka)
+    try:
+        nowy, licznik = przetworz(tekst, sciezka)
+    except BlokadaAnihilatora as e:
+        print(f"[BLOKADA] {sciezka}: {e} - plik NIE zostal zmieniony")
+        return 2
     if licznik is None:
         return 0
     zmienione = sum(licznik.values())
@@ -434,9 +513,12 @@ def raport_sciezka(sciezka, wykonaj):
         return 0
     czesci = [f"{k} {v}" for k,v in licznik.items() if v]
     if wykonaj:
-        with io.open(sciezka, "w", encoding="utf-8", newline="") as f:
-            f.write(nowy)
-        print(f"[ANIHILACJA] {sciezka}: {' | '.join(czesci)}")
+        try:
+            kopia = zapisz_bezpiecznie(sciezka, nowy)
+        except RuntimeError as e:
+            print(f"[BLOKADA] {sciezka}: {e}")
+            return 2
+        print(f"[ANIHILACJA] {sciezka}: {' | '.join(czesci)} | kopia: {os.path.basename(kopia)}")
         return 0
     print(f"[DO ANIHILACJI] {sciezka}: {' | '.join(czesci)}")
     return 1
@@ -467,6 +549,51 @@ def selftest():
             print(f"  [FAIL] {nazwa}: zmienione={is_changed} oczekiwano {should_change} licznik={licznik}")
     print(f"SELFTEST: {ok}/{len(tests)} PASS")
     return 0 if ok==len(tests) else 1
+
+
+def zapisz_bezpiecznie(sciezka, tresc, znacznik='.bak-anihilator'):
+    """(v1.1.0) BACKUP + ZAPIS ATOMOWY.
+
+    Wczesniej bylo io.open(sciezka, "w").write(...) - przerwanie w polowie
+    zostawialo plik uzytkownika obciety i nie bylo z czego wrocic.
+    Teraz: kopia %s (odmowa zapisu, gdy kopia sie nie uda), zapis do pliku
+    tymczasowego w TYM SAMYM katalogu, flush + fsync, os.replace() - podmiana
+    jest atomowa albo nie ma jej wcale. Uprawnienia oryginalu przeniesione,
+    dowiazanie symboliczne rozwiazane (podmieniamy cel, nie link)."""
+    import shutil, tempfile
+    rzeczywista = os.path.realpath(sciezka)
+    if jest_kopia_zapasowa(rzeczywista):
+        raise RuntimeError("ODMOWA ZAPISU: %s to kopia zapasowa (R3)" % rzeczywista)
+    kopia = rzeczywista + znacznik
+    # (R4) NIE NADPISUJ istniejacej kopii. Do teraz drugi przebieg kasowal
+    # kopie z pierwszego, czyli jedyny slad prawdziwego oryginalu. Pierwsza
+    # kopia wygrywa; kolejne przebiegi dostaja kopie z sufiksem liczbowym.
+    if os.path.exists(kopia):
+        i = 2
+        while os.path.exists("%s.%d" % (kopia, i)):
+            i += 1
+        kopia = "%s.%d" % (kopia, i)
+    try:
+        shutil.copy2(rzeczywista, kopia)
+    except Exception as e:
+        raise RuntimeError("ODMOWA ZAPISU: nie udalo sie zrobic kopii %s (%s)" % (kopia, e))
+    katalog = os.path.dirname(rzeczywista) or "."
+    fd, tmp = tempfile.mkstemp(dir=katalog, prefix=".gang-", suffix=".tmp")
+    try:
+        with io.open(fd, "w", encoding="utf-8", newline="") as f:
+            f.write(tresc)
+            f.flush()
+            os.fsync(f.fileno())
+        try:
+            shutil.copystat(rzeczywista, tmp)
+        except Exception:
+            pass
+        os.replace(tmp, rzeczywista)
+    except Exception:
+        if os.path.exists(tmp):
+            os.unlink(tmp)
+        raise
+    return kopia
 
 def main():
     args = [a for a in sys.argv[1:]]

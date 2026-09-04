@@ -5,7 +5,10 @@ siebie). Zasada struktury (Piotr): KORZEN = tylko integracja agent+czlowiek;
 dowody i infrastruktura -> docs/ i dev/. Manifest wydania v8.0.1 (26 plikow)
 zostaje w historii gita tego pliku.
 
-Aktualizacja v8.2.21: PORZADKI W DRZEWIE. Korzen zawieral rownolegly,
+Aktualizacja v8.3.0: wgrane nowsze wersje calej rodziny (Pogromca v8.4.0,
+Zaglada v1.3.0, Prokurator v1.2.0, Anihilator v1.3.0) - patrz README
+Historia zmian. RODZINA-DO-CZATU re-embedowana bajt-w-bajt (4/4).
+Poprzednio v8.2.21: PORZADKI W DRZEWIE. Korzen zawieral rownolegly,
 zduplikowany komplet plikow obok docs/ i dev/ (14 dokumentow, 15 plikow
 amunicji JSON, 9 narzedzi testowych, 2 logi - wszystkie bit-w-bit identyczne
 z kopiami docelowymi albo NOWSZE od nich). Rozwiazanie: nowsze wersje
@@ -23,14 +26,14 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
-| [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 18903 B | `5af77c9be2f1` |
+| [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 24692 B | `66d9e80041e1` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4587 B | `2d9c821f8dc7` |
-| [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 27484 B | `d63d2bef2921` |
-| [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 11215 B | `df70be76d208` |
-| [README.md](../README.md) | 19623 B | `af288221ac28` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 4780 B | `5d9388a7d660` |
+| [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 34722 B | `f03241c25169` |
+| [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 17049 B | `6bbb0c13f521` |
+| [README.md](../README.md) | 22887 B | `8cae8ce2621d` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 1910 B | `7b14e4f9740a` |
-| [ZagladaKultury.py](../ZagladaKultury.py) | 22637 B | `f43abc566a5d` |
+| [ZagladaKultury.py](../ZagladaKultury.py) | 26220 B | `78564f1ec63a` |
 
 ## docs/ (17 plikow, bez tego manifestu) - dokumenty i dowody
 
@@ -38,7 +41,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 |---|---|---|
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 3308 B | `723c364c544a` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
-| [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6040 B | `7919a39b4c27` |
+| [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6566 B | `9ff5ef1e77a4` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4330 B | `11cd6f64a713` |
@@ -47,9 +50,9 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [RAPORT-TESTU-KWITNICA.md](RAPORT-TESTU-KWITNICA.md) | 5806 B | `d661cbf505a2` |
 | [RAPORT-TURNIEJU-NIEZALEZNEGO.md](RAPORT-TURNIEJU-NIEZALEZNEGO.md) | 12458 B | `1d88ab4f90e5` |
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
-| [README-TURNIEJ.md](README-TURNIEJ.md) | 5716 B | `cbaffb6679e3` |
-| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 87414 B | `57bef3db4c6d` |
-| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `03237dafb488` |
+| [README-TURNIEJ.md](README-TURNIEJ.md) | 5604 B | `4405d8107f62` |
+| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 109860 B | `88ddc7874d51` |
+| [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `80e9da2c0fc7` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 
