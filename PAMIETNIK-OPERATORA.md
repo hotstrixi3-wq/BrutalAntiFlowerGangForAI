@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **20 wpisow** z **1 sesji**.
+Stan: **21 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -89,4 +89,7 @@ Stan: **20 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Agent sam wstawia kwiatki do tekstu - takze do zdan o kwiatkach**
   - Nie ufaj wlasnemu tekstowi. Po napisaniu KAZDEGO dokumentu i przed KAZDYM commitem uruchom: python3 PogromcaKwiatkow.py $(git ls-files). Przyklady skazen w dokumentacji zapisuj wylacznie notacja <U+XX
+  - `2026-09-04__01a06e18.md`
+- [2026-09-04] **Most do zewnetrznego audytora: klon repo, nie wklejka**
+  - Jesli zewnetrzny agent czyta katalog na dysku uzytkownika, kaz zrobic z tego katalogu KLON repo (git clone + checkout galezi). Audytor czyta prawdziwe pliki i moze URUCHOMIC testy, zamiast zgadywac z 
   - `2026-09-04__01a06e18.md`

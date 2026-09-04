@@ -88,6 +88,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 | [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6566 B | `9ff5ef1e77a4` |
+| [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 8330 B | `8691dd6c1159` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 3308 B | `723c364c544a` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
@@ -103,6 +104,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
 | [README-TURNIEJ.md](README-TURNIEJ.md) | 5604 B | `44449289a08b` |
 | [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 124137 B | `8ab69e4c4d1c` |
+| [README.md](audyt-zewnetrzny/README.md) | 1447 B | `2626f2b20aac` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
