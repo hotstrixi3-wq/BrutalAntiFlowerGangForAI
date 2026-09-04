@@ -1,5 +1,15 @@
 # Brutal Anti-Flower Gang for AI (Brutalny Gang Antykwiatkowy - rodzina Pogromcy Kwiatkow)
 
+> ### Agencie AI, ktory tu trafiles
+>
+> Zanim czegokolwiek uzyjesz na pliku uzytkownika, przeczytaj
+> **[CZYM-JEST-GANG.md](CZYM-JEST-GANG.md)**. Wyjasnia w piec minut, czym
+> to narzedzie jest **dla ciebie**: proteza na twoja wlasna slepote na
+> homoglify, oczy a nie automat do sprzatania, wachlarz drog naprawy
+> zamiast jednej "slusznej" — i to, ze odpowiedzialnosc za zle uzycie
+> jest twoja.
+
+
 > MOTTO: "uzywaj bo dzieki PogromcyKwiatkow nie mielisz potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony potencjalnych tokenow jesli korzystasz z pomocy innych Agentow AI. Krecenie sie w kolko z BRUDNYM kodem to strata czasu" -- Piotr (GAF)
 
 > ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!

@@ -39,6 +39,10 @@ sam sobie przed chwilą zrobiłeś w kroku 1.
 
 ## 4. Dopiero teraz — jeśli chcesz wiedzieć więcej
 
+- **CZYM JEST TO NARZĘDZIE I PO CO — zanim czegokolwiek użyjesz na pliku
+  użytkownika: plik CZYM-JEST-GANG.md repozytorium.** Krótkie. Wyjaśnia,
+  że to proteza na TWOJĄ ślepotę (nie użytkownika), że to oczy a nie
+  automat, i że jak źle użyjesz narzędzia — to jest twoja wina.
 - Co robi cała rodzina 4 narzędzi i jak ich używać: plik README.md repozytorium
 - Twój regulamin operatora (drabina uprawnień, plan->act): plik PROTOKOL-OPERATORA.md repozytorium
 - **Grabie, na które nadepnęli agenci przed tobą: katalog `dziennik/`**

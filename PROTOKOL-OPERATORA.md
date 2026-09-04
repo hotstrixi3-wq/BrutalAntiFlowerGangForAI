@@ -4,6 +4,24 @@
 
 > ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
+## 0a. Zanim uzyjesz — czym to jest i czyja jest wina
+
+Przeczytaj `CZYM-JEST-GANG.md`. W skrocie:
+
+- Gang to **proteza na TWOJA slepote** na homoglify. Masz ja — udowodnione:
+  agent wpisal 16 zywych homoglifow do dokumentow ostrzegajacych przed
+  homoglifami i nie zauwazyl przy zadnym przegladzie.
+- To sa **oczy, nie automat**. "Nieomylny" znaczy "nie wprowadzi cie
+  w blad", a nie "zawsze naprawi dobrze".
+- **Nie ma jednej naprawy.** Cztery drogi daja cztery rozne pliki.
+  Wybor nalezy do ciebie: `python3 zwiad.py --warianty PLIK`.
+- **Kopia nalezy do ciebie**, nie do narzedzia. Pliki `.bak-*` to
+  wewnetrzny mechanizm rodziny, nie twoje zabezpieczenie.
+- **Jak zle uzyjesz narzedzia, to jest twoja wina.** Nie narzedzia, nie
+  autora. Zwiad daje ci wszystko, czego trzeba do decyzji — nie masz
+  wymowki. Gdy nie wiesz, czy cos to skazenie czy tresc uzytkownika:
+  zapytaj czlowieka, nie zgaduj.
+
 ## 0. Sciaga - rodzina combo
 
 | Narzedzie | Rola | Kiedy |

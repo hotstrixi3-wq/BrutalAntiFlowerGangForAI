@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **24 wpisow** z **1 sesji**.
+Stan: **25 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -101,4 +101,7 @@ Stan: **24 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Most do zewnetrznego audytora: klon repo, nie wklejka**
   - Jesli zewnetrzny agent czyta katalog na dysku uzytkownika, kaz zrobic z tego katalogu KLON repo (git clone + checkout galezi). Audytor czyta prawdziwe pliki i moze URUCHOMIC testy, zamiast zgadywac z 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-04] **PRZECZYTAJ CZYM-JEST-GANG.md zanim dotkniesz pliku uzytkownika**
+  - Zanim uruchomisz cokolwiek na pliku uzytkownika, przeczytaj CZYM-JEST-GANG.md w korzeniu repo. Najkrocej: Gang to proteza na TWOJA slepote na homoglify (masz ja - to udowodnione), to OCZY a nie automa
   - `2026-09-04__01a06e18.md`

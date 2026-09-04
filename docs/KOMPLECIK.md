@@ -49,14 +49,15 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 |---|---|---|
 | [.gitignore](../.gitignore) | 41 B | `02dc02bcbbd3` |
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
+| [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 5975 B | `5d1872c10231` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 7622 B | `e9b5ec77da62` |
-| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 8487 B | `4de2e5ed68fa` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 7939 B | `b06c89f7bd8a` |
+| [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `fd410deea5b0` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
-| [README.md](../README.md) | 36985 B | `0a068d33eb65` |
-| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2410 B | `1309ed52fea3` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `fc82bfb1f6fe` |
+| [README.md](../README.md) | 37387 B | `10d1d05eb028` |
+| [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `6e9e1828d2f1` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -108,7 +109,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 16701 B | `cc2eebdc1c19` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 17860 B | `ad8604dae2d8` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
