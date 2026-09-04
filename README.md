@@ -668,3 +668,28 @@ Kopia zapasowa nalezy do operatora. Zaglada robi wprawdzie wlasne
 Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem: wracasz
 do kopii i probujesz inaczej. Liczba podejsc nie ma znaczenia - liczy sie
 to, ze kazde opierasz na danych, a nie na zgadywaniu.
+
+### Wachlarz naprawy (v9.2.0)
+
+Rodzina ma cztery narzedzia o roznej sile i roznym zasiegu, wiec ten sam
+plik da sie naprawic na kilka sposobow - dajacych ROZNE wyniki. Operator
+nie powinien zgadywac, ktore odpalic:
+
+```
+python3 zwiad.py --warianty PLIK
+```
+
+Pokazuje wszystkie drogi naraz, dla kazdej: ile linii zmieni, czy plik po
+naprawie sie kompiluje, i konkretne linie przed/po. Przyklad na pliku ze
+skazeniem w kodzie, w komentarzu i w rosyjskim literale:
+
+| Wariant | Zmienia | Rosyjski literal |
+|---|---|---|
+| Pogromca --fix | 1 linie (tylko niewidzialne) | nietkniety |
+| Zaglada --zaglada | 3 linie (kod) | nietkniety |
+| Anihilator | nie dotyczy .py | - |
+| Zaglada bez ochrony literalow | 5 linii (wszystko) | "Moskwa" |
+
+Cztery drogi, cztery rozne wyniki - i to jest informacja, na ktorej
+operator podejmuje decyzje. Zaden wariant nie zostaje wykonany:
+wachlarz liczy wszystko w pamieci.

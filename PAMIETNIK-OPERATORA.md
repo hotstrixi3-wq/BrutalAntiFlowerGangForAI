@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **23 wpisow** z **1 sesji**.
+Stan: **24 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -65,6 +65,9 @@ Stan: **23 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Rodzina dawala liczby, nie wiedze - stad ZWIAD**
   - Przed kazda naprawa na pliku uzytkownika uruchom: python3 zwiad.py PLIK (albo --json, gdy decydujesz programowo) i python3 zwiad.py --podglad PLIK. Zwiad nie zapisuje NICZEGO - kopie zapasowa robisz T
+  - `2026-09-04__01a06e18.md`
+- [2026-09-04] **Pogromca.napraw() sama zapisuje - nie uzywac do symulacji**
+  - Do podgladu i symulacji uzywaj funkcji CZYSTYCH: Z.zaglada_tekst, Z.zaglada_tekst_poza_literalami, A.zaglada_tekst_poza_literalami_multi. Logike Pogromcy --fix odtworz w pamieci (NFC, usuniecie NIEWID
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki

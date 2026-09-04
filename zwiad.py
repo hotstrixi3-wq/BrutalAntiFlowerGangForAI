@@ -29,6 +29,7 @@ Uzycie:
     python3 zwiad.py PLIK...              # raport czytelny dla czlowieka
     python3 zwiad.py --json PLIK...       # to samo maszynowo (dla agenta)
     python3 zwiad.py --podglad PLIK       # roznica przed/po, bez zapisu
+    python3 zwiad.py --warianty PLIK      # WSZYSTKIE drogi naprawy naraz
     python3 zwiad.py --selftest
 
 Kod wyjscia: 0 = czysto, 1 = sa skazenia, 2 = sa skazenia NIENAPRAWIALNE.
@@ -207,6 +208,141 @@ def podglad(sciezka):
     return 0
 
 
+# ---------------------------------------------------------------- warianty
+# Wachlarz drog naprawy. Rodzina ma cztery narzedzia o roznej sile i roznym
+# zasiegu - ten sam plik da sie naprawic na kilka sposobow, dajacych ROZNE
+# wyniki. Operator ma zobaczyc wszystkie naraz i wybrac, zamiast zgadywac,
+# ktore narzedzie odpalic.
+WARIANTY = (
+    ("pogromca-fix", "Pogromca --fix",
+     "zachowawczy: normalizuje NFC, usuwa niewidzialne, twarde spacje -> "
+     "zwykle. NIE tyka homoglifow liter w kodzie."),
+    ("zaglada", "Zaglada --zaglada",
+     "pelny dla .py/.json/prozy: transliteruje cyrylice i greke, chroni "
+     "literaly i komentarze w .py."),
+    ("anihilator", "Anihilator --anihilacja",
+     "pelny dla js/ts/java/go/rs/cs/c/cpp/php: skaner stanow, chroni "
+     "literaly; blokuje pliki z konstrukcjami, ktorych nie rozumie."),
+    ("zaglada-surowa", "Zaglada bez ochrony literalow",
+     "OSTATECZNOSC: czysci CALY plik, takze literaly i komentarze. "
+     "Uzywac tylko gdy skazenie siedzi w danych i wiesz, ze mozna je ruszyc."),
+)
+
+
+def _wariant_tresc(klucz, tekst, ext):
+    """Tresc pliku po danym wariancie albo None, gdy wariant nie ma
+    zastosowania. Wszystko liczone w pamieci - zero zapisu."""
+    try:
+        if klucz == "pogromca-fix":
+            # UWAGA: P.napraw() SAMA zapisuje plik na dysk (robi kopie
+            # .bak-pogromca i podmienia oryginal), wiec NIE WOLNO jej tu
+            # wywolac - zwiad ma kontrakt "zero zapisu". Odtwarzamy jej
+            # logike czysto w pamieci: NFC, usuniecie niewidzialnych,
+            # twarde spacje -> zwykla, lamacze -> LF. Homoglifow liter
+            # Pogromca swiadomie NIE tyka (decyzja nalezy do czlowieka).
+            P = _zaladuj("PogromcaKwiatkow.py")
+            import unicodedata as _u
+            out = []
+            for c in _u.normalize("NFC", tekst):
+                if c in getattr(P, "LAMACZE", ()):
+                    out.append("\n")
+                elif c in getattr(P, "NIEWIDZ", ()):
+                    continue
+                elif c != " " and _u.category(c) == "Zs":
+                    out.append(" ")
+                else:
+                    out.append(c)
+            return "".join(out)
+        if klucz == "zaglada":
+            if ext in JEZYKI_KODU:
+                return None
+            Z = _zaladuj("ZagladaKultury.py")
+            if ext == "py":
+                nowy, _ = Z.zaglada_tekst_poza_literalami(tekst)
+                return nowy
+            nowy, _ = Z.zaglada_tekst(tekst, kod=(ext in ("json", "jsonl")))
+            return nowy
+        if klucz == "anihilator":
+            if ext not in JEZYKI_KODU:
+                return None
+            A = _zaladuj("AnihilatorChwastow.py")
+            powod = A.wykryj_nieobslugiwane(tekst, ext)
+            if powod:
+                return "\x00BLOKADA:" + powod
+            nowy, _ = A.zaglada_tekst_poza_literalami_multi(tekst, ext)
+            return nowy
+        if klucz == "zaglada-surowa":
+            Z = _zaladuj("ZagladaKultury.py")
+            nowy, _ = Z.zaglada_tekst(tekst, kod=True)
+            return nowy
+    except Exception as e:
+        return "\x00BLAD:" + type(e).__name__
+    return None
+
+
+def wachlarz(sciezka):
+    """Porownanie wszystkich drog naprawy. Niczego nie zapisuje."""
+    try:
+        tekst = io.open(sciezka, encoding="utf-8").read()
+    except Exception as e:
+        print("[BLAD] %s: %s" % (sciezka, e))
+        return 1
+    ext = sciezka.rsplit(".", 1)[-1].lower() if "." in sciezka else ""
+    print("=" * 70)
+    print("WACHLARZ NAPRAW: %s   (NIC NIE ZAPISANO)" % sciezka)
+    print("=" * 70)
+    bazowe_ok = None
+    if ext == "py":
+        try:
+            compile(tekst, sciezka, "exec")
+            bazowe_ok = True
+        except Exception:
+            bazowe_ok = False
+        print("  Plik teraz: %s" % ("kompiluje sie" if bazowe_ok
+                                    else "NIE kompiluje sie"))
+    print()
+    for klucz, nazwa, opis in WARIANTY:
+        po = _wariant_tresc(klucz, tekst, ext)
+        print("  -- %s --" % nazwa)
+        print("     %s" % opis)
+        if po is None:
+            print("     NIE DOTYCZY tego typu pliku (.%s)" % (ext or "?"))
+            print()
+            continue
+        if po.startswith("\x00BLOKADA:"):
+            print("     BLOKADA: %s" % po[10:])
+            print("     (narzedzie swiadomie odmawia - fail-closed)")
+            print()
+            continue
+        if po.startswith("\x00BLAD:"):
+            print("     BLAD wykonania: %s" % po[7:])
+            print()
+            continue
+        if po == tekst:
+            print("     BEZ ZMIAN - ten wariant niczego by nie poprawil")
+            print()
+            continue
+        a, b = tekst.split("\n"), po.split("\n")
+        zmiany = [(i, x, y) for i, (x, y) in enumerate(zip(a, b), 1) if x != y]
+        stan = ""
+        if ext == "py":
+            try:
+                compile(po, sciezka, "exec")
+                stan = " | po naprawie kompiluje sie: TAK"
+            except Exception as e:
+                stan = " | po naprawie NIE kompiluje sie (%s)" % type(e).__name__
+        print("     zmienia linii: %d%s" % (len(zmiany), stan))
+        for i, x, y in zmiany[:4]:
+            print("       %d: %s" % (i, x.strip()[:60]))
+            print("          -> %s" % y.strip()[:60])
+        if len(zmiany) > 4:
+            print("       ...i %d dalszych" % (len(zmiany) - 4))
+        print()
+    print("  Wybor nalezy do ciebie. Zrob kopie pliku, zanim uruchomisz")
+    print("  ktorykolwiek wariant - zaden z nich nie zostal tu wykonany.")
+    return 0
+
+
 def raport(w):
     print("=" * 70)
     print("ZWIAD: %s" % w["plik"])
@@ -300,12 +436,32 @@ def selftest():
         print("  [FAIL] uznal plik nie-UTF8 za czytelny")
         ok = False
 
-    # ZWIAD NIE MOZE NICZEGO ZAPISAC
+    # ZWIAD NIE MOZE NICZEGO ZAPISAC - takze przy liczeniu WSZYSTKICH
+    # wariantow. Wariant "pogromca-fix" jest tu szczegolnie wrazliwy:
+    # prawdziwe P.napraw() samo zapisuje plik i robi kopie .bak-pogromca,
+    # wiec zwiad musi liczyc je w pamieci. Ten test tego pilnuje.
     przed = io.open(p, encoding="utf-8").read()
-    zbadaj(p); symuluj(przed, "py")
+    pliki_przed = sorted(os.listdir(d))
+    zbadaj(p)
+    symuluj(przed, "py")
+    import contextlib
+    with contextlib.redirect_stdout(io.StringIO()):
+        wachlarz(p)
+        podglad(p)
     if io.open(p, encoding="utf-8").read() != przed:
         print("  [FAIL] ZWIAD ZMIENIL PLIK - to zlamanie kontraktu")
         ok = False
+    if sorted(os.listdir(d)) != pliki_przed:
+        print("  [FAIL] ZWIAD UTWORZYL PLIKI: %s"
+              % (set(os.listdir(d)) - set(pliki_przed)))
+        ok = False
+
+    # kazdy wariant musi dac tekst, None, albo czytelny marker
+    for klucz, _, _ in WARIANTY:
+        r = _wariant_tresc(klucz, przed, "py")
+        if r is not None and not isinstance(r, str):
+            print("  [FAIL] wariant %s zwrocil %s" % (klucz, type(r)))
+            ok = False
 
     import shutil
     shutil.rmtree(d, ignore_errors=True)
@@ -319,6 +475,10 @@ def main():
         return 0 if selftest() else 1
     if "--help" in args or "-h" in args or not args:
         print(__doc__)
+        return 0
+    if "--warianty" in args:
+        for c in [a for a in args if not a.startswith("--")]:
+            wachlarz(c)
         return 0
     if "--podglad" in args:
         cele = [a for a in args if not a.startswith("--")]
