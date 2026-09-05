@@ -110,6 +110,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
 | [README-TURNIEJ.md](README-TURNIEJ.md) | 5604 B | `ff64338e4579` |
 | [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 127160 B | `40dd060b85aa` |
+| [TURNIEJ-v9.11.0.md](TURNIEJ-v9.11.0.md) | 2673 B | `6090b7210cd8` |
 | [2026-09-05__claude-pro-sprawdz-spojnosc.md](audyt-zewnetrzny/2026-09-05__claude-pro-sprawdz-spojnosc.md) | 5217 B | `e94a84ed7b8f` |
 | [README.md](audyt-zewnetrzny/README.md) | 1447 B | `2626f2b20aac` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
