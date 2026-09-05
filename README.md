@@ -169,12 +169,15 @@ docs/agent/      dokumentacja robocza dla agenta
 docs/czlowiek/   paczka do czatu, instrukcja dla ludzi
 docs/dowody/     certyfikaty, medale, raporty (zamrożone)
 docs/historia/   kronika wydań
-muzeum/          eksponaty — rzeczy, które przestały służyć, z etykietą
+muzeum/          tablice po skasowanych plikach (bez plików)
 ```
 
-Trzy pytania przy sprzątaniu: **służy** → zostaje na miejscu; **nie służy,
-ale warto pamiętać** → `muzeum/` z etykietą; **nie służy i nikt nie
-zatęskni** → `git rm`, historia pamięta.
+Trzy pytania przy sprzątaniu: **służy** → zostaje; **przestało służyć,
+ale kiedyś wnosiło** → tablica w `muzeum/` **i kasacja** w tym samym
+commicie; **nigdy nic nie wnosiło** → `git rm` bez tablicy.
+
+W muzeum nie ma plików — tylko zapis, czym były i skąd je wyciągnąć.
+Agent to miejsce omija.
 
 ---
 

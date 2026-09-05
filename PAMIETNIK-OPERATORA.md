@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **46 wpisow** z **1 sesji**.
+Stan: **47 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -35,6 +35,9 @@ Stan: **46 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Muzeum zamiast katalogu 'do skasowania'**
   - Sluzy -> zostaje na miejscu. Nie sluzy, ale warto pamietac -> muzeum/ Z ETYKIETA w muzeum/README.md (co bylo, po co powstalo, czemu przestalo byc potrzebne). Nie sluzy i nikt nie zatesknie -> git rm, 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Muzeum to tablice po skasowanych plikach, nie magazyn plikow**
+  - Plik przestal sluzyc, ale kiedys wnosil -> tablica w muzeum/README.md I KASACJA w tym samym commicie. Nigdy osobno: osobno znaczy albo plik znika bez sladu, albo tablica zostaje po czyms zywym. Tablic
   - `2026-09-04__01a06e18.md`
 
 ## Pisanie testow dla tej rodziny

@@ -1,61 +1,75 @@
 # Muzeum
 
-Eksponaty. Rzeczy, ktore **przestaly byc uzyteczne**, ale nie powinny
-zniknac bez sladu.
+**Tu nie ma plików. Są tylko tablice po tych, których już nie ma.**
 
-## Czym to jest, a czym nie
+Agencie: to miejsce cię nie dotyczy. Nic tu nie działa, nic stąd nie
+kopiuj, niczego tu nie szukaj. Zajrzysz tylko wtedy, gdy zadasz pytanie
+„czy coś takiego kiedyś istniało i dlaczego zniknęło".
 
-To **nie** jest poczekalnia przed kasowaniem ani katalog "do sprzatniecia
-kiedys". Takie miejsca rosna i nikt ich nie oproznia, bo skoro cos tam
-trafilo zamiast zniknac, to znaczy, ze ktos sie wahal.
-
-To jest **muzeum**: rzecz trafia tu wtedy, gdy odpowiedz na pytanie
-"czy to jeszcze do czegos sluzy?" brzmi NIE, ale odpowiedz na pytanie
-"czy warto pamietac, ze istniala?" brzmi TAK.
-
-Eksponat ma **etykiete** - kazdy wpis nizej mowi, co to bylo, po co
-powstalo i dlaczego przestalo byc potrzebne. Bez etykiety to nie muzeum,
-tylko strych.
-
-## Czego liczniki tu nie widza
-
-| Licznik | Jak wykluczony |
-|---|---|
-| GitHub: statystyki jezykow | `.gitattributes`: `linguist-vendored` |
-| GitHub: widok roznic | zwiniete domyslnie |
-| `sprawdz-teksty.py` | katalog na liscie `POMIJANE` |
-| `docs/agent/KOMPLECIK.md` | pomijany przy generowaniu manifestu |
-
-Dla samego gita to nadal zwykle pliki - historia dziala, `git log`
-dziala, nic nie ginie.
-
-## Czego tu NIE wolno wkladac
-
-- **rzeczy, ktore jeszcze do czegos sluza** - te zostaja tam, gdzie sa
-- **kodu, ktory sie uruchamia** - jesli dziala, to nie eksponat
-- **rzeczy bez etykiety** - eksponat bez opisu to smiec
-
-Jesli cos jest po prostu **niepotrzebne i nikt nie bedzie tesknil** -
-skasuj to normalnie. Git pamieta: `git show <commit>~1:sciezka/plik`
-odzyska wszystko, nawet po dwudziestu commitach.
+Poza tym jednym przypadkiem — **omijaj**.
 
 ---
 
-## Eksponaty
+## Jak to działa
 
-### `logi-petli/` — surowe logi przebiegow ciaglych
+Plik, który przestał służyć, **zostaje skasowany**. Naprawdę usunięty
+z drzewa. Ale zanim zniknie, dostaje tutaj wpis:
 
-**Co to bylo:** wyjscie z `petla-rodzinna.py` i `petla-turniejowa.py` -
-skryptow, ktore uruchamialy komplet sprawdzianow w kolko przez 20 minut.
-Kazda linia to jeden cykl: `CYKL 1: 7/7 zielone (1194 s do konca)`.
+* czym był,
+* co wnosił, gdy jeszcze wnosił,
+* dlaczego przestał,
+* skąd go wyciągnąć, gdyby ktoś jednak potrzebował.
 
-**Po co powstaly:** dowod, ze narzedzia sa stabilne przy dlugim
-dzialaniu - nie sypia sie po setnym uruchomieniu, nie ciekna pamiecia.
+To wszystko. Żadnych kopii, żadnych archiwów „na wszelki wypadek".
+Katalog waży tyle, co ten plik — i tyle ma ważyć zawsze.
 
-**Dlaczego przestaly byc potrzebne:** to polprodukt. Wnioski z tych
-przebiegow sa opisane w `docs/dowody/MEDAL-PEWNIAKA-v8.0.2.md`
-i `docs/dowody/RAPORT-V8-PETLA-BONUS.md` - tam jest liczba cykli i
-werdykt. Same logi to 14 kB powtarzajacych sie linii, ktorych nikt nie
-czyta i ktore nie odpowiadaja na zadne pytanie.
+## Dlaczego tak, a nie magazyn
 
-**Zero odwolan** ze strefy agenta (zmierzone).
+Magazyn nieużywanych plików rośnie i nikt go nie opróżnia, bo skoro coś
+tam trafiło zamiast zniknąć, to znaczy, że ktoś się wahał. Po roku to
+wysypisko udające archiwum — a agent, który tam zajrzy, marnuje czas na
+ustalanie, co jest żywe, a co nie.
+
+Git już przechowuje wszystko. Kasowanie pliku to nie zniszczenie, tylko
+**przeniesienie go do historii**. Sprawdzone: plik usunięty dwadzieścia
+commitów temu wraca jedną komendą.
+
+Brakowało tylko **wskazówki, gdzie szukać i po co** — i to jest jedyna
+rzecz, którą to muzeum robi.
+
+## Zasada wpisu
+
+Wpis powstaje **razem z kasowaniem**, w tym samym commicie. Nigdy
+osobno — inaczej albo plik zniknie bez śladu, albo tablica zostanie po
+czymś, co wciąż żyje.
+
+**Sprawdź komendę odzysku, zanim ją wpiszesz.** Ścieżka musi pochodzić
+z commita **sprzed** kasacji, nie z tego, w którym plik znika. Pomyliłem
+to przy pierwszej tablicy — komenda wyglądała sensownie i nie działała.
+
+---
+
+## Tablice
+
+### `docs/logi/` — surowe logi przebiegów ciągłych
+
+*Skasowane: 2026-09-05, commit `dcc72cc`.*
+*Odzysk: `git show dcc72cc:muzeum/logi-petli/petla-rodzinna.log`*
+*(sprawdzone — komenda dziala; sciezka jest z commita SPRZED kasacji,
+nie z tego, w ktorym plik zniknal)*
+
+**Czym było:** wyjście z `petla-rodzinna.py` i `petla-turniejowa.py` —
+skryptów uruchamiających komplet sprawdzianów w kółko przez 20 minut.
+Każda linia to jeden cykl: `CYKL 1: 7/7 zielone (1194 s do konca)`.
+Dwa pliki, 14 kB.
+
+**Co wnosiło:** dowód stabilności przy długim działaniu — że narzędzia
+nie sypią się po setnym uruchomieniu i nie cieknie im pamięć. W czasie,
+gdy nie było jeszcze turniejów T4–T9, to była jedyna forma testu
+wytrzymałościowego.
+
+**Dlaczego przestało:** wnioski z tych przebiegów są opisane w
+`docs/dowody/MEDAL-PEWNIAKA-v8.0.2.md` i `RAPORT-V8-PETLA-BONUS.md` —
+tam jest liczba cykli i werdykt. Sam log to półprodukt: 200 powtórzeń
+tej samej linii, zero odwołań ze strefy agenta (zmierzone), zero
+odpowiedzi na jakiekolwiek pytanie.

@@ -14,11 +14,11 @@ w pustkę.
 
 | | |
 |---|---|
-| wersja repo | **9.16.0** |
+| wersja repo | **9.17.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `721aee8` — v9.16.0 - LEKCJE.md + zaloz-dom.py: wiedza jedzie, p |
+| ostatni commit | `dcc72cc` — v9.17.0 - muzeum/: eksponaty z etykieta zamiast kata |
 | stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 46 wpisów, 1 sesja |
+| dziennik | 47 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.

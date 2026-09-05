@@ -316,26 +316,30 @@ tego, czego nauczyla praca nad Gangiem - z liczbami, zeby bylo widac
 skale problemu, a nie sama teze. Gdy trafisz na cos, co dotyczy
 NARZEDZIA, a nie twojej sesji - dopisz tam. To jedzie dalej.
 
-## 15. Muzeum - co robic z rzeczami, ktore przestaly sluzyc
+## 15. Muzeum - tablice po skasowanych plikach
 
-Trzy pytania i trzy rozne odpowiedzi. Nie mieszaj ich:
+**W muzeum nie ma plikow.** Sa tablice po tych, ktorych juz nie ma.
+To miejsce, ktore mijasz - zajrzysz tam raz na dlugo, gdy zadasz pytanie
+"czy cos takiego kiedys bylo i czemu zniklo".
 
-| Pytanie | Odpowiedz |
+Trzy pytania przy sprzataniu:
+
+| Pytanie | Dzialanie |
 |---|---|
-| jeszcze do czegos sluzy? | zostaje tam, gdzie jest |
-| nie sluzy, ale warto pamietac, ze bylo? | `muzeum/` z **etykieta** |
-| nie sluzy i nikt nie zatesknie? | `git rm` - historia pamieta |
+| jeszcze sluzy? | zostaje na miejscu |
+| przestalo sluzyc, ale kiedys wnosilo? | **tablica + kasacja** |
+| nigdy nic nie wnosilo? | `git rm`, bez tablicy |
 
-**Nie zakladaj katalogu "do skasowania".** Takie miejsca rosna i nikt ich
-nie oprozni, bo skoro cos tam trafilo zamiast zniknac, to ktos sie wahal.
-Git jest juz ta poczekalnia: plik skasowany dwadziescia commitow temu
-odzyskasz przez `git show <commit>~1:sciezka`.
+**Tablica i kasacja ida w JEDNYM commicie.** Osobno znaczy: albo plik
+znika bez sladu, albo tablica zostaje po czyms, co wciaz zyje.
 
-**Eksponat musi miec etykiete** w `muzeum/README.md`: co to bylo, po co
-powstalo, dlaczego przestalo byc potrzebne. Bez etykiety to nie muzeum,
-tylko strych - a strych po roku nadaje sie juz tylko do wyrzucenia
-w calosci, razem z rzeczami, ktore byly cos warte.
+Tablica zawiera cztery rzeczy: czym plik byl, **co wnosil, gdy wnosil**,
+dlaczego przestal, i komende odzysku. Nic wiecej - zadnych kopii,
+zadnych archiwow "na wszelki wypadek".
 
-**Liczniki muzeum nie widza** (`.gitattributes` dla GitHuba, lista
-`POMIJANE` w bramce tekstow, pominiecie w manifescie i w `zaloz-dom.py`).
-Dla samego gita to zwykle pliki - nic nie ginie.
+**Sprawdz komende odzysku przed wpisaniem.** Sciezka musi byc z commita
+SPRZED kasacji, nie z tego, w ktorym plik znika. Pierwsza tablica w tym
+repo miala komende, ktora wygladala sensownie i nie dzialala.
+
+Muzeum ma wazyc tyle, co jego README - i tyle ma wazyc zawsze. Jesli
+zaczyna rosnac, ktos wklada tam pliki zamiast tablic.
