@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **54 wpisow** z **1 sesji**.
+Stan: **55 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -191,4 +191,7 @@ Stan: **54 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Styl operatora: wielkie litery to nie krzyk, tylko sygnal powagi**
   - Cala dokumentacja agenta wielkimi literami, BEZ WYJATKOW - takze blok wiadomosci do wklejenia w brief dla obcego audytora. Chron przy zamianie: nazwy plikow, sciezki, adresy URL i identyfikatory CVE. 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Nota o zapisie musi byc PIERWSZYM tekstem, przed tytulem**
+  - Note o zapisie wstawiaj PRZED tytulem H1, jako absolutnie pierwszy tekst pliku. W briefie dla obcego audytora - takze jako pierwsze zdanie WEWNATRZ bloku do wklejenia, bo tylko ten fragment realnie tr
   - `2026-09-04__01a06e18.md`
