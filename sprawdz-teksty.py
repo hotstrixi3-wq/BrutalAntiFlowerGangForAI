@@ -26,7 +26,7 @@ import subprocess
 import sys
 import unicodedata
 
-WERSJA = "1.1.0"
+WERSJA = "1.1.1"
 
 # katalogi z celowo brudna amunicja - tam skazenie jest POPRAWNE
 # (v1.1.0) Pomijamy MINIMUM. Do v1.0.0 lista obejmowala cale katalogi
@@ -110,19 +110,27 @@ def pliki_repo():
 
 
 def selftest():
+    import shutil
     import tempfile
     ok = True
     d = tempfile.mkdtemp(prefix="bt-")
-    brudny = os.path.join(d, "brudny.md")
-    io.open(brudny, "w", encoding="utf-8").write(
-        "tekst z c\u0430 cyrylica\n")
-    czysty = os.path.join(d, "czysty.md")
-    io.open(czysty, "w", encoding="utf-8").write(
-        "zolw \u0142\u0105ka \u017cmija — typografia \u00b7 ramka \u251c\u2500\n")
-    if not skanuj(brudny):
-        print("  [FAIL] nie wykryl cyrylicy"); ok = False
-    if skanuj(czysty):
-        print("  [FAIL] falszywy alarm na polskich znakach/typografii"); ok = False
+    try:
+        brudny = os.path.join(d, "brudny.md")
+        io.open(brudny, "w", encoding="utf-8").write(
+            "tekst z c\u0430 cyrylica\n")
+        czysty = os.path.join(d, "czysty.md")
+        io.open(czysty, "w", encoding="utf-8").write(
+            "zolw \u0142\u0105ka \u017cmija — typografia \u00b7 ramka \u251c\u2500\n")
+        if not skanuj(brudny):
+            print("  [FAIL] nie wykryl cyrylicy"); ok = False
+        if skanuj(czysty):
+            print("  [FAIL] falszywy alarm na polskich znakach/typografii"); ok = False
+    finally:
+        # (v1.1.1) Sprzatamy ZAWSZE, takze po wyjatku. Do v1.1.0 katalog
+        # zostawal na dysku po kazdym uruchomieniu: 26 sztuk uzbieralo sie
+        # w jednej sesji. Same w sobie male (1 kB), ale to wyciek zasobow
+        # w narzedziu, ktore ma pilnowac porzadku.
+        shutil.rmtree(d, ignore_errors=True)
     print("SELFTEST: %s" % ("PASS" if ok else "FAIL"))
     return ok
 

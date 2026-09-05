@@ -51,7 +51,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 13081 B | `ebd2f8c2ace3` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 13392 B | `2cd79e8ec063` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `9aa5cfadb62a` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
@@ -117,11 +117,11 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `29e118e684cd` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 36389 B | `72c49fdb9d86` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 37379 B | `99d340a1d217` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 11352 B | `0a110a27b9f8` |
-| [sprawdz-teksty.py](../sprawdz-teksty.py) | 6712 B | `a43b9b6b9d1d` |
+| [sprawdz-teksty.py](../sprawdz-teksty.py) | 7110 B | `ea3ce936324f` |
 | [zwiad.py](../zwiad.py) | 23269 B | `9e711f1a497c` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):

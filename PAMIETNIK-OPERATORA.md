@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **41 wpisow** z **1 sesji**.
+Stan: **42 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -26,6 +26,9 @@ Stan: **41 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Pipe zjada kod wyjscia**
   - kod wyjscia sprawdzaj bez potoku: `python3 turniej.py >/dev/null 2>&1; echo $?`. ---
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Sprzataj /tmp po pomiarach - inaczej rosnie niewidocznie**
+  - Kazdy mkdtemp opakuj w try/finally z shutil.rmtree - takze w selftescie, takze gdy katalog ma 1 kB. Po serii recznych sabotazy sprzataj katalogi robocze od razu (rm -rf /tmp/nazwa), nie na koniec sesj
   - `2026-09-04__01a06e18.md`
 
 ## Pisanie testow dla tej rodziny
