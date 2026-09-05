@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **48 wpisow** z **1 sesji**.
+Stan: **49 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -152,6 +152,9 @@ Stan: **48 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Procedura ma zyc w jednym miejscu, reszta linkuje**
   - Jedna informacja - jedno miejsce. Podzial: README linkuje i nie powtarza; CZYM-JEST-GANG odpowiada DLACZEGO; PROTOKOL zawiera WSZYSTKIE procedury i komendy; STAN-SESJI mowi GDZIE JESTESMY bez procedur
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Test sciezki obcego agenta: przejdz ja sam, krok po kroku**
+  - Po kazdym wiekszym porzadku w dokumentacji przejdz sciezke wejscia mechanicznie: git clone do /tmp, rm -rf .git, potem README krok po kroku - wykonujac komendy, nie czytajac ich. Zmierzone tak: 5 krok
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

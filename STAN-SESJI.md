@@ -14,11 +14,11 @@ w pustkę.
 
 | | |
 |---|---|
-| wersja repo | **9.18.0** |
+| wersja repo | **9.19.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `167817c` — v9.18.0 - muzeum jako widmo: tablice po plikach, nie |
-| stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 48 wpisów, 1 sesja |
+| ostatni commit | `9b4d574` — v9.19.0 - porzadek w instrukcjach: jedna informacja, |
+| stan testów | wszystko zielone (weryfikacja: PROTOKOL par. 4) |
+| dziennik | 49 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
