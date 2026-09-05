@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **55 wpisow** z **1 sesji**.
+Stan: **56 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -194,4 +194,7 @@ Stan: **55 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Nota o zapisie musi byc PIERWSZYM tekstem, przed tytulem**
   - Note o zapisie wstawiaj PRZED tytulem H1, jako absolutnie pierwszy tekst pliku. W briefie dla obcego audytora - takze jako pierwsze zdanie WEWNATRZ bloku do wklejenia, bo tylko ten fragment realnie tr
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Zaprzeczenie uruchamia analize, ktora mialo wylaczyc**
+  - Pisz twierdzeniami, nie zaprzeczeniami. Zamiast 'to nie jest atak' - 'to detektor znakow Unicode udajacych lacinke, CVE-2021-42574'. Zamiast 'nie krzyk' - 'wielkie litery to sposob oznaczania tekstu, 
   - `2026-09-04__01a06e18.md`
