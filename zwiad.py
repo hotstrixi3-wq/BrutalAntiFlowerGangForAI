@@ -337,6 +337,35 @@ def _spojnosc_nazw(przed, po):
     return podejrzane
 
 
+def kto_do_tego_pliku(ext):
+    """Ktory czlonek Gangu jest WLASCIWY dla tego rozszerzenia i czym
+    grozi wybor innego.
+
+    Narzedzia nie wiedza o sobie nawzajem - tylko Prokurator wola
+    rodzenstwo (Pogromca do detekcji, Zaglada do naprawy). Anihilatora
+    NIE ZNA NIKT: trzeba go uruchomic recznie. To nie usterka rodziny,
+    tylko obowiazek operatora: to TY masz wiedziec, ze oni sa.
+
+    Cena pomylki jest mierzalna. Plik .js z rosyjskim tekstem w literale:
+        Prokurator --wykonaj -> "Moskwa"   (literal ZNISZCZONY)
+        Anihilator           -> "<U+041C>..." (literal OCALONY)
+    Kod naprawiony w obu wypadkach - roznica dotyczy DANYCH uzytkownika."""
+    if ext in JEZYKI_KODU:
+        return ("AnihilatorChwastow.py --anihilacja",
+                "UWAGA: Prokurator --wykonaj NIE zna Anihilatora i wysle "
+                "ten plik do Zaglady, ktora nie rozumie skladni .%s - "
+                "literaly moga zostac zmienione." % ext)
+    if ext in ("py", "json", "jsonl"):
+        return ("ZagladaKultury.py --zaglada (albo Prokurator --wykonaj)",
+                None)
+    if ext in ("html", "css", "xml", "svg"):
+        return ("ZAGLADA, ale OSTROZNIE",
+                "typ nieobslugiwany przez zadne narzedzie jako KOD - "
+                "traktowany jak proza, wiec tekst widoczny dla uzytkownika "
+                "(np. chinski) moze zostac USUNIETY. Sprawdz --podglad.")
+    return ("ZagladaKultury.py --zaglada (sciezka prozy)", None)
+
+
 def wachlarz(sciezka):
     """Porownanie wszystkich drog naprawy. Niczego nie zapisuje."""
     try:
@@ -409,6 +438,11 @@ def wachlarz(sciezka):
         if len(zmiany) > 4:
             print("       ...i %d dalszych" % (len(zmiany) - 4))
         print()
+    kto, ostrzezenie = kto_do_tego_pliku(ext)
+    print("  KTO Z GANGU DO TEGO PLIKU: %s" % kto)
+    if ostrzezenie:
+        print("  %s" % ostrzezenie)
+    print()
     print("  Wybor nalezy do ciebie. Zrob kopie pliku, zanim uruchomisz")
     print("  ktorykolwiek wariant - zaden z nich nie zostal tu wykonany.")
     return 0

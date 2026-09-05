@@ -85,6 +85,47 @@ Zobacz wszystkie drogi naraz: `python3 zwiad.py --warianty PLIK`
 
 ---
 
+## 3a. Oni nie wiedza o sobie — TY masz wiedziec, ze sa
+
+Zmierzone (`grep` po wywolaniach miedzy plikami):
+
+```
+Pogromca    -> nikogo nie wola
+Zaglada     -> nikogo nie wola
+Anihilator  -> nikogo nie wola
+Prokurator  -> Pogromca (detekcja) + Zaglada (naprawa)
+```
+
+**Anihilatora nie zna NIKT.** Prokurator ma zero wystapien tej nazwy.
+
+To nie jest usterka rodziny — narzedzia maja byc proste i niezalezne.
+To jest **obowiazek operatora**: skoro one nie wiedza o sobie, to ty
+musisz wiedziec, ze sa, i ktore pasuje do czego.
+
+Cena pomylki jest mierzalna. Plik `.js` ze skazeniem w kodzie i rosyjskim
+tekstem w literale:
+
+| Droga | Kod | Literal uzytkownika |
+|---|---|---|
+| `Prokurator --wykonaj` | naprawiony | **`"Moskwa"` — ZNISZCZONY** |
+| `Anihilator --anihilacja` | naprawiony | `"<U+041C>..."` — OCALONY |
+
+Prokurator nie zna Anihilatora, wiec `.js` wysyla do Zaglady, a ta nie
+rozumie skladni JavaScriptu i traktuje plik jak proze. Kod wychodzi
+poprawny w obu wypadkach — **roznica dotyczy DANYCH uzytkownika**.
+
+Mapa, ktora musisz miec w glowie:
+
+| Plik | Kto wlasciwy |
+|---|---|
+| `.py`, `.json` | Zaglada (albo Prokurator `--wykonaj`) |
+| `.js .ts .java .go .rs .cs .c .cpp .php` | **Anihilator — recznie** |
+| `.md .txt` i inna proza | Zaglada |
+| `.html .css` | Zaglada, ale OSTROZNIE — nikt nie traktuje ich jak kodu |
+
+Nie musisz jej pamietac: `python3 zwiad.py --warianty PLIK` wypisuje
+**KTO Z GANGU DO TEGO PLIKU** wraz z ostrzezeniem, gdy grozi pomylka.
+
 ## 4. Kopia zapasowa nalezy do CIEBIE
 
 Zaglada i Anihilator robia wlasne pliki `.bak-*`. **To nie jest twoje
