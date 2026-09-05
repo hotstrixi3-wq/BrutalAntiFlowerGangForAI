@@ -60,7 +60,7 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../../README.md) | 6695 B | `667227f234f4` |
-| [STAN-SESJI.md](../../STAN-SESJI.md) | 5447 B | `6a90d248438c` |
+| [STAN-SESJI.md](../../STAN-SESJI.md) | 5457 B | `0bb409bb0b1d` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 3046 B | `e001044de83a` |
 | [WERSJE.json](../../WERSJE.json) | 782 B | `12579f050928` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
