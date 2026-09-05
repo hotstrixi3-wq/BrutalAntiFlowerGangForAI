@@ -240,3 +240,45 @@ python3 sprawdz-spojnosc.py && python3 sprawdz-teksty.py \
 **Czego NIE robic:** nie zostawiaj watku bez sladu w `STAN-SESJI.md`,
 licząc, ze "to oczywiste". Dla ciebie za tydzien nie bedzie, a dla
 nastepnego agenta nie jest juz teraz.
+
+## 13. Ochrona przed zniszczeniem repozytorium
+
+Zasada "ZAWSZE ROB BAKAP" miala dotad charakter apelu - nie bylo czym.
+Teraz jest.
+
+**Po sklonowaniu repo, zanim zaczniesz prace:**
+
+```
+python3 dev/hooki/zainstaluj.py
+```
+
+Hooki gita nie sa wersjonowane (siedza w `.git/`, ktorego git nie sledzi),
+wiec kazdy klon zaczyna bez nich. Bez tej komendy nie masz zadnej ochrony.
+
+**Przed kazda operacja, ktorej git nie cofnie:**
+
+```
+python3 bakap.py
+```
+
+Migawka idzie do `~/.bakap-gang/` - POZA repozytorium, wiec przezywa
+`rm -rf`. Zawiera `.git`, wiec odzyskuje sie z niej takze historie.
+Trzymamy 5 ostatnich, starsze znikaja same.
+
+**Czego git NIE cofnie** (i przed czym chroni hook `pre-push`):
+
+| Komenda | Co niszczy |
+|---|---|
+| `git push --force` | historie na zdalnym |
+| `git push --delete` | cala galaz |
+| `git reset --hard` | niezacommitowane zmiany |
+| `git checkout -- .` | to samo, ciszej |
+| `rm -rf` | wszystko |
+
+Hook blokuje dwie pierwsze, dopoki nie ma swiezej migawki. Reszta to
+komendy lokalne - tam chroni cie tylko nawyk uruchamiania `bakap.py`.
+
+**Przywracanie NIE jest automatyczne.** `python3 bakap.py --przywroc N`
+drukuje instrukcje: rozpakuj OBOK repo, porownaj diffem, dopiero potem
+kopiuj pojedyncze pliki. Nadpisywanie calego repo w ciemno to zamiana
+jednej straty na druga.

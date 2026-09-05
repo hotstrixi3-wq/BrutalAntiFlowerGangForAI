@@ -16,9 +16,9 @@ w pustkę.
 |---|---|
 | wersja repo | **9.14.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `2a23f6a` — v9.14.0 - strefa agenta: STAN-SESJI.md, zeby wejsc w |
+| ostatni commit | `29b2f01` — pamietnik 2.1.0 - --stan odswieza fakty w STAN-SESJI |
 | stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 43 wpisów, 1 sesja |
+| dziennik | 44 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
@@ -104,6 +104,28 @@ w Prokuratorze i Anihilatorze, selftesty drukujące stare numery wersji.
 | 24 znaki rozjeżdżają się Zagłada ↔ Anihilator | w kolejce, pkt 3 |
 | `U+0304` i inne znaki łączące ze złożoną formą NFC | wada zastana, fuzz 499/500 |
 | martwy kod (dublet 111 linii, `baza_bez_ogonkow`) | kosmetyka, pkt 4 |
+
+---
+
+## Zanim cokolwiek zniszczysz
+
+Repo nie ma ochrony po stronie GitHuba — jeden `git push --force` nadpisuje
+historię i git tego nie cofnie. Dlatego:
+
+```
+python3 bakap.py                    # migawka POZA repo (~/.bakap-gang/)
+python3 dev/hooki/zainstaluj.py     # RAZ po klonie — hook pre-push
+python3 bakap.py --lista            # co mam w zapasie
+python3 bakap.py --przywroc 1       # instrukcja odzyskania (nie robi sam)
+```
+
+Hook blokuje **tylko** push nadpisujący albo kasujący. Zwykły przechodzi
+bez pytania. Migawka zawiera `.git`, więc odzyskuje się z niej także
+historię, nie same pliki.
+
+**Hooki nie są wersjonowane przez gita** — po każdym `git clone` trzeba je
+zainstalować na nowo. To jedna komenda i warto o niej pamiętać jako
+o pierwszej rzeczy po sklonowaniu.
 
 ---
 

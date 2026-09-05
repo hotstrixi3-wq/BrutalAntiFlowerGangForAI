@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **43 wpisow** z **1 sesji**.
+Stan: **44 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -29,6 +29,9 @@ Stan: **43 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Sprzataj /tmp po pomiarach - inaczej rosnie niewidocznie**
   - Kazdy mkdtemp opakuj w try/finally z shutil.rmtree - takze w selftescie, takze gdy katalog ma 1 kB. Po serii recznych sabotazy sprzataj katalogi robocze od razu (rm -rf /tmp/nazwa), nie na koniec sesj
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Repo nie mialo ZADNEJ ochrony przed zniszczeniem - jeden force i po pracy**
+  - Po KAZDYM sklonowaniu uruchom python3 dev/hooki/zainstaluj.py - hooki nie sa wersjonowane przez gita, wiec kazdy klon zaczyna bez ochrony. Przed operacja, ktorej git nie cofnie: python3 bakap.py. Miga
   - `2026-09-04__01a06e18.md`
 
 ## Pisanie testow dla tej rodziny

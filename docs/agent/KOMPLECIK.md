@@ -47,20 +47,23 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
-| [.gitignore](../../.gitignore) | 41 B | `02dc02bcbbd3` |
+| [.gitignore](../../.gitignore) | 178 B | `5a73348f4647` |
 | [AnihilatorChwastow.py](../../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 13719 B | `23712e6fbf47` |
-| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 10771 B | `c7f845732764` |
+| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 14047 B | `7f47ff553b68` |
+| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 12078 B | `a8fe8bca07db` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../../README.md) | 6456 B | `3d12ccdcd037` |
-| [STAN-SESJI.md](../../STAN-SESJI.md) | 5903 B | `17c60f94e0d6` |
+| [README.md](../../README.md) | 6839 B | `3cacdc4018ff` |
+| [STAN-SESJI.md](../../STAN-SESJI.md) | 6704 B | `dda444f31e44` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `a92742d75717` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `1f2c1520bb10` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
+| [bakap.py](../../bakap.py) | 9730 B | `f5be65c6fc76` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
+| [pre-push](../../dev/hooki/pre-push) | 1603 B | `ae80afdbf59b` |
+| [zainstaluj.py](../../dev/hooki/zainstaluj.py) | 1427 B | `236265ef2356` |
 | [ALCHEMIK-V1.json](../../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
 | [DEZYNFEKTOR-V1.json](../../dev/kwiatki-testy/DEZYNFEKTOR-V1.json) | 4320 B | `4ea8860a5d57` |
 | [DRUKARZ-V1.json](../../dev/kwiatki-testy/DRUKARZ-V1.json) | 5872 B | `5ab4def2601e` |
@@ -119,7 +122,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 43196 B | `410aa1fcc99a` |
 | [petla-rodzinna.log](../logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](../logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 38531 B | `39185c349680` |
+| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 39792 B | `50ba31bbea57` |
 | [README.md](../../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../../pamietnik.py) | 22364 B | `c89d2dd98d25` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |

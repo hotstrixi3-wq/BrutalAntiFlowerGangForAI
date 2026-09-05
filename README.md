@@ -10,6 +10,15 @@ je samoistnie i **nie widzą tego u siebie**.
 > Reszta tego pliku jest pisana dla agenta.
 
 > ZASADA DOMU: **ZAWSZE RÓB BAKAP.** Nic Cię z tego nie zwalnia.
+>
+> ```
+> python3 bakap.py                      # migawka repo POZA katalogiem
+> python3 dev/hooki/zainstaluj.py       # raz po klonie: blokada force-push
+> ```
+>
+> Migawki lądują w `~/.bakap-gang/` — **poza repozytorium**, więc przeżywają
+> `rm -rf`. Hook `pre-push` blokuje push nadpisujący historię, dopóki nie ma
+> świeżej migawki. Zwykły push przechodzi bez zmian.
 
 ---
 
