@@ -14,11 +14,11 @@ w pustkę.
 
 | | |
 |---|---|
-| wersja repo | **9.13.0** |
+| wersja repo | **9.14.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `853dcc3` — porządek: README jako punkt wejścia |
+| ostatni commit | `2a23f6a` — v9.14.0 - strefa agenta: STAN-SESJI.md, zeby wejsc w |
 | stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 44 wpisy, jedna sesja |
+| dziennik | 43 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.

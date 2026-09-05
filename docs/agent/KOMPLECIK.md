@@ -52,13 +52,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
 | [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 13719 B | `23712e6fbf47` |
-| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 10579 B | `a6e2fbb9ee0f` |
+| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 10771 B | `c7f845732764` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../../README.md) | 6456 B | `3d12ccdcd037` |
-| [STAN-SESJI.md](../../STAN-SESJI.md) | 5890 B | `7ecea2130ec6` |
+| [STAN-SESJI.md](../../STAN-SESJI.md) | 5903 B | `17c60f94e0d6` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `894f174cad2b` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `a92742d75717` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -121,7 +121,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-turniejowa.log](../logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 38531 B | `39185c349680` |
 | [README.md](../../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
-| [pamietnik.py](../../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
+| [pamietnik.py](../../pamietnik.py) | 22364 B | `c89d2dd98d25` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |
 | [sprawdz-teksty.py](../../sprawdz-teksty.py) | 7110 B | `ea3ce936324f` |
 | [zwiad.py](../../zwiad.py) | 23269 B | `9e711f1a497c` |

@@ -34,6 +34,7 @@ Uzycie:
     python3 pamietnik.py --dodaj          # dopisz wpis (pyta o pola)
     python3 pamietnik.py --sprawdz        # format + nietykalnosc cudzych
     python3 pamietnik.py --indeks         # odswiez PAMIETNIK-OPERATORA.md
+    python3 pamietnik.py --stan           # odswiez fakty w STAN-SESJI.md
     python3 pamietnik.py --selftest
 
 Dopisanie bez pytan (dla agenta w skrypcie):
@@ -48,7 +49,7 @@ import subprocess
 import sys
 from datetime import date
 
-WERSJA = "2.0.0"
+WERSJA = "2.1.0"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
 DZIENNIK = os.path.join(KORZEN, "dziennik")
@@ -462,6 +463,63 @@ def selftest():
     return ok
 
 
+def odswiez_stan():
+    """Aktualizuje w STAN-SESJI.md tylko te pola, ktore da sie wyliczyc:
+    wersje repo, ostatni commit, galaz, liczbe wpisow dziennika.
+
+    Powod: przy pierwszym uruchomieniu na swiezym klonie okazalo sie, ze
+    plik juz klamie - podawal wersje 9.13.0 i commit sprzed dwoch zmian,
+    bo agent (czyli ja) zapomnial go poprawic po wlasnym commicie.
+    Pola opisowe (co w toku, nastepne kroki, otwarte pytania) zostaja
+    reczne - tego nie da sie wyliczyc i wlasnie w tym jest ich wartosc."""
+    import json
+    import re
+    sciezka = os.path.join(KORZEN, "STAN-SESJI.md")
+    if not os.path.exists(sciezka):
+        print("[BLAD] brak STAN-SESJI.md")
+        return 1
+
+    def git(*a):
+        try:
+            r = subprocess.run(["git"] + list(a), capture_output=True,
+                               text=True, cwd=KORZEN, timeout=20)
+            return r.stdout.strip() if r.returncode == 0 else "?"
+        except Exception:
+            return "?"
+
+    try:
+        wersja = json.load(io.open(os.path.join(KORZEN, "WERSJE.json"),
+                                   encoding="utf-8"))["repo"]
+    except Exception:
+        wersja = "?"
+    commit = git("log", "-1", "--format=%h")
+    tytul = git("log", "-1", "--format=%s")
+    galaz = git("rev-parse", "--abbrev-ref", "HEAD")
+    ile = len(wszystkie_wpisy())
+    sesji = len(pliki_dziennika())
+
+    s = io.open(sciezka, encoding="utf-8").read()
+    podmiany = [
+        (r"(\| wersja repo \| )\*\*[^*]*\*\*", r"\g<1>**%s**" % wersja),
+        (r"(\| gałąź robocza \| )`[^`]*`", r"\g<1>`%s`" % galaz),
+        (r"(\| ostatni commit \| )`[^`]*`[^|]*",
+         r"\g<1>`%s` — %s " % (commit, tytul[:52].replace("\\", ""))),
+        (r"(\| dziennik \| )[^|]*",
+         r"\g<1>%d wpisów, %d %s " % (ile, sesji,
+                                       "sesja" if sesji == 1 else "sesje")),
+    ]
+    zmian = 0
+    for wzor, zam in podmiany:
+        s, n = re.subn(wzor, zam, s, count=1)
+        zmian += n
+    io.open(sciezka, "w", encoding="utf-8").write(s)
+    print("[OK] STAN-SESJI.md: wersja %s, commit %s, %d wpisow (%d pol)"
+          % (wersja, commit, ile, zmian))
+    print("     Pola opisowe (co w toku, nastepne kroki, otwarte pytania)")
+    print("     popraw RECZNIE - tego nie da sie wyliczyc.")
+    return 0
+
+
 def main():
     args = sys.argv[1:]
 
@@ -475,6 +533,8 @@ def main():
         return 1 if sprawdz() else 0
     if "--indeks" in args:
         return zbuduj_indeks()
+    if "--stan" in args:
+        return odswiez_stan()
     if "--sesje" in args:
         return widok_sesji()
     if "--moje" in args:

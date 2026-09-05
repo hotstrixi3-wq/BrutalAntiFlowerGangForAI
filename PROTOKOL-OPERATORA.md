@@ -206,7 +206,15 @@ zadnej, bo niszczy plik i nie zostawia wiedzy.
 Trzy minuty roboty, ktore decyduja o tym, czy nastepny agent wejdzie
 w srodek pracy, czy w pustke.
 
-**1. Zaktualizuj `STAN-SESJI.md`** — cztery sekcje, ktore sie zmieniaja:
+**1. Zaktualizuj `STAN-SESJI.md`.** Fakty odswiezasz jedna komenda:
+
+```
+python3 pamietnik.py --stan
+```
+
+Wypelnia wersje, commit, galaz i licznik wpisow. Reszte - cztery sekcje
+ponizej - piszesz RECZNIE, bo tego nie da sie wyliczyc i wlasnie w tym
+jest ich wartosc:
 
 | Sekcja | Co wpisac |
 |---|---|
