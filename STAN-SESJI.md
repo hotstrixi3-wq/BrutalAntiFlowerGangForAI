@@ -1,119 +1,119 @@
-# Stan sesji — czytaj to jako drugie, zaraz po README
+# STAN SESJI — CZYTAJ TO JAKO DRUGIE, ZARAZ PO README
 
-Agencie: ten plik odpowiada na pytanie **„na czym stanął poprzedni agent"**.
-Dziennik uczy zasad, ten plik mówi, gdzie jesteśmy. Bez niego zaczynasz od
-zera, mimo że ktoś zrobił tu już kilkadziesiąt godzin roboty.
+AGENCIE: TEN PLIK ODPOWIADA NA PYTANIE **„NA CZYM STANĄŁ POPRZEDNI AGENT"**.
+DZIENNIK UCZY ZASAD, TEN PLIK MÓWI, GDZIE JESTEŚMY. BEZ NIEGO ZACZYNASZ OD
+ZERA, MIMO ŻE KTOŚ ZROBIŁ TU JUŻ KILKADZIESIĄT GODZIN ROBOTY.
 
-**Aktualizuj go na koniec swojej sesji.** To zajmuje trzy minuty i jest
-jedyną rzeczą, która pozwala następnemu wejść w środek pracy zamiast
-w pustkę.
+**AKTUALIZUJ GO NA KONIEC SWOJEJ SESJI.** TO ZAJMUJE TRZY MINUTY I JEST
+JEDYNĄ RZECZĄ, KTÓRA POZWALA NASTĘPNEMU WEJŚĆ W ŚRODEK PRACY ZAMIAST
+W PUSTKĘ.
 
 ---
 
-## Gdzie jesteśmy
+## GDZIE JESTEŚMY
 
 | | |
 |---|---|
-| wersja repo | **9.19.0** |
-| gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `02591d3` — STAN-SESJI: naprawiony martwy odsylacz slowny |
-| stan testów | wszystko zielone (weryfikacja: PROTOKOL par. 4) |
-| dziennik | 50 wpisów, 1 sesja |
+| WERSJA REPO | **9.19.0** |
+| GAŁĄŹ ROBOCZA | `arena/01a06e18-brutalantiflowergangforai` |
+| OSTATNI COMMIT | `02591d3` — STAN-SESJI: NAPRAWIONY MARTWY ODSYLACZ SLOWNY |
+| STAN TESTÓW | WSZYSTKO ZIELONE (WERYFIKACJA: PROTOKOL PAR. 4) |
+| DZIENNIK | 50 WPISÓW, 1 SESJA |
 
-**Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
-celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
-
----
-
-## Co jest w toku (stan na koniec sesji)
-
-**PR #2 otwarty, czeka na decyzję człowieka.**
-https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI/pull/2
-
-Scala gałąź roboczą do `main`. `main` jest wciąż w stanie sprzed sesji:
-53 pliki w korzeniu, z czego **39 to duplikaty** (ten sam plik leży
-w korzeniu i w `docs/`). Nie scalaj sam — to decyzja operatora-człowieka.
+**WERSJE NARZĘDZI:** ZAWSZE Z `WERSJE.json`, NIE Z PAMIĘCI. TEN PLIK
+CELOWO ICH NIE POWTARZA — POWTÓRZENIE TO KOLEJNE MIEJSCE DO ROZJECHANIA.
 
 ---
 
-## Decyzje operatora, które obowiązują
+## CO JEST W TOKU (STAN NA KONIEC SESJI)
 
-Padły w rozmowie, nie wynikają z kodu. Trzymaj się ich:
+**PR #2 OTWARTY, CZEKA NA DECYZJĘ CZŁOWIEKA.**
+HTTPS://GITHUB.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI/pull/2
 
-1. **„Nie ruszamy działającego kodu, dokładamy kolejny."** Zasada domu.
-   Naprawa błędu — tak. Kosmetyka w tym samym commicie co zmiana
-   logiki — nie, bo utrudnia cofnięcie.
-2. **Poprawka kodu = reset medalu/turnieju.** Zmieniasz kod rodziny →
-   podbijasz wersję i przechodzisz pełną regresję od nowa.
-3. **„Nieomylny" znaczy „nie wprowadzi cię w błąd"**, a nie „zawsze
-   naprawi dobrze". To definicja, nie hasło.
-4. **Gang to oczy, nie automat.** Decyzja i odpowiedzialność są twoje.
-5. **Nie przepisywać od nowa.** Rozważane i odrzucone — wartością repo
-   są dowody (turnieje, pomiary), nie kod. Nowy kod startuje z zerem.
-6. **Testy muszą udowadniać niezawodność informowania**, nie tylko
-   nieszkodliwość. Stąd T7, T8, T9 i pomiary mutacyjne.
-7. **Dokumentacja dla agenta osobno od dokumentacji dla człowieka.**
-   Stąd podział `docs/agent/`, `docs/czlowiek/`, `docs/dowody/`.
+SCALA GAŁĄŹ ROBOCZĄ DO `main`. `main` JEST WCIĄŻ W STANIE SPRZED SESJI:
+53 PLIKI W KORZENIU, Z CZEGO **39 TO DUPLIKATY** (TEN SAM PLIK LEŻY
+W KORZENIU I W `docs/`). NIE SCALAJ SAM — TO DECYZJA OPERATORA-CZŁOWIEKA.
 
 ---
 
-## Następne kroki — kolejka, z uzasadnieniem
+## DECYZJE OPERATORA, KTÓRE OBOWIĄZUJĄ
 
-Kolejność wynika z ryzyka, nie z łatwości.
+PADŁY W ROZMOWIE, NIE WYNIKAJĄ Z KODU. TRZYMAJ SIĘ ICH:
 
-**1. Dokończyć porządki w strefie agenta** *(w toku)*
-Krok 1 zrobiony (struktura, README). Zostaje krok 2: przejść plik po
-pliku przez `docs/agent/` i korzeń — sprawdzić, czy nie kłamią, skrócić,
-usunąć powtórzenia.
-
-**2. HTML/CSS w Anihilatorze** *(luka z pomiarem)*
-Nikt nie traktuje ich jak kodu, więc chiński tekst na stronie **zniknie**.
-Kierunek: czyścić nazwy klas, `id`, selektory; nie tykać tekstu między
-znacznikami. Wymaga zmiany kodu rodziny → reset medalu.
-
-**3. Rozjazd 24 znaków między Zagładą a Anihilatorem**
-Ten sam znak w `.py` i `.js` daje inny wynik (`U+0407` → `Ji` vs
-usunięcie). Docelowo: jedno źródło prawdy dla tablic + test równoważności
-w bramce.
-
-**4. Sprzątanie martwego kodu** *(kosmetyka, świadomie odłożona)*
-Podwójna definicja `zaglada_tekst_poza_literalami_multi` w Anihilatorze
-(linie 191 i 429 — działa tylko druga), `baza_bez_ogonkow`, brak `--help`
-w Prokuratorze i Anihilatorze, selftesty drukujące stare numery wersji.
+1. **„NIE RUSZAMY DZIAŁAJĄCEGO KODU, DOKŁADAMY KOLEJNY."** ZASADA DOMU.
+   NAPRAWA BŁĘDU — TAK. KOSMETYKA W TYM SAMYM COMMICIE CO ZMIANA
+   LOGIKI — NIE, BO UTRUDNIA COFNIĘCIE.
+2. **POPRAWKA KODU = RESET medalu/turnieju.** ZMIENIASZ KOD RODZINY →
+   PODBIJASZ WERSJĘ I PRZECHODZISZ PEŁNĄ REGRESJĘ OD NOWA.
+3. **„NIEOMYLNY" ZNACZY „NIE WPROWADZI CIĘ W BŁĄD"**, A NIE „ZAWSZE
+   NAPRAWI DOBRZE". TO DEFINICJA, NIE HASŁO.
+4. **GANG TO OCZY, NIE AUTOMAT.** DECYZJA I ODPOWIEDZIALNOŚĆ SĄ TWOJE.
+5. **NIE PRZEPISYWAĆ OD NOWA.** ROZWAŻANE I ODRZUCONE — WARTOŚCIĄ REPO
+   SĄ DOWODY (TURNIEJE, POMIARY), NIE KOD. NOWY KOD STARTUJE Z ZEREM.
+6. **TESTY MUSZĄ UDOWADNIAĆ NIEZAWODNOŚĆ INFORMOWANIA**, NIE TYLKO
+   NIESZKODLIWOŚĆ. STĄD T7, T8, T9 I POMIARY MUTACYJNE.
+7. **DOKUMENTACJA DLA AGENTA OSOBNO OD DOKUMENTACJI DLA CZŁOWIEKA.**
+   STĄD PODZIAŁ `docs/agent/`, `docs/czlowiek/`, `docs/dowody/`.
 
 ---
 
-## Otwarte pytania — nie rozstrzygaj sam
+## NASTĘPNE KROKI — KOLEJKA, Z UZASADNIENIEM
 
-- Czy `--zaglada` i `--anihilacja` mają **odmawiać** bez wcześniejszego
-  zwiadu, czy to za daleko idąca kuratela?
-- Rotacja backupów `.bak-1` … `.bak-5`: w narzędziach czy osobnym
-  poleceniem?
-- Zakres docelowy: czy Gang ma obsługiwać wszystkie języki, czy skupić
-  się na tym, co agenci generują najczęściej?
+KOLEJNOŚĆ WYNIKA Z RYZYKA, NIE Z ŁATWOŚCI.
+
+**1. DOKOŃCZYĆ PORZĄDKI W STREFIE AGENTA** *(W TOKU)*
+KROK 1 ZROBIONY (STRUKTURA, README). ZOSTAJE KROK 2: PRZEJŚĆ PLIK PO
+PLIKU PRZEZ `docs/agent/` I KORZEŃ — SPRAWDZIĆ, CZY NIE KŁAMIĄ, SKRÓCIĆ,
+USUNĄĆ POWTÓRZENIA.
+
+**2. HTML/CSS W ANIHILATORZE** *(LUKA Z POMIAREM)*
+NIKT NIE TRAKTUJE ICH JAK KODU, WIĘC CHIŃSKI TEKST NA STRONIE **ZNIKNIE**.
+KIERUNEK: CZYŚCIĆ NAZWY KLAS, `id`, SELEKTORY; NIE TYKAĆ TEKSTU MIĘDZY
+ZNACZNIKAMI. WYMAGA ZMIANY KODU RODZINY → RESET MEDALU.
+
+**3. ROZJAZD 24 ZNAKÓW MIĘDZY ZAGŁADĄ A ANIHILATOREM**
+TEN SAM ZNAK W `.py` I `.js` DAJE INNY WYNIK (`U+0407` → `Ji` VS
+USUNIĘCIE). DOCELOWO: JEDNO ŹRÓDŁO PRAWDY DLA TABLIC + TEST RÓWNOWAŻNOŚCI
+W BRAMCE.
+
+**4. SPRZĄTANIE MARTWEGO KODU** *(KOSMETYKA, ŚWIADOMIE ODŁOŻONA)*
+PODWÓJNA DEFINICJA `zaglada_tekst_poza_literalami_multi` W ANIHILATORZE
+(LINIE 191 I 429 — DZIAŁA TYLKO DRUGA), `baza_bez_ogonkow`, BRAK `--help`
+W PROKURATORZE I ANIHILATORZE, SELFTESTY DRUKUJĄCE STARE NUMERY WERSJI.
 
 ---
 
-## Znane wady, których NIE naprawiono
+## OTWARTE PYTANIA — NIE ROZSTRZYGAJ SAM
 
-Świadomie, żeby nikt nie polegał na ciszy:
+- CZY `--zaglada` I `--anihilacja` MAJĄ **ODMAWIAĆ** BEZ WCZEŚNIEJSZEGO
+  ZWIADU, CZY TO ZA DALEKO IDĄCA KURATELA?
+- ROTACJA BACKUPÓW `.bak-1` … `.bak-5`: W NARZĘDZIACH CZY OSOBNYM
+  POLECENIEM?
+- ZAKRES DOCELOWY: CZY GANG MA OBSŁUGIWAĆ WSZYSTKIE JĘZYKI, CZY SKUPIĆ
+  SIĘ NA TYM, CO AGENCI GENERUJĄ NAJCZĘŚCIEJ?
 
-| Wada | Status |
+---
+
+## ZNANE WADY, KTÓRYCH NIE NAPRAWIONO
+
+ŚWIADOMIE, ŻEBY NIKT NIE POLEGAŁ NA CISZY:
+
+| WADA | STATUS |
 |---|---|
-| HTML/CSS traktowane jak proza — treść użytkownika znika | w kolejce, pkt 2 |
-| 24 znaki rozjeżdżają się Zagłada ↔ Anihilator | w kolejce, pkt 3 |
-| `U+0304` i inne znaki łączące ze złożoną formą NFC | wada zastana, fuzz 499/500 |
-| martwy kod (dublet 111 linii, `baza_bez_ogonkow`) | kosmetyka, pkt 4 |
+| HTML/CSS TRAKTOWANE JAK PROZA — TREŚĆ UŻYTKOWNIKA ZNIKA | W KOLEJCE, PKT 2 |
+| 24 ZNAKI ROZJEŻDŻAJĄ SIĘ ZAGŁADA ↔ ANIHILATOR | W KOLEJCE, PKT 3 |
+| `U+0304` I INNE ZNAKI ŁĄCZĄCE ZE ZŁOŻONĄ FORMĄ NFC | WADA ZASTANA, FUZZ 499/500 |
+| MARTWY KOD (DUBLET 111 LINII, `baza_bez_ogonkow`) | KOSMETYKA, PKT 4 |
 
 ---
 
 ---
 
-## Procedur tu nie ma
+## PROCEDUR TU NIE MA
 
-Ten plik mówi **gdzie jesteśmy**. Jak coś zrobić — `PROTOKOL-OPERATORA.md`:
-kolejność pracy na pliku (§2), bramki przed commitem (§4), ochrona przed
-zniszczeniem (§6), zamykanie sesji (§8).
+TEN PLIK MÓWI **GDZIE JESTEŚMY**. JAK COŚ ZROBIĆ — `PROTOKOL-OPERATORA.md`:
+KOLEJNOŚĆ PRACY NA PLIKU (§2), BRAMKI PRZED COMMITEM (§4), OCHRONA PRZED
+ZNISZCZENIEM (§6), ZAMYKANIE SESJI (§8).
 
-Pułapki, na które ktoś już nadepnął — `python3 pamietnik.py`.
-Lekcje o samym narzędziu — `docs/agent/LEKCJE.md`.
+PUŁAPKI, NA KTÓRE KTOŚ JUŻ NADEPNĄŁ — `python3 pamietnik.py`.
+LEKCJE O SAMYM NARZĘDZIU — `docs/agent/LEKCJE.md`.

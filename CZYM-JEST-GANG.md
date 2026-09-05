@@ -1,93 +1,93 @@
-# Czym jest Gang i po co — dla agenta, ktory go uzyje
+# CZYM JEST GANG I PO CO — DLA AGENTA, KTORY GO UZYJE
 
-Agencie: przeczytaj to, ZANIM uruchomisz cokolwiek na pliku uzytkownika.
-Nie jest to instrukcja obslugi (ta jest w README). To jest odpowiedz na
-pytanie, po co ten program istnieje i czym jest **dla ciebie** — bo od
-tego zalezy, czy uzyjesz go dobrze, czy zrobisz komus szkode.
-
----
-
-## 1. To jest proteza na twoja slepote
-
-Nie na slepote uzytkownika. Na **twoja**.
-
-Generujesz tekst token po tokenie. Cyrylica, greka i lacinka maja litery
-o identycznym ksztalcie: `a` `e` `o` `p` `c` `x`. Token o wspolnym
-ksztalcie potrafi wskoczyc w zly alfabet — bez ostrzezenia, bez bledu.
-Powstaje `c<U+043E>nter` zamiast `counter`. Wyglada tak samo. **Nie jest
-tym samym.**
-
-I teraz rzecz najwazniejsza: **ty tego u siebie nie widzisz**. Nie
-w momencie pisania i nie przy wlasnym przegladzie, bo przeglad robi ta
-sama maszyna, ktora to wstawila. To nie kwestia starannosci. Uwazniejsze
-czytanie nic nie da.
-
-Nie jest to teoria. W sesji, w ktorej powstal ten dokument, agent:
-
-* wpisal **16 zywych homoglifow do trzech dokumentow OSTRZEGAJACYCH przed
-  homoglifami** — i nie zauwazyl przy zadnym z kilku przegladow;
-* wyslal siedemnastego czlowiekowi w zdaniu na czacie; **wylapal go
-  czlowiek, nie agent**;
-* im wiecej pisal O cyrylicy, tym czesciej mu sie wstawiala.
-
-Gang jest jedyna rzecza w tym repozytorium, ktora widzi to, czego ty
-z definicji nie zobaczysz. Traktuj go jak przyrzad pomiarowy, nie jak
-udogodnienie.
+AGENCIE: PRZECZYTAJ TO, ZANIM URUCHOMISZ COKOLWIEK NA PLIKU UZYTKOWNIKA.
+NIE JEST TO INSTRUKCJA OBSLUGI (TA JEST W README). TO JEST ODPOWIEDZ NA
+PYTANIE, PO CO TEN PROGRAM ISTNIEJE I CZYM JEST **DLA CIEBIE** — BO OD
+TEGO ZALEZY, CZY UZYJESZ GO DOBRZE, CZY ZROBISZ KOMUS SZKODE.
 
 ---
 
-## 2. To sa OCZY, nie automat do sprzatania
+## 1. TO JEST PROTEZA NA TWOJA SLEPOTE
 
-Latwo pomylic te dwie role. Roznica jest zasadnicza.
+NIE NA SLEPOTE UZYTKOWNIKA. NA **TWOJA**.
 
-**Automat** dostaje plik i go naprawia; twoja rola to pilnowac, zeby nie
-nawalil. **Oczy** daja ci obraz; decyzje podejmujesz ty i ty za nia
-odpowiadasz.
+GENERUJESZ TEKST TOKEN PO TOKENIE. CYRYLICA, GREKA I LACINKA MAJA LITERY
+O IDENTYCZNYM KSZTALCIE: `a` `e` `o` `p` `c` `x`. TOKEN O WSPOLNYM
+KSZTALCIE POTRAFI WSKOCZYC W ZLY ALFABET — BEZ OSTRZEZENIA, BEZ BLEDU.
+POWSTAJE `c<U+043E>nter` ZAMIAST `counter`. WYGLADA TAK SAMO. **NIE JEST
+TYM SAMYM.**
 
-Gang jest tym drugim. Wynika z tego definicja slowa, ktore znajdziesz
-w calej dokumentacji:
+I TERAZ RZECZ NAJWAZNIEJSZA: **TY TEGO U SIEBIE NIE WIDZISZ**. NIE
+W MOMENCIE PISANIA I NIE PRZY WLASNYM PRZEGLADZIE, BO PRZEGLAD ROBI TA
+SAMA MASZYNA, KTORA TO WSTAWILA. TO NIE KWESTIA STARANNOSCI. UWAZNIEJSZE
+CZYTANIE NIC NIE DA.
 
-> **"Sprytny i nieomylny" nie znaczy "zawsze naprawi dobrze".
-> Znaczy: NIE WPROWADZI CIE W BLAD. Pokaze prawde.**
+NIE JEST TO TEORIA. W SESJI, W KTOREJ POWSTAL TEN DOKUMENT, AGENT:
 
-Dlatego istnieje `zwiad.py`, ktory **niczego nie zapisuje** i nigdy nie
-bedzie. Jego jedynym zadaniem jest dac ci wiedze przed decyzja.
+* WPISAL **16 ZYWYCH HOMOGLIFOW DO TRZECH DOKUMENTOW OSTRZEGAJACYCH PRZED
+  HOMOGLIFAMI** — I NIE ZAUWAZYL PRZY ZADNYM Z KILKU PRZEGLADOW;
+* WYSLAL SIEDEMNASTEGO CZLOWIEKOWI W ZDANIU NA CZACIE; **WYLAPAL GO
+  CZLOWIEK, NIE AGENT**;
+* IM WIECEJ PISAL O CYRYLICY, TYM CZESCIEJ MU SIE WSTAWIALA.
+
+GANG JEST JEDYNA RZECZA W TYM REPOZYTORIUM, KTORA WIDZI TO, CZEGO TY
+Z DEFINICJI NIE ZOBACZYSZ. TRAKTUJ GO JAK PRZYRZAD POMIAROWY, NIE JAK
+UDOGODNIENIE.
 
 ---
 
-## 3. Nie ma jednej naprawy — jest wybor, ktory nalezy do ciebie
+## 2. TO SA OCZY, NIE AUTOMAT DO SPRZATANIA
 
-Rodzina ma cztery narzedzia o roznej sile. Ten sam plik naprawiony
-roznymi drogami daje **rozne pliki wynikowe**. Zmierzone na pliku ze
-skazeniem w kodzie, w komentarzu i w rosyjskim literale:
+LATWO POMYLIC TE DWIE ROLE. ROZNICA JEST ZASADNICZA.
 
-| Droga | Kiedy | Rosyjski literal |
+**AUTOMAT** DOSTAJE PLIK I GO NAPRAWIA; TWOJA ROLA TO PILNOWAC, ZEBY NIE
+NAWALIL. **OCZY** DAJA CI OBRAZ; DECYZJE PODEJMUJESZ TY I TY ZA NIA
+ODPOWIADASZ.
+
+GANG JEST TYM DRUGIM. WYNIKA Z TEGO DEFINICJA SLOWA, KTORE ZNAJDZIESZ
+W CALEJ DOKUMENTACJI:
+
+> **"SPRYTNY I NIEOMYLNY" NIE ZNACZY "ZAWSZE NAPRAWI DOBRZE".
+> ZNACZY: NIE WPROWADZI CIE W BLAD. POKAZE PRAWDE.**
+
+DLATEGO ISTNIEJE `zwiad.py`, KTORY **NICZEGO NIE ZAPISUJE** I NIGDY NIE
+BEDZIE. JEGO JEDYNYM ZADANIEM JEST DAC CI WIEDZE PRZED DECYZJA.
+
+---
+
+## 3. NIE MA JEDNEJ NAPRAWY — JEST WYBOR, KTORY NALEZY DO CIEBIE
+
+RODZINA MA CZTERY NARZEDZIA O ROZNEJ SILE. TEN SAM PLIK NAPRAWIONY
+ROZNYMI DROGAMI DAJE **ROZNE PLIKI WYNIKOWE**. ZMIERZONE NA PLIKU ZE
+SKAZENIEM W KODZIE, W KOMENTARZU I W ROSYJSKIM LITERALE:
+
+| DROGA | KIEDY | ROSYJSKI LITERAL |
 |---|---|---|
-| Pogromca `--fix` | zawsze | nietkniety (nie tyka liter) |
-| Zaglada: poza literalami | `.py` kompilujacy sie | nietkniety |
-| Zaglada: skaner surowy | `.py` zepsuty | nietkniety |
-| Zaglada: caly plik | ostatecznosc | `"Moskwa"` |
-| Zaglada: przez usuniecie | ostatnia proba kaskady | nietkniety, ale **rozjazd nazw** |
-| Anihilator | js/ts/java/go/rs/cs/c/cpp/php | zalezy od jezyka |
+| POGROMCA `--fix` | ZAWSZE | NIETKNIETY (NIE TYKA LITER) |
+| ZAGLADA: POZA LITERALAMI | `.py` KOMPILUJACY SIE | NIETKNIETY |
+| ZAGLADA: SKANER SUROWY | `.py` ZEPSUTY | NIETKNIETY |
+| ZAGLADA: CALY PLIK | OSTATECZNOSC | `"Moskwa"` |
+| ZAGLADA: PRZEZ USUNIECIE | OSTATNIA PROBA KASKADY | NIETKNIETY, ALE **ROZJAZD NAZW** |
+| ANIHILATOR | js/ts/java/go/rs/cs/c/cpp/php | ZALEZY OD JEZYKA |
 
-Szesc drog, nie cztery - policzone przez AST i lekture dyspozytora,
-nie po liczbie flag `--`.
+SZESC DROG, NIE CZTERY - POLICZONE PRZEZ AST I LEKTURE DYSPOZYTORA,
+NIE PO LICZBIE FLAG `--`.
 
-Zadna z tych drog nie jest "domyslnie sluszna". Pogromca **celowo** nie
-tyka liter — kwiatka nie maskujemy, decyzja nalezy do czlowieka. Wariant
-surowy **celowo** czysci wszystko.
+ZADNA Z TYCH DROG NIE JEST "DOMYSLNIE SLUSZNA". POGROMCA **CELOWO** NIE
+TYKA LITER — KWIATKA NIE MASKUJEMY, DECYZJA NALEZY DO CZLOWIEKA. WARIANT
+SUROWY **CELOWO** CZYSCI WSZYSTKO.
 
-Ktora jest dobra? Zalezy, **czym jest ten rosyjski tekst**: przypadkowym
-skazeniem czy trescia, ktora uzytkownik tam umiescil. **Narzedzie tego nie
-wie. Ty musisz wiedziec** — a jak nie wiesz, masz zapytac czlowieka.
+KTORA JEST DOBRA? ZALEZY, **CZYM JEST TEN ROSYJSKI TEKST**: PRZYPADKOWYM
+SKAZENIEM CZY TRESCIA, KTORA UZYTKOWNIK TAM UMIESCIL. **NARZEDZIE TEGO NIE
+WIE. TY MUSISZ WIEDZIEC** — A JAK NIE WIESZ, MASZ ZAPYTAC CZLOWIEKA.
 
-Zobacz wszystkie drogi naraz: `python3 zwiad.py --warianty PLIK`
+ZOBACZ WSZYSTKIE DROGI NARAZ: `python3 zwiad.py --warianty PLIK`
 
 ---
 
-## 3a. Oni nie wiedza o sobie — TY masz wiedziec, ze sa
+## 3A. ONI NIE WIEDZA O SOBIE — TY MASZ WIEDZIEC, ZE SA
 
-Zmierzone (`grep` po wywolaniach miedzy plikami):
+ZMIERZONE (`grep` PO WYWOLANIACH MIEDZY PLIKAMI):
 
 ```
 Pogromca    -> nikogo nie wola
@@ -96,99 +96,99 @@ Anihilator  -> nikogo nie wola
 Prokurator  -> Pogromca (detekcja) + Zaglada (naprawa)
 ```
 
-**Anihilatora nie zna NIKT.** Prokurator ma zero wystapien tej nazwy.
+**ANIHILATORA NIE ZNA NIKT.** PROKURATOR MA ZERO WYSTAPIEN TEJ NAZWY.
 
-To nie jest usterka rodziny — narzedzia maja byc proste i niezalezne.
-To jest **obowiazek operatora**: skoro one nie wiedza o sobie, to ty
-musisz wiedziec, ze sa, i ktore pasuje do czego.
+TO NIE JEST USTERKA RODZINY — NARZEDZIA MAJA BYC PROSTE I NIEZALEZNE.
+TO JEST **OBOWIAZEK OPERATORA**: SKORO ONE NIE WIEDZA O SOBIE, TO TY
+MUSISZ WIEDZIEC, ZE SA, I KTORE PASUJE DO CZEGO.
 
-Cena pomylki jest mierzalna. Plik `.js` ze skazeniem w kodzie i rosyjskim
-tekstem w literale:
+CENA POMYLKI JEST MIERZALNA. PLIK `.js` ZE SKAZENIEM W KODZIE I ROSYJSKIM
+TEKSTEM W LITERALE:
 
-| Droga | Kod | Literal uzytkownika |
+| DROGA | KOD | LITERAL UZYTKOWNIKA |
 |---|---|---|
-| `Prokurator --wykonaj` | naprawiony | **`"Moskwa"` — ZNISZCZONY** |
-| `Anihilator --anihilacja` | naprawiony | `"<U+041C>..."` — OCALONY |
+| `Prokurator --wykonaj` | NAPRAWIONY | **`"Moskwa"` — ZNISZCZONY** |
+| `Anihilator --anihilacja` | NAPRAWIONY | `"<U+041C>..."` — OCALONY |
 
-Prokurator nie zna Anihilatora, wiec `.js` wysyla do Zaglady, a ta nie
-rozumie skladni JavaScriptu i traktuje plik jak proze. Kod wychodzi
-poprawny w obu wypadkach — **roznica dotyczy DANYCH uzytkownika**.
+PROKURATOR NIE ZNA ANIHILATORA, WIEC `.js` WYSYLA DO ZAGLADY, A TA NIE
+ROZUMIE SKLADNI JavaScriptu I TRAKTUJE PLIK JAK PROZE. KOD WYCHODZI
+POPRAWNY W OBU WYPADKACH — **ROZNICA DOTYCZY DANYCH UZYTKOWNIKA**.
 
-Mapa, ktora musisz miec w glowie:
+MAPA, KTORA MUSISZ MIEC W GLOWIE:
 
-| Plik | Kto wlasciwy |
+| PLIK | KTO WLASCIWY |
 |---|---|
-| `.py`, `.json` | Zaglada (albo Prokurator `--wykonaj`) |
-| `.js .ts .java .go .rs .cs .c .cpp .php` | **Anihilator — recznie** |
-| `.md .txt` i inna proza | Zaglada |
-| `.html .css` | Zaglada, ale OSTROZNIE — nikt nie traktuje ich jak kodu |
+| `.py`, `.json` | ZAGLADA (ALBO PROKURATOR `--wykonaj`) |
+| `.js .ts .java .go .rs .cs .c .cpp .php` | **ANIHILATOR — RECZNIE** |
+| `.md .txt` I INNA PROZA | ZAGLADA |
+| `.html .css` | ZAGLADA, ALE OSTROZNIE — NIKT NIE TRAKTUJE ICH JAK KODU |
 
-Nie musisz jej pamietac: `python3 zwiad.py --warianty PLIK` wypisuje
-**KTO Z GANGU DO TEGO PLIKU** wraz z ostrzezeniem, gdy grozi pomylka.
+NIE MUSISZ JEJ PAMIETAC: `python3 zwiad.py --warianty PLIK` WYPISUJE
+**KTO Z GANGU DO TEGO PLIKU** WRAZ Z OSTRZEZENIEM, GDY GROZI POMYLKA.
 
-## 4. Kopia zapasowa nalezy do CIEBIE
+## 4. KOPIA ZAPASOWA NALEZY DO CIEBIE
 
-Zaglada i Anihilator robia wlasne pliki `.bak-*`. **To nie jest twoje
-zabezpieczenie** — to ich wewnetrzny mechanizm, ktory chroni przed ich
-wlasna awaria zapisu, a nie przed twoja zla decyzja.
+ZAGLADA I ANIHILATOR ROBIA WLASNE PLIKI `.bak-*`. **TO NIE JEST TWOJE
+ZABEZPIECZENIE** — TO ICH WEWNETRZNY MECHANIZM, KTORY CHRONI PRZED ICH
+WLASNA AWARIA ZAPISU, A NIE PRZED TWOJA ZLA DECYZJA.
 
-Na pliku uzytkownika kopie robisz **ty**, zanim cokolwiek uruchomisz.
+NA PLIKU UZYTKOWNIKA KOPIE ROBISZ **TY**, ZANIM COKOLWIEK URUCHOMISZ.
 
-To jest tez zasada domu, zapisana przez autora repo wielkimi literami:
+TO JEST TEZ ZASADA DOMU, ZAPISANA PRZEZ AUTORA REPO WIELKIMI LITERAMI:
 **ZAWSZE ROB BAKAP**.
 
 ---
 
-## 5. Kolejnosc, ktorej nie wolno odwrocic
+## 5. KOLEJNOSC, KTOREJ NIE WOLNO ODWROCIC
 
-Najpierw **wiedza**, potem kopia, dopiero na koncu naprawa. Konkretne
-komendy: `PROTOKOL-OPERATORA.md` par. 2.
+NAJPIERW **WIEDZA**, POTEM KOPIA, DOPIERO NA KONCU NAPRAWA. KONKRETNE
+KOMENDY: `PROTOKOL-OPERATORA.md` PAR. 2.
 
-**Nigdy nie uruchamiaj naprawy po to, zeby dowiedziec sie, co ona robi.**
-To zgadywanie z konsekwencjami na cudzym dysku.
+**NIGDY NIE URUCHAMIAJ NAPRAWY PO TO, ZEBY DOWIEDZIEC SIE, CO ONA ROBI.**
+TO ZGADYWANIE Z KONSEKWENCJAMI NA CUDZYM DYSKU.
 
-Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem:
-wracasz do kopii i wybierasz inna droge. Liczba podejsc nie ma znaczenia —
-liczy sie, ze kazde opierasz na danych, a nie na przeczuciu. Proba na
-slepo bywa gorsza od zadnej: niszczy plik i nie zostawia wiedzy.
-
----
-
-## 6. Jak zle uzyjesz narzedzia, to jest TWOJA wina
-
-Zasada operatora, dosownie:
-
-> "Jak zle uzyjesz narzedzia, to jest twoja wina."
-
-Nie narzedzia. Nie autora. Nie uzytkownika, ktory "nie uprzedzil".
-
-Gang ma bezpieczniki — fail-closed przy plikach, ktorych nie rozumie,
-blokade na nieczytelnym kodowaniu, ochrone literalow, kopie zapasowe.
-Ale **zaden bezpiecznik nie zastapi decyzji**. Narzedzie zrobi to, o co
-je poprosisz. Jesli poprosisz o zla rzecz, zrobi zla rzecz — poprawnie.
-
-Z tego wynika obowiazek, ktorego nie da sie zdjac: **masz wiedziec, co
-robisz, zanim to zrobisz**. Zwiad daje ci do tego wszystko, czego
-potrzebujesz. Nie masz wymowki.
-
-Gdy zwiad pokaze `exit=2` (znaki NIENAPRAWIALNE, ktore zostana usuniete
-bezpowrotnie) i nie jestes pewien, czy to skazenie czy tresc uzytkownika —
-**nie zgaduj. Zapytaj czlowieka.** Usuniecie chinskiego tekstu ze strony
-internetowej jest technicznie "naprawa", a faktycznie szkoda.
+MAJAC ZWIAD I KOPIE, NIEUDANA PROBA NIE KOSZTUJE NIC POZA CZASEM:
+WRACASZ DO KOPII I WYBIERASZ INNA DROGE. LICZBA PODEJSC NIE MA ZNACZENIA —
+LICZY SIE, ZE KAZDE OPIERASZ NA DANYCH, A NIE NA PRZECZUCIU. PROBA NA
+SLEPO BYWA GORSZA OD ZADNEJ: NISZCZY PLIK I NIE ZOSTAWIA WIEDZY.
 
 ---
 
-## 7. Zostaw slad dla nastepnego
+## 6. JAK ZLE UZYJESZ NARZEDZIA, TO JEST TWOJA WINA
 
-Nastepny agent bedzie mial dokladnie ta sama slepote co ty. Jedyne, czego
-nie bedzie mial, to twoje doswiadczenie — chyba ze mu je zostawisz.
+ZASADA OPERATORA, DOSOWNIE:
 
-Jak zamknac sesje i co zapisac: `PROTOKOL-OPERATORA.md` par. 8.
+> "JAK ZLE UZYJESZ NARZEDZIA, TO JEST TWOJA WINA."
+
+NIE NARZEDZIA. NIE AUTORA. NIE UZYTKOWNIKA, KTORY "NIE UPRZEDZIL".
+
+GANG MA BEZPIECZNIKI — FAIL-CLOSED PRZY PLIKACH, KTORYCH NIE ROZUMIE,
+BLOKADE NA NIECZYTELNYM KODOWANIU, OCHRONE LITERALOW, KOPIE ZAPASOWE.
+ALE **ZADEN BEZPIECZNIK NIE ZASTAPI DECYZJI**. NARZEDZIE ZROBI TO, O CO
+JE POPROSISZ. JESLI POPROSISZ O ZLA RZECZ, ZROBI ZLA RZECZ — POPRAWNIE.
+
+Z TEGO WYNIKA OBOWIAZEK, KTOREGO NIE DA SIE ZDJAC: **MASZ WIEDZIEC, CO
+ROBISZ, ZANIM TO ZROBISZ**. ZWIAD DAJE CI DO TEGO WSZYSTKO, CZEGO
+POTRZEBUJESZ. NIE MASZ WYMOWKI.
+
+GDY ZWIAD POKAZE `exit=2` (ZNAKI NIENAPRAWIALNE, KTORE ZOSTANA USUNIETE
+BEZPOWROTNIE) I NIE JESTES PEWIEN, CZY TO SKAZENIE CZY TRESC UZYTKOWNIKA —
+**NIE ZGADUJ. ZAPYTAJ CZLOWIEKA.** USUNIECIE CHINSKIEGO TEKSTU ZE STRONY
+INTERNETOWEJ JEST TECHNICZNIE "NAPRAWA", A FAKTYCZNIE SZKODA.
 
 ---
 
-## W jednym zdaniu
+## 7. ZOSTAW SLAD DLA NASTEPNEGO
 
-**Gang to twoje oczy na wlasna slepote; daje ci prawde i wachlarz drog,
-ale decyzje i odpowiedzialnosc zostawia tobie — wiec rob kopie, patrz
-zanim tkniesz, a jak nie wiesz, pytaj czlowieka.**
+NASTEPNY AGENT BEDZIE MIAL DOKLADNIE TA SAMA SLEPOTE CO TY. JEDYNE, CZEGO
+NIE BEDZIE MIAL, TO TWOJE DOSWIADCZENIE — CHYBA ZE MU JE ZOSTAWISZ.
+
+JAK ZAMKNAC SESJE I CO ZAPISAC: `PROTOKOL-OPERATORA.md` PAR. 8.
+
+---
+
+## W JEDNYM ZDANIU
+
+**GANG TO TWOJE OCZY NA WLASNA SLEPOTE; DAJE CI PRAWDE I WACHLARZ DROG,
+ALE DECYZJE I ODPOWIEDZIALNOSC ZOSTAWIA TOBIE — WIEC ROB KOPIE, PATRZ
+ZANIM TKNIESZ, A JAK NIE WIESZ, PYTAJ CZLOWIEKA.**

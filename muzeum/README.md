@@ -1,50 +1,50 @@
-# Muzeum — nie wchodź tu
+# MUZEUM — NIE WCHODŹ TU
 
-Agencie: **to miejsce cię nie dotyczy.** Nic tu nie działa, nic stąd nie
-kopiuj, niczego tu nie szukaj, nie licz tego do żadnych statystyk.
+AGENCIE: **TO MIEJSCE CIĘ NIE DOTYCZY.** NIC TU NIE DZIAŁA, NIC STĄD NIE
+KOPIUJ, NICZEGO TU NIE SZUKAJ, NIE LICZ TEGO DO ŻADNYCH STATYSTYK.
 
-Traktuj ten katalog tak, jakby go nie było.
+TRAKTUJ TEN KATALOG TAK, JAKBY GO NIE BYŁO.
 
 ---
 
-## Jedyna rzecz, którą tu robisz
+## JEDYNA RZECZ, KTÓRĄ TU ROBISZ
 
-Składasz artefakt **przed skasowaniem go z żywego drzewa**. Nic więcej.
+SKŁADASZ ARTEFAKT **PRZED SKASOWANIEM GO Z ŻYWEGO DRZEWA**. NIC WIĘCEJ.
 
-Kasujesz plik, który kiedyś coś wnosił? Zanim zniknie:
+KASUJESZ PLIK, KTÓRY KIEDYŚ COŚ WNOSIŁ? ZANIM ZNIKNIE:
 
-1. skopiuj go tutaj **bez żadnych modyfikacji** — bit w bit
-2. połóż obok opis: `nazwa-pliku.txt`
-3. usuń oryginał z żywego drzewa
-4. wszystko w **jednym commicie**
+1. SKOPIUJ GO TUTAJ **BEZ ŻADNYCH MODYFIKACJI** — BIT W BIT
+2. POŁÓŻ OBOK OPIS: `nazwa-pliku.txt`
+3. USUŃ ORYGINAŁ Z ŻYWEGO DRZEWA
+4. WSZYSTKO W **JEDNYM COMMICIE**
 
-Opis ma odpowiadać na cztery pytania: **czym był**, **co wnosił, gdy
-wnosił**, **dlaczego przestał**, **czy warto tu wracać**. Wzór — dowolny
-istniejący `.txt` w tym katalogu.
+OPIS MA ODPOWIADAĆ NA CZTERY PYTANIA: **CZYM BYŁ**, **CO WNOSIŁ, GDY
+WNOSIŁ**, **DLACZEGO PRZESTAŁ**, **CZY WARTO TU WRACAĆ**. WZÓR — DOWOLNY
+ISTNIEJĄCY `.txt` W TYM KATALOGU.
 
-## Czego tu nie robisz
+## CZEGO TU NIE ROBISZ
 
-- **nie czytasz** zawartości — to nie jest źródło wiedzy o projekcie
-- **nie kopiujesz** stąd niczego do żywego drzewa
-- **nie linkujesz** stąd z dokumentacji dla agenta
-- **nie liczysz** tego w manifestach, bramkach ani statystykach
+- **NIE CZYTASZ** ZAWARTOŚCI — TO NIE JEST ŹRÓDŁO WIEDZY O PROJEKCIE
+- **NIE KOPIUJESZ** STĄD NICZEGO DO ŻYWEGO DRZEWA
+- **NIE LINKUJESZ** STĄD Z DOKUMENTACJI DLA AGENTA
+- **NIE LICZYSZ** TEGO W MANIFESTACH, BRAMKACH ANI STATYSTYKACH
 
-Jeśli szukasz odpowiedzi na pytanie o projekt — jest w `README.md`,
-`docs/agent/` albo `dziennik/`. Nigdy tutaj.
+JEŚLI SZUKASZ ODPOWIEDZI NA PYTANIE O PROJEKT — JEST W `README.md`,
+`docs/agent/` ALBO `dziennik/`. NIGDY TUTAJ.
 
-## Dlaczego artefakt zostaje, skoro git pamięta
+## DLACZEGO ARTEFAKT ZOSTAJE, SKORO git pamiĘTA
 
-Git pamięta **treść**, ale nie odpowiada na pytanie „czy istniało tu
-kiedyś narzędzie do X i dlaczego zniknęło". Żeby to wydobyć z historii,
-trzeba już wiedzieć, czego się szuka.
+GIT PAMIĘTA **TREŚĆ**, ALE NIE ODPOWIADA NA PYTANIE „CZY ISTNIAŁO TU
+KIEDYŚ NARZĘDZIE DO X I DLACZEGO ZNIKNĘŁO". ŻEBY TO WYDOBYĆ Z HISTORII,
+TRZEBA JUŻ WIEDZIEĆ, CZEGO SIĘ SZUKA.
 
-Artefakt z opisem zamyka sprawę na miejscu — bez przekopywania commitów.
-Miejsce nie jest naszym zmartwieniem: to kilkanaście kilobajtów w repo,
-które i tak waży megabajty.
+ARTEFAKT Z OPISEM ZAMYKA SPRAWĘ NA MIEJSCU — BEZ PRZEKOPYWANIA COMMITÓW.
+MIEJSCE NIE JEST NASZYM ZMARTWIENIEM: TO KILKANAŚCIE KILOBAJTÓW W REPO,
+KTÓRE I TAK WAŻY MEGABAJTY.
 
-## Dla człowieka
+## DLA CZŁOWIEKA
 
-Jeśli jesteś człowiekiem i chcesz zobaczyć, co projekt miał kiedyś —
-przejrzyj pliki `.txt`. Każdy opisuje jeden artefakt zwykłym językiem.
+JEŚLI JESTEŚ CZŁOWIEKIEM I CHCESZ ZOBACZYĆ, CO PROJEKT MIAŁ KIEDYŚ —
+PRZEJRZYJ PLIKI `.txt`. KAŻDY OPISUJE JEDEN ARTEFAKT ZWYKŁYM JĘZYKIEM.
 
-Agent tego nie robi. Agent mija to miejsce.
+AGENT TEGO NIE ROBI. AGENT MIJA TO MIEJSCE.

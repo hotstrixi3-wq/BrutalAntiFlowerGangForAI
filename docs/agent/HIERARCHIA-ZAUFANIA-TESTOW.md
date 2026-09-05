@@ -1,73 +1,73 @@
-# Hierarchia zaufania testów — od czego zacząć, gdy nie ufasz niczemu
+# HIERARCHIA ZAUFANIA TESTÓW — OD CZEGO ZACZĄĆ, GDY NIE UFASZ NICZEMU
 
-Problem postawiony przez operatora:
+PROBLEM POSTAWIONY PRZEZ OPERATORA:
 
-> „Skoro poprawiłeś testy, to sprawdź pod tym kątem resztę swoich testów.
-> Ustal priorytety, żeby nie testować potencjalnie popsutymi testami.
-> Trzeba jakoś ustalić pierwszy pewny test."
+> „SKORO POPRAWIŁEŚ TESTY, TO SPRAWDŹ POD TYM KĄTEM RESZTĘ SWOICH TESTÓW.
+> USTAL PRIORYTETY, ŻEBY NIE TESTOWAĆ POTENCJALNIE POPSUTYMI TESTAMI.
+> TRZEBA JAKOŚ USTALIĆ PIERWSZY PEWNY TEST."
 
-To jest problem fundamentu. Jeśli test może być zepsuty, to wynik testu
-nie jest dowodem — a użycie zepsutego testu do sprawdzenia innego testu
-tylko przenosi wątpliwość dalej. Potrzebny jest punkt, od którego można
-zacząć, oparty na czymś innym niż zaufanie.
+TO JEST PROBLEM FUNDAMENTU. JEŚLI TEST MOŻE BYĆ ZEPSUTY, TO WYNIK TESTU
+NIE JEST DOWODEM — A UŻYCIE ZEPSUTEGO TESTU DO SPRAWDZENIA INNEGO TESTU
+TYLKO PRZENOSI WĄTPLIWOŚĆ DALEJ. POTRZEBNY JEST PUNKT, OD KTÓREGO MOŻNA
+ZACZĄĆ, OPARTY NA CZYMŚ INNYM NIŻ ZAUFANIE.
 
-Poniżej wynik pomiaru, nie rozumowania.
+PONIŻEJ WYNIK POMIARU, NIE ROZUMOWANIA.
 
 ---
 
-## 1. Metoda: mutacja zamiast opinii
+## 1. METODA: MUTACJA ZAMIAST OPINII
 
-Nie da się ustalić wiarygodności testu przez czytanie go. Jedyna
-mierzalna definicja brzmi:
+NIE DA SIĘ USTALIĆ WIARYGODNOŚCI TESTU PRZEZ CZYTANIE GO. JEDYNA
+MIERZALNA DEFINICJA BRZMI:
 
-> **Test jest wiarygodny wtedy, gdy potrafi OBLAĆ na zepsutym narzędziu.**
-> Test, który przechodzi na narzędziu z wyciętą funkcją, tej funkcji
-> nie testuje — niezależnie od tego, jak wygląda.
+> **TEST JEST WIARYGODNY WTEDY, GDY POTRAFI OBLAĆ NA ZEPSUTYM NARZĘDZIU.**
+> TEST, KTÓRY PRZECHODZI NA NARZĘDZIU Z WYCIĘTĄ FUNKCJĄ, TEJ FUNKCJI
+> NIE TESTUJE — NIEZALEŻNIE OD TEGO, JAK WYGLĄDA.
 
-Wykonanie: kopia repo → wycięcie jednej zdolności narzędzia → uruchomienie
-**wszystkich** testów → zapis, które oblały.
+WYKONANIE: KOPIA REPO → WYCIĘCIE JEDNEJ ZDOLNOŚCI NARZĘDZIA → URUCHOMIENIE
+**WSZYSTKICH** TESTÓW → ZAPIS, KTÓRE OBLAŁY.
 
-## 2. Wynik pomiaru
+## 2. WYNIK POMIARU
 
-| Mutacja (wycięta zdolność) | Kto złapał |
+| MUTACJA (WYCIĘTA ZDOLNOŚĆ) | KTO ZŁAPAŁ |
 |---|---|
-| Pogromca: `klasyfikuj` zwraca zawsze OK | **selftest**, tor, fuzz, T2, T6, T8 |
-| Pogromca: `BLOKOWANE` puste | **selftest**, tor, T2, T8 |
-| Pogromca: `--fix` nic nie robi | **selftest**, T2, T3, T8 |
-| Zagłada: brak ochrony literałów | Z1, Z2, T7, T8 |
-| Zagłada: brak transliteracji | Z1, T4, T7, T8 |
-| Anihilator: brak blokad | T5, T8 |
-| Prokurator: wszystko UMORZONE | T6, T8 |
+| POGROMCA: `klasyfikuj` ZWRACA ZAWSZE OK | **SELFTEST**, TOR, FUZZ, T2, T6, T8 |
+| POGROMCA: `BLOKOWANE` PUSTE | **SELFTEST**, TOR, T2, T8 |
+| POGROMCA: `--fix` NIC NIE ROBI | **SELFTEST**, T2, T3, T8 |
+| ZAGŁADA: BRAK OCHRONY LITERAŁÓW | Z1, Z2, T7, T8 |
+| ZAGŁADA: BRAK TRANSLITERACJI | Z1, T4, T7, T8 |
+| ANIHILATOR: BRAK BLOKAD | T5, T8 |
+| PROKURATOR: WSZYSTKO UMORZONE | T6, T8 |
 
-**Zero mutacji przeszło niezauważenie.** Każda została złapana przez co
-najmniej dwa niezależne testy.
+**ZERO MUTACJI PRZESZŁO NIEZAUWAŻENIE.** KAŻDA ZOSTAŁA ZŁAPANA PRZEZ CO
+NAJMNIEJ DWA NIEZALEŻNE TESTY.
 
-## 3. Pierwszy pewny test: `PogromcaKwiatkow.py --selftest`
+## 3. PIERWSZY PEWNY TEST: `PogromcaKwiatkow.py --selftest`
 
-Wybrany nie dlatego, że „wygląda solidnie", tylko dlatego, że **ma
-najmniej rzeczy, które mogą go zawieść**:
+WYBRANY NIE DLATEGO, ŻE „WYGLĄDA SOLIDNIE", TYLKO DLATEGO, ŻE **MA
+NAJMNIEJ RZECZY, KTÓRE MOGĄ GO ZAWIEŚĆ**:
 
-| Cecha | selftest Pogromcy | typowy turniej (T8) |
+| CECHA | SELFTEST POGROMCY | TYPOWY TURNIEJ (T8) |
 |---|---|---|
-| `subprocess` | **nie** | tak (4×) |
-| zależność od gita | **nie** | tak (4×) |
-| katalogi tymczasowe | **nie** | tak |
-| zależność od innych narzędzi rodziny | **nie** | tak |
-| próbki | **wbudowane w kod** | generowane / z dysku |
-| rozmiar | 76 linii | 300+ linii |
+| `subprocess` | **NIE** | TAK (4×) |
+| ZALEŻNOŚĆ OD GITA | **NIE** | TAK (4×) |
+| KATALOGI TYMCZASOWE | **NIE** | TAK |
+| ZALEŻNOŚĆ OD INNYCH NARZĘDZI RODZINY | **NIE** | TAK |
+| PRÓBKI | **WBUDOWANE W KOD** | GENEROWANE / Z DYSKU |
+| ROZMIAR | 76 LINII | 300+ LINII |
 
-Do tego: złapał **wszystkie trzy** mutacje fundamentu, w tym najcięższą
-(`klasyfikuj` zwraca zawsze OK — czyli całkowita ślepota detektora).
+DO TEGO: ZŁAPAŁ **WSZYSTKIE TRZY** MUTACJE FUNDAMENTU, W TYM NAJCIĘŻSZĄ
+(`klasyfikuj` ZWRACA ZAWSZE OK — CZYLI CAŁKOWITA ŚLEPOTA DETEKTORA).
 
-Próbki są zapisane sekwencjami `\uXXXX` wprost w kodzie, więc nie zależą
-od kodowania pliku, systemu plików ani niczego zewnętrznego. Test albo
-się wykona i da wynik, albo interpreter Pythona jest zepsuty — a wtedy
-i tak nic nie działa.
+PRÓBKI SĄ ZAPISANE SEKWENCJAMI `\uXXXX` WPROST W KODZIE, WIĘC NIE ZALEŻĄ
+OD KODOWANIA PLIKU, SYSTEMU PLIKÓW ANI NICZEGO ZEWNĘTRZNEGO. TEST ALBO
+SIĘ WYKONA I DA WYNIK, ALBO INTERPRETER PYTHONA JEST ZEPSUTY — A WTEDY
+I TAK NIC NIE DZIAŁA.
 
-## 4. Kolejność uruchamiania (od najpewniejszego)
+## 4. KOLEJNOŚĆ URUCHAMIANIA (OD NAJPEWNIEJSZEGO)
 
-Gdy nie ufasz niczemu, idź od dołu piramidy w górę. Jeśli poziom oblewa,
-**nie ma sensu uruchamiać wyższych** — będą mierzyć zepsutym przyrządem.
+GDY NIE UFASZ NICZEMU, IDŹ OD DOŁU PIRAMIDY W GÓRĘ. JEŚLI POZIOM OBLEWA,
+**NIE MA SENSU URUCHAMIAĆ WYŻSZYCH** — BĘDĄ MIERZYĆ ZEPSUTYM PRZYRZĄDEM.
 
 ```
 POZIOM 0  PogromcaKwiatkow.py --selftest
@@ -91,72 +91,72 @@ POZIOM 5  T7 (zwiad), T8 (bramki)
           i od poprawnosci wszystkich warstw nizej
 ```
 
-## 5. Dlaczego to nie jest błędne koło
+## 5. DLACZEGO TO NIE JEST BŁĘDNE KOŁO
 
-Zarzut: „testy sprawdzają narzędzia, a narzędzia obsługują testy".
+ZARZUT: „TESTY SPRAWDZAJĄ NARZĘDZIA, A NARZĘDZIA OBSŁUGUJĄ TESTY".
 
-Odpowiedź: poziom 0 **nie używa niczego z repo poza własnym plikiem**.
-Nie woła innych narzędzi, nie czyta korpusu, nie potrzebuje gita. Jego
-poprawność zależy wyłącznie od interpretera Pythona — czyli od czegoś
-spoza tego repozytorium. To jest wyjście z pętli.
+ODPOWIEDŹ: POZIOM 0 **NIE UŻYWA NICZEGO Z REPO POZA WŁASNYM PLIKIEM**.
+NIE WOŁA INNYCH NARZĘDZI, NIE CZYTA KORPUSU, NIE POTRZEBUJE GITA. JEGO
+POPRAWNOŚĆ ZALEŻY WYŁĄCZNIE OD INTERPRETERA PYTHONA — CZYLI OD CZEGOŚ
+SPOZA TEGO REPOZYTORIUM. TO JEST WYJŚCIE Z PĘTLI.
 
-Każdy kolejny poziom dokłada dokładnie jedną klasę zależności, więc gdy
-coś oblewa, wiadomo, **gdzie szukać**: w warstwie, która właśnie doszła.
+KAŻDY KOLEJNY POZIOM DOKŁADA DOKŁADNIE JEDNĄ KLASĘ ZALEŻNOŚCI, WIĘC GDY
+COŚ OBLEWA, WIADOMO, **GDZIE SZUKAĆ**: W WARSTWIE, KTÓRA WŁAŚNIE DOSZŁA.
 
-## 6. Znane słabości, które ta hierarchia ujawnia
+## 6. ZNANE SŁABOŚCI, KTÓRE TA HIERARCHIA UJAWNIA
 
-**Poziom 5 jest najbardziej kruchy i to nie jest wada do naprawienia** —
-T7 i T8 muszą używać `subprocess` i gita, bo dokładnie to sprawdzają.
-Trzeba tylko pamiętać, że ich czerwony wynik może oznaczać problem
-w otoczeniu, nie w narzędziu. Przykład zmierzony w tej sesji: T8 dawał
-fałszywy alarm, bo kopiował repo bez `.git`, a bramka od v1.1.0 słusznie
-odmawia pracy poza repozytorium.
+**POZIOM 5 JEST NAJBARDZIEJ KRUCHY I TO NIE JEST WADA DO NAPRAWIENIA** —
+T7 I T8 MUSZĄ UŻYWAĆ `subprocess` I GITA, BO DOKŁADNIE TO SPRAWDZAJĄ.
+TRZEBA TYLKO PAMIĘTAĆ, ŻE ICH CZERWONY WYNIK MOŻE OZNACZAĆ PROBLEM
+W OTOCZENIU, NIE W NARZĘDZIU. PRZYKŁAD ZMIERZONY W TEJ SESJI: T8 DAWAŁ
+FAŁSZYWY ALARM, BO KOPIOWAŁ REPO BEZ `.git`, A BRAMKA OD V1.1.0 SŁUSZNIE
+ODMAWIA PRACY POZA REPOZYTORIUM.
 
-**Sam pomiar mutacyjny też jest testem** i podlega tej samej zasadzie.
-Jego wiarygodność opiera się na tym, że sprawdza obserwowalny fakt
-(kod wyjścia zmienił się z 0 na 1), a nie na interpretacji.
+**SAM POMIAR MUTACYJNY TEŻ JEST TESTEM** I PODLEGA TEJ SAMEJ ZASADZIE.
+JEGO WIARYGODNOŚĆ OPIERA SIĘ NA TYM, ŻE SPRAWDZA OBSERWOWALNY FAKT
+(KOD WYJŚCIA ZMIENIŁ SIĘ Z 0 NA 1), A NIE NA INTERPRETACJI.
 
-## 7. Dwie zasady, które z tego wynikają
+## 7. DWIE ZASADY, KTÓRE Z TEGO WYNIKAJĄ
 
-**Nie sprawdzaj kodu wyjścia w oderwaniu od treści.** Pierwsza wersja T8
-przespała 2 z 3 sabotaży, bo `exit=1` padał z innego powodu niż badany
-(dopisanie wpisu do dziennika samo wywołuje „RUSZONY CUDZY DZIENNIK").
-Poprawne sprawdzenie brzmi:
+**NIE SPRAWDZAJ KODU WYJŚCIA W ODERWANIU OD TREŚCI.** PIERWSZA WERSJA T8
+PRZESPAŁA 2 Z 3 SABOTAŻY, BO `exit=1` PADAŁ Z INNEGO POWODU NIŻ BADANY
+(DOPISANIE WPISU DO DZIENNIKA SAMO WYWOŁUJE „RUSZONY CUDZY DZIENNIK").
+POPRAWNE SPRAWDZENIE BRZMI:
 
 ```python
 if kod != 1 or "brakuje pola" not in out:
 ```
 
-**Po napisaniu testu zepsuj narzędzie i sprawdź, czy test oblewa.**
-Jeśli nie oblewa — test jest dekoracją. W tej sesji zdarzyło się to
-dwukrotnie: T5 przespał 2 z 4 sabotaży, T8 przespał 2 z 3.
+**PO NAPISANIU TESTU ZEPSUJ NARZĘDZIE I SPRAWDŹ, CZY TEST OBLEWA.**
+JEŚLI NIE OBLEWA — TEST JEST DEKORACJĄ. W TEJ SESJI ZDARZYŁO SIĘ TO
+DWUKROTNIE: T5 PRZESPAŁ 2 Z 4 SABOTAŻY, T8 PRZESPAŁ 2 Z 3.
 
 ---
 
-## 8. Dwa pomiary, nie jeden
+## 8. DWA POMIARY, NIE JEDEN
 
-Pomiar globalny (`pomiar-mutacyjny.py`) pyta: **czy ktokolwiek złapał?**
-To za mało. Rozkład okazał się bardzo nierówny:
+POMIAR GLOBALNY (`pomiar-mutacyjny.py`) PYTA: **CZY KTOKOLWIEK ZŁAPAŁ?**
+TO ZA MAŁO. ROZKŁAD OKAZAŁ SIĘ BARDZO NIERÓWNY:
 
-| Turniej | Ile z 9 mutacji złapał |
+| TURNIEJ | ILE Z 9 MUTACJI ZŁAPAŁ |
 |---|---|
-| T8 bramki | 6 |
+| T8 BRAMKI | 6 |
 | T2, T7 | 3 |
-| T1 tor, Z1 | 2 |
-| fuzz, T3, Z2, T4, T5, T6 | 1 |
-| luka-fstring | **0** |
+| T1 TOR, Z1 | 2 |
+| FUZZ, T3, Z2, T4, T5, T6 | 1 |
+| LUKA-FSTRING | **0** |
 
-Zero przy `luka-fstring` nie znaczyło, że jest zepsuta — po prostu żadna
-z dziewięciu mutacji nie celowała w jej obszar. Ale gdyby była
-dekoracją, pomiar globalny **też pokazałby zero** i nie dałoby się
-tego odróżnić.
+ZERO PRZY `luka-fstring` NIE ZNACZYŁO, ŻE JEST ZEPSUTA — PO PROSTU ŻADNA
+Z DZIEWIĘCIU MUTACJI NIE CELOWAŁA W JEJ OBSZAR. ALE GDYBY BYŁA
+DEKORACJĄ, POMIAR GLOBALNY **TEŻ POKAZAŁBY ZERO** I NIE DAŁOBY SIĘ
+TEGO ODRÓŻNIĆ.
 
-Dlatego drugi pomiar (`pomiar-per-turniej.py`) pyta inaczej: **czy TEN
-turniej łapie to, co deklaruje w swoich kategoriach?** Dla każdej pary
-(turniej, kategoria) wycina wadę, którą ta kategoria ma wykrywać,
-i uruchamia **wyłącznie ten turniej**.
+DLATEGO DRUGI POMIAR (`pomiar-per-turniej.py`) PYTA INACZEJ: **CZY TEN
+TURNIEJ ŁAPIE TO, CO DEKLARUJE W SWOICH KATEGORIACH?** DLA KAŻDEJ PARY
+(TURNIEJ, KATEGORIA) WYCINA WADĘ, KTÓRĄ TA KATEGORIA MA WYKRYWAĆ,
+I URUCHAMIA **WYŁĄCZNIE TEN TURNIEJ**.
 
-Wynik 2026-09-05: **16 prób, 0 przespanych.**
+WYNIK 2026-09-05: **16 PRÓB, 0 PRZESPANYCH.**
 
 ```
 luka-fstring        dowod luki               tak
@@ -177,17 +177,17 @@ T2-sprawdzajacy     T2 wektory               tak
 Z1-wykrywania       Z1 wykrywanie            tak
 ```
 
-To ta sama pułapka co przy kodzie wyjścia: obserwujesz skutek, który
-ma wiele możliwych przyczyn. Turniej może przechodzić pomiar globalny
-**cudzym sukcesem**.
+TO TA SAMA PUŁAPKA CO PRZY KODZIE WYJŚCIA: OBSERWUJESZ SKUTEK, KTÓRY
+MA WIELE MOŻLIWYCH PRZYCZYN. TURNIEJ MOŻE PRZECHODZIĆ POMIAR GLOBALNY
+**CUDZYM SUKCESEM**.
 
-## Jak to uruchomić
+## JAK TO URUCHOMIĆ
 
-Pomiar mutacyjny nie jest częścią zwykłej regresji (trwa ~90 s i psuje
-kopię repo). Uruchamiaj go, gdy:
+POMIAR MUTACYJNY NIE JEST CZĘŚCIĄ ZWYKŁEJ REGRESJI (TRWA ~90 S I PSUJE
+KOPIĘ REPO). URUCHAMIAJ GO, GDY:
 
-* dodajesz nowy turniej — żeby sprawdzić, czy w ogóle coś łapie,
-* podejrzewasz, że test jest dekoracją,
-* przed wydaniem, jako kontrola całości.
+* DODAJESZ NOWY TURNIEJ — ŻEBY SPRAWDZIĆ, CZY W OGÓLE COŚ ŁAPIE,
+* PODEJRZEWASZ, ŻE TEST JEST DEKORACJĄ,
+* PRZED WYDANIEM, JAKO KONTROLA CAŁOŚCI.
 
-Kod: `dev/turnieje/pomiar-mutacyjny.py`
+KOD: `dev/turnieje/pomiar-mutacyjny.py`

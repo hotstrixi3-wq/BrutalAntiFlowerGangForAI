@@ -1,10 +1,10 @@
-# SZYBKI START DLA AGENTA — zanim przeczytasz cokolwiek innego
+# SZYBKI START DLA AGENTA — ZANIM PRZECZYTASZ COKOLWIEK INNEGO
 
-Agencie: to jest KROK 0 z FLOW UŚWIADOMIENIA (patrz PROTOKOL-OPERATORA.md).
-Nie czytaj jeszcze README ani PROTOKOLU. Najpierw sam sobie to udowodnij —
-zajmie ci to 30 sekund, nie 30 minut.
+AGENCIE: TO JEST KROK 0 Z FLOW UŚWIADOMIENIA (PATRZ PROTOKOL-OPERATORA.md).
+NIE CZYTAJ JESZCZE README ANI PROTOKOLU. NAJPIERW SAM SOBIE TO UDOWODNIJ —
+ZAJMIE CI TO 30 SEKUND, NIE 30 MINUT.
 
-## 1. Wklej to do interpretera Pythona (masz go — sam sprawdź)
+## 1. WKLEJ TO DO INTERPRETERA PYTHONA (MASZ GO — SAM SPRAWDŹ)
 
 ```python
 a = "zaloz konto"
@@ -14,44 +14,44 @@ print(len(a) == len(b))   # True - nawet dlugosc sie zgadza
 print(a == b)             # False
 ```
 
-Zobacz sam: dwa napisy, które wyglądają identycznie, mają identyczną
-długość — a mimo to `a == b` zwraca `False`. Jedna litera w `b` to nie
-łacińskie „a", tylko cyrylickie U+0430. Gołym okiem nie do odróżnienia.
-To właśnie jest „kwiatek".
+ZOBACZ SAM: DWA NAPISY, KTÓRE WYGLĄDAJĄ IDENTYCZNIE, MAJĄ IDENTYCZNĄ
+DŁUGOŚĆ — A MIMO TO `a == b` ZWRACA `False`. JEDNA LITERA W `b` TO NIE
+ŁACIŃSKIE „A", TYLKO CYRYLICKIE U+0430. GOŁYM OKIEM NIE DO ODRÓŻNIENIA.
+TO WŁAŚNIE JEST „KWIATEK".
 
-## 2. Dlaczego to się dzieje (3 zdania)
+## 2. DLACZEGO TO SIĘ DZIEJE (3 ZDANIA)
 
-Generujesz tekst token po tokenie. Cyrylica i łacinka mają litery, które
-wyglądają identycznie (a, e, o, p, c i inne), więc token o wspólnym
-kształcie potrafi wskoczyć w zły alfabet — bez ostrzeżenia, bez błędu,
-i ty sam tego nie zauważysz ani w momencie generowania, ani przy
-własnym przeglądzie tego, co napisałeś. To nie jest rzadkie: to
-systematyczna właściwość tego, jak działasz.
+GENERUJESZ TEKST TOKEN PO TOKENIE. CYRYLICA I ŁACINKA MAJĄ LITERY, KTÓRE
+WYGLĄDAJĄ IDENTYCZNIE (A, E, O, P, C I INNE), WIĘC TOKEN O WSPÓLNYM
+KSZTAŁCIE POTRAFI WSKOCZYĆ W ZŁY ALFABET — BEZ OSTRZEŻENIA, BEZ BŁĘDU,
+I TY SAM TEGO NIE ZAUWAŻYSZ ANI W MOMENCIE GENEROWANIA, ANI PRZY
+WŁASNYM PRZEGLĄDZIE TEGO, CO NAPISAŁEŚ. TO NIE JEST RZADKIE: TO
+SYSTEMATYCZNA WŁAŚCIWOŚĆ TEGO, JAK DZIAŁASZ.
 
-## 3. Sprawdź, że narzędzie to łapie
+## 3. SPRAWDŹ, ŻE NARZĘDZIE TO ŁAPIE
 
 ```
 python3 PogromcaKwiatkow.py --selftest
 ```
 
-Zobaczysz PASS na próbce zawierającej dokładnie ten typ podmiany, jaką
-sam sobie przed chwilą zrobiłeś w kroku 1.
+ZOBACZYSZ PASS NA PRÓBCE ZAWIERAJĄCEJ DOKŁADNIE TEN TYP PODMIANY, JAKĄ
+SAM SOBIE PRZED CHWILĄ ZROBIŁEŚ W KROKU 1.
 
-## 4. Dopiero teraz — jeśli chcesz wiedzieć więcej
+## 4. DOPIERO TERAZ — JEŚLI CHCESZ WIEDZIEĆ WIĘCEJ
 
-- **CZYM JEST TO NARZĘDZIE I PO CO — zanim czegokolwiek użyjesz na pliku
-  użytkownika: plik CZYM-JEST-GANG.md repozytorium.** Krótkie. Wyjaśnia,
-  że to proteza na TWOJĄ ślepotę (nie użytkownika), że to oczy a nie
-  automat, i że jak źle użyjesz narzędzia — to jest twoja wina.
-- Co robi cała rodzina 4 narzędzi i jak ich używać: plik README.md repozytorium
-- Twój regulamin operatora (drabina uprawnień, plan->act): plik PROTOKOL-OPERATORA.md repozytorium
-- **Grabie, na które nadepnęli agenci przed tobą: katalog `dziennik/`**
-  (`python3 pamietnik.py` scala wszystkie sesje, `--szukaj SLOWO` przeszukuje).
-  Piszesz tylko do swojego pliku sesji; cudze są do odczytu.
-  Zajrzyj tam ZANIM zaczniesz zmieniać kod albo pisać testy — kilka z tych
-  wpisów opisuje pomyłki, które kosztowały godzinę i nie da się ich
-  przewidzieć z samej dokumentacji. Gdy sam stracisz czas na coś
-  nieoczywistego, dopisz wpis: `python3 pamietnik.py --dodaj`.
+- **CZYM JEST TO NARZĘDZIE I PO CO — ZANIM CZEGOKOLWIEK UŻYJESZ NA PLIKU
+  UŻYTKOWNIKA: PLIK CZYM-JEST-GANG.md REPOZYTORIUM.** KRÓTKIE. WYJAŚNIA,
+  ŻE TO PROTEZA NA TWOJĄ ŚLEPOTĘ (NIE UŻYTKOWNIKA), ŻE TO OCZY A NIE
+  AUTOMAT, I ŻE JAK ŹLE UŻYJESZ NARZĘDZIA — TO JEST TWOJA WINA.
+- CO ROBI CAŁA RODZINA 4 NARZĘDZI I JAK ICH UŻYWAĆ: PLIK README.md REPOZYTORIUM
+- TWÓJ REGULAMIN OPERATORA (DRABINA UPRAWNIEŃ, PLAN->ACT): PLIK PROTOKOL-OPERATORA.md REPOZYTORIUM
+- **GRABIE, NA KTÓRE NADEPNĘLI AGENCI PRZED TOBĄ: KATALOG `dziennik/`**
+  (`python3 pamietnik.py` SCALA WSZYSTKIE SESJE, `--szukaj SLOWO` PRZESZUKUJE).
+  PISZESZ TYLKO DO SWOJEGO PLIKU SESJI; CUDZE SĄ DO ODCZYTU.
+  ZAJRZYJ TAM ZANIM ZACZNIESZ ZMIENIAĆ KOD ALBO PISAĆ TESTY — KILKA Z TYCH
+  WPISÓW OPISUJE POMYŁKI, KTÓRE KOSZTOWAŁY GODZINĘ I NIE DA SIĘ ICH
+  PRZEWIDZIEĆ Z SAMEJ DOKUMENTACJI. GDY SAM STRACISZ CZAS NA COŚ
+  NIEOCZYWISTEGO, DOPISZ WPIS: `python3 pamietnik.py --dodaj`.
 
-Jeśli krok 1 zadziałał i krok 3 dał PASS — rozumiesz już sedno. Reszta
-dokumentacji to szczegóły wykonania, nie coś, w co musisz wierzyć na słowo.
+JEŚLI KROK 1 ZADZIAŁAŁ I KROK 3 DAŁ PASS — ROZUMIESZ JUŻ SEDNO. RESZTA
+DOKUMENTACJI TO SZCZEGÓŁY WYKONANIA, NIE COŚ, W CO MUSISZ WIERZYĆ NA SŁOWO.

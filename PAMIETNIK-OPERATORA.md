@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **50 wpisow** z **1 sesji**.
+Stan: **51 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -158,6 +158,9 @@ Stan: **50 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Dokumentacja klamie liczbami, ktore sama powtarza**
   - Nie wpisuj do dokumentacji liczb, ktore rosna - one same sie zdezaktualizuja. Zamiast '44 wpisy' napisz, ze liczbe pokaze komenda. Jesli liczba MUSI byc (bo jest dowodem, np. '9/9 mutacji zlapanych'),
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Wielkie litery w dokumentacji: proza tak, komendy nigdy**
+  - Zamieniaj TYLKO proze. Chron: bloki %s, kod inline, cele linkow, nazwy plikow (po rozszerzeniu), sciezki z ukosnikiem, flagi --nazwa, notacje <U+XXXX> i \uXXXX, identyfikatory_z_podkresleniem, CamelCa
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

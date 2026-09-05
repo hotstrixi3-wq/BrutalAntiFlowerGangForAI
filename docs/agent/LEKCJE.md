@@ -1,176 +1,176 @@
-# Lekcje — wiedza o narzędziu, nie o sesji
+# LEKCJE — WIEDZA O NARZĘDZIU, NIE O SESJI
 
-Agencie: to jest destylat z pracy nad tym repozytorium. **Jedzie z domem
-Gangu** — jeśli kopiujesz narzędzie do siebie, kopiujesz też ten plik.
-Nie ma tu nic o cudzej sesji, tylko o samym narzędziu i o pułapkach,
-w które wpada się przy pracy z nim.
+AGENCIE: TO JEST DESTYLAT Z PRACY NAD TYM REPOZYTORIUM. **JEDZIE Z DOMEM
+GANGU** — JEŚLI KOPIUJESZ NARZĘDZIE DO SIEBIE, KOPIUJESZ TEŻ TEN PLIK.
+NIE MA TU NIC O CUDZEJ SESJI, TYLKO O SAMYM NARZĘDZIU I O PUŁAPKACH,
+W KTÓRE WPADA SIĘ PRZY PRACY Z NIM.
 
-Liczby są prawdziwe i zostawione celowo. Bez nich to teoria, z nimi
-widać skalę problemu.
+LICZBY SĄ PRAWDZIWE I ZOSTAWIONE CELOWO. BEZ NICH TO TEORIA, Z NIMI
+WIDAĆ SKALĘ PROBLEMU.
 
-Czym to **nie** jest: `dziennik/` to pamięć konkretnej sesji, a
-`STAN-SESJI.md` to jej stan. Tamte zostają u autora. To tutaj jest dla
-każdego.
+CZYM TO **NIE** JEST: `dziennik/` TO PAMIĘĆ KONKRETNEJ SESJI, A
+`STAN-SESJI.md` TO JEJ STAN. TAMTE ZOSTAJĄ U AUTORA. TO TUTAJ JEST DLA
+KAŻDEGO.
 
 ---
 
-## 1. Cicha awaria — jeden wzorzec pod wszystkim
+## 1. CICHA AWARIA — JEDEN WZORZEC POD WSZYSTKIM
 
-Zanim przeczytasz szczegóły, zapamiętaj wzorzec, bo powtarza się
-w każdej kategorii:
+ZANIM PRZECZYTASZ SZCZEGÓŁY, ZAPAMIĘTAJ WZORZEC, BO POWTARZA SIĘ
+W KAŻDEJ KATEGORII:
 
-> **Coś raportuje sukces, a sukcesu nie ma.** Nie ma błędu, nie ma
-> ostrzeżenia. Jest cisza, którą łatwo wziąć za „w porządku".
+> **COŚ RAPORTUJE SUKCES, A SUKCESU NIE MA.** NIE MA BŁĘDU, NIE MA
+> OSTRZEŻENIA. JEST CISZA, KTÓRĄ ŁATWO WZIĄĆ ZA „W PORZĄDKU".
 
-Zmierzone przykłady z tego repozytorium:
+ZMIERZONE PRZYKŁADY Z TEGO REPOZYTORIUM:
 
-| Co mówiło „OK" | Co było naprawdę |
+| CO MÓWIŁO „OK" | CO BYŁO NAPRAWDĘ |
 |---|---|
-| `compile()` przeszedł | program padał w runtime (`NameError`) |
-| turniej „0 popsutych na 390 plikach" | psuł co trzeci realny plik Pythona |
-| test „WSZYSTKO ZDANE" | nie umiał oblać — nic nie mierzył |
-| bramka „0 plików, zero kwiatków" | nie znalazła żadnego pliku do sprawdzenia |
-| `git log` pokazywał jeden commit | klon był płytki, historia istniała |
-| Prokurator „decyzja: ZAGŁADA" | plik nigdy nie został wyczyszczony |
+| `compile()` PRZESZEDŁ | PROGRAM PADAŁ W RUNTIME (`NameError`) |
+| TURNIEJ „0 POPSUTYCH NA 390 PLIKACH" | PSUŁ CO TRZECI REALNY PLIK PYTHONA |
+| TEST „WSZYSTKO ZDANE" | NIE UMIAŁ OBLAĆ — NIC NIE MIERZYŁ |
+| BRAMKA „0 PLIKÓW, ZERO KWIATKÓW" | NIE ZNALAZŁA ŻADNEGO PLIKU DO SPRAWDZENIA |
+| `git log` POKAZYWAŁ JEDEN COMMIT | KLON BYŁ PŁYTKI, HISTORIA ISTNIAŁA |
+| PROKURATOR „DECYZJA: ZAGŁADA" | PLIK NIGDY NIE ZOSTAŁ WYCZYSZCZONY |
 
-**Wniosek operacyjny:** brak alarmu traktuj jak brak informacji, dopóki
-nie wiesz, że alarm w ogóle działa.
+**WNIOSEK OPERACYJNY:** BRAK ALARMU TRAKTUJ JAK BRAK INFORMACJI, DOPÓKI
+NIE WIESZ, ŻE ALARM W OGÓLE DZIAŁA.
 
 ---
 
-## 2. Pisanie testów
+## 2. PISANIE TESTÓW
 
-### Test, który nie umie oblać, jest dekoracją
+### TEST, KTÓRY NIE UMIE OBLAĆ, JEST DEKORACJĄ
 
-Jedyna mierzalna definicja wiarygodności testu:
+JEDYNA MIERZALNA DEFINICJA WIARYGODNOŚCI TESTU:
 
-> Test jest wiarygodny wtedy, gdy **przy zepsutym narzędziu OBLEWA**.
+> TEST JEST WIARYGODNY WTEDY, GDY **PRZY ZEPSUTYM NARZĘDZIU OBLEWA**.
 
-Po napisaniu testu zepsuj narzędzie i sprawdź, czy krzyknie. W tym
-repozytorium dwa razy okazało się, że nowy turniej jest dekoracją:
-jeden przespał **2 z 4** sabotaży, drugi **2 z 3**.
+PO NAPISANIU TESTU ZEPSUJ NARZĘDZIE I SPRAWDŹ, CZY KRZYKNIE. W TYM
+REPOZYTORIUM DWA RAZY OKAZAŁO SIĘ, ŻE NOWY TURNIEJ JEST DEKORACJĄ:
+JEDEN PRZESPAŁ **2 Z 4** SABOTAŻY, DRUGI **2 Z 3**.
 
-Narzędzia: `dev/turnieje/pomiar-mutacyjny.py` (czy w pokryciu są dziury),
-`pomiar-per-turniej.py` (czy dana kategoria cokolwiek pilnuje).
+NARZĘDZIA: `dev/turnieje/pomiar-mutacyjny.py` (CZY W POKRYCIU SĄ DZIURY),
+`pomiar-per-turniej.py` (CZY DANA KATEGORIA COKOLWIEK PILNUJE).
 
-### Nie sprawdzaj samego kodu wyjścia
+### NIE SPRAWDZAJ SAMEGO KODU WYJŚCIA
 
-`exit=1` mówi „coś jest nie tak", nie „to konkretne jest nie tak".
-Przykład: test dopisywał wpis do dziennika i sprawdzał `exit`. Kod
-wyjścia był poprawny — ale z **innego powodu** (dopisanie wpisu samo
-w sobie zmienia plik i wywołuje inny alarm). Test przechodziłby nawet
-z całkowicie wyłączoną kontrolą, którą miał badać.
+`exit=1` MÓWI „COŚ JEST NIE TAK", NIE „TO KONKRETNE JEST NIE TAK".
+PRZYKŁAD: TEST DOPISYWAŁ WPIS DO DZIENNIKA I SPRAWDZAŁ `exit`. KOD
+WYJŚCIA BYŁ POPRAWNY — ALE Z **INNEGO POWODU** (DOPISANIE WPISU SAMO
+W SOBIE ZMIENIA PLIK I WYWOŁUJE INNY ALARM). TEST PRZECHODZIŁBY NAWET
+Z CAŁKOWICIE WYŁĄCZONĄ KONTROLĄ, KTÓRĄ MIAŁ BADAĆ.
 
-Poprawnie:
+POPRAWNIE:
 
 ```python
 if kod != 1 or "brakuje pola" not in out:
 ```
 
-### Pomiar globalny nie wystarcza
+### POMIAR GLOBALNY NIE WYSTARCZA
 
-„Czy ktokolwiek złapał mutację" to za słabe pytanie. Rozkład bywa bardzo
-nierówny — w pomiarze na tym repo jeden turniej złapał 6 z 9 mutacji,
-a inny **zero**. Zero nie znaczyło, że jest zepsuty; żadna mutacja nie
-celowała w jego obszar. Ale gdyby **był** dekoracją, wynik byłby
-identyczny i nie dałoby się tego odróżnić.
+„CZY KTOKOLWIEK ZŁAPAŁ MUTACJĘ" TO ZA SŁABE PYTANIE. ROZKŁAD BYWA BARDZO
+NIERÓWNY — W POMIARZE NA TYM REPO JEDEN TURNIEJ ZŁAPAŁ 6 Z 9 MUTACJI,
+A INNY **ZERO**. ZERO NIE ZNACZYŁO, ŻE JEST ZEPSUTY; ŻADNA MUTACJA NIE
+CELOWAŁA W JEGO OBSZAR. ALE GDYBY **BYŁ** DEKORACJĄ, WYNIK BYŁBY
+IDENTYCZNY I NIE DAŁOBY SIĘ TEGO ODRÓŻNIĆ.
 
-Dlatego dla każdej pary (test, kategoria) wycinaj wadę, którą ta
-kategoria ma wykrywać, i uruchamiaj **wyłącznie ten test**.
+DLATEGO DLA KAŻDEJ PARY (TEST, KATEGORIA) WYCINAJ WADĘ, KTÓRĄ TA
+KATEGORIA MA WYKRYWAĆ, I URUCHAMIAJ **WYŁĄCZNIE TEN TEST**.
 
-### Test nie może budować próbek narzędziem, które testuje
+### TEST NIE MOŻE BUDOWAĆ PRÓBEK NARZĘDZIEM, KTÓRE TESTUJE
 
-Najbardziej podstępna pułapka. Jeśli test pyta badany moduł „gdzie wolno
-skazić" albo „jakie znaki są odwracalne", to **każda wada narzędzia
-automatycznie usuwa z testu przypadek, który by ją wykrył**.
+NAJBARDZIEJ PODSTĘPNA PUŁAPKA. JEŚLI TEST PYTA BADANY MODUŁ „GDZIE WOLNO
+SKAZIĆ" ALBO „JAKIE ZNAKI SĄ ODWRACALNE", TO **KAŻDA WADA NARZĘDZIA
+AUTOMATYCZNIE USUWA Z TESTU PRZYPADEK, KTÓRY BY JĄ WYKRYŁ**.
 
-Zmierzone: po oślepieniu narzędzia na cyrylicę zbiór znaków testowych
-skurczył się z 1010 do 962 pozycji — cyrylica z niego wypadła, test
-przestał jej używać i meldował 51/51 na zepsutym narzędziu. **Sabotaż
-sam się ukrył.**
+ZMIERZONE: PO OŚLEPIENIU NARZĘDZIA NA CYRYLICĘ ZBIÓR ZNAKÓW TESTOWYCH
+SKURCZYŁ SIĘ Z 1010 DO 962 POZYCJI — CYRYLICA Z NIEGO WYPADŁA, TEST
+PRZESTAŁ JEJ UŻYWAĆ I MELDOWAŁ 51/51 NA ZEPSUTYM NARZĘDZIU. **SABOTAŻ
+SAM SIĘ UKRYŁ.**
 
-Dane wejściowe testu trzymaj w **stałej liście w kodzie testu**.
+DANE WEJŚCIOWE TESTU TRZYMAJ W **STAŁEJ LIŚCIE W KODZIE TESTU**.
 
-### Skażenie testowe musi być odwracalne
+### SKAŻENIE TESTOWE MUSI BYĆ ODWRACALNE
 
-Jeśli podmienisz literę na znak, który transliteruje się na **inną**
-literę (cyrylickie `<U+0441>` daje `s`, nie `c`), niszczysz informację **przed**
-testem. Żadne narzędzie jej nie odtworzy — mierzysz własny błąd.
+JEŚLI PODMIENISZ LITERĘ NA ZNAK, KTÓRY TRANSLITERUJE SIĘ NA **INNĄ**
+LITERĘ (CYRYLICKIE `<U+0441>` DAJE `s`, NIE `c`), NISZCZYSZ INFORMACJĘ **PRZED**
+TESTEM. ŻADNE NARZĘDZIE JEJ NIE ODTWORZY — MIERZYSZ WŁASNY BŁĄD.
 
-Zmierzone: lista 21 par litera-homoglif, z czego 10 nieodwracalnych,
-dała **33 fałszywe alarmy** na zdrowym narzędziu.
+ZMIERZONE: LISTA 21 PAR LITERA-HOMOGLIF, Z CZEGO 10 NIEODWRACALNYCH,
+DAŁA **33 FAŁSZYWE ALARMY** NA ZDROWYM NARZĘDZIU.
 
-Buduj zbiór **wiernych** homoglifów: takich, dla których funkcja zamiany
-zwraca dokładnie oryginalną literę ASCII. Jest ich około 52.
+BUDUJ ZBIÓR **WIERNYCH** HOMOGLIFÓW: TAKICH, DLA KTÓRYCH FUNKCJA ZAMIANY
+ZWRACA DOKŁADNIE ORYGINALNĄ LITERĘ ASCII. JEST ICH OKOŁO 52.
 
-### `compile()` to za słabe kryterium
+### `compile()` TO ZA SŁABE KRYTERIUM
 
-Obie poważne klasy błędów, jakie te narzędzia potrafią wprowadzić,
-`compile()` **przechodzą**:
+OBIE POWAŻNE KLASY BŁĘDÓW, JAKIE TE NARZĘDZIA POTRAFIĄ WPROWADZIĆ,
+`compile()` **PRZECHODZĄ**:
 
-* rozjazd nazwy (definicja naprawiona, użycie nie) → `NameError`
-* niespójność identyfikatorów → `AttributeError`
+* ROZJAZD NAZWY (DEFINICJA NAPRAWIONA, UŻYCIE NIE) → `NameError`
+* NIESPÓJNOŚĆ IDENTYFIKATORÓW → `AttributeError`
 
-Składnia zostaje poprawna, program pada dopiero przy uruchomieniu.
-Właściwe kryterium to **uruchom i porównaj wyjście** — wzór:
+SKŁADNIA ZOSTAJE POPRAWNA, PROGRAM PADA DOPIERO PRZY URUCHOMIENIU.
+WŁAŚCIWE KRYTERIUM TO **URUCHOM I PORÓWNAJ WYJŚCIE** — WZÓR:
 `dev/turnieje/turniej-4-runtime.py`.
 
-### Wykrycie to za mało — sprawdzaj, na CO zamienił
+### WYKRYCIE TO ZA MAŁO — SPRAWDZAJ, NA CO ZAMIENIŁ
 
-Test pytający „czy zgłosił skażenie" i „czy plik jest czysty" przepuści
-narzędzie, które **usuwa** znak zamiast go transliterować:
-`c<U+043E>nter` -> `cnter` zamiast `conter`. Plik czysty, kompiluje się, a nazwa
-zmiennej po cichu inna.
+TEST PYTAJĄCY „CZY ZGŁOSIŁ SKAŻENIE" I „CZY PLIK JEST CZYSTY" PRZEPUŚCI
+NARZĘDZIE, KTÓRE **USUWA** ZNAK ZAMIAST GO TRANSLITEROWAĆ:
+`c<U+043E>nter` -> `cnter` ZAMIAST `conter`. PLIK CZYSTY, KOMPILUJE SIĘ, A NAZWA
+ZMIENNEJ PO CICHU INNA.
 
-Zawsze porównuj z **dokładnym oczekiwanym tekstem**.
+ZAWSZE PORÓWNUJ Z **DOKŁADNYM OCZEKIWANYM TEKSTEM**.
 
-### Amunicja syntetyczna omija konstrukcje z prawdziwego kodu
+### AMUNICJA SYNTETYCZNA OMIJA KONSTRUKCJE Z PRAWDZIWEGO KODU
 
-Generatory próbek pisze się „z głowy", a głowa produkuje proste
-przypadki. Zmierzone: **żadna** z ośmiu próbek turniejowych nie
-zawierała f-stringa ze zmienną — a taki f-string występuje w **58 ze 171
-(34%)** modułów biblioteki standardowej Pythona.
+GENERATORY PRÓBEK PISZE SIĘ „Z GŁOWY", A GŁOWA PRODUKUJE PROSTE
+PRZYPADKI. ZMIERZONE: **ŻADNA** Z OŚMIU PRÓBEK TURNIEJOWYCH NIE
+ZAWIERAŁA F-STRINGA ZE ZMIENNĄ — A TAKI F-STRING WYSTĘPUJE W **58 ZE 171
+(34%)** MODUŁÓW BIBLIOTEKI STANDARDOWEJ PYTHONA.
 
-Testuj też na prawdziwym kodzie: stdlib leży w
-`sysconfig.get_paths()['stdlib']`, a pakiety da się pobrać z PyPI
-(wzór: `dev/turnieje/turniej-9-obcy-kod.py`).
+TESTUJ TEŻ NA PRAWDZIWYM KODZIE: STDLIB LEŻY W
+`sysconfig.get_paths()['stdlib']`, A PAKIETY DA SIĘ POBRAĆ Z PYPI
+(WZÓR: `dev/turnieje/turniej-9-obcy-kod.py`).
 
-### Narzędzie decyzyjne wymaga innego kryterium
+### NARZĘDZIE DECYZYJNE WYMAGA INNEGO KRYTERIUM
 
-Turnieje pytają „czy narzędzie nie psuje plików". Narzędzie, które
-niczego nie zapisuje (jak `zwiad.py`), odpowiada na to trywialnie —
-i wygląda na przetestowane, choć nie jest sprawdzone wcale.
+TURNIEJE PYTAJĄ „CZY NARZĘDZIE NIE PSUJE PLIKÓW". NARZĘDZIE, KTÓRE
+NICZEGO NIE ZAPISUJE (JAK `zwiad.py`), ODPOWIADA NA TO TRYWIALNIE —
+I WYGLĄDA NA PRZETESTOWANE, CHOĆ NIE JEST SPRAWDZONE WCALE.
 
-Dla takiego narzędzia pytanie brzmi: **czy nie wprowadza operatora
-w błąd**. Jego awaria nie niszczy pliku — podsuwa fałszywy obraz,
-na którym operator sam podejmuje złą decyzję z pełnym przekonaniem.
+DLA TAKIEGO NARZĘDZIA PYTANIE BRZMI: **CZY NIE WPROWADZA OPERATORA
+W BŁĄD**. JEGO AWARIA NIE NISZCZY PLIKU — PODSUWA FAŁSZYWY OBRAZ,
+NA KTÓRYM OPERATOR SAM PODEJMUJE ZŁĄ DECYZJĘ Z PEŁNYM PRZEKONANIEM.
 
-### Zielony wynik lokalnie nic nie dowodzi o ścieżkach
+### ZIELONY WYNIK LOKALNIE NIC NIE DOWODZI O ŚCIEŻKACH
 
-Turniej potrafi przechodzić w katalogu repo i oblewać na świeżym klonie
-w innym miejscu na dysku. Przyczyną bywa ścieżka względna, która
-przypadkiem działała, bo repo i plik testowy leżały w tym samym drzewie.
+TURNIEJ POTRAFI PRZECHODZIĆ W KATALOGU REPO I OBLEWAĆ NA ŚWIEŻYM KLONIE
+W INNYM MIEJSCU NA DYSKU. PRZYCZYNĄ BYWA ŚCIEŻKA WZGLĘDNA, KTÓRA
+PRZYPADKIEM DZIAŁAŁA, BO REPO I PLIK TESTOWY LEŻAŁY W TYM SAMYM DRZEWIE.
 
-Uruchamiaj testy **także** na świeżym klonie, w katalogu o pustym
-rodzicu.
+URUCHAMIAJ TESTY **TAKŻE** NA ŚWIEŻYM KLONIE, W KATALOGU O PUSTYM
+RODZICU.
 
-### Fuzz czyta katalog nadrzędny
+### FUZZ CZYTA KATALOG NADRZĘDNY
 
-Jeśli test szuka korpusu „wokół repo", złapie też twoje pliki robocze
-z katalogu wyżej. Spadek wyniku po zmianie w kodzie może nie być
-regresją, tylko zanieczyszczeniem.
+JEŚLI TEST SZUKA KORPUSU „WOKÓŁ REPO", ZŁAPIE TEŻ TWOJE PLIKI ROBOCZE
+Z KATALOGU WYŻEJ. SPADEK WYNIKU PO ZMIANIE W KODZIE MOŻE NIE BYĆ
+REGRESJĄ, TYLKO ZANIECZYSZCZENIEM.
 
-Zanim uznasz spadek za regresję: powtórz na czystym klonie **bez** swojej
-zmiany. Ten sam wynik = wina otoczenia.
+ZANIM UZNASZ SPADEK ZA REGRESJĘ: POWTÓRZ NA CZYSTYM KLONIE **BEZ** SWOJEJ
+ZMIANY. TEN SAM WYNIK = WINA OTOCZENIA.
 
 ---
 
-## 3. Praca z kodem rodziny
+## 3. PRACA Z KODEM RODZINY
 
-### Wzorzec kaskady — to nie duplikaty
+### WZORZEC KASKADY — TO NIE DUPLIKATY
 
-W kilku miejscach znajdziesz parę: `funkcja` i `funkcja_surowy`. To nie
-przypadkowe kopie, tylko świadomy wzorzec:
+W KILKU MIEJSCACH ZNAJDZIESZ PARĘ: `funkcja` I `funkcja_surowy`. TO NIE
+PRZYPADKOWE KOPIE, TYLKO ŚWIADOMY WZORZEC:
 
 ```
 plik się kompiluje    -> tokenize (dokładny, zna literały)
@@ -179,220 +179,220 @@ każdy krok            -> bramka compile()
 nic nie pomogło       -> wariant OSTROŻNY (lepiej nie naprawić niż zepsuć)
 ```
 
-Zanim zgłosisz duplikat — sprawdź **warunek wywołania**.
+ZANIM ZGŁOSISZ DUPLIKAT — SPRAWDŹ **WARUNEK WYWOŁANIA**.
 
-### Zanim nazwiesz coś błędem, znajdź miejsce wywołania
+### ZANIM NAZWIESZ COŚ BŁĘDEM, ZNAJDŹ MIEJSCE WYWOŁANIA
 
-Funkcja oceniona w izolacji potrafi wyglądać na wadliwą, a w swoim
-kontekście być ratunkiem. Przykład z tego repo: funkcja usuwająca znaki
-zamiast transliterować wygląda groźnie — ale wchodzi **wyłącznie** przy
-potrójnym warunku (plik nie kompiluje się ORAZ dwie wcześniejsze próby
-zawiodły) i ratuje przypadki, których transliteracja naprawić nie może,
-bo sama łamie składnię: `i<U+043E>f` -> `if`, `de<U+043E>f` -> `def`, `=<U+043E>=` -> `==`.
+FUNKCJA OCENIONA W IZOLACJI POTRAFI WYGLĄDAĆ NA WADLIWĄ, A W SWOIM
+KONTEKŚCIE BYĆ RATUNKIEM. PRZYKŁAD Z TEGO REPO: FUNKCJA USUWAJĄCA ZNAKI
+ZAMIAST TRANSLITEROWAĆ WYGLĄDA GROŹNIE — ALE WCHODZI **WYŁĄCZNIE** PRZY
+POTRÓJNYM WARUNKU (PLIK NIE KOMPILUJE SIĘ ORAZ DWIE WCZEŚNIEJSZE PRÓBY
+ZAWIODŁY) I RATUJE PRZYPADKI, KTÓRYCH TRANSLITERACJA NAPRAWIĆ NIE MOŻE,
+BO SAMA ŁAMIE SKŁADNIĘ: `i<U+043E>f` -> `if`, `de<U+043E>f` -> `def`, `=<U+043E>=` -> `==`.
 
-`grep -n nazwa_funkcji` i odtworzenie warunku zajmuje minutę.
+`grep -n nazwa_funkcji` I ODTWORZENIE WARUNKU ZAJMUJE MINUTĘ.
 
-### Nie ufaj komentarzom przy ocenie, co kod robi
+### NIE UFAJ KOMENTARZOM PRZY OCENIE, CO KOD ROBI
 
-Znaleziony przypadek: komentarz obiecywał heurystykę („jeśli w detalu
-jest cudzysłów, to prawdopodobnie literał"), a w kodzie jej **nigdy nie
-zaimplementowano**. Skutek: jedna z głównych funkcji nie działała
-w ogóle, a wyglądała na przemyślaną.
+ZNALEZIONY PRZYPADEK: KOMENTARZ OBIECYWAŁ HEURYSTYKĘ („JEŚLI W DETALU
+JEST CUDZYSŁÓW, TO PRAWDOPODOBNIE LITERAŁ"), A W KODZIE JEJ **NIGDY NIE
+ZAIMPLEMENTOWANO**. SKUTEK: JEDNA Z GŁÓWNYCH FUNKCJI NIE DZIAŁAŁA
+W OGÓLE, A WYGLĄDAŁA NA PRZEMYŚLANĄ.
 
-Sprawdzaj zachowaniem albo przez AST.
+SPRAWDZAJ ZACHOWANIEM ALBO PRZEZ AST.
 
-### Ostrzeżenie, które milczy, jest gorsze niż jego brak
+### OSTRZEŻENIE, KTÓRE MILCZY, JEST GORSZE NIŻ JEGO BRAK
 
-Funkcja ostrzegawcza w tym repo nie odpaliła się **ani razu** — także
-dla przykładu podanego w dokumentacji jej własnego autora. Była
-wywoływana, działała bez błędu, zawsze zwracała pustą listę.
+FUNKCJA OSTRZEGAWCZA W TYM REPO NIE ODPALIŁA SIĘ **ANI RAZU** — TAKŻE
+DLA PRZYKŁADU PODANEGO W DOKUMENTACJI JEJ WŁASNEGO AUTORA. BYŁA
+WYWOŁYWANA, DZIAŁAŁA BEZ BŁĘDU, ZAWSZE ZWRACAŁA PUSTĄ LISTĘ.
 
-Operator widzi ciszę i wnioskuje „bezpiecznie". Jeśli dodajesz
-ostrzeżenie, dodaj też test, który sprawdza, że **potrafi się odpalić**.
+OPERATOR WIDZI CISZĘ I WNIOSKUJE „BEZPIECZNIE". JEŚLI DODAJESZ
+OSTRZEŻENIE, DODAJ TEŻ TEST, KTÓRY SPRAWDZA, ŻE **POTRAFI SIĘ ODPALIĆ**.
 
-### Wersja Pythona zmienia zachowanie tokenizera
+### WERSJA PYTHONA ZMIENIA ZACHOWANIE TOKENIZERA
 
-Tokeny `FSTRING_START/MIDDLE/END` istnieją od **3.12**. Na 3.11 cały
-f-string wraca jako jeden token `STRING` — i kod, który zakłada
-rozbicie, po cichu obsługuje wnętrze f-stringa jako dane, nie kod.
+TOKENY `FSTRING_START/MIDDLE/END` ISTNIEJĄ OD **3.12**. NA 3.11 CAŁY
+F-STRING WRACA JAKO JEDEN TOKEN `STRING` — I KOD, KTÓRY ZAKŁADA
+ROZBICIE, PO CICHU OBSŁUGUJE WNĘTRZE F-STRINGA JAKO DANE, NIE KOD.
 
-`hasattr(tokenize, "FSTRING_START")` przed założeniem, że ścieżka działa.
+`hasattr(tokenize, "FSTRING_START")` PRZED ZAŁOŻENIEM, ŻE ŚCIEŻKA DZIAŁA.
 
-### `SequenceMatcher` na całym pliku jest kwadratowy
+### `SequenceMatcher` NA CAŁYM PLIKU JEST KWADRATOWY
 
-Zmierzone: plik 99 kB → **3 min 23 s** przy rdzeniu liczącym 0,285 s.
-Wygląda jak zawieszenie.
+ZMIERZONE: PLIK 99 KB → **3 MIN 23 S** PRZY RDZENIU LICZĄCYM 0,285 S.
+WYGLĄDA JAK ZAWIESZENIE.
 
-Jeśli operacja nie zmienia liczby linii, licz diff **per linia**:
-ta sama poprawność, **0,137 s** zamiast 3 minut. Zostaw awaryjny powrót
-do wariantu globalnego, gdyby liczba linii się jednak różniła.
+JEŚLI OPERACJA NIE ZMIENIA LICZBY LINII, LICZ DIFF **PER LINIA**:
+TA SAMA POPRAWNOŚĆ, **0,137 S** ZAMIAST 3 MINUT. ZOSTAW AWARYJNY POWRÓT
+DO WARIANTU GLOBALNEGO, GDYBY LICZBA LINII SIĘ JEDNAK RÓŻNIŁA.
 
-### Nie każda funkcja jest czysta
+### NIE KAŻDA FUNKCJA JEST CZYSTA
 
-Funkcja o nazwie sugerującej przeliczenie potrafi **zapisywać na dysk**.
-W tym repo `napraw()` robi kopię `.bak` i podmienia plik — wywołana do
-symulacji rzuca `ODMOWA ZAPISU`.
+FUNKCJA O NAZWIE SUGERUJĄCEJ PRZELICZENIE POTRAFI **ZAPISYWAĆ NA DYSK**.
+W TYM REPO `napraw()` ROBI KOPIĘ `.bak` I PODMIENIA PLIK — WYWOŁANA DO
+SYMULACJI RZUCA `ODMOWA ZAPISU`.
 
-Przed użyciem cudzej funkcji do podglądu: `grep -n "open(.*w\|zapisz"`
-wokół jej ciała.
+PRZED UŻYCIEM CUDZEJ FUNKCJI DO PODGLĄDU: `grep -n "open(.*w\|zapisz"`
+WOKÓŁ JEJ CIAŁA.
 
-### Narzędzia rodziny nie wiedzą o sobie
+### NARZĘDZIA RODZINY NIE WIEDZĄ O SOBIE
 
-Zmierzone wywołania: tylko jedno narzędzie woła rodzeństwo. Pozostałe
-nie wiedzą o swoim istnieniu — w tym o narzędziu do języków innych niż
-Python, którego **nie zna nikt**.
+ZMIERZONE WYWOŁANIA: TYLKO JEDNO NARZĘDZIE WOŁA RODZEŃSTWO. POZOSTAŁE
+NIE WIEDZĄ O SWOIM ISTNIENIU — W TYM O NARZĘDZIU DO JĘZYKÓW INNYCH NIŻ
+PYTHON, KTÓREGO **NIE ZNA NIKT**.
 
-To nie usterka, tylko konsekwencja projektu (proste, niezależne
-narzędzia). Ale obowiązek spada na operatora: do plików `.js` i podobnych
-uruchamiasz właściwe narzędzie **ręcznie**.
+TO NIE USTERKA, TYLKO KONSEKWENCJA PROJEKTU (PROSTE, NIEZALEŻNE
+NARZĘDZIA). ALE OBOWIĄZEK SPADA NA OPERATORA: DO PLIKÓW `.js` I PODOBNYCH
+URUCHAMIASZ WŁAŚCIWE NARZĘDZIE **RĘCZNIE**.
 
-Cena pomyłki jest mierzalna: ten sam plik `.js` z rosyjskim tekstem
-w literale — jedną drogą literał ocaleje, drugą zostanie przetłumaczony
-na alfabet łaciński.
+CENA POMYŁKI JEST MIERZALNA: TEN SAM PLIK `.js` Z ROSYJSKIM TEKSTEM
+W LITERALE — JEDNĄ DROGĄ LITERAŁ OCALEJE, DRUGĄ ZOSTANIE PRZETŁUMACZONY
+NA ALFABET ŁACIŃSKI.
 
-### Kopie tablic znaków się rozjeżdżają
+### KOPIE TABLIC ZNAKÓW SIĘ ROZJEŻDŻAJĄ
 
-Dwa narzędzia trzymają własne kopie tablic. Zmierzone: **24 znaki** dają
-różny wynik — jedno transliteruje `U+0407` na `Ji`, drugie usuwa.
+DWA NARZĘDZIA TRZYMAJĄ WŁASNE KOPIE TABLIC. ZMIERZONE: **24 ZNAKI** DAJĄ
+RÓŻNY WYNIK — JEDNO TRANSLITERUJE `U+0407` NA `Ji`, DRUGIE USUWA.
 
-Zmieniasz tablicę? Zmieniaj w **obu** plikach i porównaj zbiory.
+ZMIENIASZ TABLICĘ? ZMIENIAJ W **OBU** PLIKACH I PORÓWNAJ ZBIORY.
 
 ---
 
-## 4. Środowisko i narzędzia pracy
+## 4. ŚRODOWISKO I NARZĘDZIA PRACY
 
-### Heredoc zjada cudzysłowy
+### HEREDOC ZJADA CUDZYSŁOWY
 
-Wstrzyknięcie kodu przez `python3 - <<'PY'` potrafi „udać się"
-(`składnia OK`, selftest PASS), a do pliku nie trafia **nic** — bo kod
-zawierał `'''`, `"""` i backslashe, które poszły przez kilka warstw
-cytowania.
+WSTRZYKNIĘCIE KODU PRZEZ `python3 - <<'PY'` POTRAFI „UDAĆ SIĘ"
+(`składnia OK`, SELFTEST PASS), A DO PLIKU NIE TRAFIA **NIC** — BO KOD
+ZAWIERAŁ `'''`, `"""` I BACKSLASHE, KTÓRE POSZŁY PRZEZ KILKA WARSTW
+CYTOWANIA.
 
-Kod z cudzysłowami zapisuj **plikiem**, potem wykonaj skrypt operujący
-na tym pliku. I weryfikuj po fakcie (`grep -c`), nie po komunikacie.
+KOD Z CUDZYSŁOWAMI ZAPISUJ **PLIKIEM**, POTEM WYKONAJ SKRYPT OPERUJĄCY
+NA TYM PLIKU. I WERYFIKUJ PO FAKCIE (`grep -c`), NIE PO KOMUNIKACIE.
 
-### Potok zjada kod wyjścia
+### POTOK ZJADA KOD WYJŚCIA
 
 ```
 python3 test.py 2>&1 | tail -5 ; echo $?     # to kod `tail`, nie testu
 python3 test.py >/dev/null 2>&1 ; echo $?    # dopiero to jest prawda
 ```
 
-### Lokalne repo potrafi się cofnąć
+### LOKALNE REPO POTRAFI SIĘ COFNĄĆ
 
-`git log` pokazuje wtedy tylko pierwszy commit, reflog wygląda jak po
-świeżym klonie. Praca wypchnięta na zdalny **przetrwa**:
+`git log` POKAZUJE WTEDY TYLKO PIERWSZY COMMIT, REFLOG WYGLĄDA JAK PO
+ŚWIEŻYM KLONIE. PRACA WYPCHNIĘTA NA ZDALNY **PRZETRWA**:
 
 ```
 git fetch origin <gałąź> && git reset --hard FETCH_HEAD
 ```
 
-Niezacommitowane zmiany z bieżącej tury przepadają. Commituj często.
+NIEZACOMMITOWANE ZMIANY Z BIEŻĄCEJ TURY PRZEPADAJĄ. COMMITUJ CZĘSTO.
 
-### Płytki klon kłamie pewnie
+### PŁYTKI KLON KŁAMIE PEWNIE
 
-`git merge-base --is-ancestor` na płytkim klonie (`.git/shallow`) odpowie
-„nie", choć powinno „tak" — bo git nie ma pełnej historii. Odpowiedź jest
-stanowcza i błędna.
+`git merge-base --is-ancestor` NA PŁYTKIM KLONIE (`.git/shallow`) ODPOWIE
+„NIE", CHOĆ POWINNO „TAK" — BO git nie MA PEŁNEJ HISTORII. ODPOWIEDŹ JEST
+STANOWCZA I BŁĘDNA.
 
-Przy pytaniach o przodków sprawdź `ls .git/shallow` albo zapytaj API
-serwera.
+PRZY PYTANIACH O PRZODKÓW SPRAWDŹ `ls .git/shallow` ALBO ZAPYTAJ API
+SERWERA.
 
-### Każdy `mkdtemp` w `try/finally`
+### KAŻDY `mkdtemp` W `try/finally`
 
-Katalog tymczasowy bez sprzątania to wyciek. Zmierzone: selftest
-zostawiał 1 kB przy każdym uruchomieniu — **26 katalogów** w jednej
-sesji. Mało miejsca, ale to wyciek w narzędziu, które ma pilnować
-porządku.
+KATALOG TYMCZASOWY BEZ SPRZĄTANIA TO WYCIEK. ZMIERZONE: SELFTEST
+ZOSTAWIAŁ 1 KB PRZY KAŻDYM URUCHOMIENIU — **26 KATALOGÓW** W JEDNEJ
+SESJI. MAŁO MIEJSCA, ALE TO WYCIEK W NARZĘDZIU, KTÓRE MA PILNOWAĆ
+PORZĄDKU.
 
-Sprzątaj też ręczne kopie robocze od razu, nie „na koniec".
-
----
-
-## 5. Dokumentacja i bramki
-
-### Dokument o skażeniach sam je roznosi
-
-Przykłady skażeń zapisuj notacją `<U+XXXX>`, **nigdy żywcem**. Inaczej
-następny agent skopiuje fragment i przeniesie problem dalej.
-
-To nie jest teoretyczne: w tym repozytorium agent wpisał **16 żywych
-homoglifów do trzech dokumentów ostrzegających przed homoglifami** i nie
-zauważył tego przy żadnym z kilku przeglądów. Siedemnastego wyłapał
-człowiek.
-
-Po napisaniu każdego dokumentu: `python3 sprawdz-teksty.py`.
-
-### Bramka musi być fail-closed
-
-Zmierzony przypadek: poza repozytorium `git ls-files` zwraca pustkę,
-pętla nie wykonuje ani jednego obiegu, bramka melduje **„0 plików, zero
-kwiatków"** z kodem 0. Plik z wstrzykniętym skażeniem przechodził bez
-słowa.
-
-Gdy narzędzie kontrolne nie wie, co sprawdzić — musi **odmówić**
-(`exit 2`), nie meldować sukces.
-
-### Listy wyjątków trzymaj imiennie
-
-Pomijanie całymi katalogami rośnie po cichu. Zmierzone: lista obejmowała
-30 plików, a skażenia miało **5**. Pozostałe 25 przechodziło bez
-sprawdzenia bez żadnego powodu.
-
-Wymieniaj plik po pliku, z uzasadnieniem przy każdym.
-
-### Wersja żyje w czterech miejscach
-
-Stała w kodzie, plik z wersjami, teksty dokumentacji, osadzone kopie
-kodu. Kolejność: kod → plik wersji → teksty → re-embed → bramka →
-przeliczenie manifestu.
-
-### Re-embed rób od końca pliku
-
-Podmiana pierwszego bloku przesuwa offsety wszystkich następnych.
-Iteruj po markerach **od końca** (`range(n-1, -1, -1)`).
-
-### README to punkt wejścia, nie kronika
-
-Kolejne wydania dopisują sekcje na koniec, bo tam wygodnie. Zmierzone:
-960 linii, z czego **838 to historia** (87%). Agent szukający „jak tego
-użyć" musi się przez to przekopać.
-
-Historia ma własny plik. README odpowiada na „jak to działa **teraz**".
+SPRZĄTAJ TEŻ RĘCZNE KOPIE ROBOCZE OD RAZU, NIE „NA KONIEC".
 
 ---
 
-## 6. Praca z człowiekiem
+## 5. DOKUMENTACJA I BRAMKI
 
-### Kod od zewnętrznego audytora uruchom, zanim ocenisz
+### DOKUMENT O SKAŻENIACH SAM JE ROZNOSI
 
-Kod potrafi wyglądać kompetentnie, mieć poprawny rdzeń — i być
-bezużyteczny przez kontakt z rzeczywistością. Zmierzony przypadek:
-narzędzie kontrolne od zewnętrznego audytora zgłosiło **94 rozjazdy na
-czystym repozytorium** i żądało pliku, którego nigdy tam nie było.
+PRZYKŁADY SKAŻEŃ ZAPISUJ NOTACJĄ `<U+XXXX>`, **NIGDY ŻYWCEM**. INACZEJ
+NASTĘPNY AGENT SKOPIUJE FRAGMENT I PRZENIESIE PROBLEM DALEJ.
 
-Zawsze: najpierw AST (czy nie zapisuje, nie woła `subprocess`, nie
-`eval`), potem uruchomienie **na kopii**.
+TO NIE JEST TEORETYCZNE: W TYM REPOZYTORIUM AGENT WPISAŁ **16 ŻYWYCH
+HOMOGLIFÓW DO TRZECH DOKUMENTÓW OSTRZEGAJĄCYCH PRZED HOMOGLIFAMI** I NIE
+ZAUWAŻYŁ TEGO PRZY ŻADNYM Z KILKU PRZEGLĄDÓW. SIEDEMNASTEGO WYŁAPAŁ
+CZŁOWIEK.
 
-### Nie zgaduj, gdy nie wiesz, czym jest dana treść
+PO NAPISANIU KAŻDEGO DOKUMENTU: `python3 sprawdz-teksty.py`.
 
-Gdy narzędzie sygnalizuje utratę danych (znaki nieodwracalne, do
-usunięcia) i nie wiesz, czy to skażenie, czy treść użytkownika —
-**zapytaj człowieka**. Usunięcie chińskiego tekstu ze strony jest
-technicznie naprawą, a faktycznie szkodą.
+### BRAMKA MUSI BYĆ FAIL-CLOSED
 
-### Naprawa i kosmetyka w osobnych commitach
+ZMIERZONY PRZYPADEK: POZA REPOZYTORIUM `git ls-files` ZWRACA PUSTKĘ,
+PĘTLA NIE WYKONUJE ANI JEDNEGO OBIEGU, BRAMKA MELDUJE **„0 PLIKÓW, ZERO
+KWIATKÓW"** Z KODEM 0. PLIK Z WSTRZYKNIĘTYM SKAŻENIEM PRZECHODZIŁ BEZ
+SŁOWA.
 
-Sprzątanie wygląda niewinnie, więc wpada do commita razem ze zmianą
-logiki. Potem nie da się cofnąć samej naprawy bez cofania kosmetyki.
+GDY NARZĘDZIE KONTROLNE NIE WIE, CO SPRAWDZIĆ — MUSI **ODMÓWIĆ**
+(`exit 2`), NIE MELDOWAĆ SUKCES.
+
+### LISTY WYJĄTKÓW TRZYMAJ IMIENNIE
+
+POMIJANIE CAŁYMI KATALOGAMI ROŚNIE PO CICHU. ZMIERZONE: LISTA OBEJMOWAŁA
+30 PLIKÓW, A SKAŻENIA MIAŁO **5**. POZOSTAŁE 25 PRZECHODZIŁO BEZ
+SPRAWDZENIA BEZ ŻADNEGO POWODU.
+
+WYMIENIAJ PLIK PO PLIKU, Z UZASADNIENIEM PRZY KAŻDYM.
+
+### WERSJA ŻYJE W CZTERECH MIEJSCACH
+
+STAŁA W KODZIE, PLIK Z WERSJAMI, TEKSTY DOKUMENTACJI, OSADZONE KOPIE
+KODU. KOLEJNOŚĆ: KOD → PLIK WERSJI → TEKSTY → RE-EMBED → BRAMKA →
+PRZELICZENIE MANIFESTU.
+
+### RE-EMBED RÓB OD KOŃCA PLIKU
+
+PODMIANA PIERWSZEGO BLOKU PRZESUWA OFFSETY WSZYSTKICH NASTĘPNYCH.
+ITERUJ PO MARKERACH **OD KOŃCA** (`range(n-1, -1, -1)`).
+
+### README TO PUNKT WEJŚCIA, NIE KRONIKA
+
+KOLEJNE WYDANIA DOPISUJĄ SEKCJE NA KONIEC, BO TAM WYGODNIE. ZMIERZONE:
+960 LINII, Z CZEGO **838 TO HISTORIA** (87%). AGENT SZUKAJĄCY „JAK TEGO
+UŻYĆ" MUSI SIĘ PRZEZ TO PRZEKOPAĆ.
+
+HISTORIA MA WŁASNY PLIK. README ODPOWIADA NA „JAK TO DZIAŁA **TERAZ**".
 
 ---
 
-## Jak korzystać z tego pliku
+## 6. PRACA Z CZŁOWIEKIEM
 
-Nie musisz go pamiętać. Musisz wiedzieć, że istnieje — i wracać do niego,
-gdy coś nie działa tak, jak powinno. Duża część tych lekcji brzmi
-oczywiście **po** przeczytaniu, a nie była oczywista wcześniej.
+### KOD OD ZEWNĘTRZNEGO AUDYTORA URUCHOM, ZANIM OCENISZ
 
-Prowadź własny dziennik (`python3 pamietnik.py --dodaj`). Gdy trafisz na
-coś, co dotyczy **narzędzia**, a nie twojej sesji — dopisz to tutaj.
+KOD POTRAFI WYGLĄDAĆ KOMPETENTNIE, MIEĆ POPRAWNY RDZEŃ — I BYĆ
+BEZUŻYTECZNY PRZEZ KONTAKT Z RZECZYWISTOŚCIĄ. ZMIERZONY PRZYPADEK:
+NARZĘDZIE KONTROLNE OD ZEWNĘTRZNEGO AUDYTORA ZGŁOSIŁO **94 ROZJAZDY NA
+CZYSTYM REPOZYTORIUM** I ŻĄDAŁO PLIKU, KTÓREGO NIGDY TAM NIE BYŁO.
+
+ZAWSZE: NAJPIERW AST (CZY NIE ZAPISUJE, NIE WOŁA `subprocess`, NIE
+`eval`), POTEM URUCHOMIENIE **NA KOPII**.
+
+### NIE ZGADUJ, GDY NIE WIESZ, CZYM JEST DANA TREŚĆ
+
+GDY NARZĘDZIE SYGNALIZUJE UTRATĘ DANYCH (ZNAKI NIEODWRACALNE, DO
+USUNIĘCIA) I NIE WIESZ, CZY TO SKAŻENIE, CZY TREŚĆ UŻYTKOWNIKA —
+**ZAPYTAJ CZŁOWIEKA**. USUNIĘCIE CHIŃSKIEGO TEKSTU ZE STRONY JEST
+TECHNICZNIE NAPRAWĄ, A FAKTYCZNIE SZKODĄ.
+
+### NAPRAWA I KOSMETYKA W OSOBNYCH COMMITACH
+
+SPRZĄTANIE WYGLĄDA NIEWINNIE, WIĘC WPADA DO COMMITA RAZEM ZE ZMIANĄ
+LOGIKI. POTEM NIE DA SIĘ COFNĄĆ SAMEJ NAPRAWY BEZ COFANIA KOSMETYKI.
+
+---
+
+## JAK KORZYSTAĆ Z TEGO PLIKU
+
+NIE MUSISZ GO PAMIĘTAĆ. MUSISZ WIEDZIEĆ, ŻE ISTNIEJE — I WRACAĆ DO NIEGO,
+GDY COŚ NIE DZIAŁA TAK, JAK POWINNO. DUŻA CZĘŚĆ TYCH LEKCJI BRZMI
+OCZYWIŚCIE **PO** PRZECZYTANIU, A NIE BYŁA OCZYWISTA WCZEŚNIEJ.
+
+PROWADŹ WŁASNY DZIENNIK (`python3 pamietnik.py --dodaj`). GDY TRAFISZ NA
+COŚ, CO DOTYCZY **NARZĘDZIA**, A NIE TWOJEJ SESJI — DOPISZ TO TUTAJ.

@@ -1,52 +1,52 @@
-# dziennik/ — jak to dziala
+# dziennik/ — JAK TO DZIALA
 
-Jeden plik na sesje agenta:
+JEDEN PLIK NA SESJE AGENTA:
 
 ```
 dziennik/2026-09-04__01a06e18.md
          ^data        ^identyfikator sesji (z galezi gita)
 ```
 
-## Trzy zasady
+## TRZY ZASADY
 
-**1. Piszesz tylko do swojego pliku.**
-Tworzy sie sam przy pierwszym `--dodaj`. Nie musisz go zakladac recznie ani
-zgadywac nazwy — narzedzie bierze date i identyfikator sesji z galezi
-(albo ze zmiennej `PAMIETNIK_SESJA`).
+**1. PISZESZ TYLKO DO SWOJEGO PLIKU.**
+TWORZY SIE SAM PRZY PIERWSZYM `--dodaj`. NIE MUSISZ GO ZAKLADAC RECZNIE ANI
+ZGADYWAC NAZWY — NARZEDZIE BIERZE DATE I IDENTYFIKATOR SESJI Z GALEZI
+(ALBO ZE ZMIENNEJ `PAMIETNIK_SESJA`).
 
-**2. Cudze pliki sa tylko do odczytu.**
-`python3 pamietnik.py --sprawdz` porownuje `dziennik/` z gitem i zglasza
-kazda zmiane w cudzym pliku, na samej gorze listy problemow. W gicie nie ma
-technicznej blokady zapisu — chodzi o **wykrywalnosc**: nikt nie podmieni
-cudzego wpisu tak, zeby bramka tego nie zauwazyla przed commitem.
+**2. CUDZE PLIKI SA TYLKO DO ODCZYTU.**
+`python3 pamietnik.py --sprawdz` POROWNUJE `dziennik/` Z GITEM I ZGLASZA
+KAZDA ZMIANE W CUDZYM PLIKU, NA SAMEJ GORZE LISTY PROBLEMOW. W GICIE NIE MA
+TECHNICZNEJ BLOKADY ZAPISU — CHODZI O **WYKRYWALNOSC**: NIKT NIE PODMIENI
+CUDZEGO WPISU TAK, ZEBY BRAMKA TEGO NIE ZAUWAZYLA PRZED COMMITEM.
 
-**3. Ale wolno prostowac.**
-Rada sprzed roku moze byc nieaktualna. Nie edytujesz wtedy cudzego pliku —
-dopisujesz **wlasny** wpis z polem:
+**3. ALE WOLNO PROSTOWAC.**
+RADA SPRZED ROKU MOZE BYC NIEAKTUALNA. NIE EDYTUJESZ WTEDY CUDZEGO PLIKU —
+DOPISUJESZ **WLASNY** WPIS Z POLEM:
 
 ```markdown
 **Zastepuje:** Lokalne repo potrafi sie cofnac w trakcie sesji
 ```
 
-Widok scalony oznaczy tamten wpis jako `[NIEAKTUALNY]` i pokaze, co go
-zastapilo. Zla rada przestaje szkodzic, a historia pomylki zostaje —
-bo to, ze cos kiedys bylo problemem, tez jest informacja.
+WIDOK SCALONY OZNACZY TAMTEN WPIS JAKO `[NIEAKTUALNY]` I POKAZE, CO GO
+ZASTAPILO. ZLA RADA PRZESTAJE SZKODZIC, A HISTORIA POMYLKI ZOSTAJE —
+BO TO, ZE COS KIEDYS BYLO PROBLEMEM, TEZ JEST INFORMACJA.
 
-## Dlaczego nie jeden wspolny plik
+## DLACZEGO NIE JEDEN WSPOLNY PLIK
 
-Probowalismy (v1.0.0, jeden `PAMIETNIK-OPERATORA.md`). Trzy problemy:
-konflikty przy rownoleglych sesjach, kuszenie do „poprawiania" cudzych
-wpisow, i brak odpowiedzi na pytanie „kto to napisal i kiedy".
+PROBOWALISMY (V1.0.0, JEDEN `PAMIETNIK-OPERATORA.md`). TRZY PROBLEMY:
+KONFLIKTY PRZY ROWNOLEGLYCH SESJACH, KUSZENIE DO „POPRAWIANIA" CUDZYCH
+WPISOW, I BRAK ODPOWIEDZI NA PYTANIE „KTO TO NAPISAL I KIEDY".
 
-## Dlaczego mimo to jest widok scalony
+## DLACZEGO MIMO TO JEST WIDOK SCALONY
 
-Trzydziesci osobnych plikow to trzydziesci plikow, ktorych nikt nie
-otworzy. Dlatego `python3 pamietnik.py` **scala wszystkie sesje** w jeden
-widok pogrupowany tematami, a `PAMIETNIK-OPERATORA.md` w korzeniu jest
-generowanym spisem tresci calosci. Rozdzial na pliki to sprawa zapisu;
-czytanie zawsze odbywa sie na calosci.
+TRZYDZIESCI OSOBNYCH PLIKOW TO TRZYDZIESCI PLIKOW, KTORYCH NIKT NIE
+OTWORZY. DLATEGO `python3 pamietnik.py` **SCALA WSZYSTKIE SESJE** W JEDEN
+WIDOK POGRUPOWANY TEMATAMI, A `PAMIETNIK-OPERATORA.md` W KORZENIU JEST
+GENEROWANYM SPISEM TRESCI CALOSCI. ROZDZIAL NA PLIKI TO SPRAWA ZAPISU;
+CZYTANIE ZAWSZE ODBYWA SIE NA CALOSCI.
 
-## Polecenia
+## POLECENIA
 
 ```
 python3 pamietnik.py                  # widok scalony, wszystkie sesje
@@ -59,13 +59,13 @@ python3 pamietnik.py --sprawdz        # bramka: format + nietykalnosc
 python3 pamietnik.py --indeks         # odswiez spis w korzeniu
 ```
 
-Tematy: `repo`, `testy`, `kod`, `dokumentacja`, `wspolpraca`.
+TEMATY: `repo`, `testy`, `kod`, `dokumentacja`, `wspolpraca`.
 
-## Co wpisywac
+## CO WPISYWAC
 
-Tylko rzeczy **nieoczywiste z dokumentacji** — to, co kosztowalo czas
-i czego nie dalo sie przewidziec z README. Kazdy wpis ma trzy obowiazkowe
-pola: **Objaw** (konkretny: komunikat, liczba), **Przyczyna**, **Wniosek**
-(czynnosc do wykonania nastepnym razem).
+TYLKO RZECZY **NIEOCZYWISTE Z DOKUMENTACJI** — TO, CO KOSZTOWALO CZAS
+I CZEGO NIE DALO SIE PRZEWIDZIEC Z README. KAZDY WPIS MA TRZY OBOWIAZKOWE
+POLA: **OBJAW** (KONKRETNY: KOMUNIKAT, LICZBA), **PRZYCZYNA**, **WNIOSEK**
+(CZYNNOSC DO WYKONANIA NASTEPNYM RAZEM).
 
-Nie wpisuj sukcesow — od tego jest README i `docs/`.
+NIE WPISUJ SUKCESOW — OD TEGO JEST README I `docs/`.

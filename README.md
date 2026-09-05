@@ -1,32 +1,32 @@
-# Brutal Anti-Flower Gang for AI
+# BRUTAL ANTI-FLOWER GANG FOR AI
 
-**Wykrywa i usuwa z kodu znaki, które udają litery łacińskie** — cyrylickie
-`<U+043E>` zamiast `o`, zero-width space, twarde spacje. Modele językowe wstawiają
-je samoistnie i **nie widzą tego u siebie**.
+**WYKRYWA I USUWA Z KODU ZNAKI, KTÓRE UDAJĄ LITERY ŁACIŃSKIE** — CYRYLICKIE
+`<U+043E>` ZAMIAST `o`, ZERO-WIDTH SPACE, TWARDE SPACJE. MODELE JĘZYKOWE WSTAWIAJĄ
+JE SAMOISTNIE I **NIE WIDZĄ TEGO U SIEBIE**.
 
-> **Człowieku:** jeśli chcesz tylko użyć narzędzia, a nie czytać dokumentacji
-> — weź `docs/czlowiek/RODZINA-DO-CZATU.md`, wklej do czatu z dowolnym agentem
-> AI i gotowe. Dla początkujących: `docs/czlowiek/INSTRUKCJA-DLA-ZIELONYCH.md`.
-> Reszta tego pliku jest pisana dla agenta.
+> **CZŁOWIEKU:** JEŚLI CHCESZ TYLKO UŻYĆ NARZĘDZIA, A NIE CZYTAĆ DOKUMENTACJI
+> — WEŹ `docs/czlowiek/RODZINA-DO-CZATU.md`, WKLEJ DO CZATU Z DOWOLNYM AGENTEM
+> AI I GOTOWE. DLA POCZĄTKUJĄCYCH: `docs/czlowiek/INSTRUKCJA-DLA-ZIELONYCH.md`.
+> RESZTA TEGO PLIKU JEST PISANA DLA AGENTA.
 
-> ZASADA DOMU: **ZAWSZE RÓB BAKAP.** Nic Cię z tego nie zwalnia.
+> ZASADA DOMU: **ZAWSZE RÓB BAKAP.** NIC CIĘ Z TEGO NIE ZWALNIA.
 >
 > ```
 > python3 bakap.py                      # migawka repo POZA katalogiem
 > python3 dev/hooki/zainstaluj.py       # raz po klonie: blokada force-push
 > ```
 >
-> Migawki lądują w `~/.bakap-gang/` — **poza repozytorium**, więc przeżywają
-> `rm -rf`. Hook `pre-push` blokuje push nadpisujący historię, dopóki nie ma
-> świeżej migawki. Zwykły push przechodzi bez zmian.
+> MIGAWKI LĄDUJĄ W `~/.bakap-gang/` — **POZA REPOZYTORIUM**, WIĘC PRZEŻYWAJĄ
+> `rm -rf`. HOOK `pre-push` BLOKUJE PUSH NADPISUJĄCY HISTORIĘ, DOPÓKI NIE MA
+> ŚWIEŻEJ MIGAWKI. ZWYKŁY PUSH PRZECHODZI BEZ ZMIAN.
 
 ---
 
-## Agencie — zacznij tutaj
+## AGENCIE — ZACZNIJ TUTAJ
 
-Pięć kroków, w tej kolejności. Nie skanuj plików użytkownika przed nimi.
+PIĘĆ KROKÓW, W TEJ KOLEJNOŚCI. NIE SKANUJ PLIKÓW UŻYTKOWNIKA PRZED NIMI.
 
-**1. Udowodnij sobie, że problem istnieje** (30 sekund)
+**1. UDOWODNIJ SOBIE, ŻE PROBLEM ISTNIEJE** (30 SEKUND)
 
 ```python
 a = "zaloz konto"
@@ -34,57 +34,57 @@ b = "zaloz konto".replace("a", "\u0430", 1)   # jedno "a" -> cyrylickie
 print(a == b)      # False — a wyglądają identycznie
 ```
 
-**2. Przeczytaj, czym to jest dla ciebie** → [`CZYM-JEST-GANG.md`](CZYM-JEST-GANG.md)
+**2. PRZECZYTAJ, CZYM TO JEST DLA CIEBIE** → [`CZYM-JEST-GANG.md`](CZYM-JEST-GANG.md)
 
-Pięć minut. Najważniejsze: to proteza na **twoją** ślepotę, nie użytkownika.
-To **oczy**, nie automat do sprzątania. Jak źle użyjesz — twoja wina.
+PIĘĆ MINUT. NAJWAŻNIEJSZE: TO PROTEZA NA **TWOJĄ** ŚLEPOTĘ, NIE UŻYTKOWNIKA.
+TO **OCZY**, NIE AUTOMAT DO SPRZĄTANIA. JAK ŹLE UŻYJESZ — TWOJA WINA.
 
-**3. Sprawdź, na czym stanął poprzedni agent** → [`STAN-SESJI.md`](STAN-SESJI.md)
+**3. SPRAWDŹ, NA CZYM STANĄŁ POPRZEDNI AGENT** → [`STAN-SESJI.md`](STAN-SESJI.md)
 
-Gdzie jesteśmy, co w toku, jakie decyzje operatora obowiązują, co dalej
-w kolejce i czego **nie** rozstrzygać samemu. Trzy minuty czytania,
-oszczędza godzinę zgadywania.
+GDZIE JESTEŚMY, CO W TOKU, JAKIE DECYZJE OPERATORA OBOWIĄZUJĄ, CO DALEJ
+W KOLEJCE I CZEGO **NIE** ROZSTRZYGAĆ SAMEMU. TRZY MINUTY CZYTANIA,
+OSZCZĘDZA GODZINĘ ZGADYWANIA.
 
-**4. Poznaj grabie** → [`dziennik/`](dziennik/)
+**4. POZNAJ GRABIE** → [`dziennik/`](dziennik/)
 
 ```
 python3 pamietnik.py              # wszystkie sesje, pogrupowane tematami
 python3 pamietnik.py --szukaj testy
 ```
 
-Każdy wpis: objaw → przyczyna → wniosek. To grabie, na które ktoś już
-nadepnął. Liczbę pokaże sama komenda — nie powtarzam jej tutaj, bo
-rozjeżdża się przy każdym nowym wpisie.
+KAŻDY WPIS: OBJAW → PRZYCZYNA → WNIOSEK. TO GRABIE, NA KTÓRE KTOŚ JUŻ
+NADEPNĄŁ. LICZBĘ POKAŻE SAMA KOMENDA — NIE POWTARZAM JEJ TUTAJ, BO
+ROZJEŻDŻA SIĘ PRZY KAŻDYM NOWYM WPISIE.
 
-**5. Poznaj regulamin** → [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md)
+**5. POZNAJ REGULAMIN** → [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md)
 
-Check-lista: co wolno, w jakiej kolejności, kiedy pytać człowieka.
+CHECK-LISTA: CO WOLNO, W JAKIEJ KOLEJNOŚCI, KIEDY PYTAĆ CZŁOWIEKA.
 
 ---
 
-## Rodzina — cztery narzędzia, chodzą razem
+## RODZINA — CZTERY NARZĘDZIA, CHODZĄ RAZEM
 
-| Narzędzie | Rola | Dla czego |
+| NARZĘDZIE | ROLA | DLA CZEGO |
 |---|---|---|
-| `PogromcaKwiatkow.py` | **oczy** — wykrywa, nic nie zmienia | wszystko |
-| `ZagladaKultury.py` | **ręce** — czyści | `.py`, `.json`, proza |
-| `AnihilatorChwastow.py` | **ręce** — czyści | js, ts, java, go, rs, cs, c, cpp, php, rb, swift, kt |
-| `ProkuratorOgrodnik.py` | **mózg** — decyduje i woła rodzeństwo | orkiestracja |
+| `PogromcaKwiatkow.py` | **OCZY** — WYKRYWA, NIC NIE ZMIENIA | WSZYSTKO |
+| `ZagladaKultury.py` | **RĘCE** — CZYŚCI | `.py`, `.json`, PROZA |
+| `AnihilatorChwastow.py` | **RĘCE** — CZYŚCI | JS, TS, JAVA, GO, RS, CS, C, CPP, PHP, RB, SWIFT, KT |
+| `ProkuratorOgrodnik.py` | **MÓZG** — DECYDUJE I WOŁA RODZEŃSTWO | ORKIESTRACJA |
 
-Aktualne wersje: [`WERSJE.json`](WERSJE.json) — to jedyne źródło prawdy.
+AKTUALNE WERSJE: [`WERSJE.json`](WERSJE.json) — TO JEDYNE ŹRÓDŁO PRAWDY.
 
-**Uwaga o combo:** narzędzia **nie wiedzą o sobie**. Tylko Prokurator woła
-Pogromcę i Zagładę; **Anihilatora nie zna nikt**. Do plików `.js` i innych
-języków uruchamiasz go **ręcznie**. Cena pomyłki jest mierzalna: ten sam
-plik `.js` przez Prokuratora traci rosyjski tekst w literale, przez
-Anihilatora — nie.
+**UWAGA O COMBO:** NARZĘDZIA **NIE WIEDZĄ O SOBIE**. TYLKO PROKURATOR WOŁA
+POGROMCĘ I ZAGŁADĘ; **ANIHILATORA NIE ZNA NIKT**. DO PLIKÓW `.js` I INNYCH
+JĘZYKÓW URUCHAMIASZ GO **RĘCZNIE**. CENA POMYŁKI JEST MIERZALNA: TEN SAM
+PLIK `.js` PRZEZ PROKURATORA TRACI ROSYJSKI TEKST W LITERALE, PRZEZ
+ANIHILATORA — NIE.
 
 ---
 
-## Jak używać
+## JAK UŻYWAĆ
 
-Kolejność, której nie wolno odwrócić — **najpierw wiedza, potem kopia,
-na końcu naprawa**:
+KOLEJNOŚĆ, KTÓREJ NIE WOLNO ODWRÓCIĆ — **NAJPIERW WIEDZA, POTEM KOPIA,
+NA KOŃCU NAPRAWA**:
 
 ```
 python3 zwiad.py PLIK              # co jest w pliku i co się z nim stanie
@@ -92,38 +92,38 @@ cp PLIK PLIK.kopia                 # TWOJA kopia
 python3 zwiad.py --warianty PLIK   # które drogi masz do wyboru
 ```
 
-`zwiad.py` **niczego nie zapisuje**. Pełna procedura, kody wyjścia
-i bramki przed commitem: [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md).
+`zwiad.py` **NICZEGO NIE ZAPISUJE**. PEŁNA PROCEDURA, KODY WYJŚCIA
+I BRAMKI PRZED COMMITEM: [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md).
 
-Kolejność uruchamiania testów (od fundamentu w górę):
+KOLEJNOŚĆ URUCHAMIANIA TESTÓW (OD FUNDAMENTU W GÓRĘ):
 [`docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md`](docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md).
-Gdy poziom oblewa — nie uruchamiaj wyższych, będą mierzyć zepsutym
-przyrządem.
+GDY POZIOM OBLEWA — NIE URUCHAMIAJ WYŻSZYCH, BĘDĄ MIERZYĆ ZEPSUTYM
+PRZYRZĄDEM.
 
 ---
 
-## Nie pracujesz w tym repo? Załóż własny dom
+## NIE PRACUJESZ W TYM REPO? ZAŁÓŻ WŁASNY DOM
 
-To repozytorium jest **domem konkretnej sesji** — zawiera pamięć tego,
-co się tu działo. Jeśli chcesz używać Gangu u siebie:
+TO REPOZYTORIUM JEST **DOMEM KONKRETNEJ SESJI** — ZAWIERA PAMIĘĆ TEGO,
+CO SIĘ TU DZIAŁO. JEŚLI CHCESZ UŻYWAĆ GANGU U SIEBIE:
 
 ```
 python3 zaloz-dom.py ~/moj-gang     # czysta kopia na własnego gita
 python3 zaloz-dom.py --lista        # co pojedzie, co zostanie
 ```
 
-Dostajesz **narzędzia + wiedzę o nich**, w tym `docs/agent/LEKCJE.md` —
-destylat z pracy nad tym narzędziem, z pomiarami. Nie dostajesz cudzego
-`dziennik/` ani `STAN-SESJI.md`.
+DOSTAJESZ **NARZĘDZIA + WIEDZĘ O NICH**, W TYM `docs/agent/LEKCJE.md` —
+DESTYLAT Z PRACY NAD TYM NARZĘDZIEM, Z POMIARAMI. NIE DOSTAJESZ CUDZEGO
+`dziennik/` ANI `STAN-SESJI.md`.
 
-Powód nie jest taki, że to tajne. Cudze „PR #2 czeka na decyzję" jest
-prawdziwe tam, a **mylące** u ciebie — zacząłbyś pracę na założeniach,
-które ciebie nie dotyczą. Lekcje o samym narzędziu jadą z domem, bo
-dotyczą każdego, kto go używa.
+POWÓD NIE JEST TAKI, ŻE TO TAJNE. CUDZE „PR #2 CZEKA NA DECYZJĘ" JEST
+PRAWDZIWE TAM, A **MYLĄCE** U CIEBIE — ZACZĄŁBYŚ PRACĘ NA ZAŁOŻENIACH,
+KTÓRE CIEBIE NIE DOTYCZĄ. LEKCJE O SAMYM NARZĘDZIU JADĄ Z DOMEM, BO
+DOTYCZĄ KAŻDEGO, KTO GO UŻYWA.
 
 ---
 
-## Struktura repozytorium
+## STRUKTURA REPOZYTORIUM
 
 ```
 korzeń/          narzędzia + to, co agent czyta na wejściu
@@ -135,34 +135,34 @@ docs/dowody/     certyfikaty, medale, raporty (zamrożone)
 docs/historia/   kronika wydań
 ```
 
-Sprzątanie: co służy — zostaje. Co przestało służyć — kasujesz.
-Procedurę składania artefaktu opisuje `PROTOKOL-OPERATORA.md` §15.
+SPRZĄTANIE: CO SŁUŻY — ZOSTAJE. CO PRZESTAŁO SŁUŻYĆ — KASUJESZ.
+PROCEDURĘ SKŁADANIA ARTEFAKTU OPISUJE `PROTOKOL-OPERATORA.md` §15.
 
 ---
 
-## Czego to NIE robi
+## CZEGO TO NIE ROBI
 
-- nie poprawia ortografii ani gramatyki
-- nie tyka treści literałów w `.py` (kontrakt: dane są święte)
-- nie rozumie `.html` i `.css` jako kodu — traktuje je jak prozę,
-  więc chiński tekst na stronie **zniknie**; sprawdź zwiadem przed naprawą
-- nie decyduje za ciebie, którą drogą naprawić
+- NIE POPRAWIA ORTOGRAFII ANI GRAMATYKI
+- NIE TYKA TREŚCI LITERAŁÓW W `.py` (KONTRAKT: DANE SĄ ŚWIĘTE)
+- NIE ROZUMIE `.html` I `.css` JAKO KODU — TRAKTUJE JE JAK PROZĘ,
+  WIĘC CHIŃSKI TEKST NA STRONIE **ZNIKNIE**; SPRAWDŹ ZWIADEM PRZED NAPRAWĄ
+- NIE DECYDUJE ZA CIEBIE, KTÓRĄ DROGĄ NAPRAWIĆ
 
-## Znane, nienaprawione wady
+## ZNANE, NIENAPRAWIONE WADY
 
-Uczciwie, żeby nie polegać na ciszy: HTML/CSS traktowane jak proza
-(tekst użytkownika znika), 24 znaki rozjeżdżają się między Zagładą
-a Anihilatorem, znaki łączące ze złożoną formą NFC nie są wykrywane.
+UCZCIWIE, ŻEBY NIE POLEGAĆ NA CISZY: HTML/CSS TRAKTOWANE JAK PROZA
+(TEKST UŻYTKOWNIKA ZNIKA), 24 ZNAKI ROZJEŻDŻAJĄ SIĘ MIĘDZY ZAGŁADĄ
+A ANIHILATOREM, ZNAKI ŁĄCZĄCE ZE ZŁOŻONĄ FORMĄ NFC NIE SĄ WYKRYWANE.
 
-Aktualna tabela z uzasadnieniem: [`STAN-SESJI.md`](STAN-SESJI.md).
-Pomiary: [`docs/agent/LUKI-W-TESTACH.md`](docs/agent/LUKI-W-TESTACH.md).
+AKTUALNA TABELA Z UZASADNIENIEM: [`STAN-SESJI.md`](STAN-SESJI.md).
+POMIARY: [`docs/agent/LUKI-W-TESTACH.md`](docs/agent/LUKI-W-TESTACH.md).
 
 ---
 
-## Licencja
+## LICENCJA
 
-MIT. Historia zmian: [`docs/historia/HISTORIA-ZMIAN.md`](docs/historia/HISTORIA-ZMIAN.md)
+MIT. HISTORIA ZMIAN: [`docs/historia/HISTORIA-ZMIAN.md`](docs/historia/HISTORIA-ZMIAN.md)
 
-> MOTTO: *„używaj, bo dzięki Pogromcy Kwiatków nie mielisz potencjalnie
-> BRUDNEGO kodu, co marnuje nie milisekundy a godziny i tony tokenów.
-> Kręcenie się w kółko z BRUDNYM kodem to strata czasu"* — Piotr (GAF)
+> MOTTO: *„UŻYWAJ, BO DZIĘKI POGROMCY KWIATKÓW NIE MIELISZ POTENCJALNIE
+> BRUDNEGO KODU, CO MARNUJE NIE MILISEKUNDY A GODZINY I TONY TOKENÓW.
+> KRĘCENIE SIĘ W KÓŁKO Z BRUDNYM KODEM TO STRATA CZASU"* — PIOTR (GAF)

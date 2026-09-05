@@ -49,7 +49,7 @@ import subprocess
 import sys
 from datetime import date
 
-WERSJA = "2.1.1"
+WERSJA = "2.1.2"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
 DZIENNIK = os.path.join(KORZEN, "dziennik")
@@ -342,6 +342,11 @@ def sprawdz(cicho=False):
     if os.path.abspath(DZIENNIK) == os.path.join(KORZEN, "dziennik"):
         biezacy = os.path.relpath(moj_plik(), KORZEN).replace(os.sep, "/")
         for zmieniony in _zmienione_wzgledem_gita():
+            # (v2.1.2) dziennik/README.md to instrukcja katalogu, nie wpis
+            # sesji - kazdy moze ja poprawic. Kontrola nietykalnosci dotyczy
+            # PLIKOW SESJI (wzorzec DATA__ID.md), nie wszystkiego w katalogu.
+            if os.path.basename(zmieniony) == "README.md":
+                continue
             if zmieniony != biezacy:
                 problemy.append("RUSZONY CUDZY DZIENNIK: %s - cudze sesje sa "
                                 "tylko do odczytu; prostuj wpisem "
