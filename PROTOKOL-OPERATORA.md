@@ -108,7 +108,7 @@ Kazda wiadomosc z tekstem z zewnatrz (web, OCR, dokument usera, inny agent) - sk
 
 - PogromcaKwiatkow.py v8.6.0 (+ RYZYKO-KLUCZA; --fix chroni literaly, backup i zapis atomowy, fail-closed na zlym UTF-8)
 - ZagladaKultury.py v1.4.0 (+ straznik przed sklejeniem dwoch roznych zmiennych w jedna; backup i zapis atomowy)
-- ProkuratorOgrodnik.py v1.3.0 (fail-closed: awaria rodzenstwa = BLOKADA, nie 'czysto'; katalogi rozwijane, sciezki absolutne)
+- ProkuratorOgrodnik.py v1.3.1 (fail-closed: awaria rodzenstwa = BLOKADA, nie 'czysto'; katalogi rozwijane, sciezki absolutne)
 - AnihilatorChwastow.py v1.4.0 (BLOKADA na raw-stringi/heredoki/bloki tekstowe zamiast cichego psucia literalow)
 
 Rodzina to combo i wszedzie idzie razem. Nie ruszamy dzialajacego kodu, dokladamy kolejnego.

@@ -1,6 +1,6 @@
 {
   "_opis": "JEDNO ZRODLO PRAWDY o wersjach. Zmieniasz wersje narzedzia -> zmieniasz TU, potem uruchamiasz sprawdz-spojnosc.py. Skrypt pilnuje, zeby kod i warstwa agenta sie nie rozjechaly.",
-  "repo": "9.5.0",
+  "repo": "9.6.0",
   "narzedzia": {
     "PogromcaKwiatkow.py": {
       "wersja": "8.6.0",
@@ -11,7 +11,7 @@
       "rola": "dekontaminator py/json/proza, ochrona literalow przez tokenize"
     },
     "ProkuratorOgrodnik.py": {
-      "wersja": "1.3.0",
+      "wersja": "1.3.1",
       "rola": "polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX"
     },
     "AnihilatorChwastow.py": {

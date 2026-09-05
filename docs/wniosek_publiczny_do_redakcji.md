@@ -111,7 +111,7 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
   PROTOKOL-OPERATORA.md - regulamin dla agenta
   PogromcaKwiatkow.py v8.6.0
   ZagladaKultury.py v1.4.0
-  ProkuratorOgrodnik.py v1.3.0
+  ProkuratorOgrodnik.py v1.3.1
   AnihilatorChwastow.py v1.4.0
 - Zapoznaj sie z rola: Pogromca detektor BLAD/UWAGA/OK, Zaglada dekontaminator py/json/proza, ProkuratorOgrodnik polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX, AnihilatorChwastow anihilator uniwersalny z ochrona literalow
 - ZAPODAJ MI krotki i rzeczowy opis CO TO i PO CO TO, po ludzku, bez zargonu, wyjasnij ze to nie slownik ortograficzny (nie poprawia "blad" na "błąd"), tylko filtr na niewidzialny brud i obcy alfabet ktory AI wstawia niezauwazalnie i nie zdaje sobie z tego sprawy w momencie w którym to czyni ani później i ktory marnuje godziny i tony tokenow.

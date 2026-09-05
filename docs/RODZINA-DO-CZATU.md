@@ -24,7 +24,7 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Pobierz lub wytnij kody 4 narzedzi:
   PogromcaKwiatkow.py v8.6.0
   ZagladaKultury.py v1.4.0
-  ProkuratorOgrodnik.py v1.3.0
+  ProkuratorOgrodnik.py v1.3.1
   AnihilatorChwastow.py v1.4.0
 - Zapoznaj sie z ich rola:
   Pogromca = detektor BLAD/UWAGA/OK - widzi niewidzialny brud
@@ -1840,7 +1840,7 @@ import re
 from pathlib import Path
 from collections import defaultdict, Counter
 
-WERSJA = "1.3.0"
+WERSJA = "1.3.1"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -2015,9 +2015,20 @@ def _py_skazenie_tylko_w_literalach(path):
 
     Przy jakiejkolwiek watpliwosci (plik nieczytelny, nie parsuje sie)
     zwracamy True — czyli ostrozniej, recznie. Fail-closed: nie wysylamy
-    Zaglady tam, gdzie nie umiemy powiedziec, co sie stanie."""
+    Zaglady tam, gdzie nie umiemy powiedziec, co sie stanie.
+
+    (v1.3.1) Sciezka MUSI przejsc przez rozwiaz_sciezke_z_raportu().
+    Pogromca drukuje nazwy jako relpath wzgledem katalogu NADRZEDNEGO
+    wobec rodziny, a nie wzgledem cwd Prokuratora. Do v1.3.0 ta funkcja
+    otwierala surowy string z raportu: gdy repo lezalo gdzie indziej niz
+    plik uzytkownika, open() rzucal wyjatek, fail-closed zwracal True
+    i --wykonaj NIGDY nie czyscil .py. Lokalnie sciezki sie zgadzaly,
+    wiec blad byl niewidoczny - ujawnil sie dopiero na swiezym klonie."""
+    rzeczywista = rozwiaz_sciezke_z_raportu(path)
+    if rzeczywista is None:
+        return True
     try:
-        tekst = io.open(path, encoding="utf-8").read()
+        tekst = io.open(rzeczywista, encoding="utf-8").read()
     except Exception:
         return True
     try:

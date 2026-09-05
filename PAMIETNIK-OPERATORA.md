@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **33 wpisow** z **1 sesji**.
+Stan: **34 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -44,6 +44,9 @@ Stan: **33 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Skazenie testowe musi byc ODWRACALNE, inaczej oskarzasz niewinnego**
   - buduj zbior **wiernych homoglifow** — takich, dla ktorych `zamien_znak()` zwraca dokladnie oryginalna litere ASCII (jest ich 52). Dopiero wtedy zadanie „odtworz oryginal" jest wykonalne, a wynik mierz
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Turniej moze przechodzic lokalnie i oblewac na swiezym klonie**
+  - Turniej uruchamiaj TAKZE na swiezym klonie w innym miejscu na dysku, nie tylko w katalogu roboczym. Zielony wynik lokalnie nie dowodzi niczego o bledach zaleznych od sciezek. Gdy dodajesz do Prokurato
   - `2026-09-04__01a06e18.md`
 
 ## Pulapki w samym kodzie rodziny
