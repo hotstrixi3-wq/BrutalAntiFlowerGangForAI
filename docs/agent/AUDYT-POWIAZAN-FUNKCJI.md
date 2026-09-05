@@ -1,89 +1,94 @@
-# AUDYT POWIAZAN FUNKCJI - weryfikacja niezalezna (2026-09-04)
+# AUDYT POWIAZAN FUNKCJI - WERYFIKACJA NIEZALEZNA (2026-09-04)
 
-> **AKTUALIZACJA po wgraniu wersji v8.4.0/v1.3.0/v1.2.0/v1.3.0:** oba
-> znaleziska ponizej sprawdzone ponownie na NOWYM kodzie i **nadal
-> aktualne**. `baza_bez_ogonkow` wciaz zdefiniowana 1x w Zagladzie i 1x w
-> Anihilatorze, wolana 0x. `--help` wciaz nieobslugiwane w Prokuratorze i
-> Anihilatorze (Pogromca i Zaglada reaguja poprawnie). Nowe wersje
-> przyniosly powazne naprawy bezpieczenstwa (fail-closed, backup, zapis
-> atomowy, straznik przed sklejeniem zmiennych) - te dwa drobiazgi po
-> prostu nie byly ich tematem.
+> **DLA AGENTA.** MAPA WYWOŁAŃ MIĘDZY FUNKCJAMI — CO CZEGO UŻYWA.
+>
+> POWRÓT: [`README.md`](../../README.md) · ARCHITEKTURA: [`INZYNIERIA-WSTECZNA.md`](INZYNIERIA-WSTECZNA.md)
 
-Powod: zgloszenie „duzo brakow powiazan funkcji". Zalaczone pliki z analiza
-NIE DOTARLY do srodowiska (katalog uploads pusty), wiec audyt wykonany
-OD ZERA, wlasnymi narzedziami, bez zaufania do cudzych wnioskow i bez
-zaufania do wlasnych zalozen.
 
-Metoda: parsowanie AST wszystkich 14 plikow .py w repo (4 narzedzia rodziny
-+ 10 plikow dev), budowa mapy zdefiniowanych i wywolanych symboli, kontrola
-powiazan miedzyplikowych (testy dev laduja rodzine przez
-`spec_from_file_location`, wiec zwykly import-checker tego nie widzi -
-trzeba bylo sledzic aliasy modulow), porownanie kopii osadzonych w
-RODZINA-DO-CZATU z realnymi plikami bajt-w-bajt, oraz kontrola czy
-dokumentacja opisuje funkcje ktore faktycznie istnieja.
+> **AKTUALIZACJA PO WGRANIU WERSJI V8.4.0/V1.3.0/V1.2.0/V1.3.0:** OBA
+> ZNALEZISKA PONIZEJ SPRAWDZONE PONOWNIE NA NOWYM KODZIE I **NADAL
+> AKTUALNE**. `baza_bez_ogonkow` WCIAZ ZDEFINIOWANA 1X W ZAGLADZIE I 1X W
+> ANIHILATORZE, WOLANA 0X. `--help` WCIAZ NIEOBSLUGIWANE W PROKURATORZE I
+> ANIHILATORZE (POGROMCA I ZAGLADA REAGUJA POPRAWNIE). NOWE WERSJE
+> PRZYNIOSLY POWAZNE NAPRAWY BEZPIECZENSTWA (FAIL-CLOSED, BACKUP, ZAPIS
+> ATOMOWY, STRAZNIK PRZED SKLEJENIEM ZMIENNYCH) - TE DWA DROBIAZGI PO
+> PROSTU NIE BYLY ICH TEMATEM.
+
+POWOD: ZGLOSZENIE „DUZO BRAKOW POWIAZAN FUNKCJI". ZALACZONE PLIKI Z ANALIZA
+NIE DOTARLY DO SRODOWISKA (KATALOG UPLOADS PUSTY), WIEC AUDYT WYKONANY
+OD ZERA, WLASNYMI NARZEDZIAMI, BEZ ZAUFANIA DO CUDZYCH WNIOSKOW I BEZ
+ZAUFANIA DO WLASNYCH ZALOZEN.
+
+METODA: PARSOWANIE AST WSZYSTKICH 14 PLIKOW .PY W REPO (4 NARZEDZIA RODZINY
++ 10 PLIKOW DEV), BUDOWA MAPY ZDEFINIOWANYCH I WYWOLANYCH SYMBOLI, KONTROLA
+POWIAZAN MIEDZYPLIKOWYCH (TESTY DEV LADUJA RODZINE PRZEZ
+`spec_from_file_location`, WIEC ZWYKLY IMPORT-CHECKER TEGO NIE WIDZI -
+TRZEBA BYLO SLEDZIC ALIASY MODULOW), POROWNANIE KOPII OSADZONYCH W
+RODZINA-DO-CZATU Z REALNYMI PLIKAMI BAJT-W-BAJT, ORAZ KONTROLA CZY
+DOKUMENTACJA OPISUJE FUNKCJE KTORE FAKTYCZNIE ISTNIEJA.
 
 ## WYNIK ZBIORCZY
 
-| Sprawdzenie | Wynik |
+| SPRAWDZENIE | WYNIK |
 |---|---|
-| Powiazania testy dev -> API rodziny | **0 zerwanych / 10 plikow** |
-| Kopie osadzone w RODZINA-DO-CZATU vs realne pliki | **4/4 IDENTYCZNE bajt-w-bajt** |
-| Funkcje opisane w dokumentacji a nieistniejace | **0** |
-| Selftesty | **4/4 PASS** |
-| Bramka Pogromcy (korzen+docs) | **BLAD 0 / UWAGA 0** |
-| Tor / fuzz | **348/0/0/0 | 3x 500/0** |
+| POWIAZANIA TESTY DEV -> API RODZINY | **0 ZERWANYCH / 10 PLIKOW** |
+| KOPIE OSADZONE W RODZINA-DO-CZATU VS REALNE PLIKI | **4/4 IDENTYCZNE BAJT-W-BAJT** |
+| FUNKCJE OPISANE W DOKUMENTACJI A NIEISTNIEJACE | **0** |
+| SELFTESTY | **4/4 PASS** |
+| BRAMKA POGROMCY (KORZEN+DOCS) | **BLAD 0 / UWAGA 0** |
+| TOR / FUZZ | **348/0/0/0 | 3X 500/0** |
 
-**Nie potwierdzam tezy o „duzo brakow powiazan funkcji".** Rdzen jest spojny.
-Znalazlem 2 realne, ale DROBNE usterki - obie opisane nizej uczciwie, wraz z
-ocena wagi. Zadna z nich nie lamie dzialania narzedzi.
+**NIE POTWIERDZAM TEZY O „DUZO BRAKOW POWIAZAN FUNKCJI".** RDZEN JEST SPOJNY.
+ZNALAZLEM 2 REALNE, ALE DROBNE USTERKI - OBIE OPISANE NIZEJ UCZCIWIE, WRAZ Z
+OCENA WAGI. ZADNA Z NICH NIE LAMIE DZIALANIA NARZEDZI.
 
-## ZNALEZISKO 1 - martwa funkcja `baza_bez_ogonkow` (2 pliki)
+## ZNALEZISKO 1 - MARTWA FUNKCJA `baza_bez_ogonkow` (2 PLIKI)
 
-Status: **POTWIERDZONE, realne, niskiej wagi (higiena kodu).**
+STATUS: **POTWIERDZONE, REALNE, NISKIEJ WAGI (HIGIENA KODU).**
 
-`baza_bez_ogonkow(c)` jest zdefiniowana w `ZagladaKultury.py` (linia 104) i w
-`AnihilatorChwastow.py` (linia 88). W calym repo jest wywolana **zero razy**.
+`baza_bez_ogonkow(c)` JEST ZDEFINIOWANA W `ZagladaKultury.py` (LINIA 104) I W
+`AnihilatorChwastow.py` (LINIA 88). W CALYM REPO JEST WYWOLANA **ZERO RAZY**.
 
-Dlaczego nie jest to bug funkcjonalny: logika, ktora ta funkcja mialaby
-realizowac (NFD -> zdjecie ogonka), jest w obu plikach **wklejona inline**
-wewnatrz `zamien_znak()` - i tam dziala poprawnie, kategoria `ogonki` jest
-prawidlowo zliczana (Zaglada 141-144, Anihilator 111-122). Czyli to nie jest
-„funkcja ktora sie zgubila i przez to cos nie dziala", tylko pozostalosc po
-refaktorze: cialo przeniesiono do wywolujacego, definicji nie usunieto.
+DLACZEGO NIE JEST TO BUG FUNKCJONALNY: LOGIKA, KTORA TA FUNKCJA MIALABY
+REALIZOWAC (NFD -> ZDJECIE OGONKA), JEST W OBU PLIKACH **WKLEJONA INLINE**
+WEWNATRZ `zamien_znak()` - I TAM DZIALA POPRAWNIE, KATEGORIA `ogonki` JEST
+PRAWIDLOWO ZLICZANA (ZAGLADA 141-144, ANIHILATOR 111-122). CZYLI TO NIE JEST
+„FUNKCJA KTORA SIE ZGUBILA I PRZEZ TO COS NIE DZIALA", TYLKO POZOSTALOSC PO
+REFAKTORZE: CIALO PRZENIESIONO DO WYWOLUJACEGO, DEFINICJI NIE USUNIETO.
 
-Roznica miedzy kopiami (istotna, gdyby ktos chcial ja podlaczyc): wersja
-inline w Anihilatorze sprawdza dodatkowo czy baza po NFD jest cyrylica/greka
-i wtedy zwraca transliteracje, a wersja w Zagladzie sprawdza `c not in PL`,
-zeby nie ruszyc polskich liter. Sama `baza_bez_ogonkow` nie robi ani jednego,
-ani drugiego - **jest prostsza niz kod ktory ja zastapil**. Podlaczenie jej
-„na zywca" byloby regresja (zdjelaby ogonki z polskich liter).
+ROZNICA MIEDZY KOPIAMI (ISTOTNA, GDYBY KTOS CHCIAL JA PODLACZYC): WERSJA
+INLINE W ANIHILATORZE SPRAWDZA DODATKOWO CZY BAZA PO NFD JEST cyrylica/greka
+I WTEDY ZWRACA TRANSLITERACJE, A WERSJA W ZAGLADZIE SPRAWDZA `c not in PL`,
+ZEBY NIE RUSZYC POLSKICH LITER. SAMA `baza_bez_ogonkow` NIE ROBI ANI JEDNEGO,
+ANI DRUGIEGO - **JEST PROSTSZA NIZ KOD KTORY JA ZASTAPIL**. PODLACZENIE JEJ
+„NA ZYWCA" BYLOBY REGRESJA (ZDJELABY OGONKI Z POLSKICH LITER).
 
-Rekomendacja: usunac obie definicje (martwy kod), NIE podlaczac.
-Wymaga zgody - to zmiana w kodzie rodziny.
+REKOMENDACJA: USUNAC OBIE DEFINICJE (MARTWY KOD), NIE PODLACZAC.
+WYMAGA ZGODY - TO ZMIANA W KODZIE RODZINY.
 
-## ZNALEZISKO 2 - `--help` nieobslugiwane w 2 narzedziach
+## ZNALEZISKO 2 - `--help` NIEOBSLUGIWANE W 2 NARZEDZIACH
 
-Status: **POTWIERDZONE, realne, niskiej wagi (UX), ale mylace dla agenta.**
+STATUS: **POTWIERDZONE, REALNE, NISKIEJ WAGI (UX), ALE MYLACE DLA AGENTA.**
 
-- `python3 PogromcaKwiatkow.py --help` -> OK (pomoc)
-- `python3 ZagladaKultury.py --help` -> OK (pomoc)
+- `python3 PogromcaKwiatkow.py --help` -> OK (POMOC)
+- `python3 ZagladaKultury.py --help` -> OK (POMOC)
 - `python3 ProkuratorOgrodnik.py --help` -> `Podaj pliki do oskarzenia`, exit 2
 - `python3 AnihilatorChwastow.py --help` -> `Podaj pliki`, exit 2
 
-Prokurator i Anihilator traktuja `--help` jak nazwe pliku do przetworzenia,
-nie znajduja jej i koncza bledem. Dla czlowieka to drobiazg. Dla **agenta AI**,
-ktory jest tu docelowym uzytkownikiem i ktory naturalnie zaczyna od `--help`,
-to falszywy sygnal „narzedzie jest zepsute" na pierwszym kontakcie - czyli
-uderza dokladnie w cel FLOW USWIADOMIENIA z README.
+PROKURATOR I ANIHILATOR TRAKTUJA `--help` JAK NAZWE PLIKU DO PRZETWORZENIA,
+NIE ZNAJDUJA JEJ I KONCZA BLEDEM. DLA CZLOWIEKA TO DROBIAZG. DLA **AGENTA AI**,
+KTORY JEST TU DOCELOWYM UZYTKOWNIKIEM I KTORY NATURALNIE ZACZYNA OD `--help`,
+TO FALSZYWY SYGNAL „NARZEDZIE JEST ZEPSUTE" NA PIERWSZYM KONTAKCIE - CZYLI
+UDERZA DOKLADNIE W CEL FLOW USWIADOMIENIA Z README.
 
-Rekomendacja: dodac obsluge `--help` w obu (spojnie z Pogromca/Zagladą).
-Wymaga zgody - to zmiana w kodzie rodziny.
+REKOMENDACJA: DODAC OBSLUGE `--help` W OBU (SPOJNIE Z POGROMCA/ZAGLADĄ).
+WYMAGA ZGODY - TO ZMIANA W KODZIE RODZINY.
 
 ## CO SPRAWDZILEM I CO WYSZLO CZYSTE
 
-**Powiazania miedzyplikowe (najwazniejsze).** Kazdy plik testowy w `dev/`
-laduje narzedzia dynamicznie. Przesledzilem aliasy modulow i zebralem
-faktycznie wolane symbole:
+**POWIAZANIA MIEDZYPLIKOWE (NAJWAZNIEJSZE).** KAZDY PLIK TESTOWY W `dev/`
+LADUJE NARZEDZIA DYNAMICZNIE. PRZESLEDZILEM ALIASY MODULOW I ZEBRALEM
+FAKTYCZNIE WOLANE SYMBOLE:
 
 - `dev/fuzz-pogromcy.py` -> `analizuj`, `klasyfikuj`, `OGONKI`, `TYPO`
 - `dev/tor-pogromcy.py` -> `analizuj`, `OGONKI`, `TYPO`
@@ -94,37 +99,37 @@ faktycznie wolane symbole:
 - `dev/turnieje/zaglada-turniej-wykrywania.py` -> `analizuj`, `zaglada_tekst`, `CYR`, `GREK`, `HOMOGLIFY`, `LAMACZE`, `WERSJA`
 - `dev/turnieje/SUMA-KONTROLNA-TESTOW.py` -> `przetworz`
 
-Wszystkie te symbole **istnieja** w API rodziny. Zero zerwanych.
+WSZYSTKIE TE SYMBOLE **ISTNIEJA** W API RODZINY. ZERO ZERWANYCH.
 
-UCZCIWA UWAGA METODOLOGICZNA: pierwsze przejscie mojego skryptu zglosilo
+UCZCIWA UWAGA METODOLOGICZNA: PIERWSZE PRZEJSCIE MOJEGO SKRYPTU ZGLOSILO
 `OGONKI`, `TYPO`, `BLOKOWANE`, `CYR`, `GREK`, `HOMOGLIFY`, `LAMACZE`, `WERSJA`
-jako „brakujace w API" - to byl **blad mojego audytu, nie repo**: filtrowalem
-tylko `FunctionDef`, a to sa stale modulu (`Assign`). Po poprawce: 0 brakow.
-Gdybym sie na tym zatrzymal, zaraportowalbym 8 nieistniejacych bledow -
-dokladnie taki falszywy alarm, jaki podejrzewam w zgloszeniu.
+JAKO „BRAKUJACE W API" - TO BYL **BLAD MOJEGO AUDYTU, NIE REPO**: FILTROWALEM
+TYLKO `FunctionDef`, A TO SA STALE MODULU (`Assign`). PO POPRAWCE: 0 BRAKOW.
+GDYBYM SIE NA TYM ZATRZYMAL, ZARAPORTOWALBYM 8 NIEISTNIEJACYCH BLEDOW -
+DOKLADNIE TAKI FALSZYWY ALARM, JAKI PODEJRZEWAM W ZGLOSZENIU.
 
-**Kopie osadzone w RODZINA-DO-CZATU.md.** To byl najpowazniejszy podejrzany,
-bo wlasnie tam znalazlem realny rozjazd w poprzedniej turze. Wynik po
-precyzyjnym cieciu po markerach `### Nazwa.py`:
+**KOPIE OSADZONE W RODZINA-DO-CZATU.md.** TO BYL NAJPOWAZNIEJSZY PODEJRZANY,
+BO WLASNIE TAM ZNALAZLEM REALNY ROZJAZD W POPRZEDNIEJ TURZE. WYNIK PO
+PRECYZYJNYM CIECIU PO MARKERACH `### Nazwa.py`:
 
-| Narzedzie | Embed | Realny plik | Status |
+| NARZEDZIE | EMBED | REALNY PLIK | STATUS |
 |---|---|---|---|
 | PogromcaKwiatkow.py | 27252 B | 27252 B | IDENTYCZNY |
 | ZagladaKultury.py | 22469 B | 22469 B | IDENTYCZNY |
 | ProkuratorOgrodnik.py | 11156 B | 11156 B | IDENTYCZNY |
 | AnihilatorChwastow.py | 18843 B | 18843 B | IDENTYCZNY |
 
-Merge z poprzedniej tury byl poprawny - all-in-one niesie dokladnie ten kod,
-ktory lezy w repo.
+MERGE Z POPRZEDNIEJ TURY BYL POPRAWNY - ALL-IN-ONE NIESIE DOKLADNIE TEN KOD,
+KTORY LEZY W REPO.
 
-**Nieuzywane symbole lokalne w plikach testowych** (`s1..s6` w turnieju 2,
-`zr1..zr11` w turnieju wykrywania): to NIE sa braki powiazan. To funkcje
-scenariuszy rejestrowane w listach/slownikach i wolane posrednio przez
-dispatcher. Sprawdzilem - sa uzywane.
+**NIEUZYWANE SYMBOLE LOKALNE W PLIKACH TESTOWYCH** (`s1..s6` W TURNIEJU 2,
+`zr1..zr11` W TURNIEJU WYKRYWANIA): TO NIE SA BRAKI POWIAZAN. TO FUNKCJE
+SCENARIUSZY REJESTROWANE W listach/slownikach I WOLANE POSREDNIO PRZEZ
+DISPATCHER. SPRAWDZILEM - SA UZYWANE.
 
 ## CZEGO NIE MOGLEM SPRAWDZIC
 
-Nie widzialem analizy, ktora dostales. Jesli wskazuje konkretne miejsca,
-ktorych tu nie ma - wklej sama tresc do czatu (nie jako zalacznik) albo
-podaj nazwy funkcji, a zweryfikuje kazda pozycje z osobna. Powyzsze jest
-audytem niezaleznym, nie odpowiedzia na tamten dokument.
+NIE WIDZIALEM ANALIZY, KTORA DOSTALES. JESLI WSKAZUJE KONKRETNE MIEJSCA,
+KTORYCH TU NIE MA - WKLEJ SAMA TRESC DO CZATU (NIE JAKO ZALACZNIK) ALBO
+PODAJ NAZWY FUNKCJI, A ZWERYFIKUJE KAZDA POZYCJE Z OSOBNA. POWYZSZE JEST
+AUDYTEM NIEZALEZNYM, NIE ODPOWIEDZIA NA TAMTEN DOKUMENT.

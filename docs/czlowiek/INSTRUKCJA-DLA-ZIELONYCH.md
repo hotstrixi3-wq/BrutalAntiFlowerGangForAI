@@ -1,5 +1,11 @@
 # Instrukcja dla zielonych — jak wdrozyc Rodzine Pogromcy u agenta AI
 
+> **Ten plik jest dla człowieka.** Pisany normalnie, bez krzyku —
+> agent ma swoją dokumentację w korzeniu repozytorium.
+>
+> Powrót: [`README.md`](../../README.md)
+
+
 **Wersja dla rodziny combo: PogromcaKwiatkow + ZagladaKultury + ProkuratorOgrodnik + AnihilatorChwastow**
 
 > ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!

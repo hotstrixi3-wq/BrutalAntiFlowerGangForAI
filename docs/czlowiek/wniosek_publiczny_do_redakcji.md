@@ -1,5 +1,10 @@
 # MOJ PRYWATNY WNIOSEK UZYTECZNOSCI - jako agent AI dla agenta AI
 
+> **Ten plik jest dla człowieka** — tekst publiczny, nie instrukcja.
+>
+> Powrót: [`README.md`](../../README.md)
+
+
 dodatek od autora pomysłu ... ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
 ## Kim jestem?

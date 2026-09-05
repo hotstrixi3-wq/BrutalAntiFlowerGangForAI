@@ -1,89 +1,95 @@
-# Naprawa v8.6.0 — decyzje inzynierskie
+# NAPRAWA V8.6.0 — DECYZJE INZYNIERSKIE
 
-Data: 2026-09-04 · Pogromca 8.6.0 · Zaglada 1.4.0 · Anihilator 1.4.0
+> **DLA AGENTA.** UZASADNIENIA DECYZJI INŻYNIERSKICH — DLACZEGO TAK,
+> A NIE INACZEJ. DOKUMENT HISTORYCZNY, OPISUJE STAN Z WERSJI 8.6.0.
+>
+> POWRÓT: [`README.md`](../../README.md)
 
-Operator dostarczyl program i powierzyl decyzje o sposobie naprawy agentowi.
-Ten dokument tlumaczy **co zostalo zmienione i dlaczego wlasnie tak** —
-zeby dalo sie te decyzje sprawdzic i ewentualnie podwazyc.
 
-Kolejnosc prac wynikala z ryzyka: najpierw to, co lamie obietnice narzedzia
-(poprawnosc), potem to, co czyni je nieuzywalnym (wydajnosc), na koncu to,
-co pozwolilo bledom przejsc niezauwazonymi (testy).
+DATA: 2026-09-04 · POGROMCA 8.6.0 · ZAGLADA 1.4.0 · ANIHILATOR 1.4.0
+
+OPERATOR DOSTARCZYL PROGRAM I POWIERZYL DECYZJE O SPOSOBIE NAPRAWY AGENTOWI.
+TEN DOKUMENT TLUMACZY **CO ZOSTALO ZMIENIONE I DLACZEGO WLASNIE TAK** —
+ZEBY DALO SIE TE DECYZJE SPRAWDZIC I EWENTUALNIE PODWAZYC.
+
+KOLEJNOSC PRAC WYNIKALA Z RYZYKA: NAJPIERW TO, CO LAMIE OBIETNICE NARZEDZIA
+(POPRAWNOSC), POTEM TO, CO CZYNI JE NIEUZYWALNYM (WYDAJNOSC), NA KONCU TO,
+CO POZWOLILO BLEDOM PRZEJSC NIEZAUWAZONYMI (TESTY).
 
 ---
 
-## 1. Luka krytyczna — wnetrze f-stringa bylo chronione jak dane
+## 1. LUKA KRYTYCZNA — WNETRZE F-STRINGA BYLO CHRONIONE JAK DANE
 
-### Problem
+### PROBLEM
 
-Warstwa „nie ruszamy literalow" traktowala caly f-string jako dane. Ale
-wnetrze pol `{...}` to **kod**. Skutek: definicja zmiennej byla czyszczona,
-jej uzycie w f-stringu nie — plik, ktory **dzialal**, po czyszczeniu
-wybuchal, a `compile()` niczego nie zglaszal, bo skladnia pozostawala
-poprawna.
+WARSTWA „NIE RUSZAMY LITERALOW" TRAKTOWALA CALY F-STRING JAKO DANE. ALE
+WNETRZE POL `{...}` TO **KOD**. SKUTEK: DEFINICJA ZMIENNEJ BYLA CZYSZCZONA,
+JEJ UZYCIE W F-STRINGU NIE — PLIK, KTORY **DZIALAL**, PO CZYSZCZENIU
+WYBUCHAL, A `compile()` NICZEGO NIE ZGLASZAL, BO SKLADNIA POZOSTAWALA
+POPRAWNA.
 
 ```
 PRZED:  v<U+043E> = 7 ; print(f"wynik: {v<U+043E>}")   -> dziala, pisze "wynik: 7"
 PO:     v  = 7 ; print(f"wynik: {v<U+043E>}")   -> NameError
 ```
 
-Dotyczylo Zaglady i Pogromcy (Python) oraz Anihilatora (JS `${...}`).
+DOTYCZYLO ZAGLADY I POGROMCY (PYTHON) ORAZ ANIHILATORA (JS `${...}`).
 
-### Dlaczego tak, a nie inaczej
+### DLACZEGO TAK, A NIE INACZEJ
 
-Rozwazane byly trzy drogi:
+ROZWAZANE BYLY TRZY DROGI:
 
-| Wariant | Ocena |
+| WARIANT | OCENA |
 |---|---|
-| Czyscic caly f-string razem z tekstem | **Odrzucone** — niszczy dane, czyli lamie warstwe ochrony, ktora jest sensem narzedzia. Polski tekst w `f"cena: {k} zl, łąka"` zostalby zepsuty. |
-| Uzyc `ast` i `FormattedValue` | **Odrzucone** — `ast` wymaga pliku, ktory sie PARSUJE. Narzedzie musi dzialac takze na plikach juz zepsutych (jest do tego osobna sciezka „surowa"), wiec zaleznosc od poprawnej skladni jest tu zla. |
-| Wlasny skaner pol wewnatrz tokenu STRING | **Wybrane** — dziala na tokenach, nie na drzewie; nie wymaga parsowalnosci calego pliku; nie ma zaleznosci zewnetrznych. |
+| CZYSCIC CALY F-STRING RAZEM Z TEKSTEM | **ODRZUCONE** — NISZCZY DANE, CZYLI LAMIE WARSTWE OCHRONY, KTORA JEST SENSEM NARZEDZIA. POLSKI TEKST W `f"cena: {k} zl, łąka"` ZOSTALBY ZEPSUTY. |
+| UZYC `ast` I `FormattedValue` | **ODRZUCONE** — `ast` WYMAGA PLIKU, KTORY SIE PARSUJE. NARZEDZIE MUSI DZIALAC TAKZE NA PLIKACH JUZ ZEPSUTYCH (JEST DO TEGO OSOBNA SCIEZKA „SUROWA"), WIEC ZALEZNOSC OD POPRAWNEJ SKLADNI JEST TU ZLA. |
+| WLASNY SKANER POL WEWNATRZ TOKENU STRING | **WYBRANE** — DZIALA NA TOKENACH, NIE NA DRZEWIE; NIE WYMAGA PARSOWALNOSCI CALEGO PLIKU; NIE MA ZALEZNOSCI ZEWNETRZNYCH. |
 
-Doszedl argument zgodnosci: na **Pythonie 3.12+** `tokenize` sam rozbija
-f-string na `FSTRING_START/MIDDLE/END` i problem znika. Kod juz to
-przewidywal, ale tutejszy interpreter to 3.11, gdzie caly f-string jest
-jednym tokenem `STRING`. Nowa funkcja obsluguje wlasnie ten przypadek,
-nie psujac zachowania na 3.12+.
+DOSZEDL ARGUMENT ZGODNOSCI: NA **PYTHONIE 3.12+** `tokenize` SAM ROZBIJA
+F-STRING NA `FSTRING_START/MIDDLE/END` I PROBLEM ZNIKA. KOD JUZ TO
+PRZEWIDYWAL, ALE TUTEJSZY INTERPRETER TO 3.11, GDZIE CALY F-STRING JEST
+JEDNYM TOKENEM `STRING`. NOWA FUNKCJA OBSLUGUJE WLASNIE TEN PRZYPADEK,
+NIE PSUJAC ZACHOWANIA NA 3.12+.
 
-### Rozwiazanie
+### ROZWIAZANIE
 
-`_kod_we_fstringu(tresc, baza)` — zwraca absolutne indeksy znakow bedacych
-kodem. Zasady:
+`_kod_we_fstringu(tresc, baza)` — ZWRACA ABSOLUTNE INDEKSY ZNAKOW BEDACYCH
+KODEM. ZASADY:
 
-* kodem jest wnetrze pol `{...}`;
-* **nie** sa kodem: tekst dookola, `{{` i `}}`, konwersje `!r/!s/!a`,
-  staly tekst format-spec po `:`;
-* zagniezdzone literaly w wyrazeniu pozostaja chronione jak dane —
-  **chyba ze same sa f-stringami**, wtedy rekurencja.
+* KODEM JEST WNETRZE POL `{...}`;
+* **NIE** SA KODEM: TEKST DOOKOLA, `{{` I `}}`, KONWERSJE `!r/!s/!a`,
+  STALY TEKST FORMAT-SPEC PO `:`;
+* ZAGNIEZDZONE LITERALY W WYRAZENIU POZOSTAJA CHRONIONE JAK DANE —
+  **CHYBA ZE SAME SA F-STRINGAMI**, WTEDY REKURENCJA.
 
-Podpiecie to jedna linia: `return chronione - kod_fstring`.
+PODPIECIE TO JEDNA LINIA: `return chronione - kod_fstring`.
 
-### Weryfikacja
+### WERYFIKACJA
 
-Kontrola krzyzowa z `ast`: dla kazdego f-stringa w **171 modulach stdlib**
-sprawdzono, czy wszystkie nazwy widziane przez `ast.FormattedValue` sa
-objete przez skaner.
+KONTROLA KRZYZOWA Z `ast`: DLA KAZDEGO F-STRINGA W **171 MODULACH STDLIB**
+SPRAWDZONO, CZY WSZYSTKIE NAZWY WIDZIANE PRZEZ `ast.FormattedValue` SA
+OBJETE PRZEZ SKANER.
 
-| Miara | Wynik |
+| MIARA | WYNIK |
 |---|---|
-| plikow zbadanych | 171 |
-| pol zastepczych (`FormattedValue`) | 536 |
-| **plikow zgodnych z `ast`** | **171 / 171** |
+| PLIKOW ZBADANYCH | 171 |
+| POL ZASTEPCZYCH (`FormattedValue`) | 536 |
+| **PLIKOW ZGODNYCH Z `ast`** | **171 / 171** |
 
-Przypadek `dataclasses.py` (f-string zagniezdzony w f-stringu) wykryl brak
-rekurencji w pierwszej wersji skanera — dopisana, kontrola przeszla w 100%.
+PRZYPADEK `dataclasses.py` (F-STRING ZAGNIEZDZONY W F-STRINGU) WYKRYL BRAK
+REKURENCJI W PIERWSZEJ WERSJI SKANERA — DOPISANA, KONTROLA PRZESZLA W 100%.
 
-W JS analogicznie: skaner `${...}` w stanie `string_backtick`, z obsluga
-zagniezdzonych klamer i literalow.
+W JS ANALOGICZNIE: SKANER `${...}` W STANIE `string_backtick`, Z OBSLUGA
+ZAGNIEZDZONYCH KLAMER I LITERALOW.
 
 ---
 
-## 2. Wydajnosc — kwadratowy diff (znalezisko Z1)
+## 2. WYDAJNOSC — KWADRATOWY DIFF (ZNALEZISKO Z1)
 
-### Problem
+### PROBLEM
 
-`_napraw_niespojnosc_identyfikatorow` liczyl `SequenceMatcher` **znak po
-znaku na calym pliku**. Zmierzone na `argparse.py` (99 612 znakow):
+`_napraw_niespojnosc_identyfikatorow` LICZYL `SequenceMatcher` **ZNAK PO
+ZNAKU NA CALYM PLIKU**. ZMIERZONE NA `argparse.py` (99 612 ZNAKOW):
 
 ```
 real  3m23s          <- czyszczenie jednego pliku
@@ -91,111 +97,111 @@ real  3m23s          <- czyszczenie jednego pliku
 rdzen czyszczacy:  0.285 s    (narzut ~700x)
 ```
 
-| rozmiar | czas diffa |
+| ROZMIAR | CZAS DIFFA |
 |---|---|
-| 5 000 | 0.27 s |
-| 20 000 | 10.61 s |
-| 80 000 | 116.86 s |
+| 5 000 | 0.27 S |
+| 20 000 | 10.61 S |
+| 80 000 | 116.86 S |
 
-### Rozwiazanie i jego uzasadnienie
+### ROZWIAZANIE I JEGO UZASADNIENIE
 
-Czyszczenie zmienia znaki **wewnatrz linii** i nie zmienia ich liczby.
-Diff mozna wiec liczyc per linia: koszt spada z kwadratu calego pliku do
-sumy kwadratow dlugosci linii.
+CZYSZCZENIE ZMIENIA ZNAKI **WEWNATRZ LINII** I NIE ZMIENIA ICH LICZBY.
+DIFF MOZNA WIEC LICZYC PER LINIA: KOSZT SPADA Z KWADRATU CALEGO PLIKU DO
+SUMY KWADRATOW DLUGOSCI LINII.
 
-Ostroznosc: gdyby liczba linii jednak sie roznila (np. lamacz zamieniony
-na `\n`), `_zmiany_znakowe` **wraca do wariantu globalnego**. Poprawnosc
-ma pierwszenstwo przed szybkoscia — szybka sciezka obsluguje przypadek
-typowy, wolna zostaje jako siatka bezpieczenstwa.
+OSTROZNOSC: GDYBY LICZBA LINII JEDNAK SIE ROZNILA (NP. LAMACZ ZAMIENIONY
+NA `\n`), `_zmiany_znakowe` **WRACA DO WARIANTU GLOBALNEGO**. POPRAWNOSC
+MA PIERWSZENSTWO PRZED SZYBKOSCIA — SZYBKA SCIEZKA OBSLUGUJE PRZYPADEK
+TYPOWY, WOLNA ZOSTAJE JAKO SIATKA BEZPIECZENSTWA.
 
-### Weryfikacja
+### WERYFIKACJA
 
-| Miara | Wynik |
+| MIARA | WYNIK |
 |---|---|
-| pliki o identycznym zbiorze zmienionych pozycji | **25 / 25** |
-| czas: diff globalny | 66.71 s |
-| czas: diff per linia | 0.014 s |
-| `argparse.py` przez CLI: przed | **3 m 23 s** |
-| `argparse.py` przez CLI: po | **0.137 s** (~1480x) |
+| PLIKI O IDENTYCZNYM ZBIORZE ZMIENIONYCH POZYCJI | **25 / 25** |
+| CZAS: DIFF GLOBALNY | 66.71 S |
+| CZAS: DIFF PER LINIA | 0.014 S |
+| `argparse.py` PRZEZ CLI: PRZED | **3 M 23 S** |
+| `argparse.py` PRZEZ CLI: PO | **0.137 S** (~1480X) |
 
-Wynik czyszczenia bez zmian — te same liczniki `cyr 2 | grk 1 | niewidzialne 1`.
+WYNIK CZYSZCZENIA BEZ ZMIAN — TE SAME LICZNIKI `cyr 2 | grk 1 | niewidzialne 1`.
 
 ---
 
-## 3. Kryterium testow — z `compile()` na „uruchom i porownaj"
+## 3. KRYTERIUM TESTOW — Z `compile()` NA „URUCHOM I POROWNAJ"
 
-### Problem
+### PROBLEM
 
-Turnieje T3 i Z2 uznawaly plik za caly, jesli przechodzil `compile()`.
-Tymczasem obie powazne klasy bledow, jakie narzedzie potrafi wprowadzic,
-`compile()` **przechodza**:
+TURNIEJE T3 I Z2 UZNAWALY PLIK ZA CALY, JESLI PRZECHODZIL `compile()`.
+TYMCZASEM OBIE POWAZNE KLASY BLEDOW, JAKIE NARZEDZIE POTRAFI WPROWADZIC,
+`compile()` **PRZECHODZA**:
 
-* luka f-string -> `NameError`,
-* niespojnosc identyfikatorow (znalezisko `_scandir_path`) -> `AttributeError`.
+* LUKA F-STRING -> `NameError`,
+* NIESPOJNOSC IDENTYFIKATOROW (ZNALEZISKO `_scandir_path`) -> `AttributeError`.
 
-Do tego zadna z 8 probek turniejowych nie zawierala f-stringa ze zmienna
-(zmierzone: 0), podczas gdy uzywa go **58/171 = 34%** modulow stdlib.
-Testy pokazywaly „0 popsutych" omijajac konstrukcje z co trzeciego pliku.
+DO TEGO ZADNA Z 8 PROBEK TURNIEJOWYCH NIE ZAWIERALA F-STRINGA ZE ZMIENNA
+(ZMIERZONE: 0), PODCZAS GDY UZYWA GO **58/171 = 34%** MODULOW STDLIB.
+TESTY POKAZYWALY „0 POPSUTYCH" OMIJAJAC KONSTRUKCJE Z CO TRZECIEGO PLIKU.
 
-### Rozwiazanie
+### ROZWIAZANIE
 
-`dev/turnieje/turniej-4-runtime.py` — **uruchamia** program przed i po
-czyszczeniu i porownuje standardowe wyjscie. Dwie kategorie:
+`dev/turnieje/turniej-4-runtime.py` — **URUCHAMIA** PROGRAM PRZED I PO
+CZYSZCZENIU I POROWNUJE STANDARDOWE WYJSCIE. DWIE KATEGORIE:
 
-* **nieszkodliwosc** (14 probek): dzialalo przed -> musi dawac ten sam
-  wynik po. Obejmuje wszystkie warianty f-stringa (format-spec,
-  zagniezdzony, wielolinijkowy, indeks, konwersja, metoda, f-w-f,
-  podwojne klamry) oraz probke kontrolna z polskim tekstem w danych.
-* **sila naprawcza** (4 probki): nie dzialalo przed -> **musi** dzialac po
-  (niespojnosc nazw, zero-width w nazwie, atrybut klasy, nazwa importu).
+* **NIESZKODLIWOSC** (14 PROBEK): DZIALALO PRZED -> MUSI DAWAC TEN SAM
+  WYNIK PO. OBEJMUJE WSZYSTKIE WARIANTY F-STRINGA (FORMAT-SPEC,
+  ZAGNIEZDZONY, WIELOLINIJKOWY, INDEKS, KONWERSJA, METODA, F-W-F,
+  PODWOJNE KLAMRY) ORAZ PROBKE KONTROLNA Z POLSKIM TEKSTEM W DANYCH.
+* **SILA NAPRAWCZA** (4 PROBKI): NIE DZIALALO PRZED -> **MUSI** DZIALAC PO
+  (NIESPOJNOSC NAZW, ZERO-WIDTH W NAZWIE, ATRYBUT KLASY, NAZWA IMPORTU).
 
-Rozdzielenie tych kategorii bylo konieczne: pierwsza wersja turnieju
-wrzucala je razem i zglaszala pliki zepsute-przed jako „zle probki".
+ROZDZIELENIE TYCH KATEGORII BYLO KONIECZNE: PIERWSZA WERSJA TURNIEJU
+WRZUCALA JE RAZEM I ZGLASZALA PLIKI ZEPSUTE-PRZED JAKO „ZLE PROBKI".
 
-### Weryfikacja samego straznika
+### WERYFIKACJA SAMEGO STRAZNIKA
 
-Test w obie strony — turniej musi **umiec oblac**:
+TEST W OBIE STRONY — TURNIEJ MUSI **UMIEC OBLAC**:
 
-| Wersja narzedzi | Wynik T4 | exit |
+| WERSJA NARZEDZI | WYNIK T4 | EXIT |
 |---|---|---|
-| stara (przed naprawa) | REGRESJA — 10 przypadkow | **1** |
-| nowa (po naprawie) | WSZYSTKO ZDANE | **0** |
+| STARA (PRZED NAPRAWA) | REGRESJA — 10 PRZYPADKOW | **1** |
+| NOWA (PO NAPRAWIE) | WSZYSTKO ZDANE | **0** |
 
 ---
 
-## 4. Regresja koncowa
+## 4. REGRESJA KONCOWA
 
-| Test | Wynik |
+| TEST | WYNIK |
 |---|---|
-| selftesty | 4/4 PASS |
-| tor-pogromcy | 348 trafione, FN 0, FP 0, SZUM 0 |
-| fuzz | 3 x 500 OK, 0 FAIL |
-| T2 sprawdzajacy | 992 wektory, FN 0, FP 0, SZUM 0, CRASH 0 |
-| T3 niepsucie | 190 plikow, 0 popsutych |
-| Z1 wykrywanie | 1545 wektorow, FN 0, FP 0, CRASH 0 |
-| Z2 niepsucie | 200 plikow, 0 popsutych |
-| **T4 runtime (nowy)** | **WSZYSTKO ZDANE** |
-| luka-fstring | **0 / 5 zepsutych** |
-| bramka spojnosci | 0 rozjazdow |
+| SELFTESTY | 4/4 PASS |
+| TOR-POGROMCY | 348 TRAFIONE, FN 0, FP 0, SZUM 0 |
+| FUZZ | 3 X 500 OK, 0 FAIL |
+| T2 SPRAWDZAJACY | 992 WEKTORY, FN 0, FP 0, SZUM 0, CRASH 0 |
+| T3 NIEPSUCIE | 190 PLIKOW, 0 POPSUTYCH |
+| Z1 WYKRYWANIE | 1545 WEKTOROW, FN 0, FP 0, CRASH 0 |
+| Z2 NIEPSUCIE | 200 PLIKOW, 0 POPSUTYCH |
+| **T4 RUNTIME (NOWY)** | **WSZYSTKO ZDANE** |
+| LUKA-FSTRING | **0 / 5 ZEPSUTYCH** |
+| BRAMKA SPOJNOSCI | 0 ROZJAZDOW |
 
-Na 40 prawdziwych modulach stdlib: 0 niekompilujacych sie, 0 zmian w kodzie
-wykonywalnym, **40/40 importuje sie z identycznym publicznym API**.
+NA 40 PRAWDZIWYCH MODULACH STDLIB: 0 NIEKOMPILUJACYCH SIE, 0 ZMIAN W KODZIE
+WYKONYWALNYM, **40/40 IMPORTUJE SIE Z IDENTYCZNYM PUBLICZNYM API**.
 
 ---
 
-## 5. Co zostalo swiadomie NIE zrobione
+## 5. CO ZOSTALO SWIADOMIE NIE ZROBIONE
 
-* **Martwy dublet w Anihilatorze** (111 linii, `zaglada_tekst_poza_literalami_multi`
-  zdefiniowana dwa razy) — usuniecie to zmiana czysto kosmetyczna w pliku,
-  ktory wlasnie zostal zmieniony merytorycznie. Rozdzielenie tych dwoch
-  rzeczy ulatwia ewentualne cofniecie naprawy. Do zrobienia osobno.
-* **`baza_bez_ogonkow`** (martwa, 0 wywolan) — jw.
-* **Brak `--help`** w Prokuratorze i Anihilatorze — brak funkcji, nie blad.
-* **Turnieje dla Prokuratora i Anihilatora** — realna luka w pokryciu,
-  ale wymaga zbudowania amunicji od zera; T4 obejmuje na razie Zaglade
-  i Pogromce, czyli sciezki gdzie wystapil blad.
-* **Selftesty drukujace stare numery wersji** — kosmetyka, nie wplywa na
-  dzialanie; do zrobienia razem ze sprzataniem martwego kodu.
+* **MARTWY DUBLET W ANIHILATORZE** (111 LINII, `zaglada_tekst_poza_literalami_multi`
+  ZDEFINIOWANA DWA RAZY) — USUNIECIE TO ZMIANA CZYSTO KOSMETYCZNA W PLIKU,
+  KTORY WLASNIE ZOSTAL ZMIENIONY MERYTORYCZNIE. ROZDZIELENIE TYCH DWOCH
+  RZECZY ULATWIA EWENTUALNE COFNIECIE NAPRAWY. DO ZROBIENIA OSOBNO.
+* **`baza_bez_ogonkow`** (MARTWA, 0 WYWOLAN) — JW.
+* **BRAK `--help`** W PROKURATORZE I ANIHILATORZE — BRAK FUNKCJI, NIE BLAD.
+* **TURNIEJE DLA PROKURATORA I ANIHILATORA** — REALNA LUKA W POKRYCIU,
+  ALE WYMAGA ZBUDOWANIA AMUNICJI OD ZERA; T4 OBEJMUJE NA RAZIE ZAGLADE
+  I POGROMCE, CZYLI SCIEZKI GDZIE WYSTAPIL BLAD.
+* **SELFTESTY DRUKUJACE STARE NUMERY WERSJI** — KOSMETYKA, NIE WPLYWA NA
+  DZIALANIE; DO ZROBIENIA RAZEM ZE SPRZATANIEM MARTWEGO KODU.
 
-Backup rodziny sprzed zmian: `/tmp/backup-rodziny/` (poza repo, tymczasowy).
-Wersja poprzednia jest w historii gita — commit `489b0df`.
+BACKUP RODZINY SPRZED ZMIAN: `/tmp/backup-rodziny/` (POZA REPO, TYMCZASOWY).
+WERSJA POPRZEDNIA JEST W HISTORII GITA — COMMIT `489b0df`.

@@ -1,5 +1,11 @@
 # RODZINA POGROMCY KWIATKOW - wersja do wrzucenia na czat - COMBO 4 plikow
 
+> **Ten plik jest dla człowieka.** Załącz go do czatu z dowolnym agentem AI
+> — zawiera komplet kodu, nic nie trzeba pobierać ani instalować.
+>
+> Powrót: [`README.md`](../../README.md)
+
+
 Ten plik zawiera wszystko: instrukcje dla Ciebie, polecenie dla agenta AI oraz kompletny kod 4 narzedzi. Nie musisz nic pobierac z GitHuba i nic instalowac.
 
 > MOTTO: "uzywaj bo dzieki PogromcyKwiatkow nie mielisz potencjalnie BRUDNEGO kodu, co marnuje nie milisekundy a godziny mielenia kodu i tony potencjalnych tokenow jesli korzystasz z pomocy innych Agentow AI. Krecenie sie w kolko z BRUDNYM kodem to strata czasu" -- Piotr (GAF)

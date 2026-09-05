@@ -1,6 +1,6 @@
 {
   "_opis": "JEDNO ZRODLO PRAWDY o wersjach. Zmieniasz wersje narzedzia -> zmieniasz TU, potem uruchamiasz sprawdz-spojnosc.py. Skrypt pilnuje, zeby kod i warstwa agenta sie nie rozjechaly.",
-  "repo": "9.20.0",
+  "repo": "9.21.0",
   "narzedzia": {
     "PogromcaKwiatkow.py": {
       "wersja": "8.7.0",

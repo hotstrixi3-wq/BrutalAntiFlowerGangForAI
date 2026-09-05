@@ -1,65 +1,70 @@
-# Inzynieria wsteczna Gangu — analiza calosciowa
+# INZYNIERIA WSTECZNA GANGU — ANALIZA CALOSCIOWA
 
-Data: 2026-09-04 · Stan repo: commit `448004b` (v8.5.0)
+> **DLA AGENTA.** JAK RODZINA DZIAŁA W ŚRODKU — ARCHITEKTURA I PRZEPŁYW.
+>
+> POWRÓT: [`README.md`](../../README.md) · LEKCJE: [`LEKCJE.md`](LEKCJE.md)
 
-Dokument powstal metoda **empiryczna**: wnioski pochodza z AST kodu i z
-URUCHOMIENIA narzedzi na prawdziwych plikach, a nie z dokstringow.
-Kazda liczba nizej jest wynikiem wykonanego testu.
+
+DATA: 2026-09-04 · STAN REPO: COMMIT `448004b` (V8.5.0)
+
+DOKUMENT POWSTAL METODA **EMPIRYCZNA**: WNIOSKI POCHODZA Z AST KODU I Z
+URUCHOMIENIA NARZEDZI NA PRAWDZIWYCH PLIKACH, A NIE Z DOKSTRINGOW.
+KAZDA LICZBA NIZEJ JEST WYNIKIEM WYKONANEGO TESTU.
 
 ---
 
-## 1. Cel istnienia
+## 1. CEL ISTNIENIA
 
-Gang rozwiazuje jeden problem: **tekst wygladajacy na ASCII, ktory nim nie jest**.
+GANG ROZWIAZUJE JEDEN PROBLEM: **TEKST WYGLADAJACY NA ASCII, KTORY NIM NIE JEST**.
 
-Model jezykowy albo wklejka z sieci potrafi wstawic do kodu cyrylickie `<U+0430>`
-(U+0430) zamiast `a`, greckie `<U+03BF>` zamiast `o`, twarda spacje zamiast spacji,
-zero-width space w srodku nazwy zmiennej. Efekt: kod wyglada poprawnie na
-ekranie, a nie dziala — albo, gorzej, dziala inaczej niz wyglada.
-`NameError: name 'diet' is not defined. Did you mean: 'dict'?` przy nazwie,
-ktora na ekranie jest napisana `dict`.
+MODEL JEZYKOWY ALBO WKLEJKA Z SIECI POTRAFI WSTAWIC DO KODU CYRYLICKIE `<U+0430>`
+(U+0430) ZAMIAST `a`, GRECKIE `<U+03BF>` ZAMIAST `o`, TWARDA SPACJE ZAMIAST SPACJI,
+ZERO-WIDTH SPACE W SRODKU NAZWY ZMIENNEJ. EFEKT: KOD WYGLADA POPRAWNIE NA
+EKRANIE, A NIE DZIALA — ALBO, GORZEJ, DZIALA INACZEJ NIZ WYGLADA.
+`NameError: name 'diet' is not defined. Did you mean: 'dict'?` PRZY NAZWIE,
+KTORA NA EKRANIE JEST NAPISANA `dict`.
 
-Gang wykrywa takie znaki i przywraca ASCII.
+GANG WYKRYWA TAKIE ZNAKI I PRZYWRACA ASCII.
 
-## 2. Zalozenie naczelne i dlaczego jest nieoczywiste
+## 2. ZALOZENIE NACZELNE I DLACZEGO JEST NIEOCZYWISTE
 
-> Narzedzie czyszczace kod nie ma prawa tego kodu zepsuc.
+> NARZEDZIE CZYSZCZACE KOD NIE MA PRAWA TEGO KODU ZEPSUC.
 
-To zalozenie jest trudniejsze, niz brzmi, bo naiwne czyszczenie psuje kod
-na trzy sposoby naraz:
+TO ZALOZENIE JEST TRUDNIEJSZE, NIZ BRZMI, BO NAIWNE CZYSZCZENIE PSUJE KOD
+NA TRZY SPOSOBY NARAZ:
 
-1. **Podmiana w literale** — `print("cena: 5 zl")` z cyrylickim `<U+0441>` w slowie
-   polskim. Zamiana zmienia DANE programu, nie jego kod.
-2. **Rozbicie tokena** — twarda spacja miedzy `def` a nazwa: wstawienie
-   zwyklej spacji naprawia, ale twarda spacja W SRODKU nazwy zamieniona na
-   spacje rozwala skladnie na zawsze. Dlatego `zamien_znak(kod=True)`
-   twarde spacje **usuwa**, nie zamienia.
-3. **Niespojnosc nazw** — najgrozniejszy. `self._scandir_path` w trzech
-   miejscach i `self._VIIIscandir_patKh` w czwartym (U+2167 rzymska osemka
-   rozwinieta przez NFKC na `VIII`). Po transliteracji plik **kompiluje sie
-   poprawnie** i wybucha `AttributeError` dopiero w runtime.
-   `compile()` tego nie widzi — sprawdza skladnie, nie spojnosc nazw.
+1. **PODMIANA W LITERALE** — `print("cena: 5 zl")` Z CYRYLICKIM `<U+0441>` W SLOWIE
+   POLSKIM. ZAMIANA ZMIENIA DANE PROGRAMU, NIE JEGO KOD.
+2. **ROZBICIE TOKENA** — TWARDA SPACJA MIEDZY `def` A NAZWA: WSTAWIENIE
+   ZWYKLEJ SPACJI NAPRAWIA, ALE TWARDA SPACJA W SRODKU NAZWY ZAMIENIONA NA
+   SPACJE ROZWALA SKLADNIE NA ZAWSZE. DLATEGO `zamien_znak(kod=True)`
+   TWARDE SPACJE **USUWA**, NIE ZAMIENIA.
+3. **NIESPOJNOSC NAZW** — NAJGROZNIEJSZY. `self._scandir_path` W TRZECH
+   MIEJSCACH I `self._VIIIscandir_patKh` W CZWARTYM (U+2167 RZYMSKA OSEMKA
+   ROZWINIETA PRZEZ NFKC NA `VIII`). PO TRANSLITERACJI PLIK **KOMPILUJE SIE
+   POPRAWNIE** I WYBUCHA `AttributeError` DOPIERO W RUNTIME.
+   `compile()` TEGO NIE WIDZI — SPRAWDZA SKLADNIE, NIE SPOJNOSC NAZW.
 
-Odpowiedzia na (3) jest `_napraw_niespojnosc_identyfikatorow` (v1.1.0),
-uruchamiana jako OSTATNIA kontrola nawet gdy `compile()` przeszlo za
-pierwszym razem.
+ODPOWIEDZIA NA (3) JEST `_napraw_niespojnosc_identyfikatorow` (V1.1.0),
+URUCHAMIANA JAKO OSTATNIA KONTROLA NAWET GDY `compile()` PRZESZLO ZA
+PIERWSZYM RAZEM.
 
-## 3. Architektura — kto kim jest
+## 3. ARCHITEKTURA — KTO KIM JEST
 
-Cztery narzedzia, podzial na **oczy**, **rece** i **mozg**:
+CZTERY NARZEDZIA, PODZIAL NA **OCZY**, **RECE** I **MOZG**:
 
-| Narzedzie | Rola | Zakres | Pisze po plikach? |
+| NARZEDZIE | ROLA | ZAKRES | PISZE PO PLIKACH? |
 |---|---|---|---|
-| `PogromcaKwiatkow.py` 8.4.0 | oczy (detektor) | wszystko | tylko z `--fix` |
-| `ZagladaKultury.py` 1.3.0 | rece | `.py`, `.json`, proza | tak |
-| `AnihilatorChwastow.py` 1.3.0 | rece | js/ts/java/go/rs/cs/c/cpp/php | tak |
-| `ProkuratorOgrodnik.py` 1.2.0 | mozg (orkiestrator) | decyduje i wola pozostalych | posrednio |
+| `PogromcaKwiatkow.py` 8.4.0 | OCZY (DETEKTOR) | WSZYSTKO | TYLKO Z `--fix` |
+| `ZagladaKultury.py` 1.3.0 | RECE | `.py`, `.json`, PROZA | TAK |
+| `AnihilatorChwastow.py` 1.3.0 | RECE | js/ts/java/go/rs/cs/c/cpp/php | TAK |
+| `ProkuratorOgrodnik.py` 1.2.0 | MOZG (ORKIESTRATOR) | DECYDUJE I WOLA POZOSTALYCH | POSREDNIO |
 
-**Wspolny prefiks wszystkich czterech**: `WERSJA`, `_KOPIE`,
-`jest_kopia_zapasowa()` — zabezpieczenie przed przetwarzaniem wlasnych
-kopii `.bak-*`. Bez tego drugie uruchomienie zjadaloby backupy.
+**WSPOLNY PREFIKS WSZYSTKICH CZTERECH**: `WERSJA`, `_KOPIE`,
+`jest_kopia_zapasowa()` — ZABEZPIECZENIE PRZED PRZETWARZANIEM WLASNYCH
+KOPII `.bak-*`. BEZ TEGO DRUGIE URUCHOMIENIE ZJADALOBY BACKUPY.
 
-**Przeplyw miedzy narzedziami** (Prokurator jako dyrygent):
+**PRZEPLYW MIEDZY NARZEDZIAMI** (PROKURATOR JAKO DYRYGENT):
 
 ```
 ProkuratorOgrodnik.main
@@ -73,101 +78,101 @@ ProkuratorOgrodnik.main
        polityka: UMORZONE / POUCZENIE / ZAGLADA / BLOKADA
 ```
 
-Rozdzielenie oczu od rak jest celowe: wykrycie nie oznacza zgody na zapis.
-Decyzje podejmuje Prokurator, na podstawie `ALLOWLIST_GLOBS` i
-`ALLOWLIST_CLASSES_FOR_I18N` (plik i18n z pelna cyrylica to nie jest skazenie).
+ROZDZIELENIE OCZU OD RAK JEST CELOWE: WYKRYCIE NIE OZNACZA ZGODY NA ZAPIS.
+DECYZJE PODEJMUJE PROKURATOR, NA PODSTAWIE `ALLOWLIST_GLOBS` I
+`ALLOWLIST_CLASSES_FOR_I18N` (PLIK I18N Z PELNA CYRYLICA TO NIE JEST SKAZENIE).
 
-## 4. Warstwy ochronne — pieciokrotna bramka
+## 4. WARSTWY OCHRONNE — PIECIOKROTNA BRAMKA
 
-Kolejnosc, w jakiej kod broni sie przed wlasna pomylka:
+KOLEJNOSC, W JAKIEJ KOD BRONI SIE PRZED WLASNA POMYLKA:
 
-1. **`jest_kopia_zapasowa()`** — nie dotykaj `.bak-*`.
-2. **`wykryj_nieobslugiwane()`** (Anihilator) — *fail-closed*: nieznana
-   skladnia => `BlokadaAnihilatora`, zero zapisu. Lepiej nie zrobic nic
-   niz zrobic zle.
-3. **`_chronione_pozycje()` / `_regiony_literalow()`** — literaly i
-   komentarze sa poza zasiegiem podmiany.
-4. **Bramka `compile()`** — kandydat nie wchodzi na dysk, jesli sie nie
-   kompiluje. Trzy warianty proboawane po kolei (ostrozny surowy => pelny
-   => `_sprobuj_naprawy` z usuwaniem zamiast transliteracji).
-5. **`_napraw_niespojnosc_identyfikatorow()`** — kontrola PO compile,
-   opisana w pkt 2.3.
+1. **`jest_kopia_zapasowa()`** — NIE DOTYKAJ `.bak-*`.
+2. **`wykryj_nieobslugiwane()`** (ANIHILATOR) — *FAIL-CLOSED*: NIEZNANA
+   SKLADNIA => `BlokadaAnihilatora`, ZERO ZAPISU. LEPIEJ NIE ZROBIC NIC
+   NIZ ZROBIC ZLE.
+3. **`_chronione_pozycje()` / `_regiony_literalow()`** — LITERALY I
+   KOMENTARZE SA POZA ZASIEGIEM PODMIANY.
+4. **BRAMKA `compile()`** — KANDYDAT NIE WCHODZI NA DYSK, JESLI SIE NIE
+   KOMPILUJE. TRZY WARIANTY PROBOAWANE PO KOLEI (OSTROZNY SUROWY => PELNY
+   => `_sprobuj_naprawy` Z USUWANIEM ZAMIAST TRANSLITERACJI).
+5. **`_napraw_niespojnosc_identyfikatorow()`** — KONTROLA PO COMPILE,
+   OPISANA W PKT 2.3.
 
-Dopiero potem `zapisz_bezpiecznie()`: backup + zapis atomowy.
-
----
-
-## 5. WERYFIKACJA TEZY: czy Gang psuje kod?
-
-Teza do sprawdzenia: *kod musi sie kompilowac i dzialac po uzyciu Gangu*.
-
-### Metodyka
-
-Testy repo (turnieje w `dev/`) operuja na plikach syntetycznych. Zeby nie
-ufac wlasnej amunicji, wziolem **prawdziwe moduly biblioteki standardowej
-Pythona 3.11** (171 dostepnych), skazil je i przepuscil przez Zaglade.
-
-Kluczowa poprawka metodyczna w trakcie: pierwsze podejscie skazalo pliki
-znakami takimi jak cyrylickie `<U+0440>` -> transliterowane na `r`, podczas gdy
-oryginalem bylo `s`. Taki test jest **nieuczciwy** — informacja zostala
-zniszczona przeze mnie, zadne narzedzie jej nie odtworzy. Dlatego
-zbudowalem zbior **52 wiernych homoglifow**: znakow, dla ktorych
-`zamien_znak()` zwraca DOKLADNIE oryginalna litere ASCII. Dopiero wtedy
-zadanie „odtworz oryginal" jest wykonalne i test mierzy narzedzie,
-a nie moj generator.
-
-### Wyniki — 40 modulow stdlib, 6 wiernych homoglifow + 2 znaki niewidzialne na plik
-
-| Miara | Wynik |
-|---|---|
-| plikow zbadanych | 40 |
-| **nie kompiluje sie po Zagladzie** | **0** |
-| identyczny bajt-w-bajt z oryginalem | 2 |
-| kompiluje sie, ale rozni sie od oryginalu | 38 |
-
-Roznica w 38 plikach wymagala wyjasnienia. Analiza `tokenize` — gdzie
-dokladnie leza te roznice:
-
-| Lokalizacja roznicy | Liczba plikow |
-|---|---|
-| tylko w literalach i komentarzach | **38** |
-| **w kodzie wykonywalnym** | **0** |
-
-Czyli: Zaglada **nie ruszyla ani jednego znaku kodu wykonywalnego**.
-Roznice to skazenia, ktore moj generator wstrzyknal w stringi i komentarze
-— a tam Gang celowo nie wchodzi (warstwa 3). To nie jest defekt,
-to zadzialana ochrona danych.
-
-### Test najostrzejszy — czy to sie URUCHAMIA
-
-Kompilacja to za malo (patrz pkt 2.3 — `AttributeError` przechodzi przez
-`compile()`). Kazdy modul zostal zaimportowany w osobnym procesie
-i porownany zostal jego pelny publiczny interfejs (`dir()`) przed i po:
-
-| Miara | Wynik |
-|---|---|
-| modulow uruchomionych | 40 |
-| **importuje sie + IDENTYCZNE publiczne API** | **40 / 40** |
-| awarie runtime | **0** |
-
-**Teza potwierdzona.** Na prawdziwym kodzie produkcyjnym, przy skazeniu
-odwracalnym, Zaglada nie zepsula ani jednego pliku: wszystko sie kompiluje,
-wszystko sie importuje, publiczne API bez zmian.
+DOPIERO POTEM `zapisz_bezpiecznie()`: BACKUP + ZAPIS ATOMOWY.
 
 ---
 
-## 6. Znaleziska
+## 5. WERYFIKACJA TEZY: CZY GANG PSUJE KOD?
 
-### Z1 (WYDAJNOSC, istotne) — kwadratowy diff zawiesza duze pliki
+TEZA DO SPRAWDZENIA: *KOD MUSI SIE KOMPILOWAC I DZIALAC PO UZYCIU GANGU*.
 
-Podczas testow `ZagladaKultury.py --zaglada` na module `argparse.py`
-(99 612 znakow) **nie zakonczyla sie w 120 s**. Pomiar dokladny:
+### METODYKA
+
+TESTY REPO (TURNIEJE W `dev/`) OPERUJA NA PLIKACH SYNTETYCZNYCH. ZEBY NIE
+UFAC WLASNEJ AMUNICJI, WZIOLEM **PRAWDZIWE MODULY BIBLIOTEKI STANDARDOWEJ
+PYTHONA 3.11** (171 DOSTEPNYCH), SKAZIL JE I PRZEPUSCIL PRZEZ ZAGLADE.
+
+KLUCZOWA POPRAWKA METODYCZNA W TRAKCIE: PIERWSZE PODEJSCIE SKAZALO PLIKI
+ZNAKAMI TAKIMI JAK CYRYLICKIE `<U+0440>` -> TRANSLITEROWANE NA `r`, PODCZAS GDY
+ORYGINALEM BYLO `s`. TAKI TEST JEST **NIEUCZCIWY** — INFORMACJA ZOSTALA
+ZNISZCZONA PRZEZE MNIE, ZADNE NARZEDZIE JEJ NIE ODTWORZY. DLATEGO
+ZBUDOWALEM ZBIOR **52 WIERNYCH HOMOGLIFOW**: ZNAKOW, DLA KTORYCH
+`zamien_znak()` ZWRACA DOKLADNIE ORYGINALNA LITERE ASCII. DOPIERO WTEDY
+ZADANIE „ODTWORZ ORYGINAL" JEST WYKONALNE I TEST MIERZY NARZEDZIE,
+A NIE MOJ GENERATOR.
+
+### WYNIKI — 40 MODULOW STDLIB, 6 WIERNYCH HOMOGLIFOW + 2 ZNAKI NIEWIDZIALNE NA PLIK
+
+| MIARA | WYNIK |
+|---|---|
+| PLIKOW ZBADANYCH | 40 |
+| **NIE KOMPILUJE SIE PO ZAGLADZIE** | **0** |
+| IDENTYCZNY BAJT-W-BAJT Z ORYGINALEM | 2 |
+| KOMPILUJE SIE, ALE ROZNI SIE OD ORYGINALU | 38 |
+
+ROZNICA W 38 PLIKACH WYMAGALA WYJASNIENIA. ANALIZA `tokenize` — GDZIE
+DOKLADNIE LEZA TE ROZNICE:
+
+| LOKALIZACJA ROZNICY | LICZBA PLIKOW |
+|---|---|
+| TYLKO W LITERALACH I KOMENTARZACH | **38** |
+| **W KODZIE WYKONYWALNYM** | **0** |
+
+CZYLI: ZAGLADA **NIE RUSZYLA ANI JEDNEGO ZNAKU KODU WYKONYWALNEGO**.
+ROZNICE TO SKAZENIA, KTORE MOJ GENERATOR WSTRZYKNAL W STRINGI I KOMENTARZE
+— A TAM GANG CELOWO NIE WCHODZI (WARSTWA 3). TO NIE JEST DEFEKT,
+TO ZADZIALANA OCHRONA DANYCH.
+
+### TEST NAJOSTRZEJSZY — CZY TO SIE URUCHAMIA
+
+KOMPILACJA TO ZA MALO (PATRZ PKT 2.3 — `AttributeError` PRZECHODZI PRZEZ
+`compile()`). KAZDY MODUL ZOSTAL ZAIMPORTOWANY W OSOBNYM PROCESIE
+I POROWNANY ZOSTAL JEGO PELNY PUBLICZNY INTERFEJS (`dir()`) PRZED I PO:
+
+| MIARA | WYNIK |
+|---|---|
+| MODULOW URUCHOMIONYCH | 40 |
+| **IMPORTUJE SIE + IDENTYCZNE PUBLICZNE API** | **40 / 40** |
+| AWARIE RUNTIME | **0** |
+
+**TEZA POTWIERDZONA.** NA PRAWDZIWYM KODZIE PRODUKCYJNYM, PRZY SKAZENIU
+ODWRACALNYM, ZAGLADA NIE ZEPSULA ANI JEDNEGO PLIKU: WSZYSTKO SIE KOMPILUJE,
+WSZYSTKO SIE IMPORTUJE, PUBLICZNE API BEZ ZMIAN.
+
+---
+
+## 6. ZNALEZISKA
+
+### Z1 (WYDAJNOSC, ISTOTNE) — KWADRATOWY DIFF ZAWIESZA DUZE PLIKI
+
+PODCZAS TESTOW `ZagladaKultury.py --zaglada` NA MODULE `argparse.py`
+(99 612 ZNAKOW) **NIE ZAKONCZYLA SIE W 120 S**. POMIAR DOKLADNY:
 
 ```
 real  3m23s   <- caly plik przez CLI
 ```
 
-Profil wskazuje jednoznacznie:
+PROFIL WSKAZUJE JEDNOZNACZNIE:
 
 ```
 ncalls  tottime  funkcja
@@ -176,32 +181,32 @@ ncalls  tottime  funkcja
      1    0.002  ZagladaKultury.py:350(_napraw_niespojnosc_identyfikatorow)  cumtime 544.7
 ```
 
-1,67 **miliarda** operacji slownikowych. Zrodlo — linia 371:
+1,67 **MILIARDA** OPERACJI SLOWNIKOWYCH. ZRODLO — LINIA 371:
 
 ```python
 sm = difflib.SequenceMatcher(None, oryginal, kandydat, autojunk=False)
 ```
 
-`SequenceMatcher` na calym pliku **znak po znaku** z `autojunk=False` ma
-zlozonosc kwadratowa. Zmierzone skalowanie:
+`SequenceMatcher` NA CALYM PLIKU **ZNAK PO ZNAKU** Z `autojunk=False` MA
+ZLOZONOSC KWADRATOWA. ZMIERZONE SKALOWANIE:
 
-| rozmiar pliku | czas diffa |
+| ROZMIAR PLIKU | CZAS DIFFA |
 |---|---|
-| 5 000 | 0.27 s |
-| 10 000 | 1.84 s |
-| 20 000 | 10.61 s |
-| 40 000 | 28.00 s |
-| 80 000 | 116.86 s |
+| 5 000 | 0.27 S |
+| 10 000 | 1.84 S |
+| 20 000 | 10.61 S |
+| 40 000 | 28.00 S |
+| 80 000 | 116.86 S |
 
-Dla porownania sam rdzen czyszczacy to 0.285 s — narzut ~700x.
-Poprawnosc jest zachowana (funkcja *dziala*), ale plik ~100 KB wyglada
-jak zawieszenie, a plik kilkusetkilobajtowy jest praktycznie nie do
-przetworzenia.
+DLA POROWNANIA SAM RDZEN CZYSZCZACY TO 0.285 S — NARZUT ~700X.
+POPRAWNOSC JEST ZACHOWANA (FUNKCJA *DZIALA*), ALE PLIK ~100 KB WYGLADA
+JAK ZAWIESZENIE, A PLIK KILKUSETKILOBAJTOWY JEST PRAKTYCZNIE NIE DO
+PRZETWORZENIA.
 
-**Proponowane rozwiazanie** (zweryfikowane, kod NIE wprowadzony do repo —
-zmiana rodziny wymaga zgody i resetuje medal): zmiany po zagladzie sa
-zawsze lokalne i nie zmieniaja liczby linii, wiec diff mozna liczyc
-**per linia** zamiast globalnie:
+**PROPONOWANE ROZWIAZANIE** (ZWERYFIKOWANE, KOD NIE WPROWADZONY DO REPO —
+ZMIANA RODZINY WYMAGA ZGODY I RESETUJE MEDAL): ZMIANY PO ZAGLADZIE SA
+ZAWSZE LOKALNE I NIE ZMIENIAJA LICZBY LINII, WIEC DIFF MOZNA LICZYC
+**PER LINIA** ZAMIAST GLOBALNIE:
 
 ```python
 lo = oryginal.splitlines(keepends=True)
@@ -214,61 +219,61 @@ for a, b in zip(lo, lk):
         ...  # offsety przesuniete o poczatek linii
 ```
 
-Wynik porownania obu wariantow na 25 plikach stdlib:
+WYNIK POROWNANIA OBU WARIANTOW NA 25 PLIKACH STDLIB:
 
-| Miara | Wynik |
+| MIARA | WYNIK |
 |---|---|
-| pliki o **identycznym** zbiorze zmienionych pozycji | **25 / 25** |
-| rozbieznosci | 0 |
-| czas: diff globalny | 66.71 s |
-| czas: diff per linia | 0.014 s |
-| **przyspieszenie** | **~4669x** |
+| PLIKI O **IDENTYCZNYM** ZBIORZE ZMIENIONYCH POZYCJI | **25 / 25** |
+| ROZBIEZNOSCI | 0 |
+| CZAS: DIFF GLOBALNY | 66.71 S |
+| CZAS: DIFF PER LINIA | 0.014 S |
+| **PRZYSPIESZENIE** | **~4669X** |
 
-Zachowanie bez zmian, czas z minut na milisekundy.
+ZACHOWANIE BEZ ZMIAN, CZAS Z MINUT NA MILISEKUNDY.
 
-### Z2 — martwy dublet funkcji w `AnihilatorChwastow.py`
+### Z2 — MARTWY DUBLET FUNKCJI W `AnihilatorChwastow.py`
 
-`zaglada_tekst_poza_literalami_multi` zdefiniowana **dwa razy**:
+`zaglada_tekst_poza_literalami_multi` ZDEFINIOWANA **DWA RAZY**:
 
-- linie **191–301** (111 linii) — MARTWA, nadpisana przy imporcie
-- linie **429–495** (67 linii) — AKTYWNA
+- LINIE **191–301** (111 LINII) — MARTWA, NADPISANA PRZY IMPORCIE
+- LINIE **429–495** (67 LINII) — AKTYWNA
 
-Obie obsluguja `regex` i backtick; aktywna dodatkowo deleguje do
-`zaglada_tekst_poza_literalami_multi_py`. Funkcjonalnie nieszkodliwe
-(wersja aktywna jest bogatsza), ale 111 linii martwego kodu to pulapka
-przy edycji — poprawka naniesiona na pierwsza definicje nie zadziala.
+OBIE OBSLUGUJA `regex` I BACKTICK; AKTYWNA DODATKOWO DELEGUJE DO
+`zaglada_tekst_poza_literalami_multi_py`. FUNKCJONALNIE NIESZKODLIWE
+(WERSJA AKTYWNA JEST BOGATSZA), ALE 111 LINII MARTWEGO KODU TO PULAPKA
+PRZY EDYCJI — POPRAWKA NANIESIONA NA PIERWSZA DEFINICJE NIE ZADZIALA.
 
-### Z3 — martwa `baza_bez_ogonkow`
+### Z3 — MARTWA `baza_bez_ogonkow`
 
-Zdefiniowana w Zagladzie i w Anihilatorze, **0 wywolan** w calym repo.
+ZDEFINIOWANA W ZAGLADZIE I W ANIHILATORZE, **0 WYWOLAN** W CALYM REPO.
 
-### Z4 — brak `--help`
+### Z4 — BRAK `--help`
 
-`ProkuratorOgrodnik.py` i `AnihilatorChwastow.py` nie obsluguja `--help`
-(Pogromca i Zaglada obsluguja).
+`ProkuratorOgrodnik.py` I `AnihilatorChwastow.py` NIE OBSLUGUJA `--help`
+(POGROMCA I ZAGLADA OBSLUGUJA).
 
-### Z5 — selftesty drukuja nieaktualne wersje
+### Z5 — SELFTESTY DRUKUJA NIEAKTUALNE WERSJE
 
-`AnihilatorChwastow.py` przy `WERSJA = "1.3.0"` drukuje `SELFTEST ... v1.0.0`;
-`ProkuratorOgrodnik.py` przy `1.2.0` drukuje `v1.0.1`. Bramka
-`sprawdz-spojnosc.py` tego nie lapie, bo pomija stringi wewnatrz kodu
-(`WZOR_W_KODZIE`) — swiadomy kompromis przyjety przy v8.5.0, tutaj
-pokazuje swoj koszt.
+`AnihilatorChwastow.py` PRZY `WERSJA = "1.3.0"` DRUKUJE `SELFTEST ... v1.0.0`;
+`ProkuratorOgrodnik.py` PRZY `1.2.0` DRUKUJE `v1.0.1`. BRAMKA
+`sprawdz-spojnosc.py` TEGO NIE LAPIE, BO POMIJA STRINGI WEWNATRZ KODU
+(`WZOR_W_KODZIE`) — SWIADOMY KOMPROMIS PRZYJETY PRZY V8.5.0, TUTAJ
+POKAZUJE SWOJ KOSZT.
 
 ---
 
-## 7. Wniosek koncowy
+## 7. WNIOSEK KONCOWY
 
-Teza **„kod kompiluje sie i dziala po uzyciu Gangu" — POTWIERDZONA**
-na prawdziwym kodzie produkcyjnym (40 modulow stdlib): 0 plikow
-niekompilujacych sie, 0 zmian w kodzie wykonywalnym, 40/40 dziala
-z identycznym publicznym API.
+TEZA **„KOD KOMPILUJE SIE I DZIALA PO UZYCIU GANGU" — POTWIERDZONA**
+NA PRAWDZIWYM KODZIE PRODUKCYJNYM (40 MODULOW STDLIB): 0 PLIKOW
+NIEKOMPILUJACYCH SIE, 0 ZMIAN W KODZIE WYKONYWALNYM, 40/40 DZIALA
+Z IDENTYCZNYM PUBLICZNYM API.
 
-Konstrukcja obronna jest przemyslana — piec warstw, fail-closed przy
-nieznanej skladni, bramka `compile()` przed kazdym zapisem i kontrola
-spojnosci nazw PO kompilacji, ktora lapie klase bledow niewidoczna dla
+KONSTRUKCJA OBRONNA JEST PRZEMYSLANA — PIEC WARSTW, FAIL-CLOSED PRZY
+NIEZNANEJ SKLADNI, BRAMKA `compile()` PRZED KAZDYM ZAPISEM I KONTROLA
+SPOJNOSCI NAZW PO KOMPILACJI, KTORA LAPIE KLASE BLEDOW NIEWIDOCZNA DLA
 `compile()`.
 
-Glowna slabosc nie dotyczy poprawnosci, tylko **wydajnosci**: kwadratowy
-diff (Z1) czyni narzedzie niepraktycznym dla plikow powyzej ~50 KB.
-Poprawka jest prosta i sprawdzona pod katem rownowaznosci.
+GLOWNA SLABOSC NIE DOTYCZY POPRAWNOSCI, TYLKO **WYDAJNOSCI**: KWADRATOWY
+DIFF (Z1) CZYNI NARZEDZIE NIEPRAKTYCZNYM DLA PLIKOW POWYZEJ ~50 KB.
+POPRAWKA JEST PROSTA I SPRAWDZONA POD KATEM ROWNOWAZNOSCI.
