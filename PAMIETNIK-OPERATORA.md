@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **37 wpisow** z **1 sesji**.
+Stan: **38 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -53,6 +53,9 @@ Stan: **37 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Fuzz czyta katalog NADRZEDNY nad repo - twoje pliki w /tmp psuja wynik**
   - Fuzz uruchamiaj w katalogu, ktorego RODZIC jest pusty (np. /tmp/czysty/repo, nie /tmp/repo). Zanim uznasz spadek wyniku fuzza za regresje, powtorz go na czystym klonie BEZ swojej zmiany - jesli daje t
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Bramki sprawdzaly wszystko oprocz siebie - cztery wady w trzech**
+  - Kazda bramka musi byc FAIL-CLOSED: gdy nie wie, co sprawdzic, ma ODMOWIC (exit 2), nie zameldowac sukces. Listy pomijanych plikow trzymaj imiennie z uzasadnieniem, nie calymi katalogami - katalog rosn
   - `2026-09-04__01a06e18.md`
 
 ## Pulapki w samym kodzie rodziny

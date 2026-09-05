@@ -47,6 +47,13 @@ WARSTWA_AGENTA = (
     os.path.join("docs", "RODZINA-DO-CZATU.md"),
     os.path.join("docs", "wniosek_publiczny_do_redakcji.md"),
     os.path.join("docs", "README-TURNIEJ.md"),
+    # (v1.1.0) BRIEF trafia do ZEWNETRZNEGO audytora - klamstwo o wersji
+    # w tym pliku jest grozniejsze niz w dokumentacji wewnetrznej, bo
+    # obcy agent nie ma jak go zweryfikowac. Zmierzone: brief deklarowal
+    # Prokuratora 1.3.0, gdy w kodzie bylo juz 1.3.1.
+    os.path.join("docs", "BRIEF-DLA-AUDYTORA.md"),
+    # CZYM-JEST-GANG to pierwszy plik, ktory czyta agent przed praca
+    "CZYM-JEST-GANG.md",
 )
 
 # stala w kodzie: WERSJA = "1.1.1"
@@ -96,8 +103,27 @@ def wczytaj_prawde():
     if not os.path.isfile(sciezka):
         print("BLAD: brak WERSJE.json - nie ma z czym porownywac")
         sys.exit(1)
-    with open(sciezka, encoding="utf-8") as f:
-        return json.load(f)
+    # (v1.1.0) Uszkodzony JSON to nie powod do tracebacka. Bramka ma
+    # powiedziec CO jest zle i odmowic - stos wywolan Pythona nie mowi
+    # operatorowi nic uzytecznego, a wyglada jak awaria narzedzia zamiast
+    # jak wykryty problem w repo.
+    try:
+        with open(sciezka, encoding="utf-8") as f:
+            prawda = json.load(f)
+    except json.JSONDecodeError as e:
+        print("BLAD: WERSJE.json nie jest poprawnym JSON-em (linia %d, kolumna %d): %s"
+              % (e.lineno, e.colno, e.msg))
+        print("Napraw plik albo przywroc go z gita: git checkout -- WERSJE.json")
+        sys.exit(2)
+    except OSError as e:
+        print("BLAD: nie da sie odczytac WERSJE.json: %s" % e)
+        sys.exit(2)
+    for wymagane in ("repo", "narzedzia"):
+        if wymagane not in prawda:
+            print("BLAD: WERSJE.json nie ma pola %r - nie ma z czym porownywac"
+                  % wymagane)
+            sys.exit(2)
+    return prawda
 
 
 def sprawdz_kod(prawda):

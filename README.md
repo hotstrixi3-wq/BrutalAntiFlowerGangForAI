@@ -820,3 +820,43 @@ trafienie). Zero zaleznosci od Zaglady - zalozenie autora zachowane.
 
 Stara sciezka (`_oczysc_kandydatow`) zostaje jako pierwsza proba -
 dopasowanie pozycyjne wchodzi dopiero, gdy tamta nie trafi.
+
+## T8 - turniej bramek (v9.9.0)
+
+Trzy narzedzia decyduja, czy wolno zrobic commit: `sprawdz-teksty.py`,
+`sprawdz-spojnosc.py`, `pamietnik.py --sprawdz`. **Zadne nie mialo testu.**
+Ta sama luka co przy zwiadzie: sprawdzam nimi wszystko, a ich samych nie
+sprawdza nikt.
+
+T8 znalazl **cztery wady na pierwszym uruchomieniu**:
+
+| Wada | Skutek |
+|---|---|
+| `sprawdz-teksty` FAIL-OPEN | poza repo `git ls-files` zwraca pustke -> bramka melduje "0 plikow, zero kwiatkow" z exit 0. README z wstrzyknietym U+043E przechodzil **bez slowa** |
+| pomijanie hurtem | cale `dev/turnieje/` i `dev/luki/` - 30 plikow, skazenia ma **5** |
+| brief poza kontrola | `docs/BRIEF-DLA-AUDYTORA.md` **faktycznie klamal** o 2 wersjach, a idzie do zewnetrznego audytora |
+| traceback | uszkodzony `WERSJE.json` -> stos wywolan zamiast komunikatu |
+
+Wszystkie naprawione. Bramki sa teraz **fail-closed**: gdy nie wiedza, co
+sprawdzic, odmawiaja (exit 2) zamiast meldowac sukces. Lista pomijanych
+plikow jest imienna, z uzasadnieniem przy kazdym.
+
+Przy okazji bramka o zawezonym zasiegu wykryla **prawdziwe skazenie**,
+ktorego wczesniej nie widziala: probki BOM (U+FEFF) w `turniej-2`.
+
+### Nauka o samym testowaniu
+
+Pierwsza wersja T8 **przespala 2 z 3 sabotazy**. Sprawdzala tylko kod
+wyjscia, a `exit=1` padal z innego powodu niz badany (dopisanie wpisu do
+dziennika samo w sobie wywoluje "RUSZONY CUDZY DZIENNIK"). Po poprawce
+test sprawdza TRESC komunikatu:
+
+```
+if kod != 1 or "brakuje pola" not in out:
+```
+
+Sabotaz po poprawce: **3/3 wykryte**.
+
+Szesc kategorii: WYKRYWALNOSC (czy umie odmowic), ZERO SZUMU (czy milczy
+na zdrowym repo), ZASIEG (czy pomija tylko to, co musi), ODPORNOSC,
+UCZCIWOSC (exit zgodny z raportem).

@@ -51,13 +51,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 11801 B | `58446356a90c` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12119 B | `578cc7197669` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `9aa5cfadb62a` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../README.md) | 42459 B | `0fe8f9e8c520` |
+| [README.md](../README.md) | 44164 B | `35c07c5e8b45` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `1a7289d8d4e6` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `497a4a0fd1c4` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -86,11 +86,12 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [turniej-5-anihilator.py](../dev/turnieje/turniej-5-anihilator.py) | 16082 B | `fd493b6bcb3f` |
 | [turniej-6-prokurator.py](../dev/turnieje/turniej-6-prokurator.py) | 11542 B | `ca4ecbe409d6` |
 | [turniej-7-zwiad.py](../dev/turnieje/turniej-7-zwiad.py) | 15511 B | `de8941a76842` |
+| [turniej-8-bramki.py](../dev/turnieje/turniej-8-bramki.py) | 14920 B | `941baf9602c0` |
 | [turniej-niezalezny.py](../dev/turnieje/turniej-niezalezny.py) | 18844 B | `d41e6aaeb539` |
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 | [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6566 B | `9ff5ef1e77a4` |
-| [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 8330 B | `8691dd6c1159` |
+| [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 8330 B | `99c50287db85` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.0.9.md) | 3308 B | `723c364c544a` |
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
@@ -111,11 +112,11 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `29e118e684cd` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 31374 B | `085e3b56daaf` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 32738 B | `6f492e985068` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
-| [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
-| [sprawdz-teksty.py](../sprawdz-teksty.py) | 4512 B | `a2599bd2d033` |
+| [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 11352 B | `0a110a27b9f8` |
+| [sprawdz-teksty.py](../sprawdz-teksty.py) | 6712 B | `a43b9b6b9d1d` |
 | [zwiad.py](../zwiad.py) | 23269 B | `9e711f1a497c` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):

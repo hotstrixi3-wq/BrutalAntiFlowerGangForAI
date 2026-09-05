@@ -26,13 +26,30 @@ import subprocess
 import sys
 import unicodedata
 
-WERSJA = "1.0.0"
+WERSJA = "1.1.0"
 
 # katalogi z celowo brudna amunicja - tam skazenie jest POPRAWNE
+# (v1.1.0) Pomijamy MINIMUM. Do v1.0.0 lista obejmowala cale katalogi
+# dev/turnieje/ i dev/luki/, czyli 30 plikow - a skazenia ma w nich tylko
+# CZTERY. Pozostale 26 przechodzilo bez sprawdzenia bez zadnego powodu.
+# Zmierzone T8: homoglif wstrzykniety do turniej-6-prokurator.py (pliku
+# calkowicie czystego) przechodzil przez bramke.
+# Katalogi zostaja na liscie tylko tam, gdzie brud jest z natury rzeczy:
+# kwiatki-testy to amunicja, logi to zapis tego, co narzedzia zobaczyly.
 POMIJANE = (
-    "dev/kwiatki-testy/", "dev/turnieje/", "dev/luki/",
-    "fixtures/", "docs/logi/",
+    "dev/kwiatki-testy/", "fixtures/", "docs/logi/",
 )
+
+# Pojedyncze pliki, ktore MUSZA zawierac zywe skazenia - bo na nich stoja
+# turnieje. Kazdy wymieniony z osobna i z uzasadnieniem, zeby lista nie
+# rosla przez przypadek.
+POMIJANE_PLIKI = {
+    "dev/turnieje/turniej-5-anihilator.py":      "probki dla 9 jezykow",
+    "dev/turnieje/zaglada-turniej-niepsucie.py": "korpus plikow do czyszczenia",
+    "dev/turnieje/zaglada-turniej-wykrywania.py": "1545 wektorow wykrywania",
+    "dev/luki/luka-fstring.py":                  "dowod luki f-string",
+    "dev/turnieje/turniej-2-sprawdzajacy.py":    "probki BOM (U+FEFF) w wektorach",
+}
 
 # Szukamy WYLACZNIE homoglifow LITER - znakow, ktore udaja lacinke i moga
 # po cichu zmienic nazwe zmiennej albo tresc slowa. Symbole typograficzne
@@ -69,7 +86,13 @@ def skanuj(sciezka):
 
 
 def pliki_repo():
+    """(v1.1.0) Lista plikow do sprawdzenia. Rzuca RuntimeError, gdy nie da
+    sie jej ustalic - patrz FAIL-CLOSED nizej."""
     r = subprocess.run(["git", "ls-files"], capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(
+            "git ls-files zawiodl (kod %d) - nie wiem, ktore pliki sprawdzic"
+            % r.returncode)
     wynik = []
     for f in r.stdout.split("\n"):
         f = f.strip()
@@ -77,7 +100,12 @@ def pliki_repo():
             continue
         if any(f.startswith(p) or ("/" + p) in f for p in POMIJANE):
             continue
+        if f.replace(os.sep, "/") in POMIJANE_PLIKI:
+            continue
         wynik.append(f)
+    if not wynik:
+        raise RuntimeError(
+            "git ls-files nie zwrocil ani jednego pliku do sprawdzenia")
     return wynik
 
 
@@ -106,7 +134,21 @@ def main():
     if "--help" in args or "-h" in args:
         print(__doc__)
         return 0
-    cele = [a for a in args if not a.startswith("--")] or pliki_repo()
+    # (v1.1.0) FAIL-CLOSED. Do v1.0.0 brak listy plikow konczyl sie cicho:
+    # `git ls-files` poza repozytorium zwracalo pustke, petla nie wykonywala
+    # ani jednego obiegu, a bramka meldowala "0 plikow, zero zywych kwiatkow"
+    # z kodem 0. Zmierzone: README z wstrzyknietym U+043E przechodzil bez
+    # slowa. Bramka, ktora nie wie, co sprawdzic, MUSI odmowic - cisza
+    # nie moze wygladac jak sukces.
+    cele = [a for a in args if not a.startswith("--")]
+    if not cele:
+        try:
+            cele = pliki_repo()
+        except RuntimeError as e:
+            print("[BLAD] %s" % e)
+            print("Uruchom bramke w katalogu repozytorium git albo podaj "
+                  "pliki wprost: python3 sprawdz-teksty.py PLIK...")
+            return 2
     brudne = 0
     for f in cele:
         t = skanuj(f)

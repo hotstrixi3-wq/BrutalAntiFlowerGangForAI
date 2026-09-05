@@ -24,9 +24,9 @@ U+043E wyglada jak lacinskie "o"), znaki niewidzialne i twarde spacje.
 Problem jest realny: modele jezykowe wstawiaja takie znaki samoistnie,
 generujac token po tokenie, i nie widza tego u siebie.
 
-  PogromcaKwiatkow.py  v8.6.0  — detektor (oczy), niczego nie zmienia
+  PogromcaKwiatkow.py  v8.7.0  — detektor (oczy), niczego nie zmienia
   ZagladaKultury.py    v1.4.0  — czysci .py/.json/proze (rece)
-  ProkuratorOgrodnik.py v1.3.0 — orkiestrator + polityka (mozg)
+  ProkuratorOgrodnik.py v1.3.1 — orkiestrator + polityka (mozg)
   AnihilatorChwastow.py v1.4.0 — czysci js/ts/java/go/rs/cs/c/cpp/php
 
 KLUCZOWA TEZA DO PODWAZENIA
