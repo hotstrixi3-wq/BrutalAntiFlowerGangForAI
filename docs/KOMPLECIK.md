@@ -51,13 +51,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12765 B | `a4ade3a4f6a2` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 13081 B | `ebd2f8c2ace3` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `9aa5cfadb62a` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../README.md) | 46004 B | `c31db6a9ac32` |
+| [README.md](../README.md) | 48079 B | `2099cb3d1d43` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../WERSJE.json) | 782 B | `e11355ee9dfe` |
+| [WERSJE.json](../WERSJE.json) | 782 B | `6de5bdff08b3` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -89,6 +89,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [turniej-6-prokurator.py](../dev/turnieje/turniej-6-prokurator.py) | 11542 B | `ca4ecbe409d6` |
 | [turniej-7-zwiad.py](../dev/turnieje/turniej-7-zwiad.py) | 15511 B | `de8941a76842` |
 | [turniej-8-bramki.py](../dev/turnieje/turniej-8-bramki.py) | 14920 B | `941baf9602c0` |
+| [turniej-9-obcy-kod.py](../dev/turnieje/turniej-9-obcy-kod.py) | 20457 B | `296260e5cc26` |
 | [turniej-niezalezny.py](../dev/turnieje/turniej-niezalezny.py) | 18844 B | `d41e6aaeb539` |
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
@@ -116,7 +117,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `29e118e684cd` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 35185 B | `a8e37fc76133` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 36389 B | `72c49fdb9d86` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 11352 B | `0a110a27b9f8` |

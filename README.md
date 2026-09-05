@@ -912,3 +912,48 @@ czyli od czegos **spoza tego repo**. To jest wyjscie z blednego kola.
 przyrzadem.
 
 Pelny opis wraz z wynikami: `docs/HIERARCHIA-ZAUFANIA-TESTOW.md`
+
+## T9 - obcy kod z internetu (v9.12.0)
+
+Pomysl operatora: wszystkie dotychczasowe turnieje uzywaly probek, ktore
+**sami wytworzylismy**. Nawet weryfikacja na 40 modulach stdlib to kod
+z tej samej instalacji Pythona. Brakowalo najtwardszej proby: wziac cudzy
+kod, ktorego nikt nie widzial na oczy, skazic, naprawic i sprawdzic, czy
+NADAL DZIALA.
+
+`dev/turnieje/turniej-9-obcy-kod.py` pobiera prawdziwe pakiety z **PyPI**
+(six, termcolor, inflection, shortuuid, wcwidth, natsort), skaza kod
+wiernymi homoglifami i sprawdza trzy rzeczy naraz:
+
+1. plik **kompiluje sie** po naprawie
+2. **importuje sie** jako modul w osobnym procesie
+3. jego **publiczne API jest identyczne** (`sorted(dir(m))` bajt w bajt)
+
+Do tego dwa kryteria dodatkowe: **odwracalnosc** (skazenie bylo w pelni
+odwracalne, wiec wynik musi rownac sie oryginalowi) i **kotwica
+literalowa** (znak wstawiony w literal ma tam ZOSTAC - Zaglada nie rusza
+danych w .py).
+
+**Wynik: 51/51 plikow przezylo** (20 z pelnym uruchomieniem, 31 przez
+porownanie drzewa AST - te wymagaja zainstalowanego pakietu).
+
+Bez internetu turniej nie oblewa: schodzi na stdlib i mowi wprost, ze
+pracuje w trybie zapasowym.
+
+### Trzy bledy WLASNEGO testu, wykryte po drodze
+
+Pisanie T9 bylo lekcja o testowaniu, nie o Gangu:
+
+| Blad testu | Skutek |
+|---|---|
+| `skaz()` uzywal `_chronione_pozycje()` **badanego** modulu | skazenie omijalo dokladnie te miejsca, ktorych narzedzie nie umie obronic |
+| homoglify wyliczane z `zamien_znak()` **badanego** modulu | po oslepieniu Zaglady cyrylica wypadla ze zbioru; sabotaz **sam sie ukryl** |
+| lista 21 par litera-homoglif, z czego 10 **nieodwracalnych** | 33 falszywe alarmy na zdrowym Gangu (cyrylickie `c` daje `s`, nie `c`) |
+
+Wniosek do dziennika: **dane wejsciowe testu trzymaj w stalej liscie
+w kodzie testu, nie wyliczaj ich z badanego narzedzia.**
+
+Zweryfikowany sabotazem: brak ochrony literalow -> **4 oblane**, slepota
+na cyrylice -> **45 oblanych**, cofnieta naprawa f-string -> przechodzi
+(i tak ma byc: T9 swiadomie nie skaza literalow, te klase pilnuja T4
+i `luka-fstring`).
