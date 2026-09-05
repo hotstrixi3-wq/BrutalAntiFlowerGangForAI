@@ -846,3 +846,26 @@ Zweryfikowany sabotazem: brak ochrony literalow -> **4 oblane**, slepota
 na cyrylice -> **45 oblanych**, cofnieta naprawa f-string -> przechodzi
 (i tak ma byc: T9 swiadomie nie skaza literalow, te klase pilnuja T4
 i `luka-fstring`).
+
+## v9.28.1 / pamietnik 2.1.3 - naprawa aktualizacji STAN-SESJI
+
+Zmiana dokumentacji na wielkie litery w v9.20.0 zerwala cztery regexy
+`pamietnik.py --stan`. Skrypt szukal malych etykiet tabeli, znajdowal
+**zero**, mimo to wypisywal `[OK]`, zwracal kod 0 i pozostawial plik bez
+zmian. Dlatego `STAN-SESJI.md` utknal na wersji 9.19.0 przy faktycznej
+9.28.0.
+
+Naprawa:
+
+* etykiety tabeli sa dopasowywane bez wzgledu na wielkosc liter, wiec
+  dzialaja zarowno w obecnym dokumencie, jak i w malym szablonie nowego domu;
+* wszystkie cztery pola musza wystapic dokladnie raz;
+* brak danych z gita lub `WERSJE.json`, brak pola albo duplikat konczy sie
+  odmowa `exit 2`, bez czesciowej zmiany pliku;
+* wynik jest budowany w pamieci i zapisywany atomowo przez `os.replace()`.
+
+Test dodany najpierw i uruchomiony na starej implementacji: T8 wykryl
+**2 naruszenia** (brak aktualizacji wielkich etykiet i brak odmowy na
+niepelnej tabeli). Po naprawie: selftest pamietnika PASS, T8 8/8 prob
+wykrywalnosci i zero naruszen. Kod czterech narzedzi rodziny nie byl
+zmieniany, wiec medal nie zostal zresetowany.

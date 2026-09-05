@@ -43,7 +43,7 @@ Pogromcy na korzeniu+docs: BLAD 0, audyt linkow: 49/49 zywych.
 Poprzednia aktualizacja v8.2.20: PogromcaKwiatkow.py -> v8.1.0 (warstwa
 raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 
-## Korzen (11 plikow) - narzedzia i start
+## Zywe drzewo (84 pliki) - bez manifestu i muzeum
 
 Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 (patrz `muzeum/README.md`).
@@ -55,14 +55,14 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [AnihilatorChwastow.py](../../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7431 B | `ef7831702884` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 18084 B | `d8fb46fd4827` |
+| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 18388 B | `297a07b960de` |
 | [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 7122 B | `070bf3017cf0` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../../README.md) | 6704 B | `193edf3a9b70` |
 | [STAN-SESJI.md](../../STAN-SESJI.md) | 4836 B | `c4362ce53d8e` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2908 B | `333fc4c29e94` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `281b912b91f8` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `d652c2b4b22d` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [bakap.py](../../bakap.py) | 10124 B | `b0f2b9fb3aae` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
@@ -96,7 +96,7 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [turniej-5-anihilator.py](../../dev/turnieje/turniej-5-anihilator.py) | 16082 B | `fd493b6bcb3f` |
 | [turniej-6-prokurator.py](../../dev/turnieje/turniej-6-prokurator.py) | 11542 B | `ca4ecbe409d6` |
 | [turniej-7-zwiad.py](../../dev/turnieje/turniej-7-zwiad.py) | 15511 B | `de8941a76842` |
-| [turniej-8-bramki.py](../../dev/turnieje/turniej-8-bramki.py) | 14938 B | `a8b72e40b1ad` |
+| [turniej-8-bramki.py](../../dev/turnieje/turniej-8-bramki.py) | 17742 B | `44a2c11a38f0` |
 | [turniej-9-obcy-kod.py](../../dev/turnieje/turniej-9-obcy-kod.py) | 20457 B | `296260e5cc26` |
 | [turniej-niezalezny.py](../../dev/turnieje/turniej-niezalezny.py) | 18844 B | `d41e6aaeb539` |
 | [zaglada-turniej-niepsucie.py](../../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
@@ -106,7 +106,7 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 9313 B | `372c2b0ac1be` |
 | [HIERARCHIA-ZAUFANIA-TESTOW.md](HIERARCHIA-ZAUFANIA-TESTOW.md) | 7701 B | `dc338f1c7f7f` |
 | [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10740 B | `b814c05b6a86` |
-| [LEKCJE.md](LEKCJE.md) | 17186 B | `2eb8c9756b7e` |
+| [LEKCJE.md](LEKCJE.md) | 17991 B | `f019f6f8a77b` |
 | [LUKI-W-TESTACH.md](LUKI-W-TESTACH.md) | 7341 B | `b385c9072dde` |
 | [NAPRAWA-v8.6.0.md](NAPRAWA-v8.6.0.md) | 7819 B | `67f2007edd61` |
 | [2026-09-05__claude-pro-sprawdz-spojnosc.md](../audyt-zewnetrzny/2026-09-05__claude-pro-sprawdz-spojnosc.md) | 5226 B | `993bd19d8364` |
@@ -125,14 +125,15 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [RAPORT-V8-PETLA-BONUS.md](../dowody/RAPORT-V8-PETLA-BONUS.md) | 3675 B | `024e8be72678` |
 | [README-TURNIEJ.md](../dowody/README-TURNIEJ.md) | 5604 B | `ff64338e4579` |
 | [TURNIEJ-v9.11.0.md](../dowody/TURNIEJ-v9.11.0.md) | 2679 B | `b17bff270215` |
-| [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 43196 B | `410aa1fcc99a` |
+| [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 44290 B | `816dd098249b` |
 | [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 55248 B | `def39c1d9910` |
+| [2026-09-05__01a0705b.md](../../dziennik/2026-09-05__01a0705b.md) | 1073 B | `0aa579eaca25` |
 | [README.md](../../dziennik/README.md) | 2885 B | `a97ba5ce3b6f` |
-| [pamietnik.py](../../pamietnik.py) | 23129 B | `f0d077f50ff7` |
+| [pamietnik.py](../../pamietnik.py) | 27398 B | `28f65a4dd177` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |
 | [sprawdz-teksty.py](../../sprawdz-teksty.py) | 7329 B | `3945438ea3c5` |
 | [zaloz-dom.py](../../zaloz-dom.py) | 11482 B | `27acaf4b6f38` |
 | [zwiad.py](../../zwiad.py) | 23269 B | `9e711f1a497c` |
 
-Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):
+Lacznie w drzewie: 84 pliki (+ ten manifest). Bramka wydania (korzen + docs):
 BLAD 0. Zip wydania: Releases (SHA powyzej = kontrola integralnosci po pobraniu).

@@ -49,7 +49,7 @@ import subprocess
 import sys
 from datetime import date
 
-WERSJA = "2.1.2"
+WERSJA = "2.1.3"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
 DZIENNIK = os.path.join(KORZEN, "dziennik")
@@ -466,6 +466,45 @@ def selftest():
         tresc = io.open(INDEKS, encoding="utf-8").read()
         if "NIEAKTUALNY" not in tresc:
             print("  [FAIL] indeks nie oznacza wpisow zastapionych"); ok = False
+
+        # (v2.1.3) --stan musi rozumiec oba warianty etykiet. W v9.20.0
+        # dokumentacje zmieniono na wielkie litery, a male regexy zaczely
+        # dawac zero trafien. Narzedzie mimo to meldowalo falszywe [OK].
+        dane_stanu = {
+            "WERSJA REPO": "**9.9.9**",
+            "GAŁĄŹ ROBOCZA": "`galaz-testowa`",
+            "OSTATNI COMMIT": "`abcdef0` — COMMIT TESTOWY",
+            "DZIENNIK": "3 WPISÓW, 2 SESJE",
+        }
+        for nazwa, probka in (
+                ("wielkie", "| WERSJA REPO | **0.0.0** |\n"
+                            "| GAŁĄŹ ROBOCZA | `stara` |\n"
+                            "| OSTATNI COMMIT | `0000000` — STARY |\n"
+                            "| DZIENNIK | 0 WPISÓW, 0 SESJI |\n"),
+                ("male", "| wersja repo | **0.0.0** |\n"
+                         "| gałąź robocza | `stara` |\n"
+                         "| ostatni commit | `0000000` — stary |\n"
+                         "| dziennik | 0 wpisow, 0 sesji |\n")):
+            try:
+                wynik = _podmien_pola_stanu(probka, dane_stanu)
+            except ValueError as e:
+                print("  [FAIL] --stan nie obsluguje etykiet %s: %s" % (nazwa, e))
+                ok = False
+            else:
+                if not all(wartosc in wynik for wartosc in dane_stanu.values()):
+                    print("  [FAIL] --stan nie podmienil 4 etykiet %s" % nazwa)
+                    ok = False
+
+        niepelny = ("| WERSJA REPO | **0.0.0** |\n"
+                    "| GAŁĄŹ ROBOCZA | `stara` |\n"
+                    "| OSTATNI COMMIT | `0000000` — STARY |\n")
+        try:
+            _podmien_pola_stanu(niepelny, dane_stanu)
+        except ValueError:
+            pass
+        else:
+            print("  [FAIL] --stan nie odmowil przy brakujacym polu")
+            ok = False
     finally:
         DZIENNIK, INDEKS = stary_d, stary_i
         shutil.rmtree(tmp, ignore_errors=True)
@@ -476,58 +515,125 @@ def selftest():
     return ok
 
 
+def _podmien_pola_stanu(tresc, wartosci):
+    """Zwraca STAN-SESJI z czterema podmienionymi wierszami tabeli.
+
+    Etykiety sa dopasowywane bez wzgledu na wielkosc liter, bo szablon
+    nowego domu uzywa malych liter, a dokumentacja tego repo - wielkich.
+    Kazda etykieta musi wystapic DOKLADNIE raz. Najpierw sprawdzamy caly
+    kontrakt, dopiero potem budujemy wynik, wiec nie ma czesciowej zmiany.
+    """
+    flagi = re.IGNORECASE | re.MULTILINE
+    wzory = []
+    problemy = []
+    for etykieta in ("WERSJA REPO", "GAŁĄŹ ROBOCZA", "OSTATNI COMMIT", "DZIENNIK"):
+        wzor = re.compile(
+            r"^(\|[ \t]*%s[ \t]*\|[ \t]*)[^|\r\n]*?([ \t]*\|[ \t]*)(?=\r?$)"
+            % re.escape(etykieta), flagi)
+        ile = len(list(wzor.finditer(tresc)))
+        if ile != 1:
+            problemy.append("%s: oczekiwano 1 wiersza, znaleziono %d" %
+                            (etykieta, ile))
+        wzory.append((etykieta, wzor))
+    if problemy:
+        raise ValueError("; ".join(problemy))
+
+    wynik = tresc
+    for etykieta, wzor in wzory:
+        wartosc = wartosci[etykieta]
+        wynik, ile = wzor.subn(
+            lambda m, v=wartosc: m.group(1) + v + m.group(2), wynik, count=1)
+        if ile != 1:  # zabezpieczenie na wypadek zmiany kodu miedzy etapami
+            raise ValueError("%s: podmiana nie zostala wykonana" % etykieta)
+    return wynik
+
+
+def _zapisz_atomowo(sciezka, tresc):
+    """Zapisuje obok pliku i podmienia go jednym os.replace()."""
+    import shutil
+    import tempfile
+    katalog = os.path.dirname(os.path.abspath(sciezka)) or "."
+    fd, tymczasowy = tempfile.mkstemp(dir=katalog, prefix=".stan-", suffix=".tmp")
+    try:
+        with io.open(fd, "w", encoding="utf-8", newline="") as f:
+            f.write(tresc)
+            f.flush()
+            os.fsync(f.fileno())
+        try:
+            shutil.copystat(sciezka, tymczasowy)
+        except OSError:
+            pass
+        os.replace(tymczasowy, sciezka)
+    except Exception:
+        try:
+            os.unlink(tymczasowy)
+        except OSError:
+            pass
+        raise
+
+
 def odswiez_stan():
     """Aktualizuje w STAN-SESJI.md tylko te pola, ktore da sie wyliczyc:
     wersje repo, ostatni commit, galaz, liczbe wpisow dziennika.
 
-    Powod: przy pierwszym uruchomieniu na swiezym klonie okazalo sie, ze
-    plik juz klamie - podawal wersje 9.13.0 i commit sprzed dwoch zmian,
-    bo agent (czyli ja) zapomnial go poprawic po wlasnym commicie.
-    Pola opisowe (co w toku, nastepne kroki, otwarte pytania) zostaja
-    reczne - tego nie da sie wyliczyc i wlasnie w tym jest ich wartosc."""
+    Od v2.1.3 dziala fail-closed: nie zapisuje nic, jesli nie umie pobrac
+    danych albo nie znajduje dokladnie czterech oczekiwanych wierszy.
+    """
     import json
-    import re
     sciezka = os.path.join(KORZEN, "STAN-SESJI.md")
-    if not os.path.exists(sciezka):
+    if not os.path.isfile(sciezka):
         print("[BLAD] brak STAN-SESJI.md")
-        return 1
+        return 2
 
     def git(*a):
         try:
             r = subprocess.run(["git"] + list(a), capture_output=True,
                                text=True, cwd=KORZEN, timeout=20)
-            return r.stdout.strip() if r.returncode == 0 else "?"
-        except Exception:
-            return "?"
+        except Exception as e:
+            raise RuntimeError("git %s: %s" % (" ".join(a), e))
+        wynik = r.stdout.strip()
+        if r.returncode != 0 or not wynik:
+            szczegol = r.stderr.strip() or "brak wyniku"
+            raise RuntimeError("git %s: %s" % (" ".join(a), szczegol))
+        return wynik
 
     try:
-        wersja = json.load(io.open(os.path.join(KORZEN, "WERSJE.json"),
-                                   encoding="utf-8"))["repo"]
-    except Exception:
-        wersja = "?"
-    commit = git("log", "-1", "--format=%h")
-    tytul = git("log", "-1", "--format=%s")
-    galaz = git("rev-parse", "--abbrev-ref", "HEAD")
+        with io.open(os.path.join(KORZEN, "WERSJE.json"), encoding="utf-8") as f:
+            wersja = json.load(f)["repo"]
+        if not isinstance(wersja, str) or not wersja.strip():
+            raise ValueError("pole repo nie jest niepustym tekstem")
+        commit = git("log", "-1", "--format=%h")
+        tytul = git("log", "-1", "--format=%s")
+        galaz = git("rev-parse", "--abbrev-ref", "HEAD")
+    except Exception as e:
+        print("[BLAD] nie mozna ustalic stanu: %s" % e)
+        return 2
+
+    # Tytul jest proza w dokumencie pisanym wielkimi literami. Pionowa
+    # kreska i backtick rozbijalyby skladnie wiersza tabeli Markdown.
+    tytul = tytul[:52].replace("\\", "").replace("|", "/").replace("`", "'").upper()
     ile = len(wszystkie_wpisy())
     sesji = len(pliki_dziennika())
+    slowo_sesja = "SESJA" if sesji == 1 else "SESJE"
+    wartosci = {
+        "WERSJA REPO": "**%s**" % wersja,
+        "GAŁĄŹ ROBOCZA": "`%s`" % galaz,
+        "OSTATNI COMMIT": "`%s` — %s" % (commit, tytul),
+        "DZIENNIK": "%d WPISÓW, %d %s" % (ile, sesji, slowo_sesja),
+    }
 
-    s = io.open(sciezka, encoding="utf-8").read()
-    podmiany = [
-        (r"(\| wersja repo \| )\*\*[^*]*\*\*", r"\g<1>**%s**" % wersja),
-        (r"(\| gałąź robocza \| )`[^`]*`", r"\g<1>`%s`" % galaz),
-        (r"(\| ostatni commit \| )`[^`]*`[^|]*",
-         r"\g<1>`%s` — %s " % (commit, tytul[:52].replace("\\", ""))),
-        (r"(\| dziennik \| )[^|]*",
-         r"\g<1>%d wpisów, %d %s " % (ile, sesji,
-                                       "sesja" if sesji == 1 else "sesje")),
-    ]
-    zmian = 0
-    for wzor, zam in podmiany:
-        s, n = re.subn(wzor, zam, s, count=1)
-        zmian += n
-    io.open(sciezka, "w", encoding="utf-8").write(s)
-    print("[OK] STAN-SESJI.md: wersja %s, commit %s, %d wpisow (%d pol)"
-          % (wersja, commit, ile, zmian))
+    try:
+        with io.open(sciezka, encoding="utf-8") as f:
+            przed = f.read()
+        po = _podmien_pola_stanu(przed, wartosci)
+        if po != przed:
+            _zapisz_atomowo(sciezka, po)
+    except (OSError, ValueError) as e:
+        print("[BLAD] STAN-SESJI.md nie zostal zmieniony: %s" % e)
+        return 2
+
+    print("[OK] STAN-SESJI.md: wersja %s, commit %s, %d wpisow (4 pola)"
+          % (wersja, commit, ile))
     print("     Pola opisowe (co w toku, nastepne kroki, otwarte pytania)")
     print("     popraw RECZNIE - tego nie da sie wyliczyc.")
     return 0

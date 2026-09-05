@@ -151,10 +151,66 @@ def kat_a():
                           "nie zglosil ODSYLACZA W PROZNE (exit=%d)" % kod))
     shutil.rmtree(baza, ignore_errors=True)
 
+    # --- pamietnik --stan: wielkie etykiety musza zostac zaktualizowane ---
+    # Regresja v9.20.0: dokument zmieniono na wielkie litery, a regexy
+    # zostaly male. Narzedzie meldowalo [OK] i "0 pol", nie zmieniajac nic.
+    baza, repo = kopia_repo("t8a6-")
+    p = os.path.join(repo, "STAN-SESJI.md")
+    io.open(p, "w", encoding="utf-8").write(
+        "# STAN TESTOWY\n\n| | |\n|---|---|\n"
+        "| WERSJA REPO | **0.0.0** |\n"
+        "| GAŁĄŹ ROBOCZA | `stara-galaz` |\n"
+        "| OSTATNI COMMIT | `0000000` — stary |\n"
+        "| DZIENNIK | 0 WPISÓW, 0 SESJI |\n")
+    wersja = json.load(io.open(os.path.join(repo, "WERSJE.json"), encoding="utf-8"))["repo"]
+    commit = subprocess.check_output(
+        ["git", "log", "-1", "--format=%h"], cwd=repo, text=True).strip()
+    galaz = subprocess.check_output(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"], cwd=repo, text=True).strip()
+    wpisow = 0
+    sesji = 0
+    for nazwa in os.listdir(os.path.join(repo, "dziennik")):
+        if not (nazwa.endswith(".md") and "__" in nazwa):
+            continue
+        sesji += 1
+        tresc = io.open(os.path.join(repo, "dziennik", nazwa), encoding="utf-8").read()
+        wpisow += sum(1 for linia in tresc.splitlines() if linia.startswith("### ["))
+    kod, out = uruchom([os.path.join(repo, "pamietnik.py"), "--stan"], cwd=repo)
+    po = io.open(p, encoding="utf-8").read()
+    oczekiwane = (
+        "| WERSJA REPO | **%s** |" % wersja,
+        "| GAŁĄŹ ROBOCZA | `%s` |" % galaz,
+        "| OSTATNI COMMIT | `%s` —" % commit,
+        "| DZIENNIK | %d " % wpisow,
+    )
+    if kod != 0 or "(4 pola)" not in out or not all(x in po for x in oczekiwane):
+        zle += 1
+        szczegoly.append(("pamietnik --stan",
+                          "nie zaktualizowal 4 wielkich etykiet (exit=%d, 4 pola: %s, sesje=%d)"
+                          % (kod, "(4 pola)" in out, sesji)))
+    shutil.rmtree(baza, ignore_errors=True)
+
+    # --- pamietnik --stan: brak pola ma zatrzymac zapis (fail-closed) ---
+    baza, repo = kopia_repo("t8a7-")
+    p = os.path.join(repo, "STAN-SESJI.md")
+    przed = ("# STAN TESTOWY NIEPELNY\n\n| | |\n|---|---|\n"
+             "| WERSJA REPO | **0.0.0** |\n"
+             "| GAŁĄŹ ROBOCZA | `stara-galaz` |\n"
+             "| OSTATNI COMMIT | `0000000` — stary |\n")
+    io.open(p, "w", encoding="utf-8").write(przed)
+    kod, out = uruchom([os.path.join(repo, "pamietnik.py"), "--stan"], cwd=repo)
+    po = io.open(p, encoding="utf-8").read()
+    if kod != 2 or po != przed or "[BLAD]" not in out:
+        zle += 1
+        szczegoly.append(("pamietnik --stan",
+                          "nie odmowil atomowo przy brakujacym polu (exit=%d, zmiana=%s)"
+                          % (kod, po != przed)))
+    shutil.rmtree(baza, ignore_errors=True)
+
     # --- sprawdz-teksty: FAIL-CLOSED gdy nie wie, co sprawdzic ---
     # Do v1.0.0 `git ls-files` poza repo zwracalo pustke, petla nie robila
     # ani jednego obiegu, a bramka meldowala "zero kwiatkow" z exit 0.
-    baza, repo = kopia_repo("t8a6-")
+    baza, repo = kopia_repo("t8a8-")
     shutil.rmtree(os.path.join(repo, ".git"), ignore_errors=True)
     p = os.path.join(repo, "README.md")
     s = io.open(p, encoding="utf-8").read()
@@ -168,7 +224,7 @@ def kat_a():
     shutil.rmtree(baza, ignore_errors=True)
 
     print("== A. WYKRYWALNOSC (czy bramka umie ODMOWIC) ==")
-    print("   prob: 6 | bramek slepych: %d" % zle)
+    print("   prob: 8 | bramek slepych: %d" % zle)
     for n, o in szczegoly:
         print("     [SLEPA] %s: %s" % (n, o))
     return zle
