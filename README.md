@@ -727,3 +727,42 @@ Zwiad nadal ostrzega `!! ROZJAZD NAZW`, gdy wykryje ryzyko - ale dopisuje
 kontekst: *"ten plik sie kompiluje, wiec kaskada Zaglady w ogole by tego
 wariantu nie uzyla"*. Informacja zamiast falszywego alarmu.
 
+
+## T7 - turniej wiarygodnosci zwiadu (v9.7.0)
+
+Najwazniejszy turniej w repo, a powstal jako ostatni. `zwiad.py` nie mial
+zadnego testu poza selftestem - a to na nim opiera sie KAZDA decyzja
+agenta o naprawie.
+
+Powod przeoczenia: turnieje T2-T6 pytaja **"czy narzedzie nie psuje
+plikow"**. Na to pytanie zwiad odpowiada trywialnie - niczego nie
+zapisuje, wiec nie moze zepsuc. Wygladal na przetestowany, bo pasowal do
+kryterium, ktore go nie dotyczylo.
+
+Wlasciwe pytanie brzmi: **czy nie wprowadza operatora w blad**. Awaria
+zwiadu nie niszczy pliku - podsuwa agentowi falszywy obraz, na ktorym ten
+sam podejmuje zla decyzje, z pelnym przekonaniem.
+
+Szesc kategorii:
+
+| | Co sprawdza |
+|---|---|
+| A. PRAWDOMOWNOSC | bierze PRZEWIDYWANIE zwiadu, uruchamia prawdziwe narzedzie na kopii, porownuje **bajt w bajt** (9 probek: py/js/proza, kod/literal/f-string) |
+| B. KOMPLETNOSC | czy widzi KAZDE skazenie - przeoczenie to cisza, ktora operator czyta jako "czysto" |
+| C. ROZDZIAL | kod vs dane; wnetrze f-stringa musi liczyc sie jako KOD, docstring jako DANE |
+| D. ZERO ZAPISU | po pelnej analizie plik i katalog nietkniete (takze przez CLI) |
+| E. OSTRZEZENIA | exit=2 przy utracie danych, wskazanie wlasciwego czlonka Gangu |
+| F. ODPORNOSC | binarny, pusty, nie-UTF8, 60 tys. znakow w linii, zlamana skladnia, nieistniejacy |
+
+**Zweryfikowany sabotazem 4/4:**
+
+```
+zwiad KLAMIE (symuluj zwraca oryginal)   -> 7 klamstw wykrytych
+zwiad SLEPY (pomija co drugie skazenie)  -> exit 1
+zwiad ZAPISUJE (lamie kontrakt)          -> naruszenie kontraktu
+zwiad myli KOD z DANYMI                  -> 3 zle klasyfikacje
+```
+
+Kategoria A jest tu sednem: **przewidywanie rozne od rzeczywistosci jest
+gorsze niz brak przewidywania**. Zwiad ma prawo powiedziec "nie wiem" -
+nie ma prawa powiedziec czegos, co sie nie sprawdzi.

@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **34 wpisow** z **1 sesji**.
+Stan: **35 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -47,6 +47,9 @@ Stan: **34 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Turniej moze przechodzic lokalnie i oblewac na swiezym klonie**
   - Turniej uruchamiaj TAKZE na swiezym klonie w innym miejscu na dysku, nie tylko w katalogu roboczym. Zielony wynik lokalnie nie dowodzi niczego o bledach zaleznych od sciezek. Gdy dodajesz do Prokurato
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Narzedzie decyzyjne wymaga innego testu niz narzedzie naprawcze**
+  - Dla narzedzia decyzyjnego kryterium brzmi 'czy nie wprowadza operatora w blad', nie 'czy nie psuje plikow'. Wzor: dev/turnieje/turniej-7-zwiad.py - kategoria A bierze PRZEWIDYWANIE zwiadu, uruchamia p
   - `2026-09-04__01a06e18.md`
 
 ## Pulapki w samym kodzie rodziny

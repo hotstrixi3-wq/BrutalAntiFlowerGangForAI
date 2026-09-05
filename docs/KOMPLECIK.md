@@ -51,13 +51,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 10837 B | `bbad3bb4d7e6` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 11155 B | `6e89682bc72b` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `6f2e9998df55` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../README.md) | 38569 B | `827f81767c7d` |
+| [README.md](../README.md) | 40383 B | `29ac9b9c0065` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../WERSJE.json) | 781 B | `7f801b53e26f` |
+| [WERSJE.json](../WERSJE.json) | 781 B | `a08d3ad69d2a` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -85,6 +85,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [turniej-4-runtime.py](../dev/turnieje/turniej-4-runtime.py) | 7019 B | `5fca285e7973` |
 | [turniej-5-anihilator.py](../dev/turnieje/turniej-5-anihilator.py) | 16082 B | `fd493b6bcb3f` |
 | [turniej-6-prokurator.py](../dev/turnieje/turniej-6-prokurator.py) | 11542 B | `ca4ecbe409d6` |
+| [turniej-7-zwiad.py](../dev/turnieje/turniej-7-zwiad.py) | 15511 B | `de8941a76842` |
 | [turniej-niezalezny.py](../dev/turnieje/turniej-niezalezny.py) | 18844 B | `d41e6aaeb539` |
 | [zaglada-turniej-niepsucie.py](../dev/turnieje/zaglada-turniej-niepsucie.py) | 9094 B | `44eb2e1f1b63` |
 | [zaglada-turniej-wykrywania.py](../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
@@ -110,7 +111,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `005255e20e25` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 28298 B | `b2142fb1b17c` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 29494 B | `53cb5e642ff9` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
