@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **29 wpisow** z **1 sesji**.
+Stan: **31 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -80,6 +80,12 @@ Stan: **29 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Narzedzia nie wiedza o sobie - to operator ma wiedziec, ze sa**
   - To nie usterka rodziny, tylko twoj obowiazek: skoro one nie wiedza o sobie, TY masz wiedziec, ze sa. Do .js/.ts/.java/.go/.rs/.cs/.c/.cpp/.php uruchamiaj Anihilatora RECZNIE, nie licz na Prokuratora. 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **RYZYKO-KLUCZA w Pogromcy nie odpala sie dla cyrylicy**
+  - Nie licz na [RYZYKO-KLUCZA] przy cyrylicy i grece - to najczestsze skazenie, a wlasnie tam ostrzezenie milczy. Gdy plik uzywa literalow jako nazw (globals()[x], getattr(o,x), klucze slownika odpowiada
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Wzorzec calej rodziny: kaskada tokenize -> skaner surowy -> bramka compile**
+  - Widzac w tej rodzinie pare funkcja + funkcja_surowy nie zglaszaj duplikatu - sprawdz warunek wywolania. To para dla pliku sprawnego i dla zepsutego. Ta sama zasada tlumaczy _sprobuj_naprawy (piaty sto
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki
