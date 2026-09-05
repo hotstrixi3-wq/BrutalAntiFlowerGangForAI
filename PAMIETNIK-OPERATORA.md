@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **27 wpisow** z **1 sesji**.
+Stan: **28 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -72,8 +72,11 @@ Stan: **27 wpisow** z **1 sesji**.
 - [2026-09-05] **Zaglada ma kaskade 4 prob dla zepsutego .py, nie jedna droge**
   - Nie licz mozliwosci narzedzia po flagach --help. Policz funkcje transformujace tekst (AST) i przeczytaj dyspozytor (u Zaglady: _przetworz_py). Wachlarz w zwiad.py --warianty pokazuje teraz wszystkie s
   - `2026-09-04__01a06e18.md`
-- [2026-09-05] **_sprobuj_naprawy usuwa znaki i rozjezdza nazwy - compile() to przepuszcza**
+- [2026-09-05] **_sprobuj_naprawy usuwa znaki i rozjezdza nazwy - compile() to przepuszcza** **[NIEAKTUALNY]**
   - Po KAZDEJ naprawie sprawdzaj spojnosc nazw, nie tylko compile(). zwiad.py --warianty robi to sam i wypisuje '!! ROZJAZD NAZW'. Gdy to zobaczysz, nie uzywaj tego wariantu - wroc do kopii i wybierz inny
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **_sprobuj_naprawy to RATOWNIK, nie blad - testowalem go poza kontekstem**
+  - Zanim nazwiesz cos bledem, znajdz miejsce wywolania (grep -n nazwa_funkcji) i odtworz WARUNEK, w ktorym kod tam trafia. W swoim kontekscie _sprobuj_naprawy ratuje pliki nie do uratowania transliteracj
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki

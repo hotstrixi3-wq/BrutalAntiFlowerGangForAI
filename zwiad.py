@@ -227,10 +227,12 @@ WARIANTY = (
     ("zaglada-pelna", "Zaglada: CALY plik (bez ochrony literalow)",
      "OSTATECZNOSC: czysci takze literaly i komentarze. Uzywac tylko, gdy "
      "wiesz, ze dane w literalach mozna ruszyc."),
-    ("zaglada-usuwanie", "Zaglada: proba przez USUNIECIE znakow",
-     "ostatnia deska ratunku w kaskadzie .py (_sprobuj_naprawy). Zamiast "
-     "transliterowac, USUWA pojedyncze znaki, az plik przejdzie compile(). "
-     "UWAGA: compile() nie sprawdza spojnosci nazw - patrz ostrzezenie nizej."),
+    ("zaglada-usuwanie", "Zaglada: ratunek przez USUNIECIE znakow",
+     "ostatni krok kaskady .py (_sprobuj_naprawy) - wchodzi TYLKO gdy plik "
+     "nie kompiluje sie, a ani skaner surowy, ani czyszczenie calosci nie "
+     "pomogly. Ratuje przypadki, gdzie transliteracja LAMIE skladnie: "
+     "'i<U+043E>f' -> 'if', 'de<U+043E>f' -> 'def', '=<U+043E>=' -> '=='. "
+     "Poza ta sytuacja kaskada go nie uzywa."),
     ("anihilator", "Anihilator --anihilacja",
      "dla js/ts/java/go/rs/cs/c/cpp/php: skaner stanow chroniacy literaly; "
      "BLOKUJE pliki z konstrukcjami, ktorych nie rozumie (fail-closed)."),
@@ -393,10 +395,14 @@ def wachlarz(sciezka):
         print("     zmienia linii: %d%s" % (len(zmiany), stan))
         rozjazd = _spojnosc_nazw(tekst, po)
         if rozjazd:
-            print("     !! ROZJAZD NAZW - plik sie skompiluje, ale wybuchnie")
-            print("        w runtime. compile() tego NIE lapie:")
+            print("     !! ROZJAZD NAZW - plik sie skompiluje, ale moze")
+            print("        wybuchnac w runtime; compile() tego NIE lapie:")
             for a_, b_ in rozjazd[:3]:
                 print("          %r wystepuje raz, obok istnieje %r" % (a_, b_))
+            if klucz == "zaglada-usuwanie" and bazowe_ok:
+                print("        (ten wariant jest RATUNKIEM dla plikow, ktore sie")
+                print("         NIE kompiluja - a ten plik sie kompiluje, wiec")
+                print("         kaskada Zaglady w ogole by go nie uzyla)")
         for i, x, y in zmiany[:4]:
             print("       %d: %s" % (i, x.strip()[:60]))
             print("          -> %s" % y.strip()[:60])

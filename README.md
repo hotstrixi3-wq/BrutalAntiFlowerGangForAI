@@ -703,16 +703,27 @@ literalami; nie kompiluje -> surowy -> pelna -> usuwanie -> wariant
 ostrozny. Operator nie wybiera z niej recznie, ale musi wiedziec, ze
 istnieje - to tlumaczy, czemu ten sam plik bywa naprawiany roznie.
 
-**Pulapka wykryta przy okazji liczenia.** Ostatni krok kaskady
-(`_sprobuj_naprawy`) nie transliteruje, tylko USUWA znaki, az plik
-przejdzie `compile()`. Na pliku z `c<U+043E>nter` w dwoch miejscach dal:
+**Piaty wariant to RATOWNIK, nie usterka.** Przy pierwszym pomiarze
+uznalem `_sprobuj_naprawy` za blad, bo na pliku z `c<U+043E>nter` dawal
+`cnter` w definicji i `conter` w uzyciu. Bledna byla METODA pomiaru:
+wywolalem funkcje bezposrednio na pliku, ktory **sie kompiluje** - a
+kaskada siega po nia dopiero, gdy plik NIE kompiluje sie i zawiodly dwie
+wczesniejsze proby. Pelna sciezka Zaglady na tym samym pliku daje
+poprawne `conter`.
 
-```
-cnter = 0                 <- definicja
-print(conter, OPIS)       <- uzycie
-```
+W swoim kontekscie ten wariant ratuje przypadki, ktorych transliteracja
+naprawic NIE MOZE - bo sama lamie skladnie:
 
-Skladnia poprawna, `compile()` zadowolony, a przy uruchomieniu `NameError`.
-Zwiad ma teraz wlasna kontrole i wypisuje `!! ROZJAZD NAZW` - bo bramka
-`compile()` tej klasy bledow nie widzi z definicji.
+| Zepsute wejscie | Po ratunku | Uruchomienie |
+|---|---|---|
+| `i<U+043E>f True:` | `if True:` | dziala |
+| `de<U+043E>f f():` | `def f():` | dziala |
+| `if x =<U+043E>= 1:` | `if x == 1:` | dziala |
+
+Trzy pliki nie do uratowania inna droga, wszystkie po naprawie uruchamiaja
+sie poprawnie. To swiadomy piaty stopien kaskady.
+
+Zwiad nadal ostrzega `!! ROZJAZD NAZW`, gdy wykryje ryzyko - ale dopisuje
+kontekst: *"ten plik sie kompiluje, wiec kaskada Zaglady w ogole by tego
+wariantu nie uzyla"*. Informacja zamiast falszywego alarmu.
 
