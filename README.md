@@ -28,7 +28,7 @@ Ty tego nie widzisz. Kompilator wywala blad. Szukasz godzinami. Marnujesz tony t
 
 ## Rodzina - 4 pliki ktore ida wszedzie razem
 
-- **PogromcaKwiatkow.py v8.6.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
+- **PogromcaKwiatkow.py v8.7.0** - oczy, detektor BLAD/UWAGA/OK (+ ostrzega o literalach-uzywanych-jako-klucze)
 - **ZagladaKultury.py v1.4.0** - rece dla py/json/proza, dekontaminator z ochrona literalow py (+ naprawa: litery, lamacze, spojnosc identyfikatorow, dopasowanie cudzyslowow w awaryjnym skanerze)
 - **ProkuratorOgrodnik.py v1.2.0** - mozg, polityka UMORZONE/POUCZENIE/ZAGLADA/BLOKADA + akta w U+XXXX (od v1.0.1 faktycznie czyste)
 - **AnihilatorChwastow.py v1.4.0** - rece dla js/ts/java/go/rs/cs/c/cpp/h/hpp/php/rb/swift/kt/py (ochrona literalow i komentarzy) oraz json/jsonl i md/proza
@@ -766,3 +766,57 @@ zwiad myli KOD z DANYMI                  -> 3 zle klasyfikacje
 Kategoria A jest tu sednem: **przewidywanie rozne od rzeczywistosci jest
 gorsze niz brak przewidywania**. Zwiad ma prawo powiedziec "nie wiem" -
 nie ma prawa powiedziec czegos, co sie nie sprawdzi.
+
+## v9.8.0 / Pogromca 8.7.0 - RYZYKO-KLUCZA ozywione
+
+`[RYZYKO-KLUCZA]` to ostrzezenie, ktore od v8.1.0 **nie odpalilo sie ani
+razu** - takze dla przykladu podanego w dokumentacji jego wlasnego autora.
+Cztery rozne wejscia, zero trafien. Funkcja byla wolana i dzialala bez
+bledu; po prostu zawsze zwracala pusta liste.
+
+To gorsze niz brak funkcji: operator widzi cisze i wnioskuje "bezpiecznie".
+
+### Co mial wykrywac
+
+Zaglada slusznie nie rusza literalow (kontrakt: swiete). Ale gdy literal
+pelni role KLUCZA - `d["niewidzialne"]`, `getattr(o, "pole")`,
+`globals()[nazwa]` - i jest skazony, to plik **kompiluje sie czysto**
+i wybucha dopiero w runtime. Zaden inny czlonek rodziny tego nie lapie.
+
+### Dlaczego milczal
+
+`_oczysc_kandydatow` mial dwie strategie i zadna nie odtwarzala oryginalu:
+
+| Strategia | `"ni<U+0435>widzialne"` daje | szukamy |
+|---|---|---|
+| usuniecie znakow | `niwidzialne` | `niewidzialne` |
+| NFKD + ascii | dziala dla `caf<U+00E9>` | ale to `UWAGA`, nie `BLAD` |
+
+Petla wchodzi tylko przy `BLAD`. Przeciecie zbiorow "da sie oczyscic"
+i "jest BLAD" bylo **puste**.
+
+Powod byl zamierzony: autor napisal wprost *"bez wiedzy o tabelach
+transliteracji Zaglady - Pogromca ma zostac bez zaleznosci od siostry"*.
+Slusznie - ale bez tabeli nie da sie odgadnac, ze cyrylickie `<U+0435>`
+odpowiada lacinskiemu `e`.
+
+### Naprawa: dopasowanie pozycyjne
+
+`_pasuje_pozycyjnie()` nie musi wiedziec, NA CO znak sie zamieni -
+wystarczy, ze wie, GDZIE siedzi skazenie:
+
+> ta sama dlugosc, a roznice **wylacznie** na pozycjach, gdzie literal ma
+> znak zaklasyfikowany jako BLAD
+
+Jedna roznica na znaku czystym dyskwalifikuje (`kot` vs `kos` to nie
+trafienie). Zero zaleznosci od Zaglady - zalozenie autora zachowane.
+
+| Miara | Wynik |
+|---|---|
+| przyklad z dokumentacji autora | **wykryty** (byl martwy od v8.1.0) |
+| falszywe alarmy na 171 modulach stdlib | **0** |
+| koszt | 9 ms/plik |
+| regresja (turnieje + selftesty) | bez zmian |
+
+Stara sciezka (`_oczysc_kandydatow`) zostaje jako pierwsza proba -
+dopasowanie pozycyjne wchodzi dopiero, gdy tamta nie trafi.

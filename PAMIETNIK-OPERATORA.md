@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **35 wpisow** z **1 sesji**.
+Stan: **37 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -50,6 +50,9 @@ Stan: **35 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Narzedzie decyzyjne wymaga innego testu niz narzedzie naprawcze**
   - Dla narzedzia decyzyjnego kryterium brzmi 'czy nie wprowadza operatora w blad', nie 'czy nie psuje plikow'. Wzor: dev/turnieje/turniej-7-zwiad.py - kategoria A bierze PRZEWIDYWANIE zwiadu, uruchamia p
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Fuzz czyta katalog NADRZEDNY nad repo - twoje pliki w /tmp psuja wynik**
+  - Fuzz uruchamiaj w katalogu, ktorego RODZIC jest pusty (np. /tmp/czysty/repo, nie /tmp/repo). Zanim uznasz spadek wyniku fuzza za regresje, powtorz go na czystym klonie BEZ swojej zmiany - jesli daje t
   - `2026-09-04__01a06e18.md`
 
 ## Pulapki w samym kodzie rodziny
@@ -95,6 +98,9 @@ Stan: **35 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **RYZYKO-KLUCZA nie odpala sie NIGDY - martwe ostrzezenie od v8.1.0**
   - Traktuj [RYZYKO-KLUCZA] jako nieistniejace - brak ostrzezenia NIC nie znaczy. To gorsze niz brak funkcji, bo operator widzi cisze i wnioskuje 'bezpiecznie'. Klase ryzyka, ktora mial wykrywac (literal 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Fuzz A: U+0304 nie do wykrycia po NFC - wada zastana, nie regresja**
+  - Nie zglaszaj tego jako regresji swojej zmiany - sprawdz najpierw wersje z gita. Wykrycie wymagaloby analizy PRZED normalizacja albo porownania dlugosci tekstu przed/po NFC. Znaki laczace bez formy zlo
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki

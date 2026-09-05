@@ -22,7 +22,7 @@ KROK 0 - DOWOD WLASNORECZNY (przed czymkolwiek innym):
 KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Przeczytaj README.md, PROTOKOL-OPERATORA.md z tego pliku lub z github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
 - Pobierz lub wytnij kody 4 narzedzi:
-  PogromcaKwiatkow.py v8.6.0
+  PogromcaKwiatkow.py v8.7.0
   ZagladaKultury.py v1.4.0
   ProkuratorOgrodnik.py v1.3.1
   AnihilatorChwastow.py v1.4.0
@@ -200,7 +200,7 @@ import unicodedata
 from functools import lru_cache
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-WERSJA = "8.6.0"
+WERSJA = "8.7.0"
 
 # (R3) Kopie zapasowe NIE MOGA byc wejsciem dla narzedzi. "mod.py.bak-zaglada"
 # nie konczy sie na ".py", wiec trafialo do trybu prozy i tracilo ochrone
@@ -404,6 +404,33 @@ def analizuj(tekst):
     return bledy, uwagi
 
 
+def _pasuje_pozycyjnie(literal, kandydat):
+    """(v8.7.0) Czy `kandydat` to ten sam napis co `literal`, tylko bez
+    skazenia? Bez ZADNEJ tabeli transliteracji - Pogromca ma zostac
+    niezalezny od Zaglady (patrz dokstring _oczysc_kandydatow).
+
+    Zasada: ta sama dlugosc, a roznice WYLACZNIE na pozycjach, gdzie
+    literal ma znak zaklasyfikowany jako BLAD. Jedna roznica na znaku
+    CZYSTYM dyskwalifikuje - to inne slowo, nie skazona wersja tego
+    samego ('kot' vs 'kos' nie jest trafieniem).
+
+    Powod dodania: do v8.6.0 dopasowanie szlo wylacznie przez
+    _oczysc_kandydatow, ktore umie tylko USUWAC znaki
+    ('ni<U+0435>widzialne' -> 'niwidzialne') albo skladac NFKD. Zadna
+    z tych drog nie odtwarza 'niewidzialne', wiec RYZYKO-KLUCZA nie
+    odpalalo sie NIGDY - takze dla przykladu podanego w dokumentacji
+    tej funkcji. Dopasowanie pozycyjne nie musi wiedziec, NA CO znak sie
+    zamieni; wystarczy, ze wie, GDZIE siedzi skazenie."""
+    if len(literal) != len(kandydat) or literal == kandydat:
+        return False
+    for a, b in zip(literal, kandydat):
+        if a == b:
+            continue
+        if klasyfikuj(a)[0] != "BLAD":
+            return False
+    return True
+
+
 def _oczysc_kandydatow(wartosc):
     """Zwraca zbior mozliwych 'oczyszczonych' wersji stringu (bez wiedzy o
     tabelach transliteracji Zaglady - Pogromca ma zostac bez zaleznosci od
@@ -460,13 +487,24 @@ def analizuj_literaly_jako_klucze(tekst, sciezka):
     for wartosc, linia in literaly:
         if not any(klasyfikuj(c)[0] == "BLAD" for c in wartosc):
             continue
+        trafiony = None
+        # 1. dotychczasowe strategie (usuniecie znakow / NFKD+ascii)
         for kandydat in _oczysc_kandydatow(wartosc):
             if kandydat in nazwy or kandydat in (wszystkie_literaly - {wartosc}):
-                ostrzezenia.append(
-                    (linia, wartosc, kandydat,
-                     "identyfikator" if kandydat in nazwy else "inny literal")
-                )
+                trafiony = kandydat
                 break
+        # 2. (v8.7.0) dopasowanie POZYCYJNE - lapie cyrylice i greke,
+        # ktorych zadna z powyzszych strategii nie odtwarza
+        if trafiony is None:
+            for kandydat in nazwy | (wszystkie_literaly - {wartosc}):
+                if _pasuje_pozycyjnie(wartosc, kandydat):
+                    trafiony = kandydat
+                    break
+        if trafiony is not None:
+            ostrzezenia.append(
+                (linia, wartosc, trafiony,
+                 "identyfikator" if trafiony in nazwy else "inny literal")
+            )
     return ostrzezenia
 
 

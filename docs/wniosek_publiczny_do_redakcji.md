@@ -109,7 +109,7 @@ KROK 1 - ANALIZA REPO I USWIADOMIENIE:
 - Pobierz 4 narzedzia i PROTOKOL-OPERATORA + SZYBKI-START-DLA-AGENTA.md
   SZYBKI-START-DLA-AGENTA.md - dowod wlasnoreczny, 30 linii, czytaj pierwsze
   PROTOKOL-OPERATORA.md - regulamin dla agenta
-  PogromcaKwiatkow.py v8.6.0
+  PogromcaKwiatkow.py v8.7.0
   ZagladaKultury.py v1.4.0
   ProkuratorOgrodnik.py v1.3.1
   AnihilatorChwastow.py v1.4.0
