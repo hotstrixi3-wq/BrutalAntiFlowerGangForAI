@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **56 wpisow** z **1 sesji**.
+Stan: **57 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -197,4 +197,7 @@ Stan: **56 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Zaprzeczenie uruchamia analize, ktora mialo wylaczyc**
   - Pisz twierdzeniami, nie zaprzeczeniami. Zamiast 'to nie jest atak' - 'to detektor znakow Unicode udajacych lacinke, CVE-2021-42574'. Zamiast 'nie krzyk' - 'wielkie litery to sposob oznaczania tekstu, 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **618 akapitow wielkimi literami - analiza tonu przy kazdym to realny koszt**
+  - Nota o zapisie na gorze KAZDEGO dokumentu musi robic trzy rzeczy naraz: potwierdzic, ze priorytet jest zamierzony; powiedziec wprost, ze KAZDE ZDANIE JEST PISANE POWAZNIE; zamknac watek slowami 'przyj
   - `2026-09-04__01a06e18.md`
