@@ -4,7 +4,7 @@ Data: 2026-09-05 · Commit: `be0757f` · Gałąź: `arena/01a06e18-brutalantiflo
 
 Wykonany na **świeżym klonie z GitHuba**, w katalogu o pustym rodzicu
 (`/tmp/turniej/repo`) — inaczej skanery łapią cudze pliki z `/tmp`.
-Kolejność wg `docs/HIERARCHIA-ZAUFANIA-TESTOW.md`: od fundamentu w górę.
+Kolejność wg `docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md`: od fundamentu w górę.
 
 ## Wynik
 

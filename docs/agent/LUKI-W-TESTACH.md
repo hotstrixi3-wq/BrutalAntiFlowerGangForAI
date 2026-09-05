@@ -1,7 +1,7 @@
 # Czego testy nie sprawdzaja — burza mozgow + weryfikacja
 
 > **STATUS (v8.6.0 / 1.4.0): luka krytyczna f-string ZALATANA, Z1 ZALATANE,
-> kryterium wykonania DODANE** — patrz `docs/NAPRAWA-v8.6.0.md`.
+> kryterium wykonania DODANE** — patrz `docs/agent/NAPRAWA-v8.6.0.md`.
 > Dowod `dev/luki/luka-fstring.py` daje teraz 0/5 zepsutych (exit 0),
 > a nowy `dev/turnieje/turniej-4-runtime.py` pilnuje, zeby nie wrocila.
 
@@ -28,7 +28,7 @@ Rozszerzenia wystepujace w probkach generowanych przez turnieje:
 
 Kryterium „niepsucia" w obu turniejach niepsucia to `compile()`
 (+ `json.loads` dla JSON). **Zaden test nie URUCHAMIA wyczyszczonego kodu.**
-To istotne, bo — jak opisuje `docs/INZYNIERIA-WSTECZNA.md` pkt 2.3 — cala
+To istotne, bo — jak opisuje `docs/agent/INZYNIERIA-WSTECZNA.md` pkt 2.3 — cala
 klasa bledow (niespojnosc nazw) przechodzi przez `compile()` i wybucha
 dopiero w runtime.
 
@@ -153,7 +153,7 @@ takie bledy narzedzie potrafi wprowadzic (patrz pkt 2 i znalezisko
 
 ### D4. Brak testu na prawdziwym kodzie
 Cala amunicja jest syntetyczna. Weryfikacja z
-`docs/INZYNIERIA-WSTECZNA.md` (40 modulow stdlib) pokazala, ze prawdziwy
+`docs/agent/INZYNIERIA-WSTECZNA.md` (40 modulow stdlib) pokazala, ze prawdziwy
 kod ma konstrukcje, ktorych generator nie wytwarza — f-string jest tego
 dowodem.
 

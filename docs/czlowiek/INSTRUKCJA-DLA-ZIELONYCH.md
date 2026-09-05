@@ -30,7 +30,7 @@ Agent musi moc zapisac plik na dysk (sandbox) i uruchomic Pythona (python3). Tyl
 
 ### METODA 1 — czat przyjmuje zalaczniki .md (najczestszy)
 
-1. Pobierz jeden plik: docs/RODZINA-DO-CZATU.md z https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI (zawiera kompletny kod 4 narzedzi w srodku).
+1. Pobierz jeden plik: docs/czlowiek/RODZINA-DO-CZATU.md z https://github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI (zawiera kompletny kod 4 narzedzi w srodku).
 2. Zalacz go do czatu (spinacz / plus) lub upusc na czat.
 3. Wklej ponizsza wiadomosc:
 

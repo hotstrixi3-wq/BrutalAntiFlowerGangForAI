@@ -8,7 +8,7 @@
 > RECYKLER attackers, 322 and 348 hits, FN/FP/SZUM 0, series 2/2 ->
 > PEWNIAK v8) plus the "KONSERWATOR 2.0" bonus: 8/8 non-breakage scenarios
 > on a live product (202119 bytes), including LS-in-literal protection.
-> A bilingual summary of those rounds lives in docs/README-TURNIEJ.md and
+> A bilingual summary of those rounds lives in docs/dowody/README-TURNIEJ.md and
 > docs/CERTYFIKAT-PEWNIAKA.md. The log is preserved verbatim as a historical
 > artifact.
 

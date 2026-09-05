@@ -119,7 +119,7 @@ repozytorium** — jedno wykonanie ujawniłoby to natychmiast.
 
 Brak kontroli osadzonych kopii to najpoważniejsza luka. W tej sesji ta
 właśnie kontrola **złapała realny błąd agenta** — źle wykonany re-embed,
-po którym `docs/RODZINA-DO-CZATU.md` zawierał kod niezgodny z plikami
+po którym `docs/czlowiek/RODZINA-DO-CZATU.md` zawierał kod niezgodny z plikami
 źródłowymi. Agent czytający ten dokument dostałby inną wersję narzędzi
 niż ta w repo. Wersja Claude Pro przepuściłaby to bez słowa.
 

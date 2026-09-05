@@ -5,9 +5,9 @@ Jedno zrodlo prawdy: WERSJE.json. Ten skrypt sprawdza trzy rzeczy:
 
   1. czy stala WERSJA w kodzie narzedzia zgadza sie z WERSJE.json
   2. czy warstwa czytana przez agenta (README.md, PROTOKOL-OPERATORA.md,
-     SZYBKI-START-DLA-AGENTA.md, docs/RODZINA-DO-CZATU.md, docs/wniosek...)
+     SZYBKI-START-DLA-AGENTA.md, docs/czlowiek/RODZINA-DO-CZATU.md, docs/wniosek...)
      nie DEKLARUJE numeru wersji sprzecznego z WERSJE.json
-  3. czy kopie kodu osadzone w docs/RODZINA-DO-CZATU.md sa identyczne
+  3. czy kopie kodu osadzone w docs/czlowiek/RODZINA-DO-CZATU.md sa identyczne
      bajt-w-bajt z realnymi plikami narzedzi
 
 Nie sprawdza dev/ - to amunicja testowa, celowo brudna i poza bramka.
@@ -44,14 +44,14 @@ WARSTWA_AGENTA = (
     "README.md",
     "PROTOKOL-OPERATORA.md",
     "SZYBKI-START-DLA-AGENTA.md",
-    os.path.join("docs", "RODZINA-DO-CZATU.md"),
-    os.path.join("docs", "wniosek_publiczny_do_redakcji.md"),
-    os.path.join("docs", "README-TURNIEJ.md"),
+    os.path.join("docs", "czlowiek", "RODZINA-DO-CZATU.md"),
+    os.path.join("docs", "czlowiek", "wniosek_publiczny_do_redakcji.md"),
+    os.path.join("docs", "dowody", "README-TURNIEJ.md"),
     # (v1.1.0) BRIEF trafia do ZEWNETRZNEGO audytora - klamstwo o wersji
     # w tym pliku jest grozniejsze niz w dokumentacji wewnetrznej, bo
     # obcy agent nie ma jak go zweryfikowac. Zmierzone: brief deklarowal
     # Prokuratora 1.3.0, gdy w kodzie bylo juz 1.3.1.
-    os.path.join("docs", "BRIEF-DLA-AUDYTORA.md"),
+    os.path.join("docs", "agent", "BRIEF-DLA-AUDYTORA.md"),
     # CZYM-JEST-GANG to pierwszy plik, ktory czyta agent przed praca
     "CZYM-JEST-GANG.md",
 )
@@ -216,9 +216,9 @@ def sprawdz_embedy(prawda):
     kod narzedzia zmienia sie, a all-in-one dla agenta zostaje ze starym.
     Agent dostaje wtedy INNE narzedzie niz to, ktore lezy w repo."""
     rozjazdy = []
-    sciezka = os.path.join(TU, "docs", "RODZINA-DO-CZATU.md")
+    sciezka = os.path.join(TU, "docs", "czlowiek", "RODZINA-DO-CZATU.md")
     if not os.path.isfile(sciezka):
-        return ["docs/RODZINA-DO-CZATU.md: brak pliku (all-in-one dla agenta)"]
+        return ["docs/czlowiek/RODZINA-DO-CZATU.md: brak pliku (all-in-one dla agenta)"]
     with open(sciezka, encoding="utf-8") as f:
         linie = f.readlines()
     markery = [(i, l.strip()[4:]) for i, l in enumerate(linie)

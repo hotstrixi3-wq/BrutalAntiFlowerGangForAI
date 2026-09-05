@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **42 wpisow** z **1 sesji**.
+Stan: **43 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -43,7 +43,7 @@ Stan: **42 wpisow** z **1 sesji**.
   - kryterium jest **uruchomienie programu i porownanie wyjscia** przed i po. Wzor: `dev/turnieje/turniej-4-runtime.py`.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Amunicja syntetyczna nie zawiera konstrukcji z prawdziwego kodu**
-  - testuj na **prawdziwym kodzie** — biblioteka standardowa Pythona lezy w `sysconfig.get_paths()['stdlib']` i ma 171 gotowych modulow. Wzor uzycia w `docs/INZYNIERIA-WSTECZNA.md`.
+  - testuj na **prawdziwym kodzie** — biblioteka standardowa Pythona lezy w `sysconfig.get_paths()['stdlib']` i ma 171 gotowych modulow. Wzor uzycia w `docs/agent/INZYNIERIA-WSTECZNA.md`.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Skazenie testowe musi byc ODWRACALNE, inaczej oskarzasz niewinnego**
   - buduj zbior **wiernych homoglifow** — takich, dla ktorych `zamien_znak()` zwraca dokladnie oryginalna litere ASCII (jest ich 52). Dopiero wtedy zadanie „odtworz oryginal" jest wykonalne, a wynik mierz
@@ -127,13 +127,16 @@ Stan: **42 wpisow** z **1 sesji**.
   - **uruchamiaj `python3 sprawdz-spojnosc.py` po kazdej zmianie w plikach narzedzi lub dokumentacji, przed commitem.** Zero rozjazdow to warunek wejscia. To najtansza siatka bezpieczenstwa w tym repo.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Zmiana kodu = podbicie wersji w CZTERECH miejscach**
-  - kolejnosc: popraw kod -> `WERSJA` -> `WERSJE.json` -> teksty -> re-embed -> `sprawdz-spojnosc.py` -> przelicz `docs/KOMPLECIK.md`. Pamietaj tez o zasadzie projektu: **poprawka kodu = reset medalu/turn
+  - kolejnosc: popraw kod -> `WERSJA` -> `WERSJE.json` -> teksty -> re-embed -> `sprawdz-spojnosc.py` -> przelicz `docs/agent/KOMPLECIK.md`. Pamietaj tez o zasadzie projektu: **poprawka kodu = reset medal
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Pamietnik tez podlega Pogromcy - zero zywych kwiatkow w dokumentach**
   - Znaki obcych alfabetow w dokumentacji zapisuj notacja \uXXXX albo U+XXXX, nigdy zywcem (PROTOKOL par. 5). Po napisaniu KAZDEGO nowego dokumentu uruchom: python3 PogromcaKwiatkow.py <plik>
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Dziennik: jeden plik na sesje, cudze tylko do odczytu**
   - Piszesz WYLACZNIE do swojego pliku dziennik/DATA__SESJA.md (tworzy sie sam przy --dodaj). Cudzych nie edytujesz - bramka --sprawdz to wykryje. Nieaktualna cudza rade prostujesz WLASNYM wpisem z polem 
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **README jest punktem wejscia agenta - historia musi mieszkac osobno**
+  - README to jedyny plik, ktory agent otwiera bez pytania (GitHub go pokazuje, klon zaczyna sie od niego) - wiec ma byc PUNKTEM WEJSCIA, nie kronika. Kolejne wydania dopisuj do docs/historia/HISTORIA-ZMI
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

@@ -107,7 +107,7 @@ def kat_a():
 
     # --- sprawdz-spojnosc: rozjechana OSADZONA KOPIA ---
     baza, repo = kopia_repo("t8a3-")
-    p = os.path.join(repo, "docs", "RODZINA-DO-CZATU.md")
+    p = os.path.join(repo, "docs", "czlowiek", "RODZINA-DO-CZATU.md")
     s = io.open(p, encoding="utf-8").read()
     io.open(p, "w", encoding="utf-8").write(
         s.replace("def main()", "def main_PODMIENIONE()", 1))
@@ -233,7 +233,7 @@ def kat_c():
         if kod == 0:
             zle += 1
             szczegoly.append(("sprawdz-spojnosc",
-                              "falszywa wersja w docs/BRIEF-DLA-AUDYTORA.md "
+                              "falszywa wersja w docs/agent/BRIEF-DLA-AUDYTORA.md "
                               "przechodzi - plik jest POZA WARSTWA_AGENTA"))
     shutil.rmtree(baza, ignore_errors=True)
 

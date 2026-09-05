@@ -1,7 +1,7 @@
 # Brief dla zewnetrznego audytora AI
 
 Ten plik jest do **skopiowania w calosci** do czatu z innym agentem
-(Claude Pro, ChatGPT, Gemini) razem z `docs/RODZINA-DO-CZATU.md`.
+(Claude Pro, ChatGPT, Gemini) razem z `docs/czlowiek/RODZINA-DO-CZATU.md`.
 
 Powstal, bo nie ma technicznego mostu miedzy sesjami roznych agentow —
 mostem jest czlowiek z kopiuj-wklej. Zeby ten most nie gubil kontekstu,
@@ -82,7 +82,7 @@ ZASADY, KTORE OBOWIAZUJA W TYM REPO
 - Dowody skazen w dokumentacji zapisujemy notacja <U+XXXX>, NIGDY zywcem —
   inaczej dokument o kwiatkach sam je roznosi.
 - Wersja zyje w 4 miejscach: stala WERSJA, WERSJE.json, teksty docs,
-  osadzona kopia w docs/RODZINA-DO-CZATU.md. Pilnuje sprawdz-spojnosc.py.
+  osadzona kopia w docs/czlowiek/RODZINA-DO-CZATU.md. Pilnuje sprawdz-spojnosc.py.
 
 CZEGO NIE ROBIC
 - Nie przyjmuj powyzszych ustalen na wiare — sprawdz kod.
@@ -135,9 +135,9 @@ nie polegaj na moim opisie.
 
 Zacznij od:
   README.md                     - co robi rodzina
-  docs/BRIEF-DLA-AUDYTORA.md    - kontekst audytu i czego szukam
+  docs/agent/BRIEF-DLA-AUDYTORA.md    - kontekst audytu i czego szukam
   dziennik/                     - czego juz probowano i co nie wyszlo
-  docs/NAPRAWA-v8.6.0.md        - uzasadnienia ostatnich decyzji
+  docs/agent/NAPRAWA-v8.6.0.md        - uzasadnienia ostatnich decyzji
 
 Mozesz uruchamiac testy, zeby sprawdzic swoje hipotezy:
   python3 PogromcaKwiatkow.py --selftest
@@ -176,10 +176,10 @@ hipoteze, zamiast zgadywac z lektury. Roznica w jakosci znalezisk jest duza.
 
 | Cel | Plik | Uwaga |
 |---|---|---|
-| Pelny kod 4 narzedzi | `docs/RODZINA-DO-CZATU.md` | 123 500 znakow — zawiera komplet kodu, moze przekroczyc limit wklejki; wtedy zalacz jako plik |
+| Pelny kod 4 narzedzi | `docs/czlowiek/RODZINA-DO-CZATU.md` | 123 500 znakow — zawiera komplet kodu, moze przekroczyc limit wklejki; wtedy zalacz jako plik |
 | Sam kod jednego narzedzia | np. `ZagladaKultury.py` | gdy audyt ma byc waski |
 | Historia pomylek | `dziennik/` | pokazuje, czego juz probowano |
-| Stan i decyzje | `docs/NAPRAWA-v8.6.0.md` | uzasadnienia inzynierskie |
+| Stan i decyzje | `docs/agent/NAPRAWA-v8.6.0.md` | uzasadnienia inzynierskie |
 
 Alternatywa dla wklejania: podaj link do repo i galezi. Agent z dostepem
 do sieci pobierze pliki sam.

@@ -1,6 +1,6 @@
 # PROTOKOL OPERATORA - dla agenta AI - RODZINA 4 plikow
 
-> Ty, agencie, jestes operatorem rodziny narzedzi. Czlowiek jest zleceniodawca: ustawia cel i polityke, potem egzekwujesz TY i meldujesz jednolinijkowo. docs/INSTRUKCJA-DLA-ZIELONYCH.md jest dla ludzi - ten plik jest Twoja check-lista.
+> Ty, agencie, jestes operatorem rodziny narzedzi. Czlowiek jest zleceniodawca: ustawia cel i polityke, potem egzekwujesz TY i meldujesz jednolinijkowo. docs/czlowiek/INSTRUKCJA-DLA-ZIELONYCH.md jest dla ludzi - ten plik jest Twoja check-lista.
 
 > ZASADA: ZAWSZE ROB BAKAP. NIC NIE ZWALNIA CIE Z ROBIENIA BAKAPOW!!!
 
@@ -43,7 +43,7 @@ KROK 0 - DOWOD WLASNORECZNY (przed czymkolwiek innym):
   zanim uwierzysz na slowo jakiejkolwiek dokumentacji ponizej
 
 KROK 1 - ANALIZA I USWIADOMIENIE:
-- Przeczytaj README.md, PROTOKOL-OPERATORA.md, docs/RODZINA-DO-CZATU.md
+- Przeczytaj README.md, PROTOKOL-OPERATORA.md, docs/czlowiek/RODZINA-DO-CZATU.md
 - Zapoznaj sie z rola 4 narzedzi
 - ZAPODAJ UZYTKOWNIKOWI krotki i rzeczowy opis CO TO i PO CO TO, po ludzku, bez zargonu U+XXXX, wyjasnij ze to nie slownik ortograficzny tylko filtr na niewidzialny brud ktory marnuje godziny i tokeny
 
