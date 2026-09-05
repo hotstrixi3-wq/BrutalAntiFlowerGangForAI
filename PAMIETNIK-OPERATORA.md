@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **51 wpisow** z **1 sesji**.
+Stan: **52 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -161,6 +161,9 @@ Stan: **51 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Wielkie litery w dokumentacji: proza tak, komendy nigdy**
   - Zamieniaj TYLKO proze. Chron: bloki %s, kod inline, cele linkow, nazwy plikow (po rozszerzeniu), sciezki z ukosnikiem, flagi --nazwa, notacje <U+XXXX> i \uXXXX, identyfikatory_z_podkresleniem, CamelCa
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Test sciezki i audyt tresci to dwie rozne rzeczy**
+  - Po kazdej wiekszej zmianie w dokumentacji zrob audyt TRESCI, nie tylko sciezki: wypisz zdania o zachowaniu kodu, napisz pomiar do kazdego, uruchom i zapisz wynik TAKZE gdy potwierdza. Potwierdzenie je
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem
