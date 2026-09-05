@@ -14,11 +14,11 @@ w pustkę.
 
 | | |
 |---|---|
-| wersja repo | **9.17.0** |
+| wersja repo | **9.18.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `dcc72cc` — v9.17.0 - muzeum/: eksponaty z etykieta zamiast kata |
+| ostatni commit | `167817c` — v9.18.0 - muzeum jako widmo: tablice po plikach, nie |
 | stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 47 wpisów, 1 sesja |
+| dziennik | 48 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
@@ -107,67 +107,13 @@ w Prokuratorze i Anihilatorze, selftesty drukujące stare numery wersji.
 
 ---
 
-## Zanim cokolwiek zniszczysz
-
-Repo nie ma ochrony po stronie GitHuba — jeden `git push --force` nadpisuje
-historię i git tego nie cofnie. Dlatego:
-
-```
-python3 bakap.py                    # migawka POZA repo (~/.bakap-gang/)
-python3 dev/hooki/zainstaluj.py     # RAZ po klonie — hook pre-push
-python3 bakap.py --lista            # co mam w zapasie
-python3 bakap.py --przywroc 1       # instrukcja odzyskania (nie robi sam)
-```
-
-Hook blokuje **tylko** push nadpisujący albo kasujący. Zwykły przechodzi
-bez pytania. Migawka zawiera `.git`, więc odzyskuje się z niej także
-historię, nie same pliki.
-
-**Hooki nie są wersjonowane przez gita** — po każdym `git clone` trzeba je
-zainstalować na nowo. To jedna komenda i warto o niej pamiętać jako
-o pierwszej rzeczy po sklonowaniu.
-
 ---
 
-## Jak sprawdzić, że nic się nie posypało
+## Procedur tu nie ma
 
-Kolejność ma znaczenie — od fundamentu w górę
-(`docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md`):
+Ten plik mówi **gdzie jesteśmy**. Jak coś zrobić — `PROTOKOL-OPERATORA.md`:
+kolejność pracy na pliku (§2), bramki przed commitem (§4), ochrona przed
+zniszczeniem (§6), zamykanie sesji (§8).
 
-```
-python3 PogromcaKwiatkow.py --selftest      # POZIOM 0 — jeśli oblewa, STOP
-python3 sprawdz-spojnosc.py                 # bramka wersji
-python3 sprawdz-teksty.py                   # bramka kwiatków
-python3 pamietnik.py --sprawdz              # bramka dziennika
-python3 dev/turnieje/turniej-9-obcy-kod.py  # najtwardszy: obcy kod z PyPI
-```
-
-Wynik oczekiwany: same zera i „ZDANE". Jedyne dopuszczalne odstępstwo to
-`fuzz A: 499/500` (`U+0304`, wada zastana).
-
-**Pełny turniej** przed wydaniem: `docs/dowody/TURNIEJ-v9.11.0.md` opisuje
-kolejność i to, czego się spodziewać.
-
----
-
-## Pułapki, na które nadepnę, jeśli nie przeczytam dziennika
-
-Trzy najczęstsze — reszta w `python3 pamietnik.py`:
-
-- **Lokalne repo potrafi się cofnąć w trakcie sesji.** `git log` pokazuje
-  wtedy tylko pierwszy commit. Ratunek: `git fetch origin <gałąź>` +
-  `git reset --hard FETCH_HEAD`. Praca wypchnięta przeżywa.
-- **Kodu z cudzysłowami nie wstrzykuj przez heredoc.** „Udało się" +
-  `grep -c` = 0. Zapisz plikiem, potem wykonaj skrypt.
-- **`exit=1` po potoku to kod `tail`, nie skryptu.** Sprawdzaj bez potoku.
-
----
-
-## Czego ten plik nie zastępuje
-
-- `README.md` — punkt wejścia, jak używać
-- `CZYM-JEST-GANG.md` — po co to jest i czyja jest wina
-- `dziennik/` — grabie, na które ktoś już nadepnął
-- `PROTOKOL-OPERATORA.md` — co wolno, w jakiej kolejności
-
-Ten plik mówi **gdzie jesteśmy**. Tamte mówią **jak i dlaczego**.
+Pułapki, na które ktoś już nadepnął — `python3 pamietnik.py`.
+Lekcje o samym narzędziu — `docs/agent/LEKCJE.md`.

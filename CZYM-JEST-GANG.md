@@ -141,14 +141,8 @@ To jest tez zasada domu, zapisana przez autora repo wielkimi literami:
 
 ## 5. Kolejnosc, ktorej nie wolno odwrocic
 
-```
-1. python3 zwiad.py PLIK             <- WIEDZA (nic nie zapisuje)
-2. cp PLIK PLIK.kopia                <- TWOJA kopia
-3. python3 zwiad.py --warianty PLIK  <- ktore drogi masz do wyboru
-4. python3 zwiad.py --podglad PLIK   <- co dokladnie sie zmieni
-5. dopiero teraz naprawa
-6. sprawdz, czy plik NADAL DZIALA (uruchom, nie tylko skompiluj)
-```
+Najpierw **wiedza**, potem kopia, dopiero na koncu naprawa. Konkretne
+komendy: `PROTOKOL-OPERATORA.md` par. 2.
 
 **Nigdy nie uruchamiaj naprawy po to, zeby dowiedziec sie, co ona robi.**
 To zgadywanie z konsekwencjami na cudzym dysku.
@@ -186,18 +180,10 @@ internetowej jest technicznie "naprawa", a faktycznie szkoda.
 
 ## 7. Zostaw slad dla nastepnego
 
-Jesli cos cie ugryzlo — cos, czego nie dalo sie przewidziec z tej
-dokumentacji — dopisz to do dziennika:
-
-```
-python3 pamietnik.py --dodaj
-```
-
-Piszesz do wlasnego pliku sesji. Cudze sa tylko do odczytu; nieaktualna
-cudza rade prostujesz wpisem `**Zastepuje:**`, nie kasowaniem.
-
 Nastepny agent bedzie mial dokladnie ta sama slepote co ty. Jedyne, czego
 nie bedzie mial, to twoje doswiadczenie — chyba ze mu je zostawisz.
+
+Jak zamknac sesje i co zapisac: `PROTOKOL-OPERATORA.md` par. 8.
 
 ---
 

@@ -1,0 +1,37 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       petla-turniejowa.log
+Zlozony:    2026-09-05
+Pochodzil:  docs/logi/petla-turniejowa.log
+Rozmiar:    6133 B
+Stan:       kopia bit-w-bit, bez zadnych modyfikacji
+
+
+CZYM BYL
+
+Wyjscie ze skryptu dev/turnieje/petla-turniejowa.py - odmiany petli
+rodzinnej, ktora zamiast selftestow uruchamiala w kolko pelne turnieje
+(wektory detekcji, korpusy plikow do czyszczenia).
+
+
+CO WNOSIL
+
+To samo co petla-rodzinna.log, tylko na ciezszym obciazeniu: dowod, ze
+turnieje daja powtarzalny wynik przy wielokrotnym uruchomieniu i ze nic
+nie degraduje sie w czasie.
+
+
+DLACZEGO PRZESTAL WNOSIC
+
+Ten sam powod co przy petla-rodzinna.log: wnioski trafily do
+docs/dowody/RAPORT-V8-PETLA-BONUS.md, a rolе testu powtarzalnosci
+przejely pomiary mutacyjne (dev/turnieje/pomiar-mutacyjny.py,
+pomiar-per-turniej.py), ktore pytaja o rzecz wazniejsza: czy test
+w ogole potrafi oblac.
+
+
+CZY WROCIC PO TE TRESC
+
+Nie. Skrypt zrodlowy nadal istnieje - jesli potrzebujesz swiezego
+przebiegu, uruchom go zamiast czytac stary log.

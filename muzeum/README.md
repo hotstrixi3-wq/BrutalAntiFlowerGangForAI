@@ -1,75 +1,50 @@
-# Muzeum
+# Muzeum — nie wchodź tu
 
-**Tu nie ma plików. Są tylko tablice po tych, których już nie ma.**
+Agencie: **to miejsce cię nie dotyczy.** Nic tu nie działa, nic stąd nie
+kopiuj, niczego tu nie szukaj, nie licz tego do żadnych statystyk.
 
-Agencie: to miejsce cię nie dotyczy. Nic tu nie działa, nic stąd nie
-kopiuj, niczego tu nie szukaj. Zajrzysz tylko wtedy, gdy zadasz pytanie
-„czy coś takiego kiedyś istniało i dlaczego zniknęło".
-
-Poza tym jednym przypadkiem — **omijaj**.
+Traktuj ten katalog tak, jakby go nie było.
 
 ---
 
-## Jak to działa
+## Jedyna rzecz, którą tu robisz
 
-Plik, który przestał służyć, **zostaje skasowany**. Naprawdę usunięty
-z drzewa. Ale zanim zniknie, dostaje tutaj wpis:
+Składasz artefakt **przed skasowaniem go z żywego drzewa**. Nic więcej.
 
-* czym był,
-* co wnosił, gdy jeszcze wnosił,
-* dlaczego przestał,
-* skąd go wyciągnąć, gdyby ktoś jednak potrzebował.
+Kasujesz plik, który kiedyś coś wnosił? Zanim zniknie:
 
-To wszystko. Żadnych kopii, żadnych archiwów „na wszelki wypadek".
-Katalog waży tyle, co ten plik — i tyle ma ważyć zawsze.
+1. skopiuj go tutaj **bez żadnych modyfikacji** — bit w bit
+2. połóż obok opis: `nazwa-pliku.txt`
+3. usuń oryginał z żywego drzewa
+4. wszystko w **jednym commicie**
 
-## Dlaczego tak, a nie magazyn
+Opis ma odpowiadać na cztery pytania: **czym był**, **co wnosił, gdy
+wnosił**, **dlaczego przestał**, **czy warto tu wracać**. Wzór — dowolny
+istniejący `.txt` w tym katalogu.
 
-Magazyn nieużywanych plików rośnie i nikt go nie opróżnia, bo skoro coś
-tam trafiło zamiast zniknąć, to znaczy, że ktoś się wahał. Po roku to
-wysypisko udające archiwum — a agent, który tam zajrzy, marnuje czas na
-ustalanie, co jest żywe, a co nie.
+## Czego tu nie robisz
 
-Git już przechowuje wszystko. Kasowanie pliku to nie zniszczenie, tylko
-**przeniesienie go do historii**. Sprawdzone: plik usunięty dwadzieścia
-commitów temu wraca jedną komendą.
+- **nie czytasz** zawartości — to nie jest źródło wiedzy o projekcie
+- **nie kopiujesz** stąd niczego do żywego drzewa
+- **nie linkujesz** stąd z dokumentacji dla agenta
+- **nie liczysz** tego w manifestach, bramkach ani statystykach
 
-Brakowało tylko **wskazówki, gdzie szukać i po co** — i to jest jedyna
-rzecz, którą to muzeum robi.
+Jeśli szukasz odpowiedzi na pytanie o projekt — jest w `README.md`,
+`docs/agent/` albo `dziennik/`. Nigdy tutaj.
 
-## Zasada wpisu
+## Dlaczego artefakt zostaje, skoro git pamięta
 
-Wpis powstaje **razem z kasowaniem**, w tym samym commicie. Nigdy
-osobno — inaczej albo plik zniknie bez śladu, albo tablica zostanie po
-czymś, co wciąż żyje.
+Git pamięta **treść**, ale nie odpowiada na pytanie „czy istniało tu
+kiedyś narzędzie do X i dlaczego zniknęło". Żeby to wydobyć z historii,
+trzeba już wiedzieć, czego się szuka.
 
-**Sprawdź komendę odzysku, zanim ją wpiszesz.** Ścieżka musi pochodzić
-z commita **sprzed** kasacji, nie z tego, w którym plik znika. Pomyliłem
-to przy pierwszej tablicy — komenda wyglądała sensownie i nie działała.
+Artefakt z opisem zamyka sprawę na miejscu — bez przekopywania commitów.
+Miejsce nie jest naszym zmartwieniem: to kilkanaście kilobajtów w repo,
+które i tak waży megabajty.
 
----
+## Dla człowieka
 
-## Tablice
+Jeśli jesteś człowiekiem i chcesz zobaczyć, co projekt miał kiedyś —
+przejrzyj pliki `.txt`. Każdy opisuje jeden artefakt zwykłym językiem.
 
-### `docs/logi/` — surowe logi przebiegów ciągłych
-
-*Skasowane: 2026-09-05, commit `dcc72cc`.*
-*Odzysk: `git show dcc72cc:muzeum/logi-petli/petla-rodzinna.log`*
-*(sprawdzone — komenda dziala; sciezka jest z commita SPRZED kasacji,
-nie z tego, w ktorym plik zniknal)*
-
-**Czym było:** wyjście z `petla-rodzinna.py` i `petla-turniejowa.py` —
-skryptów uruchamiających komplet sprawdzianów w kółko przez 20 minut.
-Każda linia to jeden cykl: `CYKL 1: 7/7 zielone (1194 s do konca)`.
-Dwa pliki, 14 kB.
-
-**Co wnosiło:** dowód stabilności przy długim działaniu — że narzędzia
-nie sypią się po setnym uruchomieniu i nie cieknie im pamięć. W czasie,
-gdy nie było jeszcze turniejów T4–T9, to była jedyna forma testu
-wytrzymałościowego.
-
-**Dlaczego przestało:** wnioski z tych przebiegów są opisane w
-`docs/dowody/MEDAL-PEWNIAKA-v8.0.2.md` i `RAPORT-V8-PETLA-BONUS.md` —
-tam jest liczba cykli i werdykt. Sam log to półprodukt: 200 powtórzeń
-tej samej linii, zero odwołań ze strefy agenta (zmierzone), zero
-odpowiedzi na jakiekolwiek pytanie.
+Agent tego nie robi. Agent mija to miejsce.

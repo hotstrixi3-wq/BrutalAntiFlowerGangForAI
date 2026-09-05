@@ -80,61 +80,24 @@ Anihilatora — nie.
 
 ---
 
-## Jak używać — kolejność, której nie wolno odwrócić
+## Jak używać
+
+Kolejność, której nie wolno odwrócić — **najpierw wiedza, potem kopia,
+na końcu naprawa**:
 
 ```
-1. python3 zwiad.py PLIK              <- WIEDZA (nic nie zapisuje)
-2. cp PLIK PLIK.kopia                 <- TWOJA kopia, nie narzędzia
-3. python3 zwiad.py --warianty PLIK   <- które drogi masz do wyboru
-4. python3 zwiad.py --podglad PLIK    <- co dokładnie się zmieni
-5. dopiero teraz naprawa
-6. sprawdź, czy plik NADAL DZIAŁA (uruchom, nie tylko skompiluj)
+python3 zwiad.py PLIK              # co jest w pliku i co się z nim stanie
+cp PLIK PLIK.kopia                 # TWOJA kopia
+python3 zwiad.py --warianty PLIK   # które drogi masz do wyboru
 ```
 
-**Nigdy nie uruchamiaj naprawy, żeby dowiedzieć się, co ona robi.**
+`zwiad.py` **niczego nie zapisuje**. Pełna procedura, kody wyjścia
+i bramki przed commitem: [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md).
 
-`zwiad.py` niczego nie zapisuje — nie ma tam flagi zapisu i nie będzie.
-Kody wyjścia: `0` czysto, `1` są skażenia, `2` skażenia **nieodwracalne**
-(znaki zostaną usunięte — sprawdź podglądem, czy to nie treść użytkownika).
-
----
-
-## Bramki — uruchom przed każdym commitem
-
-```
-python3 sprawdz-teksty.py       # zero żywych homoglifów w repo
-python3 sprawdz-spojnosc.py     # wersje w kodzie = WERSJE.json = dokumentacja
-python3 pamietnik.py --sprawdz  # dziennik czytelny, cudze wpisy nietknięte
-```
-
-Wszystkie są **fail-closed**: gdy nie wiedzą, co sprawdzić, odmawiają
-(`exit 2`) zamiast meldować sukces.
-
----
-
-## Testy — od czego zacząć, gdy nie ufasz niczemu
-
-Pełny opis: [`docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md`](docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md)
-
-```
-POZIOM 0  python3 PogromcaKwiatkow.py --selftest    fundament, zero zależności
-POZIOM 1  pozostałe selftesty                       każde narzędzie w izolacji
-POZIOM 2  dev/tor-pogromcy.py, dev/fuzz-pogromcy.py bez subprocess i gita
-POZIOM 3  T2, T3, Z1, Z2                            korpusy i wektory
-POZIOM 4  T4, T5, T6                                subprocess
-POZIOM 5  T7, T8, T9                                + git, sieć, katalogi tymczasowe
-```
-
-**Gdy poziom oblewa — nie uruchamiaj wyższych.** Będą mierzyć zepsutym
+Kolejność uruchamiania testów (od fundamentu w górę):
+[`docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md`](docs/agent/HIERARCHIA-ZAUFANIA-TESTOW.md).
+Gdy poziom oblewa — nie uruchamiaj wyższych, będą mierzyć zepsutym
 przyrządem.
-
-Zasada, która obowiązuje przy pisaniu testów:
-
-> **Test, który nie umie OBLAĆ na zepsutym narzędziu, jest dekoracją.**
-> Po napisaniu testu zepsuj narzędzie i sprawdź, czy krzyknie.
-
-Sprawdzają to dwa pomiary: `dev/turnieje/pomiar-mutacyjny.py` (czy są dziury
-w pokryciu) i `pomiar-per-turniej.py` (czy dana kategoria coś pilnuje).
 
 ---
 
@@ -169,15 +132,10 @@ docs/agent/      dokumentacja robocza dla agenta
 docs/czlowiek/   paczka do czatu, instrukcja dla ludzi
 docs/dowody/     certyfikaty, medale, raporty (zamrożone)
 docs/historia/   kronika wydań
-muzeum/          tablice po skasowanych plikach (bez plików)
 ```
 
-Trzy pytania przy sprzątaniu: **służy** → zostaje; **przestało służyć,
-ale kiedyś wnosiło** → tablica w `muzeum/` **i kasacja** w tym samym
-commicie; **nigdy nic nie wnosiło** → `git rm` bez tablicy.
-
-W muzeum nie ma plików — tylko zapis, czym były i skąd je wyciągnąć.
-Agent to miejsce omija.
+Sprzątanie: co służy — zostaje. Co przestało służyć — kasujesz.
+Procedurę składania artefaktu opisuje `PROTOKOL-OPERATORA.md` §15.
 
 ---
 
@@ -191,15 +149,12 @@ Agent to miejsce omija.
 
 ## Znane, nienaprawione wady
 
-Uczciwie, żeby nie polegać na ciszy:
+Uczciwie, żeby nie polegać na ciszy: HTML/CSS traktowane jak proza
+(tekst użytkownika znika), 24 znaki rozjeżdżają się między Zagładą
+a Anihilatorem, znaki łączące ze złożoną formą NFC nie są wykrywane.
 
-- **HTML/CSS** — brak obsługi jako kodu (patrz wyżej)
-- **24 znaki** rozjeżdżają się między Zagładą a Anihilatorem — ten sam znak
-  w `.py` i `.js` da inny wynik
-- **`U+0304`** i inne znaki łączące ze złożoną formą NFC nie są wykrywane
-  (fuzz: 499/500)
-
-Szczegóły i pomiary: [`docs/agent/LUKI-W-TESTACH.md`](docs/agent/LUKI-W-TESTACH.md)
+Aktualna tabela z uzasadnieniem: [`STAN-SESJI.md`](STAN-SESJI.md).
+Pomiary: [`docs/agent/LUKI-W-TESTACH.md`](docs/agent/LUKI-W-TESTACH.md).
 
 ---
 
