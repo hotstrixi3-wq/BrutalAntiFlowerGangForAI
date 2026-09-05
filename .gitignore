@@ -1,8 +1,0 @@
-__pycache__/
-*.pyc
-akta_prokuratora.json
-
-# migawki bakapu leza POZA repo (~/.bakap-gang/), ale gdyby ktos zrobil
-# je lokalnie - nie wersjonujemy archiwow
-*.tar.gz
-.bakap-gang/

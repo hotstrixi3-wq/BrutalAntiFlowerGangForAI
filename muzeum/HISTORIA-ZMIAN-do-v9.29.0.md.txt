@@ -1,0 +1,35 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       HISTORIA-ZMIAN-do-v9.29.0.md
+Zlozony:    2026-09-05
+Pochodzil:  docs/historia/HISTORIA-ZMIAN.md z commita 620f12b
+Git blob:   9b5028f7982e5ab174cf49a63e3688280e97a29d
+Rozmiar:    45587 B
+Stan:       kopia bit w bit, bez zadnych modyfikacji
+
+
+CZYM BYL
+
+Kronika zmian przeniesiona z README i rozwijana do wydania 9.29.0.
+
+
+CO WNOSIL
+
+Zachowywal chronologie decyzji, testow, poprawek i znanych granic projektu.
+Wpisy opisuja prawde historyczna na moment danego pomiaru; nie sa obietnica,
+ze pozniejsze testy nie znajda szerszego kontrprzykladu.
+
+
+DLACZEGO PRZESTAL BYC PLIKIEM ZYWEGO DRZEWA
+
+Aktywna dokumentacja zostala wycofana razem z kodem na czas rekonstrukcji.
+Historia nie zostala skasowana ani przepisana: istnieje w Git, w bakapie
+i w tej kopii muzealnej.
+
+
+CZY WROCIC PO TE TRESC
+
+Tak, przy odtwarzaniu chronologii i sprawdzaniu, dlaczego dana decyzja byla
+wtedy uznana za poprawna. Nowa historia moze ja uzupelniac tylko faktami;
+nie wolno poprawiac dawnych wpisow tak, jakby przeszlosc wygladala inaczej.

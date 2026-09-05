@@ -1,0 +1,34 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       STAN-SESJI-przed-rekonstrukcja.md
+Zlozony:    2026-09-05
+Pochodzil:  STAN-SESJI.md z commita 620f12b
+Git blob:   ad3d54ec234f657d6c340714e6370c463cd69d7e
+Rozmiar:    5457 B
+Stan:       kopia bit w bit, bez zadnych modyfikacji
+
+
+CZYM BYL
+
+Maszynowo odswiezanym opisem biezacego stanu sesji i wersji projektu przed
+rozpoczeciem rekonstrukcji.
+
+
+CO WNOSIL
+
+Dawal nastepnemu agentowi krotki punkt wejscia do faktow, decyzji i liczby
+wpisow pamietnika bez czytania calej historii.
+
+
+DLACZEGO PRZESTAL WNOSIC
+
+Po wycofaniu kodu jego deklaracja stanu 9.29.0 przestala opisywac aktywne
+drzewo. Zachowanie go pod dawna nazwa jako dokumentu biezacego byloby
+mylace.
+
+
+CZY WROCIC PO TE TRESC
+
+Tak, tylko jako migawka chwili przed rekonstrukcja. Nowy STAN-SESJI powinien
+powstac dopiero dla odbudowanej architektury.
