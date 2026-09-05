@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **45 wpisow** z **1 sesji**.
+Stan: **46 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -32,6 +32,9 @@ Stan: **45 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Repo nie mialo ZADNEJ ochrony przed zniszczeniem - jeden force i po pracy**
   - Po KAZDYM sklonowaniu uruchom python3 dev/hooki/zainstaluj.py - hooki nie sa wersjonowane przez gita, wiec kazdy klon zaczyna bez ochrony. Przed operacja, ktorej git nie cofnie: python3 bakap.py. Miga
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Muzeum zamiast katalogu 'do skasowania'**
+  - Sluzy -> zostaje na miejscu. Nie sluzy, ale warto pamietac -> muzeum/ Z ETYKIETA w muzeum/README.md (co bylo, po co powstalo, czemu przestalo byc potrzebne). Nie sluzy i nikt nie zatesknie -> git rm, 
   - `2026-09-04__01a06e18.md`
 
 ## Pisanie testow dla tej rodziny

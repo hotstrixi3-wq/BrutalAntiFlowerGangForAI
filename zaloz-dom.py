@@ -19,6 +19,7 @@ CZEGO NIE MA (bo to cudza pamiec, nie wiedza):
     STAN-SESJI.md wypelniony - czyjs stan, otwarte PR, decyzje z rozmowy
     docs/audyt-zewnetrzny/ - korespondencja z konkretnym audytorem
     docs/dowody/, docs/historia/ - osiagniecia i kronika cudzego repo
+    muzeum/ - eksponaty cudzego domu
     .git - historia cudzej galezi
 
 Dlaczego tak: cudze "na czym stanalem" to nie brak informacji, tylko
@@ -62,6 +63,7 @@ POMIJANE = [
     "docs/audyt-zewnetrzny",   # korespondencja z konkretnym audytorem
     "docs/dowody",             # osiagniecia cudzego repo
     "docs/historia",           # kronika cudzych wydan
+    "muzeum",                  # cudze eksponaty - twoj dom zaczyna bez nich
     ".git",
 ]
 

@@ -45,20 +45,24 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 
 ## Korzen (11 plikow) - narzedzia i start
 
+Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
+(patrz `muzeum/README.md`).
+
 | Plik | Rozmiar | sha256 (12) |
 |---|---|---|
+| [.gitattributes](../../.gitattributes) | 488 B | `2e1f975810aa` |
 | [.gitignore](../../.gitignore) | 178 B | `5a73348f4647` |
 | [AnihilatorChwastow.py](../../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 14354 B | `19f7a7717b14` |
-| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 13390 B | `b31baa51a8eb` |
+| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 14648 B | `a6b19cd19bfb` |
+| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 14454 B | `e453c0813f3c` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../../README.md) | 7616 B | `1f4511207265` |
-| [STAN-SESJI.md](../../STAN-SESJI.md) | 6704 B | `5e1d8109d117` |
+| [README.md](../../README.md) | 7899 B | `b3b4619fb105` |
+| [STAN-SESJI.md](../../STAN-SESJI.md) | 6704 B | `32912e555dd8` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `96fc05392c42` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `c2cb621b9d89` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [bakap.py](../../bakap.py) | 10124 B | `b0f2b9fb3aae` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
@@ -121,14 +125,12 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [README-TURNIEJ.md](../dowody/README-TURNIEJ.md) | 5604 B | `ff64338e4579` |
 | [TURNIEJ-v9.11.0.md](../dowody/TURNIEJ-v9.11.0.md) | 2679 B | `b17bff270215` |
 | [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 43196 B | `410aa1fcc99a` |
-| [petla-rodzinna.log](../logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
-| [petla-turniejowa.log](../logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 40854 B | `8631b3fa6463` |
+| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 42120 B | `9a7149b8dafc` |
 | [README.md](../../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../../pamietnik.py) | 22815 B | `c831d51b62c1` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |
-| [sprawdz-teksty.py](../../sprawdz-teksty.py) | 7110 B | `ea3ce936324f` |
-| [zaloz-dom.py](../../zaloz-dom.py) | 11368 B | `0d8a2c9b81e4` |
+| [sprawdz-teksty.py](../../sprawdz-teksty.py) | 7329 B | `3945438ea3c5` |
+| [zaloz-dom.py](../../zaloz-dom.py) | 11482 B | `27acaf4b6f38` |
 | [zwiad.py](../../zwiad.py) | 23269 B | `9e711f1a497c` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):

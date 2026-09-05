@@ -1,0 +1,12 @@
+# MUZEUM - eksponaty, nie zywy kod.
+#
+# linguist-vendored sprawia, ze GitHub NIE liczy tych plikow do statystyk
+# jezykowych repozytorium i zwija je domyslnie w widoku roznic. Dla gita
+# to nadal zwykle pliki - nic nie ginie, tylko przestaja zaklocac obraz
+# tego, czym repo JEST teraz.
+muzeum/** linguist-vendored
+muzeum/** linguist-documentation
+
+# to samo dla dowodow i kroniki - sa wazne, ale nie sa kodem
+docs/dowody/** linguist-documentation
+docs/historia/** linguist-documentation

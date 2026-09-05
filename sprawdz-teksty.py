@@ -26,7 +26,7 @@ import subprocess
 import sys
 import unicodedata
 
-WERSJA = "1.1.1"
+WERSJA = "1.2.0"
 
 # katalogi z celowo brudna amunicja - tam skazenie jest POPRAWNE
 # (v1.1.0) Pomijamy MINIMUM. Do v1.0.0 lista obejmowala cale katalogi
@@ -37,7 +37,11 @@ WERSJA = "1.1.1"
 # Katalogi zostaja na liscie tylko tam, gdzie brud jest z natury rzeczy:
 # kwiatki-testy to amunicja, logi to zapis tego, co narzedzia zobaczyly.
 POMIJANE = (
-    "dev/kwiatki-testy/", "fixtures/", "docs/logi/",
+    "dev/kwiatki-testy/", "fixtures/",
+    # (v1.2.0) muzeum/ - eksponaty, nie zywy kod. Rzeczy, ktore przestaly
+    # byc uzyteczne, ale maja zostac w historii z etykieta. Skanowanie ich
+    # nic nie wnosi: nikt ich nie edytuje i nikt z nich nie kopiuje.
+    "muzeum/",
 )
 
 # Pojedyncze pliki, ktore MUSZA zawierac zywe skazenia - bo na nich stoja

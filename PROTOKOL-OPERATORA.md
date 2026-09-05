@@ -315,3 +315,27 @@ w drugim.
 tego, czego nauczyla praca nad Gangiem - z liczbami, zeby bylo widac
 skale problemu, a nie sama teze. Gdy trafisz na cos, co dotyczy
 NARZEDZIA, a nie twojej sesji - dopisz tam. To jedzie dalej.
+
+## 15. Muzeum - co robic z rzeczami, ktore przestaly sluzyc
+
+Trzy pytania i trzy rozne odpowiedzi. Nie mieszaj ich:
+
+| Pytanie | Odpowiedz |
+|---|---|
+| jeszcze do czegos sluzy? | zostaje tam, gdzie jest |
+| nie sluzy, ale warto pamietac, ze bylo? | `muzeum/` z **etykieta** |
+| nie sluzy i nikt nie zatesknie? | `git rm` - historia pamieta |
+
+**Nie zakladaj katalogu "do skasowania".** Takie miejsca rosna i nikt ich
+nie oprozni, bo skoro cos tam trafilo zamiast zniknac, to ktos sie wahal.
+Git jest juz ta poczekalnia: plik skasowany dwadziescia commitow temu
+odzyskasz przez `git show <commit>~1:sciezka`.
+
+**Eksponat musi miec etykiete** w `muzeum/README.md`: co to bylo, po co
+powstalo, dlaczego przestalo byc potrzebne. Bez etykiety to nie muzeum,
+tylko strych - a strych po roku nadaje sie juz tylko do wyrzucenia
+w calosci, razem z rzeczami, ktore byly cos warte.
+
+**Liczniki muzeum nie widza** (`.gitattributes` dla GitHuba, lista
+`POMIJANE` w bramce tekstow, pominiecie w manifescie i w `zaloz-dom.py`).
+Dla samego gita to zwykle pliki - nic nie ginie.

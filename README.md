@@ -169,7 +169,12 @@ docs/agent/      dokumentacja robocza dla agenta
 docs/czlowiek/   paczka do czatu, instrukcja dla ludzi
 docs/dowody/     certyfikaty, medale, raporty (zamrożone)
 docs/historia/   kronika wydań
+muzeum/          eksponaty — rzeczy, które przestały służyć, z etykietą
 ```
+
+Trzy pytania przy sprzątaniu: **służy** → zostaje na miejscu; **nie służy,
+ale warto pamiętać** → `muzeum/` z etykietą; **nie służy i nikt nie
+zatęskni** → `git rm`, historia pamięta.
 
 ---
 
