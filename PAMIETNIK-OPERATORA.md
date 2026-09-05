@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **49 wpisow** z **1 sesji**.
+Stan: **50 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -155,6 +155,9 @@ Stan: **49 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Test sciezki obcego agenta: przejdz ja sam, krok po kroku**
   - Po kazdym wiekszym porzadku w dokumentacji przejdz sciezke wejscia mechanicznie: git clone do /tmp, rm -rf .git, potem README krok po kroku - wykonujac komendy, nie czytajac ich. Zmierzone tak: 5 krok
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Dokumentacja klamie liczbami, ktore sama powtarza**
+  - Nie wpisuj do dokumentacji liczb, ktore rosna - one same sie zdezaktualizuja. Zamiast '44 wpisy' napisz, ze liczbe pokaze komenda. Jesli liczba MUSI byc (bo jest dowodem, np. '9/9 mutacji zlapanych'),
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

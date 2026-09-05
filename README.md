@@ -52,8 +52,9 @@ python3 pamietnik.py              # wszystkie sesje, pogrupowane tematami
 python3 pamietnik.py --szukaj testy
 ```
 
-44 wpisy, każdy: objaw → przyczyna → wniosek. To grabie, na które ktoś już
-nadepnął.
+Każdy wpis: objaw → przyczyna → wniosek. To grabie, na które ktoś już
+nadepnął. Liczbę pokaże sama komenda — nie powtarzam jej tutaj, bo
+rozjeżdża się przy każdym nowym wpisie.
 
 **5. Poznaj regulamin** → [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md)
 

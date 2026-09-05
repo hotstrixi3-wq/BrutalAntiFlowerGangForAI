@@ -16,9 +16,9 @@ w pustkę.
 |---|---|
 | wersja repo | **9.19.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `9b4d574` — v9.19.0 - porzadek w instrukcjach: jedna informacja, |
+| ostatni commit | `02591d3` — STAN-SESJI: naprawiony martwy odsylacz slowny |
 | stan testów | wszystko zielone (weryfikacja: PROTOKOL par. 4) |
-| dziennik | 49 wpisów, 1 sesja |
+| dziennik | 50 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
