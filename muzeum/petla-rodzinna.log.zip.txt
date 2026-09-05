@@ -1,0 +1,56 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       petla-rodzinna.log
+Zlozony:    2026-09-05
+Pochodzil:  docs/logi/petla-rodzinna.log
+Rozmiar:    8271 B, 200+ linii
+Stan:       kopia bit-w-bit, bez zadnych modyfikacji
+Archiwum:   petla-rodzinna.log.zip
+W srodku:   petla-rodzinna.log
+SHA-256 ZIP: 0ba5f3626a69240551877ab9b316e1a70370b6b9bd001d802ef4751aaeacd75b
+SHA-256 pliku: 39d9717915cb45ba30dd0878d89f5ae64addc3023ff3169f31a885cfc4a459fb
+
+
+CZYM BYL
+
+Surowe wyjscie ze skryptu dev/turnieje/petla-rodzinna.py - programu,
+ktory uruchamial komplet sprawdzianow rodziny w kolko przez 20 minut,
+liczac czas do konca budzetu. Kazda linia to jeden cykl:
+
+    CYKL 1: 7/7 zielone (1194 s do konca)
+    CYKL 2: 7/7 zielone (1188 s do konca)
+
+
+CO WNOSIL
+
+Dowod wytrzymalosciowy. W czasie, gdy istnialy tylko turnieje T1-T3
+i Z1-Z2, nie bylo zadnego testu sprawdzajacego, czy narzedzia wytrzymuja
+dlugie dzialanie - czy nie sypia sie po setnym uruchomieniu, czy nie
+ciekna pamiecia, czy wynik jest powtarzalny.
+
+Ten log byl na to jedyna odpowiedzia. Pokazywal 7/7 zielonych przez caly
+budzet czasu, cykl za cyklem.
+
+
+DLACZEGO PRZESTAL WNOSIC
+
+Trzy powody, kazdy wystarczy sam:
+
+1. Wnioski sa juz opisane gdzie indziej - docs/dowody/MEDAL-PEWNIAKA-v8.0.2.md
+   i docs/dowody/RAPORT-V8-PETLA-BONUS.md podaja liczbe cykli i werdykt.
+   Log to polprodukt do tamtych dokumentow.
+
+2. Powstaly turnieje T4-T9 z pomiarami mutacyjnymi. Sprawdzaja wiecej
+   i konkretniej niz powtarzanie tego samego w kolko.
+
+3. Zero odwolan ze strefy agenta (zmierzone). Nikt go nie czytal, bo
+   200 powtorzen tej samej linii nie odpowiada na zadne pytanie.
+
+
+CZY WROCIC PO TE TRESC
+
+Prawie na pewno nie. W chwili zlozenia wnioski byly juz w medalu
+i raporcie, a skrypt zrodlowy nadal istnial w zywym drzewie. Po kurtynie
+rekonstrukcyjnej te pliki sa dostepne w historii Git, bezposrednio w pelnym
+stanie `620f12b`. Stary log nie jest dowodem stanu odbudowanego projektu.

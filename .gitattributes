@@ -1,0 +1,13 @@
+# MUZEUM - zamkniete eksponaty, nie zywy kod ani zrodlo wiedzy agenta.
+#
+# GitHub nie liczy muzeum do obrazu jezykow projektu i zwija je w diffach.
+# ZIP-y sa jawnie binarne: zwykly podglad nie powinien wciagac ich tresci
+# do kontekstu. Dla gita pozostaja normalnymi, wersjonowanymi plikami.
+muzeum/** linguist-vendored
+muzeum/** linguist-documentation
+muzeum/*.zip binary
+muzeum/**/*.zip binary
+
+# To samo dla dowodow i kroniki, gdy wroca do zywego drzewa.
+docs/dowody/** linguist-documentation
+docs/historia/** linguist-documentation
