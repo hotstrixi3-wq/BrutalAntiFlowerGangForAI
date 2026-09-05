@@ -1,126 +1,127 @@
-# Brief dla zewnetrznego audytora AI
+# BRIEF DLA ZEWNETRZNEGO AUDYTORA AI
 
-Ten plik jest do **skopiowania w calosci** do czatu z innym agentem
-(Claude Pro, ChatGPT, Gemini) razem z `docs/czlowiek/RODZINA-DO-CZATU.md`.
+TEN PLIK JEST DO **SKOPIOWANIA W CALOSCI** DO CZATU Z INNYM AGENTEM
+(CLAUDE PRO, CHATGPT, GEMINI) RAZEM Z `docs/czlowiek/RODZINA-DO-CZATU.md`.
 
-Powstal, bo nie ma technicznego mostu miedzy sesjami roznych agentow —
-mostem jest czlowiek z kopiuj-wklej. Zeby ten most nie gubil kontekstu,
-audytor musi dostac trzy rzeczy: **stan repo, co juz sprawdzono, i czego
-NIE przyjmowac na wiare**.
+POWSTAL, BO NIE MA TECHNICZNEGO MOSTU MIEDZY SESJAMI ROZNYCH AGENTOW —
+MOSTEM JEST CZLOWIEK Z KOPIUJ-WKLEJ. ZEBY TEN MOST NIE GUBIL KONTEKSTU,
+AUDYTOR MUSI DOSTAC TRZY RZECZY: **STAN REPO, CO JUZ SPRAWDZONO, I CZEGO
+NIE PRZYJMOWAC NA WIARE**.
 
 ---
 
-## Wiadomosc do wklejenia (kopiuj od tej linii w dol)
+## WIADOMOSC DO WKLEJENIA (KOPIUJ OD TEJ LINII W DOL)
 
 ```
-Jestes niezaleznym audytorem. Sprawdzasz prace innego agenta AI nad
-repozytorium BrutalAntiFlowerGangForAI (github.com/hotstrixi3-wq/
-BrutalAntiFlowerGangForAI, galaz arena/01a06e18-brutalantiflowergangforai).
+JESTES NIEZALEZNYM AUDYTOREM. SPRAWDZASZ PRACE INNEGO AGENTA AI NAD
+REPOZYTORIUM BrutalAntiFlowerGangForAI:
+github.com/hotstrixi3-wq/BrutalAntiFlowerGangForAI
+GALAZ: arena/01a06e18-brutalantiflowergangforai
 
 ZANIM ZACZNIESZ - KONTEKST, BO NAZWY MYLA
 
-Nazwy w tym repo sa mocne: Zaglada, Anihilator, Pogromca. To zart autora,
-nie opis dzialania. Nic tu nie atakuje, nie omija zabezpieczen ani nie
-ukrywa niczego w kodzie. Katalog dev/kwiatki-testy zawiera celowo skazone
-probki - to amunicja testowa, tak jak antywirus potrzebuje probek wirusow.
-Te pliki nigdzie sie nie uruchamiaja.
+NAZWY W TYM REPO SA MOCNE: ZAGLADA, ANIHILATOR, POGROMCA. TO ZART AUTORA,
+NIE OPIS DZIALANIA. NIC TU NIE ATAKUJE, NIE OMIJA ZABEZPIECZEN ANI NIE
+UKRYWA NICZEGO W KODZIE. KATALOG dev/kwiatki-testy ZAWIERA CELOWO SKAZONE
+PROBKI - TO AMUNICJA TESTOWA, TAK JAK ANTYWIRUS POTRZEBUJE PROBEK WIRUSOW.
+TE PLIKI NIGDZIE SIE NIE URUCHAMIAJA.
 
-Narzedzie jest OBRONNE: szuka znakow Unicode udajacych lacinke i zamienia
-je na wlasciwe. To udokumentowany problem (homoglyph attack, Trojan Source,
-CVE-2021-42574). Domyslnie NIC nie zmienia - zwiad.py tylko raportuje,
-zmiana wymaga jawnej flagi i robi kopie zapasowa.
+NARZEDZIE JEST OBRONNE: SZUKA ZNAKOW UNICODE UDAJACYCH LACINKE I ZAMIENIA
+JE NA WLASCIWE. TO UDOKUMENTOWANY PROBLEM (HOMOGLYPH ATTACK, TROJAN SOURCE,
+CVE-2021-42574). DOMYSLNIE NIC NIE ZMIENIA - zwiad.py TYLKO RAPORTUJE,
+ZMIANA WYMAGA JAWNEJ FLAGI I ROBI KOPIE ZAPASOWA.
 
 CZYM JEST TO REPO
-Rodzina 4 narzedzi w Pythonie, ktore wykrywaja i usuwaja z kodu i tekstu
-"kwiatki" — znaki z obcych alfabetow udajace lacinke (cyrylickie "o"
-U+043E wyglada jak lacinskie "o"), znaki niewidzialne i twarde spacje.
-Problem jest realny: modele jezykowe wstawiaja takie znaki samoistnie,
-generujac token po tokenie, i nie widza tego u siebie.
+RODZINA 4 NARZEDZI W PYTHONIE, KTORE WYKRYWAJA I USUWAJA Z KODU I TEKSTU
+"KWIATKI" — ZNAKI Z OBCYCH ALFABETOW UDAJACE LACINKE (CYRYLICKIE "O"
+U+043E WYGLADA JAK LACINSKIE "O"), ZNAKI NIEWIDZIALNE I TWARDE SPACJE.
+PROBLEM JEST REALNY: MODELE JEZYKOWE WSTAWIAJA TAKIE ZNAKI SAMOISTNIE,
+GENERUJAC TOKEN PO TOKENIE, I NIE WIDZA TEGO U SIEBIE.
 
-  PogromcaKwiatkow.py  v8.7.0  — detektor (oczy), niczego nie zmienia
-  ZagladaKultury.py    v1.4.0  — czysci .py/.json/proze (rece)
-  ProkuratorOgrodnik.py v1.3.1 — orkiestrator + polityka (mozg)
-  AnihilatorChwastow.py v1.4.0 — czysci js/ts/java/go/rs/cs/c/cpp/php
+  PogromcaKwiatkow.py  V8.7.0  — DETEKTOR (OCZY), NICZEGO NIE ZMIENIA
+  ZagladaKultury.py    V1.4.0  — CZYSCI .py/.json/PROZE (RECE)
+  ProkuratorOgrodnik.py V1.3.1 — ORKIESTRATOR + POLITYKA (MOZG)
+  AnihilatorChwastow.py V1.4.0 — CZYSCI js/ts/java/go/rs/cs/c/cpp/php
 
 KLUCZOWA TEZA DO PODWAZENIA
-"Gang nie psuje kodu" — czyszczenie nigdy nie zmienia dzialania programu.
-Teza byla weryfikowana na 40 modulach biblioteki standardowej Pythona:
-0 niekompilujacych sie, 40/40 importuje sie z identycznym publicznym API.
-NIE PRZYJMUJ TEGO NA WIARE. W tej samej sesji teza zostala JUZ RAZ ZLAMANA
-(patrz nizej) — szukaj kolejnych wylomow.
+"GANG NIE PSUJE KODU" — CZYSZCZENIE NIGDY NIE ZMIENIA DZIALANIA PROGRAMU.
+TEZA BYLA WERYFIKOWANA NA 40 MODULACH BIBLIOTEKI STANDARDOWEJ PYTHONA:
+0 NIEKOMPILUJACYCH SIE, 40/40 IMPORTUJE SIE Z IDENTYCZNYM PUBLICZNYM API.
+NIE PRZYJMUJ TEGO NA WIARE. W TEJ SAMEJ SESJI TEZA ZOSTALA JUZ RAZ ZLAMANA
+(PATRZ NIZEJ) — SZUKAJ KOLEJNYCH WYLOMOW.
 
 CO ZOSTALO ZNALEZIONE I NAPRAWIONE W TEJ SESJI
-1. LUKA F-STRING (krytyczna, lamala teze). Ochrona literalow traktowala
-   caly f-string jako dane, ale wnetrze pol {...} to KOD. Definicja
-   zmiennej byla czyszczona, uzycie w f-stringu nie:
-       PRZED:  vo = 7 ; print(f"wynik: {vo}")   -> dziala
-       PO:     v  = 7 ; print(f"wynik: {vo}")   -> NameError
-   (gdzie "o" w "vo" to cyrylickie U+043E)
-   compile() PRZECHODZIL, wiec bramki tego nie widzialy. To samo w JS:
-   template literal ${...}. Naprawione, 5/5 wariantow.
-2. WYDAJNOSC: diff znak-po-znaku na calym pliku byl kwadratowy.
-   argparse.py (99 KB) = 3 min 23 s. Po zmianie na diff per linia: 0.137 s.
-3. PROKURATOR: --wykonaj NIGDY nie czyscil plikow .py (warunek "elif is_py:"
-   dawal POUCZENIE kazdemu Pythonowi; komentarz obiecywal heurystyke,
-   ktorej nie zaimplementowano). Oraz: pliki nie-UTF8 dostawaly normalna
-   decyzje zamiast BLOKADY, bo Pogromca czyta z errors="replace" i
-   uszkodzony bajt wracal jako U+FFFD.
-4. Agent wstawil 16 ZYWYCH homoglifow do trzech dokumentow OSTRZEGAJACYCH
-   przed homoglifami. Stad nowa bramka sprawdz-teksty.py.
+1. LUKA F-STRING (KRYTYCZNA, LAMALA TEZE). OCHRONA LITERALOW TRAKTOWALA
+   CALY F-STRING JAKO DANE, ALE WNETRZE POL {...} TO KOD. DEFINICJA
+   ZMIENNEJ BYLA CZYSZCZONA, UZYCIE W F-STRINGU NIE:
+       PRZED:  VO = 7 ; PRINT(F"WYNIK: {VO}")   -> DZIALA
+       PO:     V  = 7 ; PRINT(F"WYNIK: {VO}")   -> NameError
+   (GDZIE "O" W "VO" TO CYRYLICKIE U+043E)
+   COMPILE() PRZECHODZIL, WIEC BRAMKI TEGO NIE WIDZIALY. TO SAMO W JS:
+   TEMPLATE LITERAL ${...}. NAPRAWIONE, 5/5 WARIANTOW.
+2. WYDAJNOSC: DIFF ZNAK-PO-ZNAKU NA CALYM PLIKU BYL KWADRATOWY.
+   argparse.py (99 KB) = 3 MIN 23 S. PO ZMIANIE NA DIFF PER LINIA: 0.137 S.
+3. PROKURATOR: --wykonaj NIGDY NIE CZYSCIL PLIKOW .PY (WARUNEK "ELIF is_py:"
+   DAWAL POUCZENIE KAZDEMU PYTHONOWI; KOMENTARZ OBIECYWAL HEURYSTYKE,
+   KTOREJ NIE ZAIMPLEMENTOWANO). ORAZ: PLIKI NIE-UTF8 DOSTAWALY NORMALNA
+   DECYZJE ZAMIAST BLOKADY, BO POGROMCA CZYTA Z ERRORS="REPLACE" I
+   USZKODZONY BAJT WRACAL JAKO U+FFFD.
+4. AGENT WSTAWIL 16 ZYWYCH HOMOGLIFOW DO TRZECH DOKUMENTOW OSTRZEGAJACYCH
+   PRZED HOMOGLIFAMI. STAD NOWA BRAMKA sprawdz-teksty.py.
 
-CZEGO SZUKAM OD CIEBIE (w kolejnosci waznosci)
-a) KOLEJNE WYLOMY W TEZIE. Konstrukcje jezykowe, gdzie granica
-   kod/dane jest nieoczywista i narzedzie moze ja przeciac. F-string byl
-   jednym takim miejscem — gdzie sa nastepne? Rozwaz: dekoratory ze
-   stringami, __all__, getattr po nazwie w stringu, docstringi uzywane
-   jako dane (doctest), adnotacje typow w cudzyslowach, eval/exec,
-   %-formatowanie, .format(), stringi w f-stringach zagniezdzonych,
-   pickle, nazwy pol w dataclass, klucze slownikow uzywane jako
-   identyfikatory, JSX/TSX, dekoratory Javy, atrybuty C#.
-b) BLEDY W LOGICE POLITYKI Prokuratora (kto decyduje o czyszczeniu
-   cudzych plikow — tam blad = zniszczone dane usera).
-c) MARTWY KOD I ROZJAZDY. Wiadomo o jednym: w AnihilatorChwastow.py
-   funkcja zaglada_tekst_poza_literalami_multi jest zdefiniowana DWA RAZY
-   (linia 191 i 429) — dziala tylko druga. Sa inne takie?
-d) SLABE MIEJSCA W TESTACH. Turnieje: T2 (992 wektory), T3 (190 plikow),
-   Z1 (1545), Z2 (200), T4 runtime, T5 Anihilator, T6 Prokurator.
-   Zasada, ktora przyjelismy: test ktory nie umie OBLAC jest
-   bezwartosciowy — kazdy nowy turniej byl weryfikowany sabotazem
-   (celowe zepsucie narzedzia, sprawdzenie ze test to lapie).
-   Gdzie te turnieje nadal maja slepe plamy?
+CZEGO SZUKAM OD CIEBIE (W KOLEJNOSCI WAZNOSCI)
+A) KOLEJNE WYLOMY W TEZIE. KONSTRUKCJE JEZYKOWE, GDZIE GRANICA
+   kod/dane JEST NIEOCZYWISTA I NARZEDZIE MOZE JA PRZECIAC. F-STRING BYL
+   JEDNYM TAKIM MIEJSCEM — GDZIE SA NASTEPNE? ROZWAZ: DEKORATORY ZE
+   STRINGAMI, __all__, GETATTR PO NAZWIE W STRINGU, DOCSTRINGI UZYWANE
+   JAKO DANE (DOCTEST), ADNOTACJE TYPOW W CUDZYSLOWACH, eval/exec,
+   %-FORMATOWANIE, .FORMAT(), STRINGI W F-STRINGACH ZAGNIEZDZONYCH,
+   PICKLE, NAZWY POL W DATACLASS, KLUCZE SLOWNIKOW UZYWANE JAKO
+   IDENTYFIKATORY, JSX/TSX, DEKORATORY JAVY, ATRYBUTY C#.
+B) BLEDY W LOGICE POLITYKI PROKURATORA (KTO DECYDUJE O CZYSZCZENIU
+   CUDZYCH PLIKOW — TAM BLAD = ZNISZCZONE DANE USERA).
+C) MARTWY KOD I ROZJAZDY. WIADOMO O JEDNYM: W AnihilatorChwastow.py
+   FUNKCJA zaglada_tekst_poza_literalami_multi JEST ZDEFINIOWANA DWA RAZY
+   (LINIA 191 I 429) — DZIALA TYLKO DRUGA. SA INNE TAKIE?
+D) SLABE MIEJSCA W TESTACH. TURNIEJE: T2 (992 WEKTORY), T3 (190 PLIKOW),
+   Z1 (1545), Z2 (200), T4 RUNTIME, T5 ANIHILATOR, T6 PROKURATOR.
+   ZASADA, KTORA PRZYJELISMY: TEST KTORY NIE UMIE OBLAC JEST
+   BEZWARTOSCIOWY — KAZDY NOWY TURNIEJ BYL WERYFIKOWANY SABOTAZEM
+   (CELOWE ZEPSUCIE NARZEDZIA, SPRAWDZENIE ZE TEST TO LAPIE).
+   GDZIE TE TURNIEJE NADAL MAJA SLEPE PLAMY?
 
 ZASADY, KTORE OBOWIAZUJA W TYM REPO
-- "Nie ruszamy dzialajacego kodu, dokladamy kolejny."
-- Poprawka kodu = reset medalu/turnieju (trzeba przejsc regresje od nowa).
-- Dowody skazen w dokumentacji zapisujemy notacja <U+XXXX>, NIGDY zywcem —
-  inaczej dokument o kwiatkach sam je roznosi.
-- Wersja zyje w 4 miejscach: stala WERSJA, WERSJE.json, teksty docs,
-  osadzona kopia w docs/czlowiek/RODZINA-DO-CZATU.md. Pilnuje sprawdz-spojnosc.py.
+- "NIE RUSZAMY DZIALAJACEGO KODU, DOKLADAMY KOLEJNY."
+- POPRAWKA KODU = RESET medalu/turnieju (TRZEBA PRZEJSC REGRESJE OD NOWA).
+- DOWODY SKAZEN W DOKUMENTACJI ZAPISUJEMY NOTACJA <U+XXXX>, NIGDY ZYWCEM —
+  INACZEJ DOKUMENT O KWIATKACH SAM JE ROZNOSI.
+- WERSJA ZYJE W 4 MIEJSCACH: STALA WERSJA, WERSJE.json, TEKSTY DOCS,
+  OSADZONA KOPIA W docs/czlowiek/RODZINA-DO-CZATU.md. PILNUJE sprawdz-spojnosc.py.
 
 CZEGO NIE ROBIC
-- Nie przyjmuj powyzszych ustalen na wiare — sprawdz kod.
-- Nie proponuj przepisania calosci. Repo ma dzialajace narzedzia i
-  komplet testow; interesuja mnie konkretne, wskazane palcem bledy.
-- Jesli czegos nie da sie stwierdzic bez uruchomienia — powiedz to wprost
-  zamiast zgadywac. Moge uruchomic i przyniesc wynik.
+- NIE PRZYJMUJ POWYZSZYCH USTALEN NA WIARE — SPRAWDZ KOD.
+- NIE PROPONUJ PRZEPISANIA CALOSCI. REPO MA DZIALAJACE NARZEDZIA I
+  KOMPLET TESTOW; INTERESUJA MNIE KONKRETNE, WSKAZANE PALCEM BLEDY.
+- JESLI CZEGOS NIE DA SIE STWIERDZIC BEZ URUCHOMIENIA — POWIEDZ TO WPROST
+  ZAMIAST ZGADYWAC. MOGE URUCHOMIC I PRZYNIESC WYNIK.
 
 FORMAT ODPOWIEDZI
-Dla kazdego znaleziska: (1) plik i linia, (2) na czym polega blad,
-(3) minimalny przyklad odtwarzajacy, (4) czy compile()/skladnia to lapie,
-(5) proponowana naprawa. Posortuj wg wagi. Jesli czegos nie znalazles
-w danej kategorii — napisz to zamiast dopisywac watpliwe pozycje.
+DLA KAZDEGO ZNALEZISKA: (1) PLIK I LINIA, (2) NA CZYM POLEGA BLAD,
+(3) MINIMALNY PRZYKLAD ODTWARZAJACY, (4) CZY COMPILE()/SKLADNIA TO LAPIE,
+(5) PROPONOWANA NAPRAWA. POSORTUJ WG WAGI. JESLI CZEGOS NIE ZNALAZLES
+W DANEJ KATEGORII — NAPISZ TO ZAMIAST DOPISYWAC WATPLIWE POZYCJE.
 ```
 
 ---
 
-## WARIANT A (lepszy): katalog na dysku jako most
+## WARIANT A (LEPSZY): KATALOG NA DYSKU JAKO MOST
 
-Jesli Twoj audytor ma dostep do katalogu na Twoim komputerze — nie wklejaj
-kodu. Zrob z tego katalogu **klon repozytorium**. Wtedy audytor czyta
-prawdziwe pliki (nie wklejke, ktora moze byc obcieta), a jego ustalenia
-wracaja do tej sesji przez git.
+JESLI TWOJ AUDYTOR MA DOSTEP DO KATALOGU NA TWOIM KOMPUTERZE — NIE WKLEJAJ
+KODU. ZROB Z TEGO KATALOGU **KLON REPOZYTORIUM**. WTEDY AUDYTOR CZYTA
+PRAWDZIWE PLIKI (NIE WKLEJKE, KTORA MOZE BYC OBCIETA), A JEGO USTALENIA
+WRACAJA DO TEJ SESJI PRZEZ GIT.
 
-### Raz, u siebie na komputerze
+### RAZ, U SIEBIE NA KOMPUTERZE
 
 ```
 cd <katalog-ktory-widzi-Twoj-audytor>
@@ -129,17 +130,17 @@ cd BrutalAntiFlowerGangForAI
 git checkout arena/01a06e18-brutalantiflowergangforai
 ```
 
-Repo wazy okolo 2 MB — klonowanie trwa chwile.
+REPO WAZY OKOLO 2 MB — KLONOWANIE TRWA CHWILE.
 
-### Przed kazdym audytem (zeby audytor mial swiezy stan)
+### PRZED KAZDYM AUDYTEM (ZEBY AUDYTOR MIAL SWIEZY STAN)
 
 ```
 git pull
 ```
 
-### Wiadomosc dla audytora przy tym wariancie
+### WIADOMOSC DLA AUDYTORA PRZY TYM WARIANCIE
 
-Zamiast zalacznika napisz mu:
+ZAMIAST ZALACZNIKA NAPISZ MU:
 
 ```
 Kod masz w katalogu BrutalAntiFlowerGangForAI (galaz
@@ -163,45 +164,45 @@ Format opisany w docs/audyt-zewnetrzny/README.md.
 NIE zmieniaj innych plikow — mam bramki, ktore to wykryja.
 ```
 
-### Powrot do tej sesji
+### POWROT DO TEJ SESJI
 
-Masz dwie drogi:
+MASZ DWIE DROGI:
 
-**1. Przez git (zalecana).** U siebie:
+**1. PRZEZ GIT (ZALECANA).** U SIEBIE:
 ```
 git add docs/audyt-zewnetrzny/
 git commit -m "audyt zewnetrzny: Claude Pro"
 git push origin arena/01a06e18-brutalantiflowergangforai
 ```
-Potem napisz mi w czacie „audytor wrzucil plik" — pobiore i zweryfikuje.
+POTEM NAPISZ MI W CZACIE „AUDYTOR WRZUCIL PLIK" — POBIORE I ZWERYFIKUJE.
 
-**2. Przez wklejke.** Otworz plik z `docs/audyt-zewnetrzny/` i wklej tresc
-tutaj. Dziala tak samo, tylko bez historii w gicie.
+**2. PRZEZ WKLEJKE.** OTWORZ PLIK Z `docs/audyt-zewnetrzny/` I WKLEJ TRESC
+TUTAJ. DZIALA TAK SAMO, TYLKO BEZ HISTORII W GICIE.
 
-**Zaleta wariantu A:** audytor moze URUCHOMIC kod i sprawdzic wlasna
-hipoteze, zamiast zgadywac z lektury. Roznica w jakosci znalezisk jest duza.
+**ZALETA WARIANTU A:** AUDYTOR MOZE URUCHOMIC KOD I SPRAWDZIC WLASNA
+HIPOTEZE, ZAMIAST ZGADYWAC Z LEKTURY. ROZNICA W JAKOSCI ZNALEZISK JEST DUZA.
 
 ---
 
-## WARIANT B: kopiuj-wklej (gdy nie ma wspolnego katalogu)
+## WARIANT B: KOPIUJ-WKLEJ (GDY NIE MA WSPOLNEGO KATALOGU)
 
-## Co zalaczyc do wiadomosci
+## CO ZALACZYC DO WIADOMOSCI
 
-| Cel | Plik | Uwaga |
+| CEL | PLIK | UWAGA |
 |---|---|---|
-| Pelny kod 4 narzedzi | `docs/czlowiek/RODZINA-DO-CZATU.md` | 123 500 znakow — zawiera komplet kodu, moze przekroczyc limit wklejki; wtedy zalacz jako plik |
-| Sam kod jednego narzedzia | np. `ZagladaKultury.py` | gdy audyt ma byc waski |
-| Historia pomylek | `dziennik/` | pokazuje, czego juz probowano |
-| Stan i decyzje | `docs/agent/NAPRAWA-v8.6.0.md` | uzasadnienia inzynierskie |
+| PELNY KOD 4 NARZEDZI | `docs/czlowiek/RODZINA-DO-CZATU.md` | 123 500 ZNAKOW — ZAWIERA KOMPLET KODU, MOZE PRZEKROCZYC LIMIT WKLEJKI; WTEDY ZALACZ JAKO PLIK |
+| SAM KOD JEDNEGO NARZEDZIA | NP. `ZagladaKultury.py` | GDY AUDYT MA BYC WASKI |
+| HISTORIA POMYLEK | `dziennik/` | POKAZUJE, CZEGO JUZ PROBOWANO |
+| STAN I DECYZJE | `docs/agent/NAPRAWA-v8.6.0.md` | UZASADNIENIA INZYNIERSKIE |
 
-Alternatywa dla wklejania: podaj link do repo i galezi. Agent z dostepem
-do sieci pobierze pliki sam.
+ALTERNATYWA DLA WKLEJANIA: PODAJ LINK DO REPO I GALEZI. AGENT Z DOSTEPEM
+DO SIECI POBIERZE PLIKI SAM.
 
-## Jak wrocic z odpowiedzia
+## JAK WROCIC Z ODPOWIEDZIA
 
-Wklej odpowiedz audytora **w calosci** do tej sesji. Nie streszczaj —
-streszczenie gubi numery linii i przyklady, a to jest najcenniejsza czesc.
-Kazde znalezisko zostanie zweryfikowane **wykonaniem** (uruchomieniem kodu),
-zanim cokolwiek zmienimy: w tej sesji zdarzyly sie juz zarzuty, ktore po
-sprawdzeniu okazaly sie nietrafione, i takie, ktore okazaly sie powazniejsze
-niz zgloszono.
+WKLEJ ODPOWIEDZ AUDYTORA **W CALOSCI** DO TEJ SESJI. NIE STRESZCZAJ —
+STRESZCZENIE GUBI NUMERY LINII I PRZYKLADY, A TO JEST NAJCENNIEJSZA CZESC.
+KAZDE ZNALEZISKO ZOSTANIE ZWERYFIKOWANE **WYKONANIEM** (URUCHOMIENIEM KODU),
+ZANIM COKOLWIEK ZMIENIMY: W TEJ SESJI ZDARZYLY SIE JUZ ZARZUTY, KTORE PO
+SPRAWDZENIU OKAZALY SIE NIETRAFIONE, I TAKIE, KTORE OKAZALY SIE POWAZNIEJSZE
+NIZ ZGLOSZONO.

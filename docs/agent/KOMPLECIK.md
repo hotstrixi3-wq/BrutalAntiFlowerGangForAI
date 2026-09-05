@@ -55,14 +55,14 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [AnihilatorChwastow.py](../../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7332 B | `5b1e66c13969` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 16819 B | `f2a770313c1d` |
+| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 17138 B | `4d4ea9d79868` |
 | [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 7173 B | `5888edd95afc` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../../README.md) | 7449 B | `0a69a1ec7f09` |
 | [STAN-SESJI.md](../../STAN-SESJI.md) | 4773 B | `57438aa8fe2a` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2746 B | `b801307fdd8d` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `2119d9290193` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `87de9163b631` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [bakap.py](../../bakap.py) | 10124 B | `b0f2b9fb3aae` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
@@ -103,7 +103,7 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [zaglada-turniej-wykrywania.py](../../dev/turnieje/zaglada-turniej-wykrywania.py) | 11617 B | `41865b03e7d6` |
 | [AUDYT-DOKUMENTACJI.md](AUDYT-DOKUMENTACJI.md) | 4204 B | `40c62361334a` |
 | [AUDYT-POWIAZAN-FUNKCJI.md](AUDYT-POWIAZAN-FUNKCJI.md) | 6752 B | `6fed9af75c26` |
-| [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 9023 B | `ca4f541adcf9` |
+| [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 9020 B | `d4f403b00801` |
 | [HIERARCHIA-ZAUFANIA-TESTOW.md](HIERARCHIA-ZAUFANIA-TESTOW.md) | 7729 B | `60db8abe16d5` |
 | [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10700 B | `34b26a503e95` |
 | [LEKCJE.md](LEKCJE.md) | 15268 B | `e7b32a095b6a` |
@@ -126,7 +126,7 @@ Manifest **pomija `muzeum/`** - eksponaty nie sa czescia zywego drzewa
 | [README-TURNIEJ.md](../dowody/README-TURNIEJ.md) | 5604 B | `ff64338e4579` |
 | [TURNIEJ-v9.11.0.md](../dowody/TURNIEJ-v9.11.0.md) | 2679 B | `b17bff270215` |
 | [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 43196 B | `410aa1fcc99a` |
-| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 50749 B | `d219b83fe79c` |
+| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 51745 B | `f6bc9f3fdeb1` |
 | [README.md](../../dziennik/README.md) | 2850 B | `2b10aca40c12` |
 | [pamietnik.py](../../pamietnik.py) | 23129 B | `f0d077f50ff7` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |

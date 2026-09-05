@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **53 wpisow** z **1 sesji**.
+Stan: **54 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -188,4 +188,7 @@ Stan: **53 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Nazwy projektu moga zablokowac obcy model, zanim cokolwiek przeczyta**
   - Przy narzedziu bezpieczenstwa pisz kontekst w PIERWSZYCH LINIACH, nie w srodku dokumentu: co to robi naprawde, dlaczego w repo sa skazone pliki, co narzedzie robi z plikami domyslnie (u nas: nic, zwia
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Styl operatora: wielkie litery to nie krzyk, tylko sygnal powagi**
+  - Cala dokumentacja agenta wielkimi literami, BEZ WYJATKOW - takze blok wiadomosci do wklejenia w brief dla obcego audytora. Chron przy zamianie: nazwy plikow, sciezki, adresy URL i identyfikatory CVE. 
   - `2026-09-04__01a06e18.md`
