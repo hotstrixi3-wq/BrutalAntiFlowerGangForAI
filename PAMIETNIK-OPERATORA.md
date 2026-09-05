@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **52 wpisow** z **1 sesji**.
+Stan: **53 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -185,4 +185,7 @@ Stan: **52 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Kod od zewnetrznego audytora uruchom, zanim ocenisz**
   - Kazdy kod z zewnatrz uruchamiaj na KOPII repo w /tmp, zanim ocenisz go z lektury - i najpierw sprawdz AST-em, czy nie zapisuje (open w trybie w, subprocess, eval, remove). Ocena z samego czytania jest
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Nazwy projektu moga zablokowac obcy model, zanim cokolwiek przeczyta**
+  - Przy narzedziu bezpieczenstwa pisz kontekst w PIERWSZYCH LINIACH, nie w srodku dokumentu: co to robi naprawde, dlaczego w repo sa skazone pliki, co narzedzie robi z plikami domyslnie (u nas: nic, zwia
   - `2026-09-04__01a06e18.md`

@@ -17,6 +17,19 @@ Jestes niezaleznym audytorem. Sprawdzasz prace innego agenta AI nad
 repozytorium BrutalAntiFlowerGangForAI (github.com/hotstrixi3-wq/
 BrutalAntiFlowerGangForAI, galaz arena/01a06e18-brutalantiflowergangforai).
 
+ZANIM ZACZNIESZ - KONTEKST, BO NAZWY MYLA
+
+Nazwy w tym repo sa mocne: Zaglada, Anihilator, Pogromca. To zart autora,
+nie opis dzialania. Nic tu nie atakuje, nie omija zabezpieczen ani nie
+ukrywa niczego w kodzie. Katalog dev/kwiatki-testy zawiera celowo skazone
+probki - to amunicja testowa, tak jak antywirus potrzebuje probek wirusow.
+Te pliki nigdzie sie nie uruchamiaja.
+
+Narzedzie jest OBRONNE: szuka znakow Unicode udajacych lacinke i zamienia
+je na wlasciwe. To udokumentowany problem (homoglyph attack, Trojan Source,
+CVE-2021-42574). Domyslnie NIC nie zmienia - zwiad.py tylko raportuje,
+zmiana wymaga jawnej flagi i robi kopie zapasowa.
+
 CZYM JEST TO REPO
 Rodzina 4 narzedzi w Pythonie, ktore wykrywaja i usuwaja z kodu i tekstu
 "kwiatki" — znaki z obcych alfabetow udajace lacinke (cyrylickie "o"
