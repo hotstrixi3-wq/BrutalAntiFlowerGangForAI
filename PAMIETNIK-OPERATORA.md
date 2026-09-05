@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **25 wpisow** z **1 sesji**.
+Stan: **27 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -68,6 +68,12 @@ Stan: **25 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **Pogromca.napraw() sama zapisuje - nie uzywac do symulacji**
   - Do podgladu i symulacji uzywaj funkcji CZYSTYCH: Z.zaglada_tekst, Z.zaglada_tekst_poza_literalami, A.zaglada_tekst_poza_literalami_multi. Logike Pogromcy --fix odtworz w pamieci (NFC, usuniecie NIEWID
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Zaglada ma kaskade 4 prob dla zepsutego .py, nie jedna droge**
+  - Nie licz mozliwosci narzedzia po flagach --help. Policz funkcje transformujace tekst (AST) i przeczytaj dyspozytor (u Zaglady: _przetworz_py). Wachlarz w zwiad.py --warianty pokazuje teraz wszystkie s
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **_sprobuj_naprawy usuwa znaki i rozjezdza nazwy - compile() to przepuszcza**
+  - Po KAZDEJ naprawie sprawdzaj spojnosc nazw, nie tylko compile(). zwiad.py --warianty robi to sam i wypisuje '!! ROZJAZD NAZW'. Gdy to zobaczysz, nie uzywaj tego wariantu - wroc do kopii i wybierz inny
   - `2026-09-04__01a06e18.md`
 
 ## Dokumentacja i bramki

@@ -215,18 +215,34 @@ def podglad(sciezka):
 # ktore narzedzie odpalic.
 WARIANTY = (
     ("pogromca-fix", "Pogromca --fix",
-     "zachowawczy: normalizuje NFC, usuwa niewidzialne, twarde spacje -> "
-     "zwykle. NIE tyka homoglifow liter w kodzie."),
-    ("zaglada", "Zaglada --zaglada",
-     "pelny dla .py/.json/prozy: transliteruje cyrylice i greke, chroni "
-     "literaly i komentarze w .py."),
+     "zachowawczy: NFC, usuwa niewidzialne, twarde spacje -> zwykle, "
+     "lamacze -> LF. Homoglifow liter NIE tyka (swiadomie - kwiatka nie "
+     "maskujemy, decyzja nalezy do czlowieka)."),
+    ("zaglada-poza-literalami", "Zaglada: poza literalami (tokenize)",
+     "domyslna droga dla .py, ktore SIE KOMPILUJE. Czysci kod, chroni "
+     "literaly i komentarze. Wnetrze f-stringa liczy jako kod."),
+    ("zaglada-surowy", "Zaglada: skaner stanow (awaryjny)",
+     "dla .py, ktore NIE kompiluje sie - tokenize wtedy nie dziala. "
+     "Rozpoznaje literaly wlasnym skanerem, bez parsera."),
+    ("zaglada-pelna", "Zaglada: CALY plik (bez ochrony literalow)",
+     "OSTATECZNOSC: czysci takze literaly i komentarze. Uzywac tylko, gdy "
+     "wiesz, ze dane w literalach mozna ruszyc."),
+    ("zaglada-usuwanie", "Zaglada: proba przez USUNIECIE znakow",
+     "ostatnia deska ratunku w kaskadzie .py (_sprobuj_naprawy). Zamiast "
+     "transliterowac, USUWA pojedyncze znaki, az plik przejdzie compile(). "
+     "UWAGA: compile() nie sprawdza spojnosci nazw - patrz ostrzezenie nizej."),
     ("anihilator", "Anihilator --anihilacja",
-     "pelny dla js/ts/java/go/rs/cs/c/cpp/php: skaner stanow, chroni "
-     "literaly; blokuje pliki z konstrukcjami, ktorych nie rozumie."),
-    ("zaglada-surowa", "Zaglada bez ochrony literalow",
-     "OSTATECZNOSC: czysci CALY plik, takze literaly i komentarze. "
-     "Uzywac tylko gdy skazenie siedzi w danych i wiesz, ze mozna je ruszyc."),
+     "dla js/ts/java/go/rs/cs/c/cpp/php: skaner stanow chroniacy literaly; "
+     "BLOKUJE pliki z konstrukcjami, ktorych nie rozumie (fail-closed)."),
 )
+
+# Kaskada, ktora Zaglada wykonuje SAMA dla .py (_przetworz_py):
+#   kompiluje sie  -> poza-literalami, z bramka compile()
+#   nie kompiluje  -> surowy -> pelna -> usuwanie -> (gdy nic nie pomoze)
+#                     zwraca wariant ostrozny, zeby nie psuc dalej
+# Operator nie wybiera z niej recznie - ale musi wiedziec, ze istnieje,
+# bo to tlumaczy, dlaczego ten sam plik bywa naprawiany roznie.
+
 
 
 def _wariant_tresc(klucz, tekst, ext):
@@ -237,9 +253,7 @@ def _wariant_tresc(klucz, tekst, ext):
             # UWAGA: P.napraw() SAMA zapisuje plik na dysk (robi kopie
             # .bak-pogromca i podmienia oryginal), wiec NIE WOLNO jej tu
             # wywolac - zwiad ma kontrakt "zero zapisu". Odtwarzamy jej
-            # logike czysto w pamieci: NFC, usuniecie niewidzialnych,
-            # twarde spacje -> zwykla, lamacze -> LF. Homoglifow liter
-            # Pogromca swiadomie NIE tyka (decyzja nalezy do czlowieka).
+            # logike czysto w pamieci.
             P = _zaladuj("PogromcaKwiatkow.py")
             import unicodedata as _u
             out = []
@@ -253,15 +267,35 @@ def _wariant_tresc(klucz, tekst, ext):
                 else:
                     out.append(c)
             return "".join(out)
-        if klucz == "zaglada":
+
+        Z = _zaladuj("ZagladaKultury.py")
+
+        if klucz == "zaglada-poza-literalami":
+            if ext != "py":
+                return None
+            nowy, _ = Z.zaglada_tekst_poza_literalami(tekst)
+            return nowy
+
+        if klucz == "zaglada-surowy":
+            if ext != "py":
+                return None
+            nowy, _, _ = Z.zaglada_tekst_poza_literalami_surowy(tekst)
+            return nowy
+
+        if klucz == "zaglada-pelna":
             if ext in JEZYKI_KODU:
                 return None
-            Z = _zaladuj("ZagladaKultury.py")
-            if ext == "py":
-                nowy, _ = Z.zaglada_tekst_poza_literalami(tekst)
-                return nowy
-            nowy, _ = Z.zaglada_tekst(tekst, kod=(ext in ("json", "jsonl")))
+            nowy, _ = Z.zaglada_tekst(tekst, kod=True)
             return nowy
+
+        if klucz == "zaglada-usuwanie":
+            if ext != "py":
+                return None
+            r = Z._sprobuj_naprawy(tekst, "podglad.py")
+            if r is None:
+                return "\x00NIEDOSTEPNY:nie znalazl naprawy przez usuwanie"
+            return r[0]
+
         if klucz == "anihilator":
             if ext not in JEZYKI_KODU:
                 return None
@@ -271,13 +305,34 @@ def _wariant_tresc(klucz, tekst, ext):
                 return "\x00BLOKADA:" + powod
             nowy, _ = A.zaglada_tekst_poza_literalami_multi(tekst, ext)
             return nowy
-        if klucz == "zaglada-surowa":
-            Z = _zaladuj("ZagladaKultury.py")
-            nowy, _ = Z.zaglada_tekst(tekst, kod=True)
-            return nowy
     except Exception as e:
         return "\x00BLAD:" + type(e).__name__
     return None
+
+
+def _spojnosc_nazw(przed, po):
+    """Czy naprawa nie rozjechala identyfikatorow? compile() tego NIE lapie:
+    'cnter = 0' + 'print(conter)' to poprawna skladnia i blad dopiero
+    w runtime. Zwraca liste nazw obecnych PO naprawie, ktorych nie da sie
+    dopasowac do niczego innego (heurystyka: nazwa uzyta raz, podobna do
+    innej)."""
+    import re
+    from collections import Counter
+    n_po = Counter(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", po))
+    n_przed = Counter(re.findall(r"[A-Za-z_][A-Za-z0-9_]*", przed))
+    podejrzane = []
+    for nazwa, ile in n_po.items():
+        if ile != 1 or nazwa in n_przed:
+            continue
+        for inna in n_po:
+            if inna == nazwa or abs(len(inna) - len(nazwa)) != 1:
+                continue
+            krotsza, dluzsza = sorted((nazwa, inna), key=len)
+            if any(dluzsza[:i] + dluzsza[i + 1:] == krotsza
+                   for i in range(len(dluzsza))):
+                podejrzane.append((nazwa, inna))
+                break
+    return podejrzane
 
 
 def wachlarz(sciezka):
@@ -314,6 +369,10 @@ def wachlarz(sciezka):
             print("     (narzedzie swiadomie odmawia - fail-closed)")
             print()
             continue
+        if po.startswith("\x00NIEDOSTEPNY:"):
+            print("     NIEDOSTEPNY: %s" % po[14:])
+            print()
+            continue
         if po.startswith("\x00BLAD:"):
             print("     BLAD wykonania: %s" % po[7:])
             print()
@@ -332,6 +391,12 @@ def wachlarz(sciezka):
             except Exception as e:
                 stan = " | po naprawie NIE kompiluje sie (%s)" % type(e).__name__
         print("     zmienia linii: %d%s" % (len(zmiany), stan))
+        rozjazd = _spojnosc_nazw(tekst, po)
+        if rozjazd:
+            print("     !! ROZJAZD NAZW - plik sie skompiluje, ale wybuchnie")
+            print("        w runtime. compile() tego NIE lapie:")
+            for a_, b_ in rozjazd[:3]:
+                print("          %r wystepuje raz, obok istnieje %r" % (a_, b_))
         for i, x, y in zmiany[:4]:
             print("       %d: %s" % (i, x.strip()[:60]))
             print("          -> %s" % y.strip()[:60])

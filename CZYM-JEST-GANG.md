@@ -61,12 +61,17 @@ Rodzina ma cztery narzedzia o roznej sile. Ten sam plik naprawiony
 roznymi drogami daje **rozne pliki wynikowe**. Zmierzone na pliku ze
 skazeniem w kodzie, w komentarzu i w rosyjskim literale:
 
-| Droga | Zmienia | Cyrylica w kodzie | Rosyjski literal |
-|---|---|---|---|
-| Pogromca `--fix` | 1 linie | **zostaje** | nietkniety |
-| Zaglada `--zaglada` | 3 linie | naprawiona | nietkniety |
-| Anihilator | nie dotyczy `.py` | — | — |
-| Zaglada bez ochrony literalow | 5 linii | naprawiona | `"Moskwa"` |
+| Droga | Kiedy | Rosyjski literal |
+|---|---|---|
+| Pogromca `--fix` | zawsze | nietkniety (nie tyka liter) |
+| Zaglada: poza literalami | `.py` kompilujacy sie | nietkniety |
+| Zaglada: skaner surowy | `.py` zepsuty | nietkniety |
+| Zaglada: caly plik | ostatecznosc | `"Moskwa"` |
+| Zaglada: przez usuniecie | ostatnia proba kaskady | nietkniety, ale **rozjazd nazw** |
+| Anihilator | js/ts/java/go/rs/cs/c/cpp/php | zalezy od jezyka |
+
+Szesc drog, nie cztery - policzone przez AST i lekture dyspozytora,
+nie po liczbie flag `--`.
 
 Zadna z tych drog nie jest "domyslnie sluszna". Pogromca **celowo** nie
 tyka liter — kwiatka nie maskujemy, decyzja nalezy do czlowieka. Wariant

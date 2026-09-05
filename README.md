@@ -679,27 +679,40 @@ Majac zwiad i kopie, nieudana proba nie kosztuje nic poza czasem: wracasz
 do kopii i probujesz inaczej. Liczba podejsc nie ma znaczenia - liczy sie
 to, ze kazde opierasz na danych, a nie na zgadywaniu.
 
-### Wachlarz naprawy (v9.2.0)
+### Wachlarz naprawy (v9.4.0)
 
-Rodzina ma cztery narzedzia o roznej sile i roznym zasiegu, wiec ten sam
-plik da sie naprawic na kilka sposobow - dajacych ROZNE wyniki. Operator
-nie powinien zgadywac, ktore odpalic:
+Ile faktycznie jest drog naprawy? Nie tyle, ile flag `--`. Pomiar (AST +
+lektura dyspozytora `_przetworz_py`) dal **szesc**, w tym dwie niewidoczne
+z linii polecen:
 
 ```
 python3 zwiad.py --warianty PLIK
 ```
 
-Pokazuje wszystkie drogi naraz, dla kazdej: ile linii zmieni, czy plik po
-naprawie sie kompiluje, i konkretne linie przed/po. Przyklad na pliku ze
-skazeniem w kodzie, w komentarzu i w rosyjskim literale:
-
-| Wariant | Zmienia | Rosyjski literal |
+| Droga | Kiedy uzywana | Na pliku testowym |
 |---|---|---|
-| Pogromca --fix | 1 linie (tylko niewidzialne) | nietkniety |
-| Zaglada --zaglada | 3 linie (kod) | nietkniety |
-| Anihilator | nie dotyczy .py | - |
-| Zaglada bez ochrony literalow | 5 linii (wszystko) | "Moskwa" |
+| Pogromca `--fix` | zawsze dostepna | bez zmian (nie tyka liter) |
+| Zaglada: poza literalami | `.py`, ktory sie kompiluje | 2 linie, literal ocalony |
+| Zaglada: skaner surowy | `.py`, ktory NIE kompiluje sie | 2 linie |
+| Zaglada: caly plik | ostatecznosc | 4 linie, `"Moskwa"` |
+| Zaglada: przez USUNIECIE | ostatnia proba kaskady | **rozjazd nazw** |
+| Anihilator | js/ts/java/go/rs/cs/c/cpp/php | nie dotyczy `.py` |
 
-Cztery drogi, cztery rozne wyniki - i to jest informacja, na ktorej
-operator podejmuje decyzje. Zaden wariant nie zostaje wykonany:
-wachlarz liczy wszystko w pamieci.
+Dla `.py` Zaglada wykonuje **kaskade sama**: kompiluje sie -> poza
+literalami; nie kompiluje -> surowy -> pelna -> usuwanie -> wariant
+ostrozny. Operator nie wybiera z niej recznie, ale musi wiedziec, ze
+istnieje - to tlumaczy, czemu ten sam plik bywa naprawiany roznie.
+
+**Pulapka wykryta przy okazji liczenia.** Ostatni krok kaskady
+(`_sprobuj_naprawy`) nie transliteruje, tylko USUWA znaki, az plik
+przejdzie `compile()`. Na pliku z `c<U+043E>nter` w dwoch miejscach dal:
+
+```
+cnter = 0                 <- definicja
+print(conter, OPIS)       <- uzycie
+```
+
+Skladnia poprawna, `compile()` zadowolony, a przy uruchomieniu `NameError`.
+Zwiad ma teraz wlasna kontrole i wypisuje `!! ROZJAZD NAZW` - bo bramka
+`compile()` tej klasy bledow nie widzi z definicji.
+
