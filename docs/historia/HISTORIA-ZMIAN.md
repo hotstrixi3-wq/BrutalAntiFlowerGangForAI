@@ -869,3 +869,32 @@ Test dodany najpierw i uruchomiony na starej implementacji: T8 wykryl
 niepelnej tabeli). Po naprawie: selftest pamietnika PASS, T8 8/8 prob
 wykrywalnosci i zero naruszen. Kod czterech narzedzi rodziny nie byl
 zmieniany, wiec medal nie zostal zresetowany.
+
+## v9.29.0 - NAZWY jako druga informacja punktu wejscia
+
+Informacja, ze nazwy ZAGLADA, ANIHILATOR i POGROMCA sa zartem autora
+i charakterem projektu, istniala w README, ale dopiero po tytule i opisie.
+W briefie do wklejenia znajdowala sie jeszcze dalej. Pozostale dokumenty
+z nota ZAPIS nie mialy jej przy wejsciu. Sama obecnosc tekstu nie realizowala
+jego celu, bo agent dostawal wyjasnienie dopiero po rozpoczeciu lektury.
+
+Ustalony porzadek zostal zastosowany w **15 dokumentach**:
+
+```
+ZAPIS -> NAZWY -> TYTUL -> RESZTA
+```
+
+W README i bloku do wklejenia w briefie istniejaca informacja zostala
+przeniesiona, a nie zduplikowana. Zaakceptowane trzy zdania noty ZAPIS nie
+zostaly przebudowane ani wydluzone.
+
+`sprawdz-spojnosc.py` dostal czwarta kontrole: pilnuje pozycji i pojedynczego
+wystapienia bloku NAZWY w 14 aktywnych punktach wejscia oraz jego kolejnosci
+wewnatrz briefu. `muzeum/README.md` ma ten sam uklad, ale muzeum pozostaje
+poza aktywna bramka zgodnie z protokolem repo.
+
+Regresja T8 zostala najpierw uruchomiona przeciw starej bramce: **RED**,
+1 slepa proba, `sprawdz-spojnosc.py` zaakceptowal brak drugiej informacji.
+Po naprawie: **9/9 prob wykrywalnosci**, zero slepych bramek i zero szumu.
+Kod czterech narzedzi rodziny nie byl zmieniany, wiec medal nie zostal
+zresetowany.

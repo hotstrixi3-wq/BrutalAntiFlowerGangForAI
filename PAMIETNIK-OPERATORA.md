@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **58 wpisow** z **2 sesji**.
+Stan: **59 wpisow** z **2 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -167,6 +167,9 @@ Stan: **58 wpisow** z **2 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Zmiana wielkosci liter zerwala aktualizator stanu**
   - Aktualizator strukturalnego dokumentu najpierw sprawdza dokladnie jedno wystapienie kazdego pola, buduje caly wynik w pamieci i zapisuje atomowo; zero lub duplikat oznacza exit 2 bez zmiany. Test obej
+  - `2026-09-05__01a0705b.md`
+- [2026-09-05] **Obecnosc informacji nie gwarantuje kontekstu wejscia**
+  - Dla punktow wejscia sprawdzaj dokladny prefiks ZAPIS -> NAZWY -> H1, pojedyncze wystapienie bloku oraz osobno kopie osadzona; nowa probe uruchom najpierw przeciw starej bramce, aby udowodnic RED.
   - `2026-09-05__01a0705b.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

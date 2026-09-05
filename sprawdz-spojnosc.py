@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 """sprawdz-spojnosc.py - pilnuje, zeby dokumentacja nie klamala o wersjach.
 
-Jedno zrodlo prawdy: WERSJE.json. Ten skrypt sprawdza trzy rzeczy:
+Jedno zrodlo prawdy: WERSJE.json. Ten skrypt sprawdza cztery rzeczy:
 
   1. czy stala WERSJA w kodzie narzedzia zgadza sie z WERSJE.json
   2. czy warstwa czytana przez agenta (README.md, PROTOKOL-OPERATORA.md,
      SZYBKI-START-DLA-AGENTA.md, docs/czlowiek/RODZINA-DO-CZATU.md, docs/wniosek...)
      nie DEKLARUJE numeru wersji sprzecznego z WERSJE.json
-  3. czy kopie kodu osadzone w docs/czlowiek/RODZINA-DO-CZATU.md sa identyczne
+  3. czy w punktach wejscia informacja NAZWY jest bezposrednio po nocie ZAPIS,
+     przed tytulem, oraz czy ta sama kolejnosc jest w briefie do wklejenia
+  4. czy kopie kodu osadzone w docs/czlowiek/RODZINA-DO-CZATU.md sa identyczne
      bajt-w-bajt z realnymi plikami narzedzi
 
 Nie sprawdza dev/ - to amunicja testowa, celowo brudna i poza bramka.
@@ -54,6 +56,46 @@ WARSTWA_AGENTA = (
     os.path.join("docs", "agent", "BRIEF-DLA-AUDYTORA.md"),
     # CZYM-JEST-GANG to pierwszy plik, ktory czyta agent przed praca
     "CZYM-JEST-GANG.md",
+)
+
+# Punkty wejscia z ta sama nota. Muzeum jest poza aktywna bramka zgodnie z
+# protokolem repo; jego README zachowuje ten sam uklad, ale walidator go nie czyta.
+PUNKTY_WEJSCIA = (
+    "CZYM-JEST-GANG.md",
+    "PROTOKOL-OPERATORA.md",
+    "README.md",
+    "STAN-SESJI.md",
+    "SZYBKI-START-DLA-AGENTA.md",
+    os.path.join("docs", "agent", "AUDYT-DOKUMENTACJI.md"),
+    os.path.join("docs", "agent", "AUDYT-POWIAZAN-FUNKCJI.md"),
+    os.path.join("docs", "agent", "BRIEF-DLA-AUDYTORA.md"),
+    os.path.join("docs", "agent", "HIERARCHIA-ZAUFANIA-TESTOW.md"),
+    os.path.join("docs", "agent", "INZYNIERIA-WSTECZNA.md"),
+    os.path.join("docs", "agent", "LEKCJE.md"),
+    os.path.join("docs", "agent", "LUKI-W-TESTACH.md"),
+    os.path.join("docs", "agent", "NAPRAWA-v8.6.0.md"),
+    os.path.join("dziennik", "README.md"),
+)
+
+NOTA_ZAPISU = (
+    "> **ZAPIS:** WIELKIE LITERY W CAŁYM TYM REPOZYTORIUM SĄ CELOWE.\n"
+    "> ZDANIEM AUTORA PROJEKTU PODNOSI TO PRECYZYJNOŚĆ AGENTA AI.\n"
+    "> NIE MA NIC WSPÓLNEGO Z BRAKIEM SZACUNKU. **ANALIZA TONU ZBĘDNA.**\n"
+)
+INFORMACJA_NAZWY = (
+    "> **NAZWY:** *ZAGŁADA*, *ANIHILATOR*, *POGROMCA* TO ŻART AUTORA\n"
+    "> I CHARAKTER PROJEKTU. OPIS DZIAŁANIA JEST W KODZIE, NIE W NAZWACH.\n"
+)
+POCZATEK_DOKUMENTU = NOTA_ZAPISU + ">\n" + INFORMACJA_NAZWY + "\n# "
+
+NOTA_ZAPISU_W_BRIEFIE = (
+    "ZAPIS: WIELKIE LITERY SA CELOWE. ZDANIEM AUTORA PROJEKTU PODNOSI TO\n"
+    "PRECYZYJNOSC AGENTA AI. NIE MA NIC WSPOLNEGO Z BRAKIEM SZACUNKU.\n"
+    "ANALIZA TONU ZBEDNA.\n"
+)
+INFORMACJA_NAZWY_W_BRIEFIE = (
+    "NAZWY: ZAGLADA, ANIHILATOR, POGROMCA TO ZART AUTORA I CHARAKTER\n"
+    "PROJEKTU. OPIS DZIALANIA JEST W KODZIE, NIE W NAZWACH.\n"
 )
 
 # stala w kodzie: WERSJA = "1.1.1"
@@ -209,6 +251,44 @@ def sprawdz_dokumentacje(prawda):
     return rozjazdy
 
 
+def sprawdz_kontekst_wejscia():
+    """Czy ZAPIS -> NAZWY -> tytul jest zachowane w kazdym punkcie wejscia."""
+    rozjazdy = []
+    for nazwa in PUNKTY_WEJSCIA:
+        sciezka = os.path.join(TU, nazwa)
+        if not os.path.isfile(sciezka):
+            rozjazdy.append("%s: brak punktu wejscia" % nazwa)
+            continue
+        try:
+            with open(sciezka, encoding="utf-8") as f:
+                tresc = f.read()
+        except OSError as e:
+            rozjazdy.append("%s: nie da sie odczytac punktu wejscia: %s" % (nazwa, e))
+            continue
+        if not tresc.startswith(POCZATEK_DOKUMENTU):
+            rozjazdy.append(
+                "%s: NAZWY maja byc druga informacja - bezposrednio po "
+                "nocie ZAPIS i przed tytulem" % nazwa)
+        if tresc.count(INFORMACJA_NAZWY) != 1:
+            rozjazdy.append(
+                "%s: blok NAZWY ma wystapic dokladnie raz (jest %d)"
+                % (nazwa, tresc.count(INFORMACJA_NAZWY)))
+
+    brief = os.path.join(TU, "docs", "agent", "BRIEF-DLA-AUDYTORA.md")
+    try:
+        with open(brief, encoding="utf-8") as f:
+            tresc_briefu = f.read()
+    except OSError as e:
+        rozjazdy.append("docs/agent/BRIEF-DLA-AUDYTORA.md: nie da sie odczytac: %s" % e)
+        return rozjazdy
+    oczekiwany_blok = NOTA_ZAPISU_W_BRIEFIE + "\n" + INFORMACJA_NAZWY_W_BRIEFIE
+    if tresc_briefu.count(oczekiwany_blok) != 1:
+        rozjazdy.append(
+            "docs/agent/BRIEF-DLA-AUDYTORA.md: w bloku do wklejenia NAZWY "
+            "maja byc druga informacja, bezposrednio po ZAPIS")
+    return rozjazdy
+
+
 def sprawdz_embedy(prawda):
     """Czy kopie osadzone w RODZINA-DO-CZATU sa identyczne z realnymi plikami.
 
@@ -251,6 +331,7 @@ def main():
     prawda = wczytaj_prawde()
     rozjazdy = (sprawdz_kod(prawda)
                 + sprawdz_dokumentacje(prawda)
+                + sprawdz_kontekst_wejscia()
                 + sprawdz_embedy(prawda))
 
     print("SPOJNOSC WERSJI (zrodlo prawdy: WERSJE.json, repo %s)" % prawda["repo"])
@@ -265,7 +346,7 @@ def main():
         for r in rozjazdy:
             print("  [ROZJAZD] %s" % r)
         return 1
-    print("ROZJAZDY: 0 - kod, dokumentacja i osadzone kopie zgodne")
+    print("ROZJAZDY: 0 - kod, dokumentacja, kontekst wejscia i osadzone kopie zgodne")
     return 0
 
 

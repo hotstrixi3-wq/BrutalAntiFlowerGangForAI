@@ -117,6 +117,24 @@ def kat_a():
         szczegoly.append(("sprawdz-spojnosc", "nie zlapala podmiany osadzonej kopii"))
     shutil.rmtree(baza, ignore_errors=True)
 
+    # --- sprawdz-spojnosc: informacja o nazwach musi byc druga ---
+    baza, repo = kopia_repo("t8a-kontekst-")
+    p = os.path.join(repo, "README.md")
+    s = io.open(p, encoding="utf-8").read()
+    info_nazwy = ("> **NAZWY:** *ZAGŁADA*, *ANIHILATOR*, *POGROMCA* TO ŻART AUTORA\n"
+                  "> I CHARAKTER PROJEKTU. OPIS DZIAŁANIA JEST W KODZIE, NIE W NAZWACH.\n")
+    if info_nazwy not in s:
+        zle += 1
+        szczegoly.append(("sprawdz-spojnosc", "zla probka: README nie zawiera informacji NAZWY"))
+    else:
+        io.open(p, "w", encoding="utf-8").write(s.replace(info_nazwy, "", 1))
+        kod, out = uruchom([os.path.join(repo, "sprawdz-spojnosc.py")], cwd=repo)
+        if kod != 1 or "README.md" not in out or "NAZWY" not in out:
+            zle += 1
+            szczegoly.append(("sprawdz-spojnosc",
+                              "nie zlapala braku drugiej informacji NAZWY (exit=%d)" % kod))
+    shutil.rmtree(baza, ignore_errors=True)
+
     # --- pamietnik: wpis bez wymaganego pola ---
     baza, repo = kopia_repo("t8a4-")
     dz = os.path.join(repo, "dziennik")
@@ -224,7 +242,7 @@ def kat_a():
     shutil.rmtree(baza, ignore_errors=True)
 
     print("== A. WYKRYWALNOSC (czy bramka umie ODMOWIC) ==")
-    print("   prob: 8 | bramek slepych: %d" % zle)
+    print("   prob: 9 | bramek slepych: %d" % zle)
     for n, o in szczegoly:
         print("     [SLEPA] %s: %s" % (n, o))
     return zle
