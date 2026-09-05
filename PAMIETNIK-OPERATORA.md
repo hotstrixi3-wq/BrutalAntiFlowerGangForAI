@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **32 wpisow** z **1 sesji**.
+Stan: **33 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -125,4 +125,7 @@ Stan: **32 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-04] **PRZECZYTAJ CZYM-JEST-GANG.md zanim dotkniesz pliku uzytkownika**
   - Zanim uruchomisz cokolwiek na pliku uzytkownika, przeczytaj CZYM-JEST-GANG.md w korzeniu repo. Najkrocej: Gang to proteza na TWOJA slepote na homoglify (masz ja - to udowodnione), to OCZY a nie automa
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Kod od zewnetrznego audytora uruchom, zanim ocenisz**
+  - Kazdy kod z zewnatrz uruchamiaj na KOPII repo w /tmp, zanim ocenisz go z lektury - i najpierw sprawdz AST-em, czy nie zapisuje (open w trybie w, subprocess, eval, remove). Ocena z samego czytania jest
   - `2026-09-04__01a06e18.md`

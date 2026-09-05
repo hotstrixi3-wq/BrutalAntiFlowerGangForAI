@@ -51,7 +51,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 9241 B | `65ea6803379b` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 10521 B | `677a1ee5d91a` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `fd410deea5b0` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 19894 B | `a61f72b87125` |
@@ -105,11 +105,12 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
 | [README-TURNIEJ.md](README-TURNIEJ.md) | 5604 B | `44449289a08b` |
 | [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 124137 B | `8ab69e4c4d1c` |
+| [2026-09-05__claude-pro-sprawdz-spojnosc.md](audyt-zewnetrzny/2026-09-05__claude-pro-sprawdz-spojnosc.md) | 5217 B | `e94a84ed7b8f` |
 | [README.md](audyt-zewnetrzny/README.md) | 1447 B | `2626f2b20aac` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `e1ee69948e18` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 21792 B | `be6aa066586d` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 27082 B | `a69546bb41f4` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 10060 B | `a3305dffc950` |
