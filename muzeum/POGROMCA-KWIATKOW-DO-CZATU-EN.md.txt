@@ -1,0 +1,35 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       POGROMCA-KWIATKOW-DO-CZATU-EN.md
+Odzyskany:  2026-09-05
+Pochodzil:  ostatnia wersja przed commitem 0f20c4f (usuniecie 2026-09-02)
+Git blob:   373c5fe4b5efa985fc6c9b25c97b8c84f48adf57
+Rozmiar:    31558 B
+Stan:       odzyskany bit w bit, bez zadnych modyfikacji
+
+
+CZYM BYL
+
+Angielska odmiana wczesnego, samodzielnego pakietu przeznaczonego do
+wklejenia do rozmowy z agentem. Weszla w commicie 31345a7 jako czesc
+pelnej anglicyzacji dokumentacji.
+
+
+CO WNOSIL
+
+Dawal anglojezycznemu agentowi jeden przenosny dokument z instrukcja i
+kontekstem Pogromcy, zanim projekt przeszedl na obecna strukture rodzinna.
+
+
+DLACZEGO PRZESTAL WNOSIC
+
+Zostal jawnie usuniety commitem 0f20c4f, bez dalszych zmian tresci.
+Dokumentacja i kod rozwijaly sie pozniej w innych plikach, dlatego ta
+wersja pozostala historyczna i nie opisuje obecnego kontraktu narzedzi.
+
+
+CZY WROCIC PO TE TRESC
+
+Tylko do porownania polskiej i angielskiej drogi projektu albo do badania
+wydania v8.1.7. Nie uzywac jako aktualnego pakietu dla agenta.

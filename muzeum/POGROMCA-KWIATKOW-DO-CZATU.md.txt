@@ -1,0 +1,38 @@
+ARTEFAKT MUZEALNY
+=================
+
+Plik:       POGROMCA-KWIATKOW-DO-CZATU.md
+Odzyskany:  2026-09-05
+Pochodzil:  ostatnia wersja przed commitem 2d6b00a (usuniecie 2026-09-02)
+Git blob:   5b9a08eda1a676dc9955f8def215a24a72e6be30
+Rozmiar:    33916 B
+Stan:       odzyskany bit w bit, bez zadnych modyfikacji
+
+
+CZYM BYL
+
+Wczesnym, samodzielnym pakietem Pogromcy przeznaczonym do wklejenia do
+rozmowy z agentem. Powstal przed obecnym podzialem dokumentacji wedlug
+odbiorcy i przed dojrzala paczka calej rodziny.
+
+
+CO WNOSIL
+
+Pozwalal przeniesc instrukcje i wiedze o narzedziu jednym dokumentem,
+gdy repo nie mialo jeszcze obecnej struktury punktow wejscia. Jego kolejne
+wersje sa widoczne w commitach od 7a04aa6 do d7c552f.
+
+
+DLACZEGO PRZESTAL WNOSIC
+
+Zostal jawnie usuniety commitem 2d6b00a. Funkcje pakietu przejela pozniej
+rozwijana dokumentacja rodziny, przede wszystkim RODZINA-DO-CZATU oraz
+instrukcje uporzadkowane w docs/czlowiek/. Stary dokument opisuje dawny
+stan i nie jest zrodlem prawdy o aktualnym kodzie.
+
+
+CZY WROCIC PO TE TRESC
+
+Tylko przy badaniu genealogii projektu, sposobu przekazywania narzedzia do
+czatu albo weryfikacji najwczesniejszych wydan. Nie kopiowac go do zywej
+dokumentacji i nie traktowac jako aktualnej instrukcji.
