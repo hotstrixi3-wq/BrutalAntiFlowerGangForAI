@@ -1,12 +1,13 @@
-# MUZEUM - eksponaty, nie zywy kod.
+# MUZEUM - zamkniete eksponaty, nie zywy kod ani zrodlo wiedzy agenta.
 #
-# linguist-vendored sprawia, ze GitHub NIE liczy tych plikow do statystyk
-# jezykowych repozytorium i zwija je domyslnie w widoku roznic. Dla gita
-# to nadal zwykle pliki - nic nie ginie, tylko przestaja zaklocac obraz
-# tego, czym repo JEST teraz.
+# GitHub nie liczy muzeum do obrazu jezykow projektu i zwija je w diffach.
+# ZIP-y sa jawnie binarne: zwykly podglad nie powinien wciagac ich tresci
+# do kontekstu. Dla gita pozostaja normalnymi, wersjonowanymi plikami.
 muzeum/** linguist-vendored
 muzeum/** linguist-documentation
+muzeum/*.zip binary
+muzeum/**/*.zip binary
 
-# to samo dla dowodow i kroniki - sa wazne, ale nie sa kodem
+# To samo dla dowodow i kroniki, gdy wroca do zywego drzewa.
 docs/dowody/** linguist-documentation
 docs/historia/** linguist-documentation

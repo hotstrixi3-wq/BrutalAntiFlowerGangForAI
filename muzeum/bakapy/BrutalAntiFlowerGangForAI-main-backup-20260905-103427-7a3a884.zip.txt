@@ -9,6 +9,9 @@ Tree:       8bc41003c770adf1e43386e070b915fbb06eb202
 SHA-256:    052693e0ef5b012478bd9e57164275c51aa5d59c562b67e9a49838bbb68fbf6b
 Rozmiar:    643721 B
 Stan:       ZIP sprawdzony i odtworzony probnie
+Format:     gotowy wieloelementowy ZIP odtworzeniowy; zgodnie z regulaminem
+            muzeum nie jest pakowany ponownie w drugi ZIP
+W srodku:   migawka 90 plikow, bundle 42 commitow i metadane odzyskania
 
 
 CZYM JEST

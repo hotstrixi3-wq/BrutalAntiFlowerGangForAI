@@ -7,6 +7,10 @@ Pochodzil:  docs/historia/HISTORIA-ZMIAN.md z commita 620f12b
 Git blob:   9b5028f7982e5ab174cf49a63e3688280e97a29d
 Rozmiar:    45587 B
 Stan:       kopia bit w bit, bez zadnych modyfikacji
+Archiwum:   HISTORIA-ZMIAN-do-v9.29.0.md.zip
+W srodku:   HISTORIA-ZMIAN-do-v9.29.0.md
+SHA-256 ZIP: 5256e0f72310f958868613a6bb7baa4c9a8181f0a1194ee39ed7ada7b734a9a8
+SHA-256 pliku: 866185c5feba5992b6aefaf3347e1067ac4d52ae0a9b52905526a6992ef7c841
 
 
 CZYM BYL
@@ -25,7 +29,7 @@ DLACZEGO PRZESTAL BYC PLIKIEM ZYWEGO DRZEWA
 
 Aktywna dokumentacja zostala wycofana razem z kodem na czas rekonstrukcji.
 Historia nie zostala skasowana ani przepisana: istnieje w Git, w bakapie
-i w tej kopii muzealnej.
+i w tym zamknietym archiwum muzealnym.
 
 
 CZY WROCIC PO TE TRESC

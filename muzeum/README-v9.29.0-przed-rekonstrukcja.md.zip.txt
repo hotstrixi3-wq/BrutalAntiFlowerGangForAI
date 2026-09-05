@@ -7,6 +7,10 @@ Pochodzil:  README.md z commita 620f12b
 Git blob:   603113b002055a96dc8281f378d28fab98f6994a
 Rozmiar:    6695 B
 Stan:       kopia bit w bit, bez zadnych modyfikacji
+Archiwum:   README-v9.29.0-przed-rekonstrukcja.md.zip
+W srodku:   README-v9.29.0-przed-rekonstrukcja.md
+SHA-256 ZIP: d1b69e20c9efbb94ffd3e895147d67619e3c9225c5bfdf4a3ea90d6daa74294e
+SHA-256 pliku: 667227f234f40ddab080614d2a92b905542c04fe14d2e5bc7b75de2e98024f58
 
 
 CZYM BYL

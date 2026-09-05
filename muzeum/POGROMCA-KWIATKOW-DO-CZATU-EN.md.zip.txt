@@ -7,6 +7,10 @@ Pochodzil:  ostatnia wersja przed commitem 0f20c4f (usuniecie 2026-09-02)
 Git blob:   373c5fe4b5efa985fc6c9b25c97b8c84f48adf57
 Rozmiar:    31558 B
 Stan:       odzyskany bit w bit, bez zadnych modyfikacji
+Archiwum:   POGROMCA-KWIATKOW-DO-CZATU-EN.md.zip
+W srodku:   POGROMCA-KWIATKOW-DO-CZATU-EN.md
+SHA-256 ZIP: f652799830447062e2cb8295af6043b5ce2a25bcb6dfc0aed95c349d88d0bf9a
+SHA-256 pliku: 98f26d1b854aee142de43e989d42a2655a4266832341a4fdc748da62293ad752
 
 
 CZYM BYL

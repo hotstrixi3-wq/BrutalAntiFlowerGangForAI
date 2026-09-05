@@ -7,6 +7,10 @@ Pochodzil:  STAN-SESJI.md z commita 620f12b
 Git blob:   ad3d54ec234f657d6c340714e6370c463cd69d7e
 Rozmiar:    5457 B
 Stan:       kopia bit w bit, bez zadnych modyfikacji
+Archiwum:   STAN-SESJI-przed-rekonstrukcja.md.zip
+W srodku:   STAN-SESJI-przed-rekonstrukcja.md
+SHA-256 ZIP: 6efab9e9e9e80350588cb2f2348fcc44b47adfa02189292c6e6bb01d7c61845f
+SHA-256 pliku: 0bb409bb0b1d9f51abe359489cea980a39ee909b203223441d325702dbd7cda2
 
 
 CZYM BYL
