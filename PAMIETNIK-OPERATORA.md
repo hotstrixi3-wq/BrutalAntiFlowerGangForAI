@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **39 wpisow** z **1 sesji**.
+Stan: **40 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -59,6 +59,9 @@ Stan: **39 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **Pierwszy pewny test: selftest Pogromcy - ustalony pomiarem, nie opinia**
   - POZIOM 0 to PogromcaKwiatkow.py --selftest: zero subprocess, zero gita, zero katalogow tymczasowych, zero zaleznosci od innych narzedzi rodziny, probki zapisane sekwencjami uXXXX wprost w kodzie. Zlap
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Pomiar ogolny nie wystarcza - turniej moze przejsc cudzym sukcesem**
+  - Po dodaniu nowej KATEGORII do turnieju uruchom dev/turnieje/pomiar-per-turniej.py - dla kazdej pary (turniej, kategoria) wycina wade, ktora ta kategoria ma wykrywac, i uruchamia WYLACZNIE ten turniej.
   - `2026-09-04__01a06e18.md`
 
 ## Pulapki w samym kodzie rodziny

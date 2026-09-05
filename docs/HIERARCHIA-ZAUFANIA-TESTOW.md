@@ -133,6 +133,54 @@ dwukrotnie: T5 przespał 2 z 4 sabotaży, T8 przespał 2 z 3.
 
 ---
 
+## 8. Dwa pomiary, nie jeden
+
+Pomiar globalny (`pomiar-mutacyjny.py`) pyta: **czy ktokolwiek złapał?**
+To za mało. Rozkład okazał się bardzo nierówny:
+
+| Turniej | Ile z 9 mutacji złapał |
+|---|---|
+| T8 bramki | 6 |
+| T2, T7 | 3 |
+| T1 tor, Z1 | 2 |
+| fuzz, T3, Z2, T4, T5, T6 | 1 |
+| luka-fstring | **0** |
+
+Zero przy `luka-fstring` nie znaczyło, że jest zepsuta — po prostu żadna
+z dziewięciu mutacji nie celowała w jej obszar. Ale gdyby była
+dekoracją, pomiar globalny **też pokazałby zero** i nie dałoby się
+tego odróżnić.
+
+Dlatego drugi pomiar (`pomiar-per-turniej.py`) pyta inaczej: **czy TEN
+turniej łapie to, co deklaruje w swoich kategoriach?** Dla każdej pary
+(turniej, kategoria) wycina wadę, którą ta kategoria ma wykrywać,
+i uruchamia **wyłącznie ten turniej**.
+
+Wynik 2026-09-05: **16 prób, 0 przespanych.**
+
+```
+luka-fstring        dowod luki               tak
+T4-runtime          kryterium WYKONANIA      tak
+T5-anihilator       B2 poprawnosc naprawy    tak
+T5-anihilator       B niepsucie danych       tak
+T6-prokurator       C czyste akta            tak
+T6-prokurator       D plan-act               tak
+T6-prokurator       A polityka .py           tak
+T7-zwiad            C rozdzial kod/dane      tak
+T7-zwiad            B kompletnosc            tak
+T8-bramki           A wykrywalnosc           tak
+T8-bramki           C zasieg                 tak
+T3-niepsucie        niepsucie --fix          tak
+Z2-niepsucie        Z2 niepsucie             tak
+tor-pogromcy        wektory detekcji         tak
+T2-sprawdzajacy     T2 wektory               tak
+Z1-wykrywania       Z1 wykrywanie            tak
+```
+
+To ta sama pułapka co przy kodzie wyjścia: obserwujesz skutek, który
+ma wiele możliwych przyczyn. Turniej może przechodzić pomiar globalny
+**cudzym sukcesem**.
+
 ## Jak to uruchomić
 
 Pomiar mutacyjny nie jest częścią zwykłej regresji (trwa ~90 s i psuje

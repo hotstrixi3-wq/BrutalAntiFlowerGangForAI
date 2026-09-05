@@ -51,13 +51,13 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12444 B | `1b697edd075c` |
+| [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 12765 B | `a4ade3a4f6a2` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `9aa5cfadb62a` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../README.md) | 46004 B | `c31db6a9ac32` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../WERSJE.json) | 782 B | `5367053078af` |
+| [WERSJE.json](../WERSJE.json) | 782 B | `e11355ee9dfe` |
 | [ZagladaKultury.py](../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
 | [fuzz-pogromcy.py](../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [ALCHEMIK-V1.json](../dev/kwiatki-testy/ALCHEMIK-V1.json) | 6517 B | `d603b23504c7` |
@@ -81,6 +81,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.py](../dev/turnieje/petla-rodzinna.py) | 2943 B | `8b19d509c12b` |
 | [petla-turniejowa.py](../dev/turnieje/petla-turniejowa.py) | 3080 B | `fadabe3ecf1c` |
 | [pomiar-mutacyjny.py](../dev/turnieje/pomiar-mutacyjny.py) | 7064 B | `d80c88ff320e` |
+| [pomiar-per-turniej.py](../dev/turnieje/pomiar-per-turniej.py) | 4451 B | `c1c9bc791d8f` |
 | [turniej-2-sprawdzajacy.py](../dev/turnieje/turniej-2-sprawdzajacy.py) | 11234 B | `629b0ccd62f6` |
 | [turniej-3-niepsucie.py](../dev/turnieje/turniej-3-niepsucie.py) | 9138 B | `3c0551b2aac6` |
 | [turniej-4-runtime.py](../dev/turnieje/turniej-4-runtime.py) | 7019 B | `5fca285e7973` |
@@ -97,7 +98,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md](CERTYFIKAT-PEWNIAKA-ZAGLADA-v1.1.0.md) | 4138 B | `14915c56259b` |
 | [CERTYFIKAT-PEWNIAKA.md](CERTYFIKAT-PEWNIAKA.md) | 5254 B | `3da46a37655b` |
 | [CERTYFIKAT-PRZYDATNOSCI-ARENA.md](CERTYFIKAT-PRZYDATNOSCI-ARENA.md) | 5748 B | `d4d622ae73a6` |
-| [HIERARCHIA-ZAUFANIA-TESTOW.md](HIERARCHIA-ZAUFANIA-TESTOW.md) | 5683 B | `09cdf7ff56dc` |
+| [HIERARCHIA-ZAUFANIA-TESTOW.md](HIERARCHIA-ZAUFANIA-TESTOW.md) | 7501 B | `cbeb327efe6a` |
 | [INSTRUKCJA-DLA-ZIELONYCH.md](INSTRUKCJA-DLA-ZIELONYCH.md) | 4330 B | `11cd6f64a713` |
 | [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10540 B | `5bc6e5fc09dc` |
 | [LUKI-W-TESTACH.md](LUKI-W-TESTACH.md) | 7415 B | `94b7f5a29b33` |
@@ -114,7 +115,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
 | [wniosek_publiczny_do_redakcji.md](wniosek_publiczny_do_redakcji.md) | 7242 B | `29e118e684cd` |
-| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 34136 B | `234aff4b6764` |
+| [2026-09-04__01a06e18.md](../dziennik/2026-09-04__01a06e18.md) | 35185 B | `a8e37fc76133` |
 | [README.md](../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
 | [pamietnik.py](../pamietnik.py) | 19928 B | `2a6a8d3d2553` |
 | [sprawdz-spojnosc.py](../sprawdz-spojnosc.py) | 11352 B | `0a110a27b9f8` |
