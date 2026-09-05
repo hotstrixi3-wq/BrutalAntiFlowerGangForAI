@@ -54,7 +54,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [PAMIETNIK-OPERATORA.md](../PAMIETNIK-OPERATORA.md) | 10837 B | `bbad3bb4d7e6` |
 | [PROTOKOL-OPERATORA.md](../PROTOKOL-OPERATORA.md) | 9401 B | `6f2e9998df55` |
 | [PogromcaKwiatkow.py](../PogromcaKwiatkow.py) | 38931 B | `90f21ae55d40` |
-| [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 20495 B | `c05e99c547de` |
+| [ProkuratorOgrodnik.py](../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
 | [README.md](../README.md) | 38569 B | `827f81767c7d` |
 | [SZYBKI-START-DLA-AGENTA.md](../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
 | [WERSJE.json](../WERSJE.json) | 781 B | `7f801b53e26f` |
@@ -104,7 +104,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [RAPORT-TURNIEJU-NIEZALEZNEGO.md](RAPORT-TURNIEJU-NIEZALEZNEGO.md) | 12458 B | `1d88ab4f90e5` |
 | [RAPORT-V8-PETLA-BONUS.md](RAPORT-V8-PETLA-BONUS.md) | 3668 B | `721c8bd31222` |
 | [README-TURNIEJ.md](README-TURNIEJ.md) | 5604 B | `44449289a08b` |
-| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 124738 B | `cffb6eb6b858` |
+| [RODZINA-DO-CZATU.md](RODZINA-DO-CZATU.md) | 125458 B | `7f13d0a62a07` |
 | [2026-09-05__claude-pro-sprawdz-spojnosc.md](audyt-zewnetrzny/2026-09-05__claude-pro-sprawdz-spojnosc.md) | 5217 B | `e94a84ed7b8f` |
 | [README.md](audyt-zewnetrzny/README.md) | 1447 B | `2626f2b20aac` |
 | [petla-rodzinna.log](logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |

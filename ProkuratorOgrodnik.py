@@ -362,7 +362,16 @@ def run_zaglada_if_allowed(akta):
     if not do_zaglady:
         return
     for plik in do_zaglady:
-        cmd = [sys.executable, sciezka_rodzenstwa("ZagladaKultury.py"), "--zaglada", plik]
+        # (v1.3.1) Zagladzie podajemy sciezke ROZWIAZANA. W aktach siedzi
+        # napis z raportu Pogromcy - relpath wzgledem katalogu nadrzednego
+        # wobec rodziny, nie wzgledem cwd. Gdy repo i plik uzytkownika leza
+        # w roznych drzewach, Zaglada dostawala nieistniejaca sciezke,
+        # konczyla sie kodem 2 ([BLAD WEJSCIA]), a Prokurator raportowal
+        # [BLOKADA]: decyzja ZAGLADA zapadala, ale plik NIGDY nie byl
+        # czyszczony. Lokalnie sciezki przypadkiem sie zgadzaly, wiec wada
+        # byla niewidoczna do czasu uruchomienia T6 na swiezym klonie.
+        cel = rozwiaz_sciezke_z_raportu(plik) or plik
+        cmd = [sys.executable, sciezka_rodzenstwa("ZagladaKultury.py"), "--zaglada", cel]
         result = subprocess.run(cmd, capture_output=True, text=True)
         print(result.stdout.strip())
         # (v1.1.0) awaria Zaglady to nie jest cichy brak zmian
@@ -370,8 +379,9 @@ def run_zaglada_if_allowed(akta):
             print("[BLOKADA] %s -> Zaglada zakonczyla sie kodem %d: %s"
                   % (plik, result.returncode, (result.stderr or "").strip()[:200]))
             continue
-        # kontrola Pogromca po zagladzie (combo §1a)
-        out, code = run_pogromca([plik])
+        # kontrola Pogromca po zagladzie (combo §1a) - takze na sciezce
+        # rozwiazanej, inaczej kontrola bada nieistniejacy plik
+        out, code = run_pogromca([cel])
         if code == 0:
             print(f"[KONTROLA] {plik} -> BLAD 0 po zagladzie - OK")
         else:
