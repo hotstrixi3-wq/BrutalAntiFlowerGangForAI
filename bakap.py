@@ -40,7 +40,7 @@ import tarfile
 import time
 from datetime import datetime
 
-WERSJA = "1.0.0"
+WERSJA = "1.0.1"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
 # POZA repo - to jest caly sens
@@ -237,11 +237,17 @@ def selftest():
         a = zrob(cichy=True)
         if not os.path.exists(a):
             print("  [FAIL] nie powstalo archiwum"); ok = False
-        # czy .git jest w srodku (bez niego migawka nie ma historii)
+        # Czy .git jest w srodku - ale TYLKO gdy repo w ogole go ma.
+        # (v1.0.1) Swiezo zalozony dom (zaloz-dom.py) nie ma jeszcze
+        # historii: `git init` robi sie dopiero po rozpakowaniu. Wymaganie
+        # .git w tescie oznaczalo, ze kazdy nowy dom startuje z czerwonym
+        # selftestem - i uczy sie go ignorowac.
         with tarfile.open(a) as tf:
             nazwy = tf.getnames()
-        if not any("/.git/" in n for n in nazwy):
-            print("  [FAIL] migawka nie zawiera .git - brak historii"); ok = False
+        if os.path.isdir(os.path.join(KORZEN, ".git")):
+            if not any("/.git/" in n for n in nazwy):
+                print("  [FAIL] repo ma .git, a migawka go nie zawiera -"
+                      " odzyskanie historii nie bedzie mozliwe"); ok = False
         if not any(n.endswith("PogromcaKwiatkow.py") for n in nazwy):
             print("  [FAIL] migawka nie zawiera narzedzi"); ok = False
         if any("__pycache__" in n for n in nazwy):

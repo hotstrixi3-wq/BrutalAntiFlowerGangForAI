@@ -49,7 +49,7 @@ import subprocess
 import sys
 from datetime import date
 
-WERSJA = "2.1.0"
+WERSJA = "2.1.1"
 
 KORZEN = os.path.dirname(os.path.abspath(__file__))
 DZIENNIK = os.path.join(KORZEN, "dziennik")
@@ -324,7 +324,15 @@ def sprawdz(cicho=False):
     problemy = []
     wpisy = wszystkie_wpisy()
     if not wpisy:
-        problemy.append("dziennik nie zawiera zadnego wpisu")
+        # (v2.1.1) Pusty dziennik to NIE blad - to stan swiezo zalozonego
+        # domu (patrz zaloz-dom.py). Bramka ma pilnowac formatu wpisow,
+        # a nie zmuszac do pisania ich na sile. Zglaszamy informacyjnie
+        # i konczymy sukcesem, inaczej kazdy nowy dom startuje z czerwona
+        # bramka i uczy sie ja ignorowac.
+        if not cicho:
+            print("DZIENNIK: pusty - to normalne w nowym domu.")
+            print("          Pierwszy wpis: python3 pamietnik.py --dodaj")
+        return 0
 
     # NIETYKALNOSC cudzych plikow - sprawdzana PIERWSZA i pokazywana na
     # gorze. Gdy ktos podmieni cudzy dziennik, posypia sie tez duplikaty

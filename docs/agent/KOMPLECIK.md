@@ -51,16 +51,16 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [AnihilatorChwastow.py](../../AnihilatorChwastow.py) | 26099 B | `ed6ff4ec9dcf` |
 | [CZYM-JEST-GANG.md](../../CZYM-JEST-GANG.md) | 7686 B | `c5c0e4cc9008` |
 | [LICENSE](../../LICENSE) | 1068 B | `a9d02f620ddf` |
-| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 14047 B | `7f47ff553b68` |
-| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 12078 B | `a8fe8bca07db` |
+| [PAMIETNIK-OPERATORA.md](../../PAMIETNIK-OPERATORA.md) | 14354 B | `19f7a7717b14` |
+| [PROTOKOL-OPERATORA.md](../../PROTOKOL-OPERATORA.md) | 13390 B | `b31baa51a8eb` |
 | [PogromcaKwiatkow.py](../../PogromcaKwiatkow.py) | 40633 B | `4a978336c4c6` |
 | [ProkuratorOgrodnik.py](../../ProkuratorOgrodnik.py) | 21215 B | `be70cca0dda5` |
-| [README.md](../../README.md) | 6839 B | `3cacdc4018ff` |
-| [STAN-SESJI.md](../../STAN-SESJI.md) | 6704 B | `dda444f31e44` |
+| [README.md](../../README.md) | 7616 B | `1f4511207265` |
+| [STAN-SESJI.md](../../STAN-SESJI.md) | 6704 B | `5e1d8109d117` |
 | [SZYBKI-START-DLA-AGENTA.md](../../SZYBKI-START-DLA-AGENTA.md) | 2708 B | `2db6da9c543d` |
-| [WERSJE.json](../../WERSJE.json) | 782 B | `1f2c1520bb10` |
+| [WERSJE.json](../../WERSJE.json) | 782 B | `96fc05392c42` |
 | [ZagladaKultury.py](../../ZagladaKultury.py) | 32036 B | `3d7a1bbe0fe0` |
-| [bakap.py](../../bakap.py) | 9730 B | `f5be65c6fc76` |
+| [bakap.py](../../bakap.py) | 10124 B | `b0f2b9fb3aae` |
 | [fuzz-pogromcy.py](../../dev/fuzz-pogromcy.py) | 4050 B | `9a9b989344b6` |
 | [pre-push](../../dev/hooki/pre-push) | 1603 B | `ae80afdbf59b` |
 | [zainstaluj.py](../../dev/hooki/zainstaluj.py) | 1427 B | `236265ef2356` |
@@ -101,6 +101,7 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [BRIEF-DLA-AUDYTORA.md](BRIEF-DLA-AUDYTORA.md) | 8375 B | `0435f8213fef` |
 | [HIERARCHIA-ZAUFANIA-TESTOW.md](HIERARCHIA-ZAUFANIA-TESTOW.md) | 7501 B | `cbeb327efe6a` |
 | [INZYNIERIA-WSTECZNA.md](INZYNIERIA-WSTECZNA.md) | 10540 B | `5bc6e5fc09dc` |
+| [LEKCJE.md](LEKCJE.md) | 15155 B | `20996a242dab` |
 | [LUKI-W-TESTACH.md](LUKI-W-TESTACH.md) | 7433 B | `47b3ad874a3f` |
 | [NAPRAWA-v8.6.0.md](NAPRAWA-v8.6.0.md) | 7619 B | `656efd87728d` |
 | [2026-09-05__claude-pro-sprawdz-spojnosc.md](../audyt-zewnetrzny/2026-09-05__claude-pro-sprawdz-spojnosc.md) | 5226 B | `993bd19d8364` |
@@ -122,11 +123,12 @@ raportu RYZYKO-KLUCZA - patrz README Historia zmian).
 | [HISTORIA-ZMIAN.md](../historia/HISTORIA-ZMIAN.md) | 43196 B | `410aa1fcc99a` |
 | [petla-rodzinna.log](../logi/petla-rodzinna.log) | 8271 B | `39d9717915cb` |
 | [petla-turniejowa.log](../logi/petla-turniejowa.log) | 6133 B | `fa9bd1d813b4` |
-| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 39792 B | `50ba31bbea57` |
+| [2026-09-04__01a06e18.md](../../dziennik/2026-09-04__01a06e18.md) | 40854 B | `8631b3fa6463` |
 | [README.md](../../dziennik/README.md) | 2685 B | `cbb1fce69cef` |
-| [pamietnik.py](../../pamietnik.py) | 22364 B | `c89d2dd98d25` |
+| [pamietnik.py](../../pamietnik.py) | 22815 B | `c831d51b62c1` |
 | [sprawdz-spojnosc.py](../../sprawdz-spojnosc.py) | 11434 B | `211a77e2f83b` |
 | [sprawdz-teksty.py](../../sprawdz-teksty.py) | 7110 B | `ea3ce936324f` |
+| [zaloz-dom.py](../../zaloz-dom.py) | 11368 B | `0d8a2c9b81e4` |
 | [zwiad.py](../../zwiad.py) | 23269 B | `9e711f1a497c` |
 
 Lacznie w drzewie: 52 plikow (+ ten manifest). Bramka wydania (korzen + docs):

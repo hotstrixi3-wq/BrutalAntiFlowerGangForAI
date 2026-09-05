@@ -138,6 +138,27 @@ w pokryciu) i `pomiar-per-turniej.py` (czy dana kategoria coś pilnuje).
 
 ---
 
+## Nie pracujesz w tym repo? Załóż własny dom
+
+To repozytorium jest **domem konkretnej sesji** — zawiera pamięć tego,
+co się tu działo. Jeśli chcesz używać Gangu u siebie:
+
+```
+python3 zaloz-dom.py ~/moj-gang     # czysta kopia na własnego gita
+python3 zaloz-dom.py --lista        # co pojedzie, co zostanie
+```
+
+Dostajesz **narzędzia + wiedzę o nich**, w tym `docs/agent/LEKCJE.md` —
+destylat z pracy nad tym narzędziem, z pomiarami. Nie dostajesz cudzego
+`dziennik/` ani `STAN-SESJI.md`.
+
+Powód nie jest taki, że to tajne. Cudze „PR #2 czeka na decyzję" jest
+prawdziwe tam, a **mylące** u ciebie — zacząłbyś pracę na założeniach,
+które ciebie nie dotyczą. Lekcje o samym narzędziu jadą z domem, bo
+dotyczą każdego, kto go używa.
+
+---
+
 ## Struktura repozytorium
 
 ```

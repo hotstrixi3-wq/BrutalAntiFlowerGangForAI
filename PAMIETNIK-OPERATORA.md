@@ -14,7 +14,7 @@ python3 pamietnik.py --dodaj      # dopisz do swojej sesji
 python3 pamietnik.py --sprawdz    # bramka przed commitem
 ```
 
-Stan: **44 wpisow** z **1 sesji**.
+Stan: **45 wpisow** z **1 sesji**.
 
 ## Praca z repozytorium i narzedziami agenta
 
@@ -140,6 +140,9 @@ Stan: **44 wpisow** z **1 sesji**.
   - `2026-09-04__01a06e18.md`
 - [2026-09-05] **README jest punktem wejscia agenta - historia musi mieszkac osobno**
   - README to jedyny plik, ktory agent otwiera bez pytania (GitHub go pokazuje, klon zaczyna sie od niego) - wiec ma byc PUNKTEM WEJSCIA, nie kronika. Kolejne wydania dopisuj do docs/historia/HISTORIA-ZMI
+  - `2026-09-04__01a06e18.md`
+- [2026-09-05] **Dom Gangu: wiedza jedzie dalej, pamiec sesji zostaje**
+  - Rozdziel WIEDZE od PAMIECI, nie 'dziennik od reszty'. docs/agent/LEKCJE.md - uniwersalne, jedzie z domem, z zachowanymi liczbami (bez nich to teoria). dziennik/ i STAN-SESJI.md - zostaja u autora. Kop
   - `2026-09-04__01a06e18.md`
 
 ## Wspolpraca z operatorem-czlowiekiem

@@ -282,3 +282,36 @@ komendy lokalne - tam chroni cie tylko nawyk uruchamiania `bakap.py`.
 drukuje instrukcje: rozpakuj OBOK repo, porownaj diffem, dopiero potem
 kopiuj pojedyncze pliki. Nadpisywanie calego repo w ciemno to zamiana
 jednej straty na druga.
+
+## 14. Dom Gangu a cudza pamiec
+
+To repozytorium jest **domem konkretnej sesji**. Rozroznienie, ktore z tego
+wynika:
+
+| Warstwa | Co to | Czy jedzie do innego domu |
+|---|---|---|
+| narzedzia | rodzina, zwiad, bramki, bakap, pamietnik | **tak** |
+| wiedza o narzedziu | README, PROTOKOL, `docs/agent/LEKCJE.md` | **tak** |
+| turnieje i pomiary | `dev/` | **tak** |
+| pamiec sesji | `dziennik/DATA__sesja.md`, `STAN-SESJI.md` | **nie** |
+| dowody i kronika | `docs/dowody/`, `docs/historia/` | **nie** |
+
+**Agent z uprawnieniami do tego repo** (czyli ty, jesli tu pracujesz) robi
+tu, co uzna za sluszne - to jego warsztat i jego pamiec. Dzieki niej
+kontynuuje prace w nowej instancji zamiast zaczynac od zera.
+
+**Agent bez uprawnien**, ktory chce uzywac Gangu, zaklada wlasny dom:
+
+```
+python3 zaloz-dom.py ~/gdzies
+```
+
+Nie kopiuje cudzej pamieci sesji - nie dlatego, ze jest tajna (repo jest
+publiczne), tylko dlatego, ze bylaby dla niego **informacja falszywa**.
+Zapis "PR #2 czeka na decyzje" jest prawdziwy w jednym domu i mylacy
+w drugim.
+
+**Lekcje o narzedziu jada z domem.** `docs/agent/LEKCJE.md` to destylat
+tego, czego nauczyla praca nad Gangiem - z liczbami, zeby bylo widac
+skale problemu, a nie sama teze. Gdy trafisz na cos, co dotyczy
+NARZEDZIA, a nie twojej sesji - dopisz tam. To jedzie dalej.

@@ -14,11 +14,11 @@ w pustkę.
 
 | | |
 |---|---|
-| wersja repo | **9.14.0** |
+| wersja repo | **9.15.0** |
 | gałąź robocza | `arena/01a06e18-brutalantiflowergangforai` |
-| ostatni commit | `29b2f01` — pamietnik 2.1.0 - --stan odswieza fakty w STAN-SESJI |
+| ostatni commit | `5345ba5` — v9.15.0 - bakap.py + hook pre-push: obcy agent nie z |
 | stan testów | wszystko zielone (patrz „Jak sprawdzić" niżej) |
-| dziennik | 44 wpisów, 1 sesja |
+| dziennik | 45 wpisów, 1 sesja |
 
 **Wersje narzędzi:** zawsze z `WERSJE.json`, nie z pamięci. Ten plik
 celowo ich nie powtarza — powtórzenie to kolejne miejsce do rozjechania.
