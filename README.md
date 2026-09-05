@@ -860,3 +860,55 @@ Sabotaz po poprawce: **3/3 wykryte**.
 Szesc kategorii: WYKRYWALNOSC (czy umie odmowic), ZERO SZUMU (czy milczy
 na zdrowym repo), ZASIEG (czy pomija tylko to, co musi), ODPORNOSC,
 UCZCIWOSC (exit zgodny z raportem).
+
+## Hierarchia zaufania testow (v9.10.0)
+
+Problem postawiony przez operatora: *"skoro poprawiles testy, sprawdz pod
+tym katem reszte. Trzeba ustalic pierwszy pewny test."*
+
+To problem fundamentu. Jesli test moze byc zepsuty, sprawdzanie testu
+innym testem tylko przenosi watpliwosc dalej.
+
+### Metoda: mutacja zamiast opinii
+
+Jedyna mierzalna definicja wiarygodnosci:
+
+> Test jest wiarygodny, gdy potrafi **OBLAC na zepsutym narzedziu**.
+> Test przechodzacy na narzedziu z wycieta funkcja tej funkcji nie
+> testuje - niezaleznie od tego, jak solidnie wyglada.
+
+`dev/turnieje/pomiar-mutacyjny.py` wycina po jednej zdolnosci i sprawdza,
+kto oblal. Wynik: **9 mutacji, 9 zlapanych, zero dziur.**
+
+### POZIOM 0: `PogromcaKwiatkow.py --selftest`
+
+Wybrany pomiarem, nie opinia - **ma najmniej rzeczy, ktore moga go
+zawiesc**:
+
+| | selftest Pogromcy | typowy turniej |
+|---|---|---|
+| `subprocess` | **nie** | tak |
+| git | **nie** | tak |
+| katalogi tymczasowe | **nie** | tak |
+| inne narzedzia rodziny | **nie** | tak |
+| probki | **`\uXXXX` w kodzie** | z dysku / generowane |
+
+Zlapal wszystkie trzy mutacje fundamentu, w tym calkowita slepote
+`klasyfikuj()`. Jego poprawnosc zalezy wylacznie od interpretera Pythona -
+czyli od czegos **spoza tego repo**. To jest wyjscie z blednego kola.
+
+### Kolejnosc uruchamiania
+
+```
+0  PogromcaKwiatkow.py --selftest      fundament, zero zaleznosci
+1  pozostale selftesty                 kazde narzedzie w izolacji
+2  tor-pogromcy, fuzz-pogromcy         bez subprocess i gita
+3  T2, T3, Z1, Z2                      korpusy i wektory
+4  T4, T5, T6                          subprocess
+5  T7, T8                              + git + katalogi tymczasowe
+```
+
+**Gdy poziom oblewa, nie uruchamiaj wyzszych** - beda mierzyc zepsutym
+przyrzadem.
+
+Pelny opis wraz z wynikami: `docs/HIERARCHIA-ZAUFANIA-TESTOW.md`
