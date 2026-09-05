@@ -200,3 +200,35 @@ proba nie kosztuje nic poza czasem: wracasz do kopii i probujesz inaczej.
 Liczba podejsc nie ma znaczenia - liczy sie to, ze KAZDE opierasz na
 danych ze zwiadu, a nie na zgadywaniu. Proba na slepo bywa gorsza od
 zadnej, bo niszczy plik i nie zostawia wiedzy.
+
+## 12. Na koniec sesji — zostaw stan następnemu
+
+Trzy minuty roboty, ktore decyduja o tym, czy nastepny agent wejdzie
+w srodek pracy, czy w pustke.
+
+**1. Zaktualizuj `STAN-SESJI.md`** — cztery sekcje, ktore sie zmieniaja:
+
+| Sekcja | Co wpisac |
+|---|---|
+| Gdzie jestesmy | wersja, ostatni commit, stan testow |
+| Co jest w toku | otwarte PR, niedokonczone watki |
+| Nastepne kroki | kolejka z uzasadnieniem, dlaczego w tej kolejnosci |
+| Otwarte pytania | to, czego NIE wolno rozstrzygac samemu |
+
+Nie powtarzaj tam wersji narzedzi — sa w `WERSJE.json`. Powtorzenie to
+kolejne miejsce do rozjechania.
+
+**2. Dopisz do dziennika, jesli cos cie ugryzlo** — `python3 pamietnik.py --dodaj`.
+Tylko rzeczy nieoczywiste z dokumentacji. Objaw konkretny, przyczyna,
+wniosek jako czynnosc.
+
+**3. Uruchom bramki i wypchnij** — inaczej praca zostaje tylko u ciebie:
+
+```
+python3 sprawdz-spojnosc.py && python3 sprawdz-teksty.py \
+  && python3 pamietnik.py --sprawdz && git push
+```
+
+**Czego NIE robic:** nie zostawiaj watku bez sladu w `STAN-SESJI.md`,
+licząc, ze "to oczywiste". Dla ciebie za tydzien nie bedzie, a dla
+nastepnego agenta nie jest juz teraz.

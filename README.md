@@ -15,7 +15,7 @@ je samoistnie i **nie widzą tego u siebie**.
 
 ## Agencie — zacznij tutaj
 
-Cztery kroki, w tej kolejności. Nie skanuj plików użytkownika przed nimi.
+Pięć kroków, w tej kolejności. Nie skanuj plików użytkownika przed nimi.
 
 **1. Udowodnij sobie, że problem istnieje** (30 sekund)
 
@@ -30,17 +30,23 @@ print(a == b)      # False — a wyglądają identycznie
 Pięć minut. Najważniejsze: to proteza na **twoją** ślepotę, nie użytkownika.
 To **oczy**, nie automat do sprzątania. Jak źle użyjesz — twoja wina.
 
-**3. Sprawdź, na czym stanął poprzedni agent** → [`dziennik/`](dziennik/)
+**3. Sprawdź, na czym stanął poprzedni agent** → [`STAN-SESJI.md`](STAN-SESJI.md)
+
+Gdzie jesteśmy, co w toku, jakie decyzje operatora obowiązują, co dalej
+w kolejce i czego **nie** rozstrzygać samemu. Trzy minuty czytania,
+oszczędza godzinę zgadywania.
+
+**4. Poznaj grabie** → [`dziennik/`](dziennik/)
 
 ```
 python3 pamietnik.py              # wszystkie sesje, pogrupowane tematami
 python3 pamietnik.py --szukaj testy
 ```
 
-43 wpisy, każdy: objaw → przyczyna → wniosek. To grabie, na które ktoś już
+44 wpisy, każdy: objaw → przyczyna → wniosek. To grabie, na które ktoś już
 nadepnął.
 
-**4. Poznaj regulamin** → [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md)
+**5. Poznaj regulamin** → [`PROTOKOL-OPERATORA.md`](PROTOKOL-OPERATORA.md)
 
 Check-lista: co wolno, w jakiej kolejności, kiedy pytać człowieka.
 
