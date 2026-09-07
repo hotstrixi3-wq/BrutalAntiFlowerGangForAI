@@ -11,60 +11,87 @@
 3. W TYM MODZIE CAP NA PRĘDKOŚĆ USTAWISZ JEDNĄ LINIĄ:
    `MaxPlayerSpeed=130.0`
    (WARTOŚĆ **BEZWZGLĘDNA**, GDZIE **100.0 = BAZA**, CZYLI ~130% ≈ OKOŁO 15 PUNKTÓW.)
-4. MOD JEST WYSTARCZAJĄCY, JEŚLI CHCESZ TYLKO CAPNĄĆ PRĘDKOŚĆ GRACZA.
-   JEŚLI CHCESZ CAPNĄĆ **LICZBĘ PUNKTÓW** (NIE WARTOŚĆ) LUB DZIAŁAĆ **BEZ MODA NA KLIENCIE** —
-   PATRZ §5 (ALTERNATYWY).
-
-> **UWAGA O HONESTNOŚCI:** BOT W TYM ŚRODOWISKU **NIE MÓGŁ POBIE RAĆ BINARKI MODA**
-> (CURSEFORGE I ark-server-api.com MAJĄ ZBLOKOWANE TLS). ANALIZA NIE JEST WIĘC
-> REVERSE-ENGINEERINGIEM SKOMPILOWANYCH BLUEPRINTÓW, TYLKO REKONSTRUKCJĄ NA BAZIE:
-> (A) OPUBLIKOWANEGO INTERFEJSU CONFIGA, (B) REALNYCH OTWARTYCH ŹRÓDEŁ STRUKTUR
-> MODÓW/PLUGINÓW ASA, KTÓRE ZOSTAŁY PHYSICZNIE POBIERANE.
+4. **CO USTALONO Z POBRANYCH PLIKÓW (NIE Z OPISU):**
+   - MOD TO PLUGIN `PlayerStatLimiter`, ID **`1160661`** (`cf_ugcID`).
+   - LOGIKA SIEDZI W ASSETACH **`PlayerLimiter`** + **`PrimalGameData_BP_Limiter`**
+     (PODKLASA `PrimalGameData_BP`) + **`ModDataAsset_Limiter`**.
+   - MA **DWA BUILDY**: `Windows` (klient) i `WindowsServer` (serwer).
+   - GRAF BLUEPRINTU JEST ZKOMPRESOWANY (OODLE) — **nie da się odczytać węzłów**,
+     ale architektura i hooki potwierdzone przez import table + manifest.
 
 ---
 
-## 1. CO TO JEST ZA MOD (RODZAJ/ARCHITEKTURA)
+## 1. CO TO JEST ZA MOD — Z FAKTYCZNYCH PLIKÓW
 
-ASA OD ODMIANY 1.0 UŻYWA **MODÓW JAKO PLUGINÓW** (UE5). POWSTAJĄ W **ARSK: SURVIVAL
-ASCENDED DEVKIT** (EDYTOR UNREAL ENGINE 5, `ASA DevKit`). MOD AUTOR TWORZY W UGC MENU:
+### 1.1. ZAWARTOŚĆ ZIPÓW (ROZPAKOWANO)
 
-```
-UGC → Create New Mod → template → Create Mod
-```
-
-POWSTAJE **PLUGIN** — KATALOG Z PLIKIEM **`.uplugin`** + FOLDER **`Content/`**
-(z BLUEPRINTY I ASSETY). STRUKTURA POTWIERDZONA NA POBRANYM, OTWARTYM PRZYKŁADZIE
-**`gameserverapp/gsa-mod-asa`**:
+Każdy ZIP rozpakowuje się do katalogu **`PlayerStatLimiter/`**:
 
 ```
-gsa-mod.uplugin                     <- DESKRYPTOR PLUGINU (JSON, Nazwa/Kategoria "UGC")
-Content/
-  PrimalGameData_BP_GSA.uasset      <- PODKLASA PrimalGameData (globalne klasy)
-  ModDataAsset_GSA.uasset           <- DataAsset rejestrujący zawartość moda
-  Buff/Buff_GSA.uasset              <- BUFFY (stany) używane przez mod
-  Other/... (widgety, struktury, przedmioty)
+PlayerStatLimiter/
+  PlayerStatLimiter.uplugin                 <- DESKRYPTOR PLUGINU (czytelny JSON)
+  Manifest_NonUFSFiles_Win64.txt            <- manifest plików poza UFS
+  Manifest_UFSFiles_Win64.txt               <- manifest plików w UFS (COOKED)
+  Content/Paks/Windows/       ...           <- build KLIENCKI
+  Content/Paks/WindowsServer/ ...           <- build SERWEROWY
 ```
 
-**PLIK `.uplugin` (POBRANY, AUTENTYCZNY):**
+**Z `Manifest_UFSFiles_Win64.txt` (rzeczywiste assety moda):**
+```
+ShooterGame/Mods/PlayerStatLimiter/AssetRegistry.bin
+ShooterGame/Mods/PlayerStatLimiter/Content/ModDataAsset_Limiter.uasset        + .uexp
+ShooterGame/Mods/PlayerStatLimiter/Content/PlayerLimiter.uasset               + .uexp
+ShooterGame/Mods/PlayerStatLimiter/Content/PrimalGameData_BP_Limiter.uasset   + .uexp
+ShooterGame/Mods/PlayerStatLimiter/Content/TestMapArea_Limiter.umap           + .uexp
+ShooterGame/Mods/PlayerStatLimiter/Content/Paks/.../PlayerStatLimiterShooterGame-WindowsServer.pak
+```
+
+| ASSET | ROLA |
+|---|---|
+| `PlayerLimiter` | **GŁÓWNA LOGIKA** — Blueprint klasy, która pilnuje limitów statystyk |
+| `PrimalGameData_BP_Limiter` | **PODKLASA **`PrimalGameData_BP`** — globalna gra game-data; mod nadpisuje ją, aby podpiąć własne klasy/hooki |
+| `ModDataAsset_Limiter` | **DataAsset moda** — rejestruje zawartość moda |
+| `TestMapArea_Limiter` | Mapa testowa (tylko do builda) |
+
+### 1.2. `.uplugin` (ODCZYTANY Z PLIKU)
+
 ```json
 {
-	"FileVersion": 3,
-	"Version": 1,
-	"FriendlyName": "GameServerApp.com Integration",
-	"Category": "UGC",
-	"CanContainContent": true,
-	"ExplicitlyLoaded": true
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "8A3CF4124B0088438DC0D2BC7EF9CB79",
+  "FriendlyName": "Player Stat Limiter",
+  "Description": "Mod is made for the ASA pvp community&cf_ugcID=1160661",
+  "Category": "UGC",
+  "MarketplaceURL": "https://legacy.curseforge.com/ark-survival-ascended/mods/player-stat-limiter",
+  "CanContainContent": true,
+  "SDKVersion": 598216,
+  "ExplicitlyLoaded": true
 }
 ```
 
-**WNIOSEK:** „PLAYER STAT LIMITER" TO DOKŁADNIE TAKI PLUGIN — BLUEPRINTY, KTÓRE
-NADpisują/zawieszają się na systemie statystyk postaci i **CLAMPUJĄ WARTOŚĆ**.
+**Potwierdzone:**
+- `FriendlyName` = **"Player Stat Limiter"**
+- `cf_ugcID` = **`1160661`** → ID do `ActiveMods`
+- `SDKVersion` = **598216** (build ASA)
+- `Category` = **UGC**
+- `MarketplaceURL` → strona CurseForge moda
+
+### 1.3. DWIE WERSJE — WHICH ONE
+
+| BUILD | FOLDER | ROZMIAR `.ucas` | DO CZEGO |
+|---|---|---|---|
+| `Windows` | `Content/Paks/Windows/` | 31 120 B | **KLIENT / singleplayer** |
+| `WindowsServer` | `Content/Paks/WindowsServer/` | 28 592 B | **SERWER dedykowany** |
+
+Oba buildy mają te same assety (`PlayerLimiter`, `PrimalGameData_BP_Limiter`), ale
+różnią się rozmiarem `.ucas` (client ma trochę więcej danych, np. UI/sieć). **Przy
+stawianiu serwera używasz builda `WindowsServer`, a gracze pobierają `Windows`
+(auto z serwera).**
 
 ---
 
 ## 2. INDEKSY STATYSTYK — KLUCZ DO ZROZUMIENIA CAPA
-
-W ARK STATYSTYKI MĄJĄ STAŁĄ KOLEJNOŚĆ (indeksy w tablicach `*StatsMultiplier*`).
 
 | INDEKS | STATYSTYKA | KLUCZ CONFIGA W „PLAYER STAT LIMITER" |
 |:---:|---|---|
@@ -77,71 +104,76 @@ W ARK STATYSTYKI MĄJĄ STAŁĄ KOLEJNOŚĆ (indeksy w tablicach `*StatsMultipli
 | 6 | TEMPERATURE | (brak w limiterze) |
 | **7** | **WEIGHT** | `MaxPlayerWeight` |
 | **8** | **MELEE DAMAGE** | `MaxPlayerDamage` |
-| **9** | ** SPEED (prędkość ruchu)** | **`MaxPlayerSpeed`** |
+| **9** | **SPEED (prędkość ruchu)** | **`MaxPlayerSpeed`** |
 | 10 | FORTITUDE | `MaxPlayerFortitude` |
 | — | CRAFTING SPEED | `MaxPlayerCraftingSkill` |
 
 **INDEKS `9` = PRĘDKOŚĆ — POTWIERDZONE** wieloma źródłami konfiguracji ASA, np.
 `PerLevelStatsMultiplier_Player[9]=1.8` opisywane jako „SpeedMultiplier".
 
-DWIE RZECZY WARTO ROZRÓŻNIĆ:
-- **LICZBA PUNKTÓW (LEVELS)** — ile razy gracz podniósł stat (to limituje np. „SR's Stat Limiter").
+**DWIE RZECZY WARTO ROZRÓŻNIĆ:**
+- **LICZBA PUNKTÓW (LEVELS)** — ile razy gracz podniósł stat.
 - **WARTOŚĆ (VALUE/%)** — wynikowa liczba, np. 130.0 (=130%).
 
 **„PLAYER STAT LIMITER" LIMITUJE WARTOŚĆ BEZWZGLĘDNĄ** (stąd `float`, np. `810.5`).
 
 ---
 
-## 3. JAK MOD ENFORCES CAP (MECHANIZM) — REKONSTRUKCJA
+## 3. JAK MOD DEADLINE CAP (MECHANIZM)
 
-TYPOWY MOD-BLUEPRINT TEGO TYPU ROBI COŚ W TYM STYLU (TO STANDARDOWA BUDOWA
-MODU CAPPINGU STATYSTYK, NIE TYLKO TEN KONKRETNY):
+### 3.1. CO POTWIERDZA STRUKTURA PLIKU
+- `PrimalGameData_BP_Limiter` **rozszerza `PrimalGameData_BP`** — w tym assetcie ARK
+  pozwala modom rejestrować własne klasy. W import table widoczne jest pole
+  **`ServerExtraWorldSingletonActorClasses`** oraz referencje do `/Game/PlayerLimiter`.
+- `PlayerLimiter` jest **typem rejestrowanym przez PrimalGameData** (jako
+  server-wrold-singleton actor / klasa), co znaczy, że **instancja limitera działa
+  na serwerze** i może nasłuchiwać zdarzeń statystyk gracza.
 
-1. **PODKŁASA `PrimalCharacterStatusComponent`** (lub hook na `PrimalCharacter_BP`).
-   W BP nadpisuje się funkcje odpowiedzialne za **locowanie punktów** / **naliczanie
-   wartości statystyki** przy levelowaniu.
-2. ODCZYT LIMITU Z CONFIGA (`GameUserSettings.ini` → `[PlayerStatLimiter]` → `MaxPlayerSpeed`)
-   przez **`GetGameUserSettings` / sekcję INI** (mod ma własną klasę configu, często
-   implementowaną przez `UDeveloperSettings` lub własne czytanie `GameUserSettings.ini`).
-3. **NA ZWIĘKSZENIE STATYSTYKI:** sprawdź wynikową wartość; jeśli `> limitów` →
-   **odrzuć/cofnij naliczenie** (albo ustaw wartość na limit).
-4. **NA SPŁAWNIENIE ISTNIEJĄCEJ POSTACI** (gracz, który JUŻ ma za dużo): mod może
-   przy „spawn'/ respawn / wejściu na serwer" **przeliczyć i zclampować** bazowe wartości.
+### 3.2. JAK TO DZIAŁA W PRAKTYCE (STANDARDOWY SCHEMAT MODU CAPA)
+1. `PrimalGameData_BP_Limiter` rejestruje klasy `PlayerLimiter` w globalnej grze.
+2. `PlayerLimiter` czyta limit z configa (`GameUserSettings.ini` → `[PlayerStatLimiter]`
+   → `MaxPlayerSpeed`).
+3. Gdy gracz próbuje podnieść statystykę, `PlayerLimiter` sprawdza **wynikową wartość**:
+   jeśli `> limit` → **odrzuca/cofa naliczenie** albo przycina do limitu.
+4. Przy wejściu gracza na serwer (lub respawn) może **przeliczyć i zclampować**
+   wartość dla postaci, które już mają za dużo.
 
-> **NIE DZIAŁA TO NA SKOMPILOWANYM BLUEPRINCIE** (`.uasset` to binarka UE; graf nie jest
-> tekstem czytelnym dla człowieka). PODAŁEM WIĘC WYŻEJ **STANDARDOWY SCHEMAT**,
-> A NIE DOSŁOWNY GRAF AUTORA — BO TEGO NIE DA SIĘ ODCZYTAĆ Z ZEWNĄTRZ.
+> **NIE ODKODOWANO GRAFU** — `.uasset`/`.ucas` to zkompresowana binarka (Oodle).
+> Schemat w §3.2 to standardowa budowa moda cappingu statystyk ARK, potwierdzona
+> przez strukturę assetów (PrimalGameData_BP + singleton actor), **nie** przez
+> odczytany graf węzłów.
 
 ---
 
 ## 4. JAK USTAWIC CAP NA SPEED (KONKRETNIE)
 
-### 4.1. KROK 1 — DODAJ MOD NA SERWER
+### 4.1. KROK 1 — ZAINSTALUJ MOD NA SERWERZE
 
-W **`ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini`**, sekcja `[ServerSettings]`:
+Skoro stawiasz serwer na **Windowsie na własnym PC** (home server), użyj builda
+**`WindowsServer`**.
 
-```
-[ServerSettings]
-ActiveMods=1160661
-```
-albo (jeśli masz więcej modów):
-```
-ActiveMods=1160661,923456789
-```
-
-W **linii startowej serwera** dodaj:
-```
--mods="1160661"
-```
-(np. `...?MaxPlayers=70 -NoBattleye -mods="1160661"`)
-
-> ID `1160661` = Project ID moda „Player Stat Limiter" z CurseForge.
+1. **Rozpakuj** ZIP `PlayerStatLimiter` (wariant z `Content/Paks/WindowsServer`)
+   i wgraj jego zawartość do:
+   ```
+   ...\ShooterGame\Content\Mods\PlayerStatLimiter\
+   ```
+2. W **`ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini`**, sekcja `[ServerSettings]`:
+   ```
+   [ServerSettings]
+   ActiveMods=1160661
+   ```
+   (albo `ActiveMods=1160661,<inneID>` jeśli masz więcej modów)
+3. W **linii startowej serwera** dodaj:
+   ```
+   -mods="1160661"
+   ```
+   np. `...?MaxPlayers=70 -NoBattleye -mods="1160661"`.
 
 ### 4.2. KROK 2 — USTAW LIMIT PRĘDKOŚCI
 
 W TYM SAMYM **`GameUserSettings.ini`** (nowa sekcja):
 
-```
+```ini
 [PlayerStatLimiter]
 MaxPlayerHealth=1000.0
 MaxPlayerStamina=1000.0
@@ -157,76 +189,39 @@ MaxPlayerFortitude=100.0
 
 **KLUCZOWE — `MaxPlayerSpeed=130.0`:**
 - `100.0` = BAZOWA PRĘDKOŚĆ (100%).
-- KAŻDY PUNKT SPED DODAJE JAKĄŚ STAŁĄ (w ARK historycznie ~2.0, więc 130 ≈ ok. 15 punktów).
 - **WARTOŚĆ = BEZWZGLĘDNA, nie liczba punktów.** Chcesz cap 130% → `MaxPlayerSpeed=130.0`.
-- Chcesz wyłączyć zupełnie → ustaw **bardzo nisko/blisko bazy**, np. `100.0` (chyba że chcesz
-  zostawić 0 punktów — wtedy lepsza droga §5.1).
+- Chcesz „zamrozić" Speed przy bazie → ustaw `MaxPlayerSpeed=100.0`.
+- Chcesz zupełnie zablokować punktowanie → patrz alternatywa w §5.1.
 
 ### 4.3. UWAGI
-
 - **RESTART SERWERA PO ZMIANIE CONFIGA.**
-- Mod jest **cross-platform**, ale zwykle musi być **w liście modów także po stronie gracza**
-  (ASA pobierze go automatycznie, gdy jest w `ActiveMods`).
-- **Cap na istniejące postacie** zależy od implementacji — może wymusić kolejne „spawn"
-  lub wejście na serwer. Sprawdź po restarcie na graczu z przekroczonym speed.
+- Mod jest **cross-platform** (ASA klient sam pobierze wariant `Windows`, gdy w
+  `ActiveMods` jest ID moda — nie musisz rozsyłać pliku graczom).
+- **Cap na istniejące postacie** zależy od implementacji — zwykle wymaga ponownego
+  wejścia na serwer / respawn, żeby mod przeliczył wartości.
 
 ---
 
 ## 5. ALTERNATYWY (JEŚLI MOD NIE WYSTARCZA / CHCESZ INACZEJ)
 
 ### 5.1. BEZ MODA — NATYWNIE W `Game.ini` (tylko „przydział punktów")
-
-Nie ma natywnego *twardego capa wartości* prędkości gracza w ASA, ale **możesz
-kontrolować przyrost** per poziom. W `Game.ini`:
-
-```
+```ini
 [/Script/ShooterGame.ShooterGameMode]
 PerLevelStatsMultiplier_Player[9]=0.0
 ```
-
-- `0.0` = **punkt w Speed nic nie daje / nie poziomuje się** (najprostszy „cap").
+- `0.0` = punkt w Speed nic nie daje / nie poziomuje się.
 - `0.5` = zmniejszony przyrost.
-- **Zastrzeżenie:** nie cofa tego, co gracz już ma; nie ustawia też „maksymalnej wartości"
-  (tylko mnożnik przyrostu). To narzędzie **bluntowe** — do miękkiego ograniczania.
+- **Zastrzeżenie:** nie ustawia wartości bezwzględnej i nie cofa istniejących punktów.
 
-### 5.2. PLUGIN **AsaApi** (C#, serwer bez moda na kliencie)
-
-Alternatywny, często mocniejszy kierunek: **AsaApi plugin** (np. „SR's Stat Limiter" na
-ark-server-api.com). To **natywny plugin serwerowy (C++)**, instalowany na dedykowanym
-serwerze, **bez wymuszania moda dla graczy**, z przeładowaniem przez console/RCON:
-
+### 5.2. PLUGIN **AsaApi** (C++, serwer bez moda na kliencie)
+Natywny plugin serwerowy, np. **SR's Stat Limiter** (ark-server-api.com), instalowany
+na dedykowanym serwerze, **bez wymuszania moda u graczy**. Komenda:
 ```
-StatLimiter.Reload      <- przeładuj konfigurację (console/RCON)
+StatLimiter.Reload
 ```
-
-**Config (JSON, autentyczny opis):**
-```json
-{
-  "PlayerLimits": {
-    "Health": 5,
-    "Stamina": 5,
-    "Oxygen": 5,
-    "Food": 5,
-    "Water": 5,
-    "Weight": 5,
-    "MeleeDamageMultiplier": 5,
-    "TemperatureFortitude": 5,
-    "CraftingSpeedMultiplier": 5
-  },
-  "DinoLimits": { "Global": { "...": "...", "SpeedMultiplier": 5 }, "...": {} }
-}
-```
-
-**Ważne:** w „PlayerLimits" **nie ma pola Speed** — Speed jest tylko w `DinoLimits`
-(`SpeedMultiplier`). Jeśli chcesz **capnąć prędkość GRACZA liczbą punktów**, ten plugin
-tego nie obejmuje (w wersji 1.1). **Do taska „cap Speed gracza" celuje dokładnie
-`[PlayerStatLimiter] MaxPlayerSpeed=` z moda z §4.**
-
-### 5.3. ŹRÓDŁA OTWARTE DO PODGLĄDU MECHANIKI
-
-- **`gameserverapp/gsa-mod-asa`** (GitHub) — prawdziwy plugin ASA: `Content/*.uasset` + `gsa-mod.uplugin`.
-- **`ArkServerApi/ASA-Plugins`** (GitHub) — pluginy AsaApi po stronie serwera (framework do
-  hooków na graczach/dinozaurach — tam zobaczyć, jak C++ plugi się wpięły w zdarzenia).
+**Uwaga (z opisu pluginu v1.1):** w `PlayerLimits` **nie ma pola Speed** — Speed jest
+tylko w `DinoLimits` (`SpeedMultiplier`). Wi**c do capnięcia prędkości GRACZA wartocią
+bezwzględną celuje dokładnie **`[PlayerStatLimiter] MaxPlayerSpeed=`** z moda (§4).
 
 ---
 
@@ -234,28 +229,30 @@ tego nie obejmuje (w wersji 1.1). **Do taska „cap Speed gracza" celuje dokład
 
 | RYZYKO | CO ROBIĆ |
 |---|---|
-| Mod nie działa w multiplayer (producenci ASA niekiedy tak mają) | Użyj najnowszej wersji moda (5.5+); sprawdź, czy działa w singleplayer jako test |
-| Cap nie cofa istniejących postaci | Wymusić ponowny „spawn" lub przejście postaci; niektórzy robią reset punktów |
-| Wartość `MaxPlayerSpeed` to wartość, nie punkty | Zainwestuj chwilę w test; zacznij np. od `130.0` i skoryguj |
-| Mod wymagany u klienta | Upewnij się, że `ActiveMods` jest w `GameUserSettings.ini` (serwer) — klient auto-pobierze |
-| Serwer z `Applied Official Server Rates` ignoruje zmiany | Wyłącz „Applied Official Server Rates" w ustawieniach (Event → General Settings) |
+| Mod nie działa w multiplayer | Użyj najnowszej wersji (build 5.5+); przetestuj w singleplayer |
+| Cap nie cofa istniejących postaci | Wymuś ponowne wejście na serwer / respawn; ewentualny reset punktów |
+| `MaxPlayerSpeed` to wartość, nie punkty | Zacznij np. od `130.0` i skoryguj po teście |
+| Wgrany zły build (Windows zamiast WindowsServer) | Na serwer wgraj build z `Content/Paks/WindowsServer` |
+| `ActiveMods` / `-mods` ID nie zgadza się | Użyj **`1160661`** (potwierdzone z `.uplugin`: `cf_ugcID`) |
+| Serwer z `Applied Official Server Rates` ignoruje zmiany | Wyłącz „Applied Official Server Rates" (Event → General Settings) |
 
 ---
 
 ## 7. PODSUMOWANIE W JEDNYM ZDANIU
 
-**Aby capnąć SPEED gracza w ARK ASA najprostszym, celowanym sposobem:**
-dodaj mod **„Player Stat Limiter"** (`ActiveMods=1160661` + `-mods="1160661"`),
-a następnie w `GameUserSettings.ini` ustaw
-**`[PlayerStatLimiter] MaxPlayerSpeed=130.0`**.
+**Aby capnąć SPEED gracza w ARK ASA na swoim serwerze Windows:**
+wgraj build **`WindowsServer`** moda do `ShooterGame/Content/Mods/PlayerStatLimiter`,
+ustaw `ActiveMods=1160661` + `-mods="1160661"`, a w `GameUserSettings.ini` wpisz
+**`[PlayerStatLimiter] MaxPlayerSpeed=130.0`**, potem restart serwera.
 
 ---
 
-## ŹRÓDŁA
+## ŹRÓDŁA / DOWODY
 
+- **POBRANE PLIKI (w `arka_mod/`):** `player stat limiter-windows 2.zip`,
+  `player stat limiter-windowsserver 2.zip` — rozpakowane i przeanalizowane.
 - [Player Stat Limiter — opis i klucze configa (CurseForge)](https://www.curseforge.com/ark-survival-ascended/mods/player-stat-limiter)
 - [SR's Stat Limiter — config i komendy (ark-server-api.com)](https://ark-server-api.com/resources/srs-stat-limiter.80/)
-- [Indeksy `PerLevelStatsMultiplier_Player[n]` — Speed to indeks 9 (Nitrado/Steam guide)](https://steamcommunity.com/app/2399830/discussions/0/4036976577928490911/)
+- [Indeksy `PerLevelStatsMultiplier_Player[n]` — Speed to indeks 9](https://steamcommunity.com/app/2399830/discussions/0/4036976577928490911/)
 - [Instalacja modów na dedykowanym serwerze ASA (GameUserSettings.ini + -mods)](https://skynethosting.net/blog/how-to-add-mods-to-asa-dedicated-server-complete-guide/)
 - [ASA DevKit — mody jako pluginy](https://devkit.studiowildcard.com/getting-started/creating-new-mods)
-- POBRANE OTWARTE ŹRÓDŁA: `github.com/gameserverapp/gsa-mod-asa` oraz `github.com/ArkServerApi/ASA-Plugins`
